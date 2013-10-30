@@ -1,0 +1,1488 @@
+% Attributions for Poverty in Post-Socialist Countries
+% Markus Kainu & Mikko Niemelä
+% Jan 2013
+
+<link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
+<link href='http://fonts.googleapis.com/css?family=Alegreya+SC|Dosis:400,200' rel='stylesheet' type='text/css'>
+
+******
+
+<center>
+<table>
+<tr>
+<td>[Etusivu](index.html)</td>
+<td>[Analysis](multilevel.html)</td>
+<td>[Article](article2013.html)</td>
+</tr>
+</table>
+</center>
+
+*******
+
+# Attributions for poverty in post-socialist countries - hajontakuviot, **other** vaihtoehdon analyysi sekä monitasomallinnusta eri tavoin
+
+Tässä dokumentissa esitetään vaihtoehtoisua ratkaisuja menetelmäkritiikkiin, jota saimme osaksemme RC19 konffassa. Eka siis vaihtoehtoisia maksomuuttujia - indeksejä
+
+```{rpackagesload, echo=FALSE, warning=FALSE, message=FALSE, results='hide', cache=TRUE}
+setwd("~/workspace/lits/attrib/year2013/")
+
+# PACKAGES
+# for data manipulation
+library(car)
+library(reshape2)
+library(plyr)
+library(gdata)
+# for plotting
+library(ggplot2)
+# for tables
+library(xtable)
+library(grid)
+#library(memisc)
+# for survey design
+library(survey)
+# for multilevel analysis
+library(lme4)
+#library(coefplot2)
+
+my_coef = function(file, width, height) {pdf(file, width = 5, height = 5, pointsize = 10)}
+my_pdf = function(file, width, height) {pdf(file, width = 8, height = 4, pointsize = 10)}
+my_pdf_map = function(file, width, height) {pdf(file, width = 8, height = 5, pointsize = 10)}
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+df <- read.csv("data/df.csv")
+contextual <- read.table("data/contextual.txt")
+df <- join(df,contextual,by="cntry",type="right")
+
+t3 <- read.csv("data/scatter_file.csv", dec=",")
+contextual$gdppercapita2010 <- NULL
+contextual$Corruption2011 <- NULL
+
+
+df.cross <- read.csv("~/workspace/general/indexes/1358024_qog_csd_csv_v6apr11.csv", sep=";")
+df.cross$group <- recode(df.cross$cname, "c('Armenia','Azerbaijan','Georgia') = 'Caucasus';
+                         c('Russia','Ukraine','Moldova','Belarus')= 'CIS North';
+                         c('Kyrgyzstan','Kazakhstan','Tajikistan','Turkmenistan','Uzbekistan')='Central Asia';
+                         c('Estonia','Latvia','Lithuania')='Baltic States';
+                         c('Poland','Czech Republic','Slovakia','Hungary','Slovenia',
+                         'Romania','Bulgaria')='CEE EU';
+                         c('Croatia','Serbia','Montenegro','Bosnia and Herzegovina')='Ex-Yogoslavia';
+                         c('Italy','Germany','United Kingdom','Sweden','France')='West Europe';
+                         else='other'")
+
+df.cross.postsoc <- subset(df.cross, group != 'other')
+
+df.cross.postsoc$cname <- recode(df.cross.postsoc$cname, "'United Kingdom'='Great Britain'")
+
+rm(df.cross)
+
+df.qog <- subset(df.cross.postsoc, select=c("cname","group","ffp_fsi","wbgi_vae","undp_hdi","fh_polity2"))
+
+df.qog <- rename.vars(df.qog, from="cname", to="cntry")
+# yhdistetään nää aikaisempien datojen kanssa
+t3 <- join(t3,df.qog,by="cntry")
+df <- join(df,df.qog,by="cntry")
+
+head(df)
+#########
+d.df <- svydesign(id = ~SerialID, 
+                  weights = ~weight, 
+                  data = df)
+```
+
+
+## 1. Hajontakuviot makromuuttujien ja *social blame*/*individual blame* selitysten välillä
+
+
+
+### Change in GDP between 2007 and 2010
+
+* Tää lienee ihan perusteltu ja kahdenvälinen yhteys on voimakas
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk61, echo=FALSE, results='markup', cache=TRUE#
+t3 <- subset(t3, group1 != "Western Europe")
+t3$group1 <- car:::recode(t3$group1, "else='group'")
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$gdpchange07.10)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, gdpchange07.10) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+  scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(gdpchange07.10,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+  labs(x = "Change in GDP between 2007 and 2010 (%)", 
+       y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$gdpchange07.10)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, gdpchange07.10) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=gdpchange07.10, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(gdpchange07.10,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Change in GDP between 2007 and 2010 (%)", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+```
+
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk62, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE#
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+
+```
+
+
+### Gini coefficient
+
+* Tää nyt on vaan hyvä olla. Kertoo myös jotain siitä, että Wilkinson-Picketin eriarvoisuus-teesi ei toimi köyhyysasenteiden osalta.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk51, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$Gini)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, Gini) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=Gini, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(Gini,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Gini coefficient", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$Gini)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, Gini) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=Gini, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(Gini,individual.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Gini coefficient", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk52, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE#
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+
+### Democracy index
+
+* Tää ois sitten yksi vaihtoehto näiden seuraavien joukossa. 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$Democracy2011)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, Democracy2011) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=Democracy2011, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(Democracy2011,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Democracy Index 2011", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$Democracy2011)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, Democracy2011) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=Democracy2011, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(Democracy2011,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Democracy Index 2011", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+### Democracy (Freedom House/Polity)
+
+* Kahdenvälisissä tarkasteluissa vahvempi korrelaatio verrattuna Economistin Democracy indexiin, jota alunperin käytimme. En osaa sanoa kumpi olisi "akateemisesti" luotettavampi taho
+
+> Scale ranges from 0-10 where 0 is least democratic and 10 most democratic. Average of Freedom House (fh_pr and fh_cl) is transformed to a scale 0-10 and Polity (p_polity2) is transformed to a scale 0-10. These variables are averaged into fh_polity2. The imputed version has imputed values for countries where data on Polity is missing by regressing Polity on the average Freedom House measure. Hadenius & Teorell (2005) show that this average index performs better both in terms of validity and reliability than its constituent parts.
+
+```{rdemo_freedom_load, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$fh_polity2)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, fh_polity2) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=fh_polity2, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(fh_polity2,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Democracy (Freedom House/Polity)", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$fh_polity2)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, fh_polity2) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=fh_polity2, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(fh_polity2,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Democracy (Freedom House/Polity)", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{rdemo_freedom_plot, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+
+### Failed state index - (lower the better)
+
+* ehkä tää menee teoreettisesti taas turhan kauas.. verrattuna noihin muihin indekseihin - tai en tiedä.
+
+>The Failed States Index includes an examination of the pressures on states, their vulnerability to internal conflict and societal deterioration. The country ratings are based on the total scores of 12 indicators: Social Indicators – (1) Mounting Demographic Pressures; (2) Massive Movement of Refugees or Internally Displaced Persons creating Complex Humanitarian Emergencies; (3) Legacy of Vengeance-Seeking Group Grievance or Group Paranoia; and (4) Chronic and Sustained Human Flight. Economic Indicators – (5) Uneven Economic Development along Group Lines; and (6) Sharp and/or Severe Economic Decline. Political Indicators – (7) Criminalization and/or Delegitimization of the State; (8) Progressive Deterioration of Public Services; (9) Suspension or Arbitrary Application of the Rule of Law and Widespread Violation of Human Rights; (10) Security Apparatus Operates as a “State Within a State” (11) Rise of Factionalized Elites; and (12) Intervention of Other States or External Political Actors. For each indicator, the ratings are placed on a scale of 0 to 10, with 0 being the lowest intensity (most stable) and 10 being the highest intensity (least stable). The total score is the sum of the 12 indicators and is on a scale of 0-120 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$ffp_fsi)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, ffp_fsi) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=ffp_fsi, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(ffp_fsi,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Failed State Index", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$ffp_fsi)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, ffp_fsi) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=ffp_fsi, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(ffp_fsi,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Failed State Index", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+### Quality of governance index World Bank – Governance Indicators (a.k.a KKZ) - Voice and Accountability
+
+* Tää näyttää teoreettisesti ehkä vahvimmalta ja korrelaatiot on paremman ja huonomman democracy indeksin välissä
+
+>“Voice and Accountability” includes a number of indicators measuring various aspects of the political process, civil liberties and political rights. These indicators measure the extent to which citizens of a country are able to participate in the selection of governments. This category also includes indicators measuring the independence of the media, which serves an important role in monitoring those in authority and holding them accountable for their actions.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$wbgi_vae)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, wbgi_vae) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=wbgi_vae, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(wbgi_vae,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Quality of Governance Index", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$wbgi_vae)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, wbgi_vae) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=wbgi_vae, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(wbgi_vae,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Quality of Governance Index", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+### HDI by UNDP
+
+* tän inhimillisen kehityksen yhteys köyhyysasenteisiin lienee pitkälti tutkimatonta kenttää, joten vahvasta korrelaatiosta huolimatta teoreettisen yhteyden keksiminen on turhan keinotekoista.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$social.blame, t3$undp_hdi)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(social.blame, undp_hdi) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=undp_hdi, y=social.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(undp_hdi,social.blame, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Human Development Index", 
+                   y = "Support for social blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$individual.blame, t3$undp_hdi)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(individual.blame, undp_hdi) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=undp_hdi, y=individual.blame, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(undp_hdi,individual.blame, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Human Development Index", 
+                   y = "Support for individual blame type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+
+
+## 2. Analysis of answer *other*
+
+Monica peräsi etenkin tietoja siitä, mikä osuus kuuluu tähän meidän skippaamaan "other" kategoriaan ja millaisia tyyppejä ne ovat. Alla ensinnä meidän paperissa ollut neljän vaihtoehdon taulukko ja sen alla alkuperäinen kuuden vaihtoehdon taulukko ja kuvio.
+
+Informatiivisin on ehkä taulukkojen alla olevat kuviot
+
+### The original table from the RC19 paper
+Sorted according to **social.blame**
+```{rtable_orig, echo=FALSE, results='asis', warning=FALSE, cache=TRUE}
+t <- data.frame(prop.table(svytable(~group1+cntry+q308.rec, d.df), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ q308.rec, value.var="Freq")
+names(t2) <-  c("group1","country","social.blame","individual.blame","individual.fate","social.fate")
+t2 <- t2[order(t2$group,-t2$social.blame),]
+########
+y <- data.frame(prop.table(svytable(~group1+q308.rec, d.df), 1)*100)
+y$Freq <- round(y$Freq, 2)
+y$country <- c("CEE Total","CIS Total","Western Europe Total")
+y2 <-  dcast(y, group1+country ~ q308.rec, value.var="Freq")
+names(y2) <-  c("group1","country","social.blame","individual.blame","individual.fate","social.fate")
+#
+#
+co.var<-function(x)(100*sd(x)/mean(x)) 
+#
+func.CV <- function(t2)
+{
+return(data.frame(CV.sb = co.var(t2$social.blame)))
+}
+df.CV.sb <- ddply(t2, .(group1), func.CV)
+#
+func.CV <- function(t2)
+{
+return(data.frame(CV.ib = co.var(t2$individual.blame)))
+}
+df.CV.ib <- ddply(t2, .(group1), func.CV)
+#
+func.CV <- function(t2)
+{
+return(data.frame(CV.sf = co.var(t2$social.fate)))
+}
+df.CV.sf <- ddply(t2, .(group1), func.CV)
+#
+func.CV <- function(t2)
+{
+return(data.frame(CV.if = co.var(t2$individual.fate)))
+}
+df.CV.if <- ddply(t2, .(group1), func.CV)
+##
+df.CV <- join(df.CV.sb,df.CV.ib,by="group1")
+df.CV <- join(df.CV,df.CV.sf,by="group1")
+df.CV <- join(df.CV,df.CV.if,by="group1")
+##
+df.CV$group1 <- as.character(df.CV$group1)
+df.CV$group1 <- recode(df.CV$group1, "'CEE'='CV CEE';
+                        'CIS'='CV CIS';
+                        'Western Europe'='CV Western Europe'")
+##
+names(df.CV) <- c("country","social.blame","individual.blame","social.fate","individual.fate")
+df.CV$group1 <- c("CV","CV","CV")
+
+t5 <- rbind(t2,y2,df.CV)
+#t5 <- arrange(t5, group1,country)
+t5$group1 <- NULL
+t6 <- xtable(t5)
+print.xtable(t6, type="html")
+```
+
+
+
+### Same table including both *dont know* and *not stated*
+Sorted according to **dont.know**
+* eli eniten tätä dont knowta on noissa hivenen autoritäärisissä maissa.
+
+```{rtable_other, echo=FALSE, results='asis', warning=FALSE, cache=TRUE}
+t <- data.frame(prop.table(svytable(~group1+cntry+q309, d.df), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ q309, value.var="Freq")
+names(t2) <-  c("group1","country","social.blame","individual.blame","individual.fate","dont.know","social.fate","not.stated")
+t2 <- t2[order(-t2$dont.know),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+### Barplot of population shares of **dont know** and **not stated**
+
+* hankala sanoa mikä olisi yhteistä maille, joissa on korkeampi vastausosuus "other" vaihtoehdossa. Kokeilen vielä alla olisiko yhteys tuon **quality of governance** muuttujan kanssa.
+
+
+```{rbar_other, echo=FALSE, fig.width=10, fig.height=15, warning=FALSE, cache=TRUE, message=FALSE}
+t <- data.frame(prop.table(svytable(~group1+cntry+q309, d.df), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ q309, value.var="Freq")
+names(t2) <-  c("group1","country","social.blame","individual.blame","individual.fate","dont.know","social.fate","not.stated")
+t2$social.blame <- NULL
+t2$individual.blame <- NULL
+t2$social.fate <- NULL
+t2$individual.fate <- NULL
+
+t2$rank <- rank(t2$dont.know)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("dont.know","not.stated"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+########
+```
+
+
+### Onko **dont.know** ja **not.stated** osuudet yhteydessä Quality of governmentiin
+
+* dont know on (-.54)
+* not stated **ei ole** (.03)
+
+```{rother_qog, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+t2$group1 <- rep("postsoc", 26)
+
+t2 <- rename.vars(t2, from="country", to="cntry")
+t3 <- join(t2,df.qog,by="cntry")
+
+#chunk71, echo=FALSE, results='markup', cache=TRUE#
+
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$dont.know, t3$wbgi_vae)))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(dont.know, wbgi_vae) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=wbgi_vae, y=dont.know, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(wbgi_vae,dont.know, label = COR, group=COR), 
+            size=5, color="black") +
+              labs(x = "Quality of Governance Index", 
+                   y = "Support for dont know type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+
+func <- function(t3)
+{
+return(data.frame(COR = cor(t3$not.stated, t3$wbgi_vae, use="na.or.complete")))
+}
+df.cor <- ddply(t3, .(group1), func)
+t4 <- join(t3,df.cor,by="group1")
+cnames <- round(stats:::aggregate.formula(cbind(not.stated, wbgi_vae) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=wbgi_vae, y=not.stated, color=group1, label=cntry)) +
+  geom_text(size=3, hjust=0.5, vjust=1.5) +
+  geom_point(size=3) +
+    scale_colour_manual(values=cbPalette) +
+  geom_smooth(method=lm, se=TRUE) +
+  theme(legend.position="top") +
+  geom_text(data=cnames, aes(wbgi_vae,not.stated, label = COR, group=COR), 
+            size=5, color="black")+
+              labs(x = "Quality of Governance Index", 
+                   y = "Support for not stated type of explanation (%)") +
+   theme(axis.title.x = element_text(size=11),
+        axis.title.y  = element_text(angle=90, size=11))
+```
+
+```{rother_qog_scatter, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk72, echo=FALSE, results='markup', dev='my_pdf', fig.ext='pdf', fig.cap="Democracy index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty", fig.pos="H", cache=TRUE
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(plot2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+```
+
+
+### Who are the **dont know** and **not stated** by country??
+
+Eli tässä kaksi vastausta on yhdistetty. Ensin taulukko, jossa ko. ryhmän väestöosuudet maittain.
+
+```{rother_table, echo=FALSE, cache=TRUE, results='asis'}
+t2$not.stated <- recode(t2$not.stated, "NA=0")
+t2$other <- t2$dont.know + t2$not.stated
+
+tbl <- subset(t2, select=c("cntry","other"))
+tbl <- arrange(df=tbl, -other)
+
+print.xtable(xtable(tbl), type="html")
+```
+
+
+#### In terms of Age groups
+* other-tyyppien ikäjakauma vaihtelee helvetisti maittain. länsimaissa näyttää olevan enemmän vanhoja, mut postsos maissa ei selkeitä ryhmiä
+
+
+```{rother_age, echo=FALSE, cache=TRUE, results='asis'}
+df.other <- subset(df, q309 %in% c('Dont know','Not stated'))
+
+d.df.other <- svydesign(id = ~SerialID, 
+                  weights = ~weight, 
+                  data = df.other)
+
+t <- data.frame(prop.table(svytable(~group1+cntry+ageclass, d.df.other), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ ageclass, value.var="Freq")
+names(t2) <-  c("group1","country","a_29_or_younger","b_30_to_44","c_45_to_59","d_60_and_older")
+#t2 <- t2[order(-t2$a) 29 or younger),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_other_age, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE}
+t2$rank <- rank(t2$b_30_to_44)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("a_29_or_younger","b_30_to_44","c_45_to_59","d_60_and_older"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+
+########
+```
+
+#### In terms of education
+* Liettuaa, Unkaria ja Romaniaa lukuunottamatta korkeammin koulutetut raju enemmistö näissä "other"-tyypeissä. Ruotissakin 96 vs. 4. Tarkoittaako sitä, että ko. kysymys vaatii koulutusta jotta siihen voi vastata????
+
+```{rother_edu2, echo=FALSE, cache=TRUE, results='asis'}
+t <- data.frame(prop.table(svytable(~group1+cntry+edu2, d.df.other), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ edu2, value.var="Freq")
+names(t2) <-  c("group1","country","higher","no or compulsory")
+t2 <- t2[order(-t2$higher),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_other_edu, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE}
+t2$rank <- rank(t2$higher)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("higher","no or compulsory"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+########
+```
+
+#### In terms of perceived income
+* Tulojen osalta vähemmän selkeä. Tai siis kovin epäselvä.
+
+```{rother_income2, echo=FALSE, cache=TRUE, results='asis'}
+t <- data.frame(prop.table(svytable(~group1+cntry+income2, d.df.other), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ income2, value.var="Freq")
+names(t2) <-  c("group1","country","High","Low")
+t2 <- t2[order(-t2$High),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_other_income, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE}
+t2$rank <- rank(t2$High)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("High","Low"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+########
+```
+
+### Yhteenveto **other** tyypeistä
+* niiden määrä vaihtelee Tajikistanin 22.9 ja Slovenian 4.12 välillä.
+* Ei mielekkäitä maantieteellisia korrelaatioita -> Tatsikistanin (22.9) ja naapurimaa Kirgisia (4.27) ja naapurimaa Uzbekistan (12.46) tai Baltia: Viro (7.16), Latvia(14.50) ja Liettua (8.41) tai länsimaat Ruotti(13.62), Saksa ja Ranska (7), Italia (5)
+* länsimaissa enemmän ikääntyneitä vastaajia, postsos ei selkeä
+* korkeakoulutetut rajusti enemmistönä valtaosassa maita (pl. liettua, hunkari, romania)
+* koetun tulotason osalta tulokset epäselviä
+
+
+```{rnotstated_age, echo=FALSE, cache=TRUE, results='asis', eval=FALSE}
+df.notstated <- subset(df, q309 == 'Not stated')
+
+d.df.notstated <- svydesign(id = ~SerialID, 
+                  weights = ~weight, 
+                  data = df.notstated)
+
+t <- data.frame(prop.table(svytable(~group1+cntry+ageclass, d.df.notstated), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ ageclass, value.var="Freq")
+names(t2) <-  c("group1","country","a_29_or_younger","b_30_to_44","c_45_to_59","d_60_and_older")
+#t2 <- t2[order(-t2$a) 29 or younger),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_notstated_age, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE, eval=FALSE}
+t2$rank <- rank(t2$b_30_to_44)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("a_29_or_younger","b_30_to_44","c_45_to_59","d_60_and_older"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+
+########
+```
+
+```{rnotstated_edu2, echo=FALSE, cache=TRUE, results='asis', eval=FALSE}
+t <- data.frame(prop.table(svytable(~group1+cntry+edu2, d.df.notstated), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ edu2, value.var="Freq")
+names(t2) <-  c("group1","country","higher","no or compulsory")
+t2 <- t2[order(-t2$higher),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_notstated_edu, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE, eval=FALSE}
+t2$rank <- rank(t2$higher)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("higher","no or compulsory"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+########
+```
+
+
+```{rnotstated_income2, echo=FALSE, cache=TRUE, results='asis', eval=FALSE}
+t <- data.frame(prop.table(svytable(~group1+cntry+income2, d.df.notstated), 2)*100)
+t$Freq <- round(t$Freq, 2)
+t <- subset(t, Freq > 0)
+t2 <-  dcast(t, group1+cntry ~ income2, value.var="Freq")
+names(t2) <-  c("group1","country","High","Low")
+t2 <- t2[order(-t2$High),]
+########
+t2$group1 <- NULL
+t6 <- xtable(t2)
+print.xtable(t6, type="html")
+```
+
+```{rbar_notstated_income, echo=FALSE, fig.width=15, fig.height=10, warning=FALSE, cache=TRUE, eval=FALSE}
+t2$rank <- rank(t2$High)
+
+t2.l <- melt(data=t2, id.vars=c("country","rank"), measure.vars=c("High","Low"))
+
+ggplot(t2.l, aes(x=rank,y=value,group=variable,fill=variable,label=value)) + 
+  geom_bar(stat="identity", position="dodge") + 
+  geom_text(position = position_dodge(width=1), size=3, angle=0) +
+  theme(legend.position="top") +
+  scale_x_discrete(labels=t2.l$country, breaks=t2.l$rank) + 
+  #theme(axis.text.x=element_text(angle=90)) +
+  coord_flip()
+
+########
+```
+
+
+
+## 3. Multilevel modelling
+
+Ja sitten monitasomalleihin. 
+
+This exercise presents the results of logistic multilevel models with different contextual variable, namely the differences between usage od 1) democracy index by Economist intelligent unit, 2) Failed state index by ?? , 3)  and 4) HDI by UNDP
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk10_1, echo=FALSE, results='hide'#
+df <- subset(df, group1 != 'Western Europe')
+library(memisc)
+
+
+#chunk10, echo=FALSE, results='hide', cache=TRUE#
+summary(bisoc.1 <- lmer(pov.log.social ~ incsour3+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.2 <- lmer(pov.log.social ~ edu2+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.3 <- lmer(pov.log.social ~ income2+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.4 <- lmer(pov.log.social ~ past.diff+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.5 <- lmer(pov.log.social ~ future.diff+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.6 <- lmer(pov.log.social ~ crise+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.7 <- lmer(pov.log.social ~ group1+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.8 <- lmer(pov.log.social ~ Gini+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.9 <- lmer(pov.log.social ~ gdpchange07.10+(1|cntry),
+                       family = binomial, data=df))
+summary(bisoc.10 <- lmer(pov.log.social ~ Democracy2011+(1|cntry),
+                       family = binomial, data=df))
+```
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+#chunk12, echo=FALSE, results='hide', cache=TRUE#
+summary(biind.1 <- lmer(pov.log.individual ~ incsour3+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.2 <- lmer(pov.log.individual ~ edu2+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.3 <- lmer(pov.log.individual ~ income2+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.4 <- lmer(pov.log.individual ~ past.diff+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.5 <- lmer(pov.log.individual ~ future.diff+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.6 <- lmer(pov.log.individual ~ crise+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.7 <- lmer(pov.log.individual ~ group1+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.8 <- lmer(pov.log.individual ~ Gini+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.9 <- lmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
+                       family = binomial, data=df))
+summary(biind.10 <- lmer(pov.log.individual ~ Democracy2011+(1|cntry),
+                       family = binomial, data=df))
+```
+
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk19, echo=FALSE, results='hide', cache=TRUE#
+# modelling without and with weights
+summary(soc.0 <- lmer(pov.log.social ~ (1|cntry),
+                       family = binomial, data=df))
+
+summary(soc.1 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+(1|cntry),
+                       family = binomial, data=df))
+
+# koska grouping oli turha se pois. _g merkinnällä kuitenkin mallit
+# joissa ryhmittely, jotta saadaan alkuperäinen taulukko myös esille.
+summary(soc.2 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  (1|cntry), family = binomial, data=df))
+
+summary(soc.2_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+(1|cntry), family = binomial, data=df))
+
+summary(soc.3 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+(1|cntry),family = binomial, data=df))
+
+summary(soc.3_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+(1|cntry),family = binomial, data=df))
+
+summary(soc.4 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+(1|cntry),family = binomial, data=df))
+
+summary(soc.4_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+(1|cntry),family = binomial, data=df))
+
+summary(soc.5 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+Democracy2011+(1|cntry),family = binomial, data=df))
+
+summary(soc.5_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+Democracy2011+(1|cntry),family = binomial, data=df))
+# postsoc+ was left out due to errors...
+
+
+```
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
+#memisc_lme4, echo=FALSE, results='hide', cache=TRUE#
+###########################################################################
+## ----------------------------------------------------------------------------
+## Author: Jason Morgan (borrowing heavily from code contained in Martin Elff's
+##         memisc package).
+##
+## Notes:  Additional methods for mtable formatting of lme4 model
+##         objects. Requires that the memisc package be loaded prior to
+##         sourcing these functions.
+## ----------------------------------------------------------------------------
+
+setSummaryTemplate(mer = c("Log-likelihood" = "($logLik:f#)",
+                     "Deviance" = "($deviance:f#)",
+                     "AIC" = "($AIC:f#)",
+                     "BIC" = "($BIC:f#)",
+                     "N" = "($N:d)",
+                     "Groups" = "($Groups:d)"))
+
+getSummary.mer <- function (obj, alpha = 0.05, ...) {
+  smry <- summary(obj)
+  coef <- smry@coefs
+  lower <- qnorm(p = alpha/2, mean = coef[, 1], sd = coef[,2])
+  upper <- qnorm(p = 1 - alpha/2, mean = coef[, 1], sd = coef[,2])
+  if (ncol(smry@coefs) == 3) {
+    p <- (1 - pnorm(smry@coefs[, 3])) * 2
+    coef <- cbind(coef, p, lower, upper)
+  }
+  else {
+    coef <- cbind(coef, lower, upper)
+  }
+  RE <- smry@REmat
+  ranef <- cbind(as.numeric(RE[,3]), as.numeric(RE[,4]), NA,NA,NA,NA)
+  rownames(ranef) <- paste("Ranef", RE[,1], sep = " - ")
+  coef <- rbind(coef, ranef)
+  colnames(coef) <- c("est", "se", "stat", "p", "lwr", "upr")
+
+  ## Factor levels.
+  xlevels <- list()
+  Contr <- names(attr(model.matrix(obj), "contrasts"))
+  for (c in Contr) xlevels[[c]] <- levels(obj@frame[,c])
+
+  ## Model fit statistics.
+  ll <- logLik(obj)[1]
+  deviance <- deviance(obj)
+  AIC <- AIC(obj)
+  BIC <- BIC(obj)
+  N <- as.numeric(smry@dims["n"])
+  G <- as.numeric(smry@ngrps)
+  sumstat <- c(logLik = ll, deviance = deviance, AIC = AIC,
+               BIC = BIC, N = N, Groups = G)
+
+  ## Return model summary.
+  list(coef = coef, sumstat = sumstat,
+       contrasts = attr(model.matrix(obj), "contrasts"),
+       xlevels = xlevels, call = obj@call)
+
+```
+
+### Social blame -  Original
+
+```{rmultiorigsb, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk21, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                       "Model sb2"=soc.2,
+                       "Model sb3"=soc.3_g,
+                       "Model sb4"=soc.4_g,
+                       "Model sb5"=soc.5_g)
+
+```
+
+### Social blame - original **without grouping**
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk21, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                      # "Model sb2"=soc.2,
+                       "Model sb3"=soc.3,
+                       "Model sb4"=soc.4,
+                       "Model sb5"=soc.5)
+
+
+```
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk20, echo=FALSE, results='hide', cache=TRUE#
+summary(ind.0 <- lmer(pov.log.individual ~ (1|cntry),
+                       family = binomial, data=df))
+
+summary(ind.1 <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+(1|cntry),
+                       family = binomial, data=df))
+
+summary(ind.2 <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+(1|cntry), family = binomial, data=df))
+
+summary(ind.3 <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+(1|cntry),family = binomial, data=df))
+  
+summary(ind.3_g <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+(1|cntry),family = binomial, data=df))
+
+summary(ind.4 <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+(1|cntry),
+                       family = binomial, data=df))
+  
+summary(ind.4_g <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+(1|cntry),
+                       family = binomial, data=df))
+
+summary(ind.5 <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+Democracy2011+(1|cntry),
+                       family = binomial, data=df))
+  
+summary(ind.5_g <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+Democracy2011+(1|cntry),
+                       family = binomial, data=df))
+# postsoc+ was left out due to errors...
+
+
+```
+
+### Individual blame - original
+```{rmultiorigib, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+  mtable("Empty model"=ind.0,
+                       "Model ib1"=ind.1,
+                       "Model ib2"=ind.2,
+                       "Model ib3"=ind.3_g,
+                       "Model ib4"=ind.4_g,
+                       "Model ib5"=ind.5_g)
+      
+
+```
+
+
+### Individual blame - original **without grouping**
+
+```{r, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk22, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=ind.0,
+                       "Model ib1"=ind.1,
+                      # "Model ib2"=ind.2,
+                       "Model ib3"=ind.3,
+                       "Model ib4"=ind.4,
+                       "Model ib5"=ind.5)
+  #,
+#                "[(]Intercept[)]"="\\\\emph{Intercept}","[$]"="\\\\$",
+ #               Ranef="Random effect",
+  #              incsour3="Transfer dep.",
+    #            edu2="Low educ.",
+     #           income2="Perceived income level",
+      #          past.diff="Income compared to past",
+       #         future.diff="Income compared to future",
+        #        crise="Effect of financial crises",
+         #       Gini="Gini coefficient",
+          #      gdpchange07.10="Change in GDP 2007-2010",
+           #     Democracy2011="Democracy Index 2011",
+            #    group1="Country group",
+             #   gsub=TRUE), ddigits=3)
+              
+
+```
+
+### Social blame - with Failed State Index
+
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(soc.5_ffp_fsi <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+ffp_fsi+(1|cntry),family = binomial, data=df))
+# postsoc+ was left out due to errors...
+```
+
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                       "Model sb3"=soc.3,
+                       "Model sb4"=soc.4,
+                       "Model sb5"=soc.5_ffp_fsi)
+
+```
+
+### Individual blame - with Failed State Index
+
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(ind.5_ffp_fsi <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+ffp_fsi+(1|cntry),
+                       family = binomial, data=df))
+
+```
+
+
+```{r, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk22, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=ind.0,
+                       "Model ib1"=ind.1,
+                       "Model ib3"=ind.3,
+                       "Model ib4"=ind.4,
+                       "Model ib5"=ind.5_ffp_fsi)
+
+```
+
+
+### Social blame - with Quality of Governance
+
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(soc.5_wbgi_vae <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+wbgi_vae+(1|cntry),family = binomial, data=df))
+# postsoc+ was left out due to errors...
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                       "Model sb3"=soc.3,
+                       "Model sb4"=soc.4,
+                       "Model sb5"=soc.5_wbgi_vae)
+
+```
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(ind.5_wbgi_vae <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial, data=df))
+
+```
+
+
+### Individual blame - with Quality of Governance
+
+```{r, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk22, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=ind.0,
+                       "Model ib1"=ind.1,
+                       "Model ib3"=ind.3,
+                       "Model ib4"=ind.4,
+                       "Model ib5"=ind.5_wbgi_vae)
+
+```
+
+
+### Social blame - with HDI
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(soc.5_hdi <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+undp_hdi+(1|cntry),family = binomial, data=df))
+# postsoc+ was left out due to errors...
+```
+
+```{r, fig.width=15, fig.height=10, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                       "Model sb3"=soc.3,
+                       "Model sb4"=soc.4,
+                       "Model sb5"=soc.5_hdi)
+
+```
+
+
+### Individual blame - with HDI
+
+```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+summary(ind.5_hdi <- lmer(pov.log.individual ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+undp_hdi+(1|cntry),
+                       family = binomial, data=df))
+
+```
+
+```{r, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk22, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=ind.0,
+                       "Model ib1"=ind.1,
+                       "Model ib3"=ind.3,
+                       "Model ib4"=ind.4,
+                       "Model ib5"=ind.5_hdi)
+
+```
+
+## 4. Multilevel modelling2
+
+Kirjoitin aluksi näin:
+
+>Edellisissä malleissa selitettävä muuttuja on koodattu siten, että 
+>1. vain ko. tavalla vastanneet (social blame tai individual blame)
+>0. social fate + individual fate + (social blame tai individual blame)
+
+>Tästä on seurannut mm. se, että tyhjään malliin verrattuna n on pudonnut aina reilulla 6000 kotitaloudella.
+
+>Seuraavissa on käytetty alkuperäistä muuttujaa joilloin mukana ovat myös **dont know** ja **not stated** vaihtoehdon valinneet siis koodattuna arvolle 0. N määrä nousee siten...
+
+mutta pienen kokeilun jälkeen selvisi että ongelma ei ole other-koodatut, he ovat analyysissä mukana, vaan: n ei nouse, sillä n-määrän lasku on peräisin suurelta osin muuttujasta **future.diff** sekä vähemmän muuttujista **past.diff** että **crise**. Se ei liity mitenkään selitettävään köyhyysasennemuuttujaan.
+
+Eli jos n. määrää haluaa nostaa, niin 
+
+
+```{rmulti2_recode, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+#chunk10_1, echo=FALSE, results='hide'#
+df <- subset(df, group1 != 'Western Europe')
+df$cntry <- factor(df$cntry) 
+  
+###############################
+# $pov.log.social
+################################
+
+df$pov.log.social <- recode(df$q309, "'Because of injustice in our society'=1;
+                               else=0")
+################################
+# $pov_log_individual
+################################
+df$pov.log.individual <- recode(df$q309, "'Because of laziness and lack of willpower'=1;
+                               else=0")  
+  
+summary(soc.0 <- lmer(pov.log.social ~ (1|cntry),
+                       family = binomial, data=df))
+
+summary(soc.01 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+crise+(1|cntry),
+                       family = binomial, data=df))
+  
+summary(soc.1 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+(1|cntry),
+                       family = binomial, data=df))
+```
+
+### Puuttuvat arvot muuttujissa **future.diff**, **past.diff** että **crise**.
+
+```{rmissing,  echo=FALSE, fig.width=10, fig.height=5, warning=FALSE, cache=TRUE, message=FALSE}
+#
+library(VIM)
+spineMiss(df[, c("cntry", "future.diff")])
+spineMiss(df[, c("cntry", "past.diff")])  
+spineMiss(df[, c("cntry", "crise")])
+```
+
+
+### Social blame -  Original
+
+
+```{rmulti2_sb, results='markup', echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
+#chunk19, echo=FALSE, results='hide', cache=TRUE#
+# modelling without and with weights
+summary(soc.0 <- lmer(pov.log.social ~ (1|cntry),
+                       family = binomial, data=df))
+
+summary(soc.1 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+(1|cntry),
+                       family = binomial, data=df))
+
+
+# koska grouping oli turha se pois. _g merkinnällä kuitenkin mallit
+# joissa ryhmittely, jotta saadaan alkuperäinen taulukko myös esille.
+summary(soc.2 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  (1|cntry), family = binomial, data=df))
+
+summary(soc.2_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+(1|cntry), family = binomial, data=df))
+
+summary(soc.3 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+(1|cntry),family = binomial, data=df))
+
+summary(soc.3_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+(1|cntry),family = binomial, data=df))
+
+summary(soc.4 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+(1|cntry),family = binomial, data=df))
+
+summary(soc.4_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+(1|cntry),family = binomial, data=df))
+
+summary(soc.5 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  Gini+gdpchange07.10+Democracy2011+(1|cntry),family = binomial, data=df))
+
+summary(soc.5_g <- lmer(pov.log.social ~ incsour3+edu2+income2+
+  past.diff+future.diff+crise+
+  group1+Gini+gdpchange07.10+Democracy2011+(1|cntry),family = binomial, data=df))
+# postsoc+ was left out due to errors...
+
+
+```
+
+
+```{rmultiorigsb_2, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
+#chunk21, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                       "Model sb2"=soc.2,
+                       "Model sb3"=soc.3_g,
+                       "Model sb4"=soc.4_g,
+                       "Model sb5"=soc.5_g)
+
+```
+
+<!--
+
+### Social blame - original **without grouping**
+
+-->
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
+#chunk21, echo=FALSE, results='hide', cache=TRUE#
+#toLatex(relabel(
+  mtable("Empty model"=soc.0,
+                       "Model sb1"=soc.1,
+                      # "Model sb2"=soc.2,
+                       "Model sb3"=soc.3,
+                       "Model sb4"=soc.4,
+                       "Model sb5"=soc.5)
+
+
+```
+

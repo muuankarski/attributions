@@ -1,0 +1,37 @@
+% Attributions for Poverty in Post-Socialist Countries
+% Markus Kainu & Mikko Niemelä
+% Jan 2013
+
+<link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
+<link href='http://fonts.googleapis.com/css?family=Alegreya+SC|Dosis:400,200' rel='stylesheet' type='text/css'>
+
+```{r, eval=FALSE, echo=FALSE}
+setwd("~/workspace/lits/attrib/attrib_year2013")
+library(kaRski)
+knitpandoc("index")
+
+cd ~/workspace/lits/attrib/attrib_year2013
+lftp -u np16003 -e "mirror -R;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/
+```
+
+******
+
+<center>
+<table>
+<tr>
+<td>[Etusivu](index.html)</td>
+<td>[Descriptive analysis](code/descriptive_analysis.html)</td>
+<td>[Output tables in html](code/multilevel_models.html)</td>
+<td>[Output tables in pdf](code/multilevel_models.pdf)</td>
+<td>[Article in pdf](article2013.pdf)</td>
+<td>[Article in html](article2013.html)</td>
+<td>[Presentation slides](slides/slides_attrib.html)</td>
+</tr>
+</table>
+</center>
+
+*******
+
+# Etusivu
+
+
