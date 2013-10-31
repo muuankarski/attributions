@@ -37,7 +37,7 @@ Analytical code is licensed under open [FreeBSD](http://en.wikipedia.org/wiki/BS
 
 html-ouput                                                    source code
 -------------------------------------------------------       -----------------------------
-[loading and cleaning](code/descriptive_analysis.html)        [source](code/descriptive_analysis.Rmd)
+[loading and cleaning](loadClean.html)                        [source](loadClean.Rmd)
 [missing data & diagnostics](code/descriptive_analysis.html)  [source](code/descriptive_analysis.Rmd)
 
 ## Descriptive analysis
