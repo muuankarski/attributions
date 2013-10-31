@@ -1,25 +1,28 @@
+% Descriptive analysis
+
+- [back to index](index.html)
+
+
 `generated at:`
 ```{r, echo=FALSE}
 Sys.time()
 ```
 ---
 
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/code/")
+setwd("~/workspace/lits/attrib/attrib_year2013/")
 library(kaRski)
 knitpandoc("descriptive_analysis")
-
 ```
 
 
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
 ```
-
-<link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
 
 # Visualizing the predictors
 
@@ -28,7 +31,7 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 ### Original variable
 
 ```{rdescplot1_1, fig.width=15}
-load("~/workspace/data/lits2.RData")
+load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
 library(ggplot2)
 library(reshape2)
 
@@ -330,8 +333,8 @@ ggpairs(macro[, c("uw.gini", "gdpchange07.10", "wbgi.vae","social.blame","indivi
 
 # Final plots
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gdp.png)
+![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.png)
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gini.png)
+![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.png)
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_wbgi.png)
+![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.png)

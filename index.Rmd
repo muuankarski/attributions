@@ -2,6 +2,12 @@
 % Markus Kainu & Mikko Niemelä
 % Nov 2013
 
+`generated at:`
+```{r, echo=FALSE}
+Sys.time()
+```
+---
+
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -13,8 +19,17 @@ cd ~/workspace/lits/attrib/attrib_year2013/figures
 lftp -u np16003 -e "mirror -R;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/
 ```
 
+```{roptsattrib, echo=FALSE}
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
+```
+
 
 # Introduction
+
+This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the [micro data](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml) and [macro data](http://www.qog.pol.gu.se/data/) are available as open data, anyone can rerun these analysis.
+
+Analytical code is licensed under open [FreeBSD](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)-licence.
+
 
 # Data Analysis
 
@@ -29,8 +44,8 @@ html-ouput                                                    source code
 
 html-ouput                                                source code
 -------------------------------------------------------   -----------------------------
-[Descriptive analysis](code/descriptive_analysis.html)    [source](code/descriptive_analysis.Rmd)
-
+[Descriptive analysis](descriptive_analysis.html)         [source](descriptive_analysis.Rmd)
+[Graphics in the paper]()                                 [source](descriptive_analysis.Rmd)
 
 ## Modelling the data
 
@@ -41,16 +56,16 @@ html-ouput                                                source code
 
 # Paper
 
-html-output                                               source code
--------------------------------------------------------   -----------------------------
-[Article in html](article2013.html)                       [Article in pdf](article2013.pdf)
+- [Article draft in .html](article2013.html)
+- [Article draft in .pdf](article2013.pdf)
+- [Article draft in .epub](article2013.epub)
 
 
 
 # Presentation slides
 
-html-ouput                                                source code
--------------------------------------------------------   -----------------------------
-[Presentation slides](slides/slides_attrib.html)          [source](code/multilevel_models.Rmd)
+- HSE Moscow - November 12, 2013
+- Jatkokoulutusseminaari Turku November 7, 2013
+- [ESA Torino - August 29, 2013](torino2013/TorinoSlides2013_final.html)
 
 
