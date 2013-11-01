@@ -2,7 +2,7 @@
 % Markus Kainu[^**];Mikko Niemelä[^***]
 % October 2013
 
-[^*]:*Work in progress. Please, do not cite without permission of authors*
+[^*]:*Work in progress
 
 [^**]:PhD Student. Aleksanteri institute, University of Helsinki & Department of Social Research, University of Turku <a href="mailto:markuskainu@gmail.com">markuskainu@gmail.com</a>
 
@@ -10,6 +10,10 @@
 
 <link href="http://markuskainu.fi/material/css/article.css" rel="stylesheet" type="text/css" title="compact"></link>
 <link href='http://fonts.googleapis.com/css?family=Alegreya+SC|Dosis:400,200' rel='stylesheet' type='text/css'>
+
+```{roptsattribArticle, echo=FALSE}
+opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
+```
 
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -19,6 +23,7 @@ knit("article2013.Rmd")
 system("~/.cabal/bin/pandoc article2013.md --number-sections -o article2013.pdf")
 system("~/.cabal/bin/pandoc -s article2013.md --toc --number-sections -o article2013.html")
 system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.docx --standalone --toc --number-sections")
+system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --toc --number-sections")
 
 # jos multilevelit mukana
 #system("~/.cabal/bin/pandoc article2013.md --number-sections --template=tex_templates/dcolumn.latex -o article2013.tex")
@@ -26,9 +31,13 @@ system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.do
 #system("pdflatex article2013.tex")
 
 
-
-lftp -u np16003 -e "mirror -R;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions
 ```
+
+**Nootti**
+
+*Paperi on vielä hieman vaiheessa ja suosittelen tutustumaan tutkimuksen analytiikkaan osoitteessa: [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/). Yritän parhaillaan saada monitasomallintamista paremmalle tolalle. Paperissa olevat mallit ovat alustavia ja pitävät sisällään sekä teoreettista että menetelmällistä epätarkkuutta.*
+
+****
 
 **Abstract**
 
@@ -99,6 +108,8 @@ The study utilizes the data from the second wave of Life in Transition Survey[^*
 
 [^***2]:[ebrd.com/pages/research/publications/special/transitionII.shtml](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml)
 
+![Countries used in the analysis](figure/mapplot.png)
+
 We are using LiTS2 data from 21 transition countries with additional 4 Western European countries (France, Germany, Italy and Sweden) (See Figure 1). In total 23513 households from 25 countries are included in the analysis. Transition countries were broken down into two groups. CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. 
 
 [^****]:Georgia withdrawn it's membership from CIS in 2008
@@ -106,14 +117,14 @@ We are using LiTS2 data from 21 transition countries with additional 4 Western E
 
 ## Dependent variables
 
-The respondents were asked the following question which measures public perceptions of the causes of poverty: **In your opinion, what is the main reason why there are some people in need in our country today?**
-
+The respondents were asked the following question which measures public perceptions of the causes of poverty: **In your opinion, what is the main reason why there are some people in need in our country today?** (Variable `q309` in LiTS-data)
 
 - Because they have been unlucky
 - Because of laziness and lack of willpower
 - Because of injustice in our society
 - It is an inevitable part of modern life
-- Other
+- Don't know
+- Not stated
 
 
 Thus, the question is a standard forced-choice question which is used also in other comparative surveys such as in European Values Study and in Eurobarometer. According to van Oorschot and Halman (2000) different statements represent a four-tier typology of poverty explanations as follows: While the unlucky refers to individual fate, the laziness and lack of willpower represents individual blame. In addition, injustice in a society indicates social blame, whereas the view that poverty is simply part of modern life refers to social fate. The option 'other' was treated as missing data.
@@ -126,34 +137,75 @@ As our main interest here is in support for social and blame type of explanation
 Six individual-level risk predictors are included in the analysis. Variables are recoded as binomial where value 1 is coded for risk and 0 for absence of risk. The items included are described in the table 2.
 
 
-```{rtablepredictor, results='asis', echo=FALSE}
-Variable <- c("Transfer dependency","Low education","Perceived low income level","Income compared to past","Income compared to future","Effect of financial crises")
-Description <- c("Social or private transfers \n as main source of income","No or only compulsory level education","Perceived income level below the country median","Perceived change in income compared to situation in four years ago","Expected change in income over the next four years","Whether respondents perceives that their household has suffered the financial crisis great or fair amount")
-table <- data.frame(Variable,Description)
-library(xtable)
-xtbl <- xtable(table, caption="Individual level predictors")
-print.xtable(xtbl, type="latex", comment=FALSE, size="scriptsize",include.rownames=FALSE)
-```
+\newpage
 
+Table: Individual level predictors
+
+-----------------------------------------------------------------------------
+Variable                    Description
+------------------------    -------------------------------------------------
+Transfer dependency         Social or private transfers as main source of income
+
+Low education               No or only compulsory level education
+
+Perceived low income level  Perceived income level below the country median
+
+Income compared to past     Perceived change in income compared to situation in four years ago
+
+Income compared to future   Expected change in income over the next four years
+
+Effect of financial crises  Whether respondents perceives that their household has suffered the financial crisis great or fair amount
+-----------------------------------------------------------------------------
 
 
 ## Country level independent variables
 
 An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of four variables: 1) change in total GDP in 2007 - 2010, 2) gini coefficient of economic inequality, 3) 2011 democracy index and 4) country grouping. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), gini coefficients from [UNU-WIDER World Income Inequality Database](http://www.wider.unu.edu/research/Database/en_GB/database/) and Democracy Index from the [Economist Intelligence Unit](http://www.eiu.com/Default.aspx). Gini coefficient for each country is the latest available varying from 2002 to 2006. (see Appendix A)
 
+\newpage
+
+Table: Contextual level predictors
+
+-----------------------------------------------------------------------------
+Variable                          Description
+------------------------          -------------------------------------------------
+Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010
+
+Gini coefficient                  Measures the distribution of income or consumption expenditure among individuals or households
+
+Voice and Accountability          Indicators measuring the political process, civil liberties and political rights. These indicators measure the extent to which citizens of a country are able to participate in the selection of governments. Indicators measuring the independence of the media is also included.
+Description
+-----------------------------------------------------------------------------
+
+
+
 ## Methods
 
 The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors, it is recommended to use multilevel regression analysis for this task (Snijders \& Bosker, 2011).  Multilevel analysis requires hierarchical dataset and allows the estimation of country-level effects on individual level outcomes. The analysis is performed using lmer-function from lme4 package in R [^*****]. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
 
-[^*****]:R-code for data transformation and analysis is available at [research.muuankarski.org/code/](http://research.muuankarski.org/code/)
+[^*****]:R-code for data transformation and analysis is available at [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/)
 
-Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. Full model summaries currently available at [research.muuankarski.org/code/](http://research.muuankarski.org/code/).
+Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. Full model summaries currently available at [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/).
 
 # Results
 
 ## Descriptive statistics
 
 Table 3 shows the proportion of the total number of respondents in a country which chose a particular explanation of poverty. We assumed that citizens in post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. As expected results show relatively large variation within country groups. For the most of the post-socialist countries, social and individual blame types of explanation, i.e. injustice in a society and laziness of the poor, are the most popular poverty attributions. The highest support for social blame is found in Ukraine, Latvia, Lithuania, Hungary, Russia, Slovenia, Armenia, Moldova and Azerbaijan. In these countries majority of population blames the injustice in a society for poverty. Totally, in 19 of 21 examined post-socialist countries injustice in a society receives the highest support.
+
+\newpage
+
+```{rattribArticleDescTbl1, results='asis'}
+source("code/dv_tables.R")
+print.xtable(xtable(tbl5, 
+                    caption="Weighted population shares of dependent variable by country",),
+              type="latex",
+              comment=FALSE, 
+              include.rownames=FALSE,
+             caption.placement="top")
+
+```
+
 
 Also, in most post-socialist countries the individual blame is the second most popular explanation of poverty. Exceptions here are Slovenia, Estonia and Georgia where citizens endorse societal explanations more likely than individual explanations. In Czech Republic social explanations as well as individual blame explanation receive public support quite evenly. Finally, the clearest exception in post-socialist regime is Uzbekistan where poverty is attributed strongly with internal terms.
 
@@ -165,15 +217,15 @@ Hence, the results are in line with our assumptions and prior research (Lepianka
 
 The results above indicate that there are cross-national differences between countries and within country groups which means that there are also some other contextual and individual-level factors which should explain the cross-national differences. Therefore, we will also analyse the importance of country-level economic, social and political conditions and individual-level risk factors related to financial hardship as determinants for attributions for poverty. Because the descriptive results showed that the majority of citizens in the post-socialist countries endorsed social and individual blame types of explanations, the subsequent analyses will focus only on these two explanations.
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.png)
+![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.pdf)
 
 Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.png)
+![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.pdf)
 
 There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.png)
+![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
 >Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.png)
 
@@ -181,10 +233,71 @@ In regard to the level of democracy we can see great differences between and wit
 
 ## Multilevel analysis
 
-- click for tables: [code/multilevel_models.pdf](code/multilevel_models.pdf)
-- click for RC19 tables: [code/multilevel_modelsRC19.pdf](code/multilevel_modelsRC19.pdf)
+*There we some issues in converts regression outputs so the tables are evolving and can be browsed at: [http://research.muuankarski.org/attributions/code/multilevel_models.html](http://research.muuankarski.org/attributions/code/multilevel_models.html)*
 
->As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
+****
+
+```{rattribArticleMultilevel1,results='asis', eval=FALSE}
+source("~/workspace/lits/attrib/attrib_year2013/code/multi_logit.R")
+library(texreg)
+texreg(list(soc.0,
+       soc.1,
+       soc.2,
+       soc.3,
+       soc.4),
+       use.package=FALSE,
+       include.pvalues=TRUE,
+       ci.test=NULL,
+      
+          caption="Logistic multilevel random intercept model for social blame type of explanation.", caption.above=TRUE, doctype = FALSE,
+        custom.coef.names=c("Intercept",
+                             "Transfer dependency (Not dependent)",
+                             "Education (No education)",
+                             "Perceived income (Low)",
+                             "Perceived change in income compared to four years ago (Has worsened)",
+                             "Expected change in income over next four years (Will worsen)",
+                             "Effect of financial crisis (Suffered great or fair amount)",
+                             "gini coefficient",
+                             "GDP change 2007-2010",
+                             "Voice And Accountability (WB)"),
+        custom.model.names=c("empty","Model SB1","Model SB2",
+                             "Model SB3","Model SB4"))
+
+```
+
+
+```{rattribArticleMultilevel2, results='asis', eval=FALSE}
+
+texreg(list(ind.0,
+          ind.1,
+          ind.2,
+          ind.3,
+          ind.4),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       ci.test=NULL,
+       caption="Logistic multilevel random intercept model for individual blame type of explanation.", 
+       caption.above=TRUE, 
+        doctype = FALSE,
+                custom.coef.names=c("Intercept",
+                             "Transfer dependency (Not dependent)",
+                             "Education (No education)",
+                             "Perceived income (Low)",
+                             "Perceived change in income compared to four years ago (Has worsened)",
+                             "Expected change in income over next four years (Will worsen)",
+                             "Effect of financial crisis (Suffered great or fair amount)",
+                             "gini coefficient",
+                             "GDP change 2007-2010",
+                             "Voice And Accountability (WB)"),
+        custom.model.names=c("empty","Model IB1","Model IB2",
+                             "Model IB3","Model IB4"))
+```
+
+<!--
+
+As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
+
+-->
 
 Table 4 and 5 present figures for multilevel logistic analysis. Calculating R² or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
 

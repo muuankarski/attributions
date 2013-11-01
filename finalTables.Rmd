@@ -1,0 +1,32 @@
+% Final regression ouput tables for the paper
+
+- [back to index](index.html)
+
+
+`generated at:`
+```{r, echo=FALSE}
+Sys.time()
+```
+---
+
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
+
+
+```{r, eval=FALSE, echo=FALSE}
+setwd("~/workspace/lits/attrib/attrib_year2013/")
+library(kaRski)
+knit("finalTables.Rmd")
+system("pandoc -s finalTables.md -o finalTables.html --toc --number-section")
+
+```
+
+
+```{roptsattrib, echo=FALSE}
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
+```
+
+
+**In progress..**
+
+
+See old model outputs [here](file:///home/aurelius/workspace/lits/attrib/attrib_year2013/code/multilevel_models.html)
