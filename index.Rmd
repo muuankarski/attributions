@@ -27,6 +27,14 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 ```
 
 
+`log of changes`
+
+date      comment
+--------  -------------------
+20131103  Regression modelling in process. Final models will be published on Tuesday afternoon
+
+
+
 # Introduction
 
 This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the [micro data](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml) and [macro data](http://www.qog.pol.gu.se/data/) are available as open data, anyone can rerun these analysis.
@@ -39,19 +47,22 @@ This site gathers together all the data analysis behind the actual paper. Data a
 ## Cleaning the data & variable summaries
 
 -------------------
-html-ouput                                                    source code
--------------------                                           ---------
-[loading, cleaning and summarizing](loadClean.html)           [source](loadClean.Rmd)
+html-ouput                                          source code
+------------                                        --------------
+[loading, cleaning and summarizing](loadClean.html) [source](loadClean.Rmd)
 -------------------
 
 ## Descriptive analysis
 
 -------------------
-html-ouput                                                source code
------------------------                                   ---------
-[Descriptive analysis](descriptive_analysis.html)         [source](descriptive_analysis.Rmd)
+html-ouput                                        source code
+------------                                      --------------
+[Descriptive analysis](descriptive_analysis.html) [source](descriptive_analysis.Rmd)
 
-[Graphics in the paper](finalPlots.html)                  [source](finalPlots.Rmd)
+[Spatial visualization](mapPlots.html)            [source]((mapPlots.Rmd))
+
+
+[Graphics in the paper](finalPlots.html)          [source](finalPlots.Rmd)
 -------------------
 
 
@@ -59,8 +70,8 @@ html-ouput                                                source code
 
 -------------------
 html-ouput                                                source code
------------------------                                   ---------
-[Regression analysis](code/multilevel_models.html)        [source](code/multilevel_models.Rmd)
+------------                                              --------------
+[Regression analysis](regressionModelling.html)           [source](regressionModelling.Rmd)
 
 [Final tables](finalTables.html)                          [source](finalTables.Rmd)
 -------------------

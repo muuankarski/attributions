@@ -40,8 +40,9 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
 ```
 
+# Scatterplots
 
-# GDP change
+## GDP change
 
 ```{rattribFinalPlotsGDP}
 # valitaan vaan kohdemaat
@@ -141,7 +142,7 @@ dev.off()
 ![](figure/scatter_gdp.png)
 
 
-# UNU-Wider Gini
+## UNU-Wider Gini
 
 
 ```{rattribFinalPlotsGini}
@@ -233,7 +234,7 @@ dev.off()
 
 ![](figure/scatter_gini.png)
 
-# World Bank - Voice and Accountability
+## World Bank - Voice and Accountability
 
 ```{rattribFinalPlotsWB}
 

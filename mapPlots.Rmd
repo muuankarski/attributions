@@ -1,0 +1,222 @@
+% Spatial visualization
+
+- [back to index](index.html)
+
+
+`generated at:`
+```{r, echo=FALSE}
+Sys.time()
+```
+---
+
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
+
+
+```{r, eval=FALSE, echo=FALSE}
+setwd("~/workspace/lits/attrib/attrib_year2013/")
+library(knitr)
+knit("mapPlots.Rmd")
+system("pandoc -s mapPlots.md -o mapPlots.html --toc --number-section")
+```
+
+
+```{roptsattrib, echo=FALSE}
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
+```
+
+# Country grouping
+
+```{rmapPlotsLoadData}
+library(RColorBrewer)
+library(mapproj)
+library(maptools)
+library(rgdal)
+load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
+                                layer="lits_all_simple"))
+
+map$NAME <- as.character(map$NAME)
+map$NAME[map$NAME == "United Kingdom"] <- 'Great Britain'
+map$group_analysis[map$NAME %in% c('France','Germany',
+                                        'Great Britain',
+                                        'Italy','Sweden')] <- 'Western Europe'
+
+map$group_analysis[map$NAME %in% c('Czech Republic','Estonia',
+                                        'Hungary','Bulgaria',
+                                        'Latvia','Lithuania',
+                                        'Poland','Slovakia',
+                                        'Slovenia','Romania')] <- 'CEE'
+
+map$group_analysis[map$NAME %in% c('Armenia','Azerbaijan',
+                                        'Belarus','Georgia',
+                                        'Kazakhstan','Kyrgyzstan',
+                                        'Moldova','Tajikistan',
+                                        'Ukraine','Uzbekistan','Russia')] <- 'CIS'
+map$NAME <- as.factor(map$NAME)
+
+# shapefile into data.frame
+map@data$id <- rownames(map@data)
+library(ggplot2)
+map.points <- fortify(map, region="id")
+map.df <- merge(map.points, map@data, by="id")
+# only east of longitude -25
+map.df <- subset(map.df, long >= -15 & long <= 80)
+# names for countries in analysis (excluding others)
+namedata <- map.df[!is.na(map.df$group_analysis),]
+cnames <- stats:::aggregate.formula(cbind(long, lat) ~ NAME, data=namedata, mean)
+cbPalette <- c("#999999", "#E69F00",
+               "#56B4E9", "#009E73",
+               "#F0E442", "#0072B2",
+               "gray90", "#CC79A7")
+```
+
+
+```{rmapPlotsGroup1}
+ggplot(map.df, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = group_analysis)) + # or group_fine !!
+  scale_fill_manual(values=cbPalette) +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
+  geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
+  coord_map(project="orthographic") +
+  theme(legend.position="top")
+```
+
+
+# Dependent variables
+
+**The darker the higher the support**
+
+## Support for Social blame
+
+```{rmapPlotsDV1}
+### Faceted showing population shares of explanations
+library(scales)
+plotMap <- merge(map.df,macro,by.x="NAME",by.y="cntry")
+plotMap <- plotMap[order(plotMap$order),]
+
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = socialBlame)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+## Individual blame
+
+```{rmapPlotsDV2}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = individualBlame)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+
+## Social fate
+
+```{rmapPlotsDV3}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = socialFate)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+## Individual fate
+
+```{rmapPlotsDV4}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = individualFate)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+## Not stated
+
+```{rmapPlotsDV5}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = not.stated)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+## Dont know
+
+```{rmapPlotsDV6}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = dont.know)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low="white", high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+
+# Independent variables
+
+## Individual level
+
+
+## Macro level
+
+**Blue is "positive", red is "negative"**
+
+### GDP change
+
+```{rmapPlotsIvMacro1}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = gdpchange07.10)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
+  theme(legend.position="top")
+```
+
+### Gini coefficient
+
+```{rmapPlotsIvMacro2}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = uw_gini)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low=muted("blue"), high=muted("red"), midpoint=33.55) +
+  theme(legend.position="top")
+```
+
+
+### Voice and Accountability
+
+```{rmapPlotsIvMacro3}
+ggplot(plotMap, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = wbgi_vae)) +
+  geom_polygon(data = plotMap, aes(long,lat), 
+               fill=NA, color = "white", size=0.1) +
+  coord_map(project="orthographic") +
+  scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
+  theme(legend.position="top")
+```

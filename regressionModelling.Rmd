@@ -1,196 +1,567 @@
+% Regression modellining
+
+- [back to index](index.html)
+
+
+`generated at:`
+```{r, echo=FALSE}
+Sys.time()
+```
+---
+
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
+
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/code/")
+setwd("~/workspace/lits/attrib/attrib_year2013/")
 library(knitr)
-knit("multilevel_models.Rmd")
-system("~/.cabal/bin/pandoc multilevel_models.md --number-sections --template=../tex_templates/dcolumn.latex -o multilevel_models.pdf")
+knit("regressionModelling.Rmd")
+system("pandoc -s regressionModelling.md -o regressionModelling.html --toc --number-section")
 
-system("~/.cabal/bin/pandoc -s multilevel_models.md -o multilevel_models.html")
-
-#system("perl -pi -e 's/footnotesize/tiny/g' multilevel_models.tex")
 ```
 
-<link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
 
-# Final tables
+```{roptsattrib, echo=FALSE}
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
+```
 
-```{rmultilevel_analysis, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, results='hide'}
+
+```{rmultilevelLoadData}
 library(lme4)
 #########################################
 #########################################
-setwd("~/workspace/lits/attrib/attrib_year2013/code")
+setwd("~/workspace/lits/attrib/attrib_year2013/")
 
 #########################################
 load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+df.model <- df[df$group_general != "Western Europe",]
 
-summary(bisoc.1 <- glmer(pov.log.social ~ incsour3+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.2 <- glmer(pov.log.social ~ edu2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.3 <- glmer(pov.log.social ~ income2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.4 <- glmer(pov.log.social ~ past.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.7 <- glmer(pov.log.social ~ group1+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.8 <- glmer(pov.log.social ~ uw.gini+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.9 <- glmer(pov.log.social ~ gdpchange07.10+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.10 <- glmer(pov.log.social ~ wbgi.vae+(1|cntry),
-                         family = binomial(logit), data=df))
-
-summary(biind.1 <- glmer(pov.log.individual ~ incsour3+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.2 <- glmer(pov.log.individual ~ edu2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.3 <- glmer(pov.log.individual ~ income2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.4 <- glmer(pov.log.individual ~ past.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.7 <- glmer(pov.log.individual ~ group1+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.8 <- glmer(pov.log.individual ~ uw.gini+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.9 <- glmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(biind.10 <- glmer(pov.log.individual ~ wbgi.vae+(1|cntry),
-                         family = binomial(logit), data=df))
-
-
-
-summary(soc.0 <- glmer(pov.log.social ~ (1|cntry),
-                      family = binomial(logit)(logit),
-                       data=df.multi))
-summary(soc.1 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                         past.diff+future.diff+crise+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-summary(soc.2 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-summary(soc.3 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-summary(soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-
-
-summary(ind.0 <- glmer(pov.log.individual ~ (1|cntry),
-                      family = binomial(logit),
-                       data=df.multi))
-summary(ind.1 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+(1|cntry),
-                      family = binomial(logit),
-                       data=df.multi))
-summary(ind.2 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-summary(ind.3 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
-summary(ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data=df.multi))
 ```
 
-\newpage 
+`log of changes`
+
+date      comment
+--------  -------------------
+20131103  Non multi-level logistic regression done but not interpret yet. Bivariate multilevel models the same. Multivariate multilevel models running over night.
 
 
+# Description
 
-```{rmultilevel_social, results='asis', echo=FALSE, eval=FALSE, cache=TRUE}
-library(stargazer)
-stargazer("Empty model"=soc.0,
-          "Model sb1"=soc.1,
-          "Model sb2"=soc.2,
-          "Model sb3"=soc.3,
-          "Model sb4"=soc.4,
-          title="Logistic multilevel random intercept model for social blame type of explanation (Using stargazer-package (missing country level random effects)).")
-```
+This page includes everything related to modelling of the data. [Click here for the final tables](finalTables.html). 
 
-```{rmultilevel_individual2_texreg, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
-htmlreg(list(ind.0,
-          ind.1,
-          ind.2,
-          ind.3,
-          ind.4),
-       use.packages=FALSE,
-       include.pvalues=TRUE,
-       caption="Logistic multilevel random intercept model for individual blame type of explanation (Using texreg-package (p-value stars missing)).", 
-       caption.above=TRUE)
+In this paper we have two depentend variables (DV) that are both binomial
+
+1. support for social blame type of explanation
+2. support for individual blame type of explanation
+
+
+# Unilevel regression analysis
+
+Unilevel is used here for making distinction between multilevel analysis later. *In the analysis of this chapter **no** contextual level variables are used*.
+
+I'm using the University of California's resource [R Data Analysis Examples: Logit Regression](http://www.ats.ucla.edu/stat/r/dae/logit.htm) as a reference here.
+
+## Bivariate logistic regression
+
+### Explaining social blame
+
+```{rUnilevelBivarSoc}
+unbisoc.1 <- glm(pov.log.social ~ incsour3, data = df.model, family = "binomial")
+unbisoc.2 <- glm(pov.log.social ~ edu2, data = df.model, family = "binomial")
+unbisoc.3 <- glm(pov.log.social ~ income2, data = df.model, family = "binomial")
+unbisoc.4 <- glm(pov.log.social ~ past.diff, data = df.model, family = "binomial")
+unbisoc.5 <- glm(pov.log.social ~ future.diff, data = df.model, family = "binomial")
+unbisoc.6 <- glm(pov.log.social ~ crise, data = df.model, family = "binomial")
+
 ```
 
 
+```{rUnilevelBivarSocOutput, results='asis'}
+library(texreg)
 
-```{rmultilevel_individual, results='asis', echo=FALSE, eval=FALSE, cache=TRUE}
-stargazer("Empty model"=ind.0,
-          "Model ib1"=ind.1,
-          "Model ib2"=ind.2,
-          "Model ib3"=ind.3,
-          "Model ib4"=ind.4,
-          title="Logistic multilevel random intercept model for individual blame type of explanation. (Using stargazer-package (missing country level random effects))")
+model.names = c("Transfer Dependency", "Education level",
+                "Perceived income","Income compared to past",
+                "Income compared to future","Effect of financial crises")
+
+coef.names = c("(intercept)", 
+               "Dependent vs. non-dependent",
+               "Low education vs. non-low education",
+               "Low income vs. high income",
+               "Income has worsened vs. has not",
+               "Income will worsen vs. will not",
+               "Has affected great or fair amount vs. has not")
+
+htmlreg(list(unbisoc.1,unbisoc.2,
+             unbisoc.3,unbisoc.4,
+             unbisoc.5,unbisoc.6),
+        custom.model.names = model.names,
+        custom.coef.names = coef.names,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+       caption="Simple logistic regression on social blame", caption.above=TRUE)
+
+
+```
+
+#### Interpretation
+
+- all the predictors are statistically significant which means that the *null hypothesis* of 
+    - The probability of supporting the social blame type of explanation decreases by `-0.16` if we compare individual who is dependent on tranfers with individual who is not dependent
+    - The probability of supporting the social blame type of explanation decreases by `-0.08` if we compare individual with low education with individual with no-low education
+    - The probability of supporting the social blame type of explanation decreases by `-0.59` if we compare individual with low perceived income with individual with high perceived income
+    - The probability of supporting the social blame type of explanation decreases by `-0.39` if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened
+    - The probability of supporting the social blame type of explanation decreases by `-0.49` if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase
+    - The probability of supporting the social blame type of explanation decreases by `-0.46` if we compare individual who has suffered *Great or fair amount* from the financial crisis with individual who has suffered *Little or not at all*
+- As you would expect the model fit is the best in the case of *expected change in income*
+
+
+### Explaining individual blame
+
+```{rUnilevelBivarInd}
+unbiind.1 <- glm(pov.log.individual ~ incsour3, data = df.model, family = "binomial")
+unbiind.2 <- glm(pov.log.individual ~ edu2, data = df.model, family = "binomial")
+unbiind.3 <- glm(pov.log.individual ~ income2, data = df.model, family = "binomial")
+unbiind.4 <- glm(pov.log.individual ~ past.diff, data = df.model, family = "binomial")
+unbiind.5 <- glm(pov.log.individual ~ future.diff, data = df.model, family = "binomial")
+unbiind.6 <- glm(pov.log.individual ~ crise, data = df.model, family = "binomial")
 ```
 
 
-```{rmultilevel_social_texreg, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
-htmlreg(list(soc.0,
-       soc.1,
-       soc.2,
-       soc.3,
-       soc.4),
-       use.package=FALSE,
-       include.pvalues=TRUE,
-          caption="Logistic multilevel random intercept model for social blame type of explanation( Using texreg-package (p-value stars missing)).", caption.above=TRUE)
+```{rUnilevelBivarIndOutput, results='asis'}
+library(texreg)
+htmlreg(list(unbiind.1,unbiind.2,
+             unbiind.3,unbiind.4,
+             unbiind.5,unbiind.6),
+        custom.model.names = model.names,
+        custom.coef.names = coef.names,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+       caption="Simple logistic regression on individual blame", caption.above=TRUE)
+```
+
+#### Interpretation
+
+- all the predictors, but *education level* are statistically significant
+    - The probability of supporting the individual blame type of explanation increases by `0.49` if we compare individual who is dependent on tranfers to individual who is not dependent
+    - The probability of supporting the individual blame type of explanation increases by `0.03` if we compare individual with low education with individual with no-low education. *This is not statistically significant*
+    - The probability of supporting the individual blame type of explanation increases by `0.38` if we compare individual with low perceived income with individual with high perceived income
+    - The probability of supporting the individual blame type of explanation increases by `0.32` if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened
+    - The probability of supporting the individual blame type of explanation increases by `0.40` if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase
+    - The probability of supporting the individual blame type of explanation increases by `-0.53` if we compare individual who has suffered *Great or fair amount* from the financial crisis with individual who has suffered *Little or not at all*
+- As you would expect the model fit is the best in the case of *expected change in income*
+
+
+## Multivariate logistic regression
+
+### Social blame
+
+```{rUnilevelMulvarSoc}
+mulbisoc.1 <- glm(pov.log.social ~  incsour3, data = df.model, family = "binomial")
+mulbisoc.2 <- glm(pov.log.social ~  incsour3 +
+                                    edu2, data = df.model, family = "binomial")
+mulbisoc.3 <- glm(pov.log.social ~  incsour3 +
+                                    edu2 +
+                                    income2, data = df.model, family = "binomial")
+mulbisoc.4 <- glm(pov.log.social ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff, data = df.model, family = "binomial")
+mulbisoc.4 <- glm(pov.log.social ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff, data = df.model, family = "binomial")
+mulbisoc.5 <- glm(pov.log.social ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff + 
+                                    future.diff, data = df.model, family = "binomial")
+mulbisoc.6 <- glm(pov.log.social ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff + 
+                                    future.diff +
+                                    crise, data = df.model, family = "binomial")
+
+```
+
+
+```{rUnilevelMulvarSocOutput, results='asis'}
+library(texreg)
+htmlreg(list(mulbisoc.1,mulbisoc.2,
+             mulbisoc.3,mulbisoc.4,
+             mulbisoc.5,mulbisoc.6),
+        custom.coef.names = coef.names,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+       caption="Multiple logistic regression on social blame", caption.above=TRUE)
+
+```
+
+#### Diagnostics of the final model
+
+```{r}
+confint(mulbisoc.6)
+```
+
+
+```{r}
+exp(cbind(OR = coef(mulbisoc.6), confint(mulbisoc.6)))
+```
+
+
+```{r}
+newdata2 <- with(df.model, data.frame(gre = rep(seq(from = 200, to = 800, length.out = 100),
+    4), gpa = mean(gpa), rank = factor(rep(1:4, each = 100))))
+
+newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
+    se = TRUE))
+newdata3 <- within(newdata3, {
+    PredictedProb <- plogis(fit)
+    LL <- plogis(fit - (1.96 * se.fit))
+    UL <- plogis(fit + (1.96 * se.fit))
+})
+
+ggplot(newdata3, aes(x = gre, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
+    ymax = UL, fill = rank), alpha = 0.2) + geom_line(aes(colour = rank),
+    size = 1)
+
 ```
 
 
 
-```{rbivariate_social, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+
+
+#### Interpretation
+
+- all the predictors, but *education level* are statistically significant
+    - The probability of supporting the individual blame type of explanation increases by `0.49` if we compare individual who is dependent on tranfers to individual who is not dependent
+    - The probability of supporting the individual blame type of explanation increases by `0.03` if we compare individual with low education with individual with no-low education. *This is not statistically significant*
+    - The probability of supporting the individual blame type of explanation increases by XXX` if we compare individual with low perceived income with individual with high perceived income
+    - The probability of supporting the individual blame type of explanation increases by `0.32` if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened
+    - The probability of supporting the individual blame type of explanation increases by `0.40` if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase
+    - The probability of supporting the individual blame type of explanation increases by `-XXX` if we compare individual who has suffered *Great or fair amount* from the financial crisis with individual who has suffered *Little or not at all*
+- As you would expect the model fit is the best in the case of *expected change in income*
+
+
+
+### Individual blame
+
+```{rUnilevelMulvarInd}
+mulbiind.1 <- glm(pov.log.individual ~  incsour3, data = df.model, family = "binomial")
+mulbiind.2 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2, data = df.model, family = "binomial")
+mulbiind.3 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2 +
+                                    income2, data = df.model, family = "binomial")
+mulbiind.4 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff, data = df.model, family = "binomial")
+mulbiind.4 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff, data = df.model, family = "binomial")
+mulbiind.5 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff + 
+                                    future.diff, data = df.model, family = "binomial")
+mulbiind.6 <- glm(pov.log.individual ~  incsour3 +
+                                    edu2 +
+                                    income2 +
+                                    past.diff + 
+                                    future.diff +
+                                    crise, data = df.model, family = "binomial")
+```
+
+
+```{rUnilevelMulvarIndOutput, results='asis'}
+library(texreg)
+htmlreg(list(mulbiind.1,mulbiind.2,
+             mulbiind.3,mulbiind.4,
+             mulbiind.5,mulbiind.6),
+        custom.coef.names = coef.names,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+       caption="Multiple logistic regression on individual blame", caption.above=TRUE)
+```
+
+#### Interpretation
+
+# Multinomial logistic regression
+
+In multinomial setting we use variable `poverty`as DV. `Dont know` and `not stated` values are exluded from the analysis and we are left with following four values:
+
+- Social Blame 
+- Individual Blame
+- Individual Fate
+- Social Fate
+
+Of the DV values we use `Social Blame` as a reference category as it is distinctive category and allows me to make clear interpretations of the significance of the predictors. ([source](http://stats.stackexchange.com/questions/34574/is-there-any-criterion-about-choosing-reference-factor-in-multinomial-logistic-r))
+
+
+## Simple multinomial logistic regression
+
+
+```{rmultiNomSimple}
+
+```
+
+
+```{rmultiNomSimpleOutput, results='asis'}
+
+```
+
+### Interpretation
+
+
+## Multivariate multinomial logistic regression
+
+```{rmultiNomMulti}
+
+```
+
+
+
+```{rmultiNomMultiOutput, results='asis'}
+
+```
+
+
+### Interpretation
+
+
+# Multilevel regression
+
+## Bivariate analysis
+
+### Social blame explained
+
+
+```{rmultilevelBivarSoc}
+bisoc.1 <- glmer(pov.log.social ~ incsour3+(1|cntry),
+                        family = binomial(logit), data = df.model)
+bisoc.2 <- glmer(pov.log.social ~ edu2+(1|cntry),
+                        family = binomial(logit), data = df.model)
+bisoc.3 <- glmer(pov.log.social ~ income2+(1|cntry),
+                        family = binomial(logit), data = df.model)
+bisoc.4 <- glmer(pov.log.social ~ past.diff+(1|cntry),
+                        family = binomial(logit), data = df.model)
+bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
+                        family = binomial(logit), data = df.model)
+ bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
+                         family = binomial(logit), data = df.model)
+#  bisoc.7 <- glmer(pov.log.social ~ group_general+(1|cntry),
+#                          family = binomial(logit), data = df.model)
+ bisoc.8 <- glmer(pov.log.social ~ uw_gini+(1|cntry),
+                         family = binomial(logit), data = df.model)
+ bisoc.9 <- glmer(pov.log.social ~ gdpchange07.10+(1|cntry),
+                         family = binomial(logit), data = df.model)
+ bisoc.10 <- glmer(pov.log.social ~ wbgi_vae+(1|cntry),
+                          family = binomial(logit), data = df.model)
+
+```
+
+```{rregressionBivarSocOutput, results='asis'}
+
+coef.names.multi = c("(intercept)", 
+                      "Dependent","Low education",
+                      "Low income","Income has worsened",
+                      "Income will worsen","Has affected great or fair amount",
+                      #"Country grouping (CIS vs. CEE)",
+                      "Gini coefficient",
+                      "Change in GDP between 2007 to 2010",
+                      "Good governance")
+
 library(texreg)
 htmlreg(list(bisoc.1,bisoc.2,
           bisoc.3,bisoc.4,
           bisoc.5,bisoc.6,
-          bisoc.7,bisoc.8,
+          #bisoc.7,
+          bisoc.8,
           bisoc.9,bisoc.10),
-       use.packages=FALSE,
-       sideways=TRUE,
-       scriptsize=TRUE,
-       include.pvalues=TRUE,
-       caption="bivatiate social blame", caption.above=TRUE)
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+        caption="Bivariate social blame", caption.above=TRUE)
+
+```
+
+#### Interpretation
+
+### Individual blame explained
+
+```{rmultilevelBivarInd}
+biind.1 <- glmer(pov.log.individual ~ incsour3+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.2 <- glmer(pov.log.individual ~ edu2+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.3 <- glmer(pov.log.individual ~ income2+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.4 <- glmer(pov.log.individual ~ past.diff+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
+                        family = binomial(logit), data = df.model)
+# biind.7 <- glmer(pov.log.individual ~ group_general+(1|cntry),
+#                         family = binomial(logit), data = df.model)
+biind.8 <- glmer(pov.log.individual ~ uw_gini+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.9 <- glmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
+                        family = binomial(logit), data = df.model)
+biind.10 <- glmer(pov.log.individual ~ wbgi_vae+(1|cntry),
+                         family = binomial(logit), data = df.model)
 ```
 
 
-```{rbivariate_individual, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+```{rmultilevelBivarIndOuput, results='asis'}
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
           biind.5,biind.6,
-          biind.7,biind.8,
+          #biind.7,
+          biind.8,
           biind.9,biind.10),
-       use.packages=FALSE,
-       sideways=TRUE,
-       scriptsize=TRUE,
-       caption="bivatiate individual blame", caption.above=TRUE)
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        use.packages=FALSE,
+        caption="Bivariate individual blame", 
+        caption.above=TRUE)
 ```
+
+#### Interpretation
+
+## Multivariate multilevel regressions
+
+### Social blame type of explanation
+
+```{rmultilevelMultiSoc}
+library(lme4)
+soc.0 <- glmer(pov.log.social ~ (1|cntry),
+                      family = binomial(logit),
+                       data = df.model)
+soc.1 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+(1|cntry),
+                      family = binomial(logit),
+                      data = df.model)
+soc.2 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+soc.3 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+
+```
+
+
+```{rmultilevelMultiSocOutput, results='asis'}
+model.names.multi = c("Empty",
+                      "Only individual",
+                      "Gini added",
+                      "GDP change added",
+                      "Good governance added")
+
+htmlreg(list(soc.0,
+        soc.1,
+        soc.2,
+        soc.3,
+        soc.4),
+        custom.model.names = model.names.multi,
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+          caption="Logistic multilevel random intercept model for social blame type of explanation", 
+        caption.above=TRUE)
+```
+
+#### Interpretation
+
+
+
+### Individual blame type of explanation
+
+
+```{rmultilevelMultiInd, eval=FALSE}
+ind.0 <- glmer(pov.log.individual ~ (1|cntry),
+                      family = binomial(logit),
+                       data = df.model)
+ind.1 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+(1|cntry),
+                      family = binomial(logit),
+                       data = df.model)
+ind.2 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+ind.3 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+```
+
+
+
+```{rmultilevelMultiIndOutput, results='asis', eval=FALSE}
+htmlreg(list(soc.0,
+       ind.1,
+       ind.2,
+       ind.3,
+       ind.4),
+        custom.model.names = model.names.multi,
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+          caption="Logistic multilevel random intercept model for social blame type of explanation", 
+        caption.above=TRUE)
+```
+
+
+#### Interpretation
+
+
 

@@ -8,8 +8,8 @@
 
 [^***]:Senior Researcher. Social Insurance Institution of Finland, KELA a<a href="mailto:mikko.niemela@kela.fi">mikko.niemela@kela.fi</a>
 
-<link href="http://markuskainu.fi/material/css/article.css" rel="stylesheet" type="text/css" title="compact"></link>
-<link href='http://fonts.googleapis.com/css?family=Alegreya+SC|Dosis:400,200' rel='stylesheet' type='text/css'>
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
+
 
 ```{roptsattribArticle, echo=FALSE}
 opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
@@ -197,9 +197,10 @@ Table 3 shows the proportion of the total number of respondents in a country whi
 
 ```{rattribArticleDescTbl1, results='asis'}
 source("code/dv_tables.R")
+library(xtable)
 print.xtable(xtable(tbl5, 
                     caption="Weighted population shares of dependent variable by country",),
-              type="latex",
+              type="html",
               comment=FALSE, 
               include.rownames=FALSE,
              caption.placement="top")
@@ -217,15 +218,15 @@ Hence, the results are in line with our assumptions and prior research (Lepianka
 
 The results above indicate that there are cross-national differences between countries and within country groups which means that there are also some other contextual and individual-level factors which should explain the cross-national differences. Therefore, we will also analyse the importance of country-level economic, social and political conditions and individual-level risk factors related to financial hardship as determinants for attributions for poverty. Because the descriptive results showed that the majority of citizens in the post-socialist countries endorsed social and individual blame types of explanations, the subsequent analyses will focus only on these two explanations.
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.pdf)
+![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.png)
 
 Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.pdf)
+![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.png)
 
 There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
+![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.png)
 
 >Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.png)
 
@@ -236,62 +237,6 @@ In regard to the level of democracy we can see great differences between and wit
 *There we some issues in converts regression outputs so the tables are evolving and can be browsed at: [http://research.muuankarski.org/attributions/code/multilevel_models.html](http://research.muuankarski.org/attributions/code/multilevel_models.html)*
 
 ****
-
-```{rattribArticleMultilevel1,results='asis', eval=FALSE}
-source("~/workspace/lits/attrib/attrib_year2013/code/multi_logit.R")
-library(texreg)
-texreg(list(soc.0,
-       soc.1,
-       soc.2,
-       soc.3,
-       soc.4),
-       use.package=FALSE,
-       include.pvalues=TRUE,
-       ci.test=NULL,
-      
-          caption="Logistic multilevel random intercept model for social blame type of explanation.", caption.above=TRUE, doctype = FALSE,
-        custom.coef.names=c("Intercept",
-                             "Transfer dependency (Not dependent)",
-                             "Education (No education)",
-                             "Perceived income (Low)",
-                             "Perceived change in income compared to four years ago (Has worsened)",
-                             "Expected change in income over next four years (Will worsen)",
-                             "Effect of financial crisis (Suffered great or fair amount)",
-                             "gini coefficient",
-                             "GDP change 2007-2010",
-                             "Voice And Accountability (WB)"),
-        custom.model.names=c("empty","Model SB1","Model SB2",
-                             "Model SB3","Model SB4"))
-
-```
-
-
-```{rattribArticleMultilevel2, results='asis', eval=FALSE}
-
-texreg(list(ind.0,
-          ind.1,
-          ind.2,
-          ind.3,
-          ind.4),
-       use.packages=FALSE,
-       include.pvalues=TRUE,
-       ci.test=NULL,
-       caption="Logistic multilevel random intercept model for individual blame type of explanation.", 
-       caption.above=TRUE, 
-        doctype = FALSE,
-                custom.coef.names=c("Intercept",
-                             "Transfer dependency (Not dependent)",
-                             "Education (No education)",
-                             "Perceived income (Low)",
-                             "Perceived change in income compared to four years ago (Has worsened)",
-                             "Expected change in income over next four years (Will worsen)",
-                             "Effect of financial crisis (Suffered great or fair amount)",
-                             "gini coefficient",
-                             "GDP change 2007-2010",
-                             "Voice And Accountability (WB)"),
-        custom.model.names=c("empty","Model IB1","Model IB2",
-                             "Model IB3","Model IB4"))
-```
 
 <!--
 
