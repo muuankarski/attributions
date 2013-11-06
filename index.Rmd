@@ -20,6 +20,9 @@ lftp -u np16003 -e "mput *.html *.Rmd *.pdf *.epub *.docx;quit" ftp://np16003@ww
 
 cd ~/workspace/lits/attrib/attrib_year2013/figure
 lftp -u np16003 -e "mirror -R;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/figure
+
+cd ~/workspace/lits/attrib/attrib_year2013/turku2013
+lftp -u np16003 -e "mput *.html;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/turku2013
 ```
 
 ```{roptsattrib, echo=FALSE}
@@ -32,7 +35,8 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 date      comment
 --------  -------------------
 20131103  Regression modelling in process. Final models will be published on Tuesday afternoon
-
+20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
+20131106  Regression modelling somewhat done for Turku seminar.
 
 
 # Introduction
@@ -76,8 +80,6 @@ html-ouput                                                source code
 [Final tables](finalTables.html)                          [source](finalTables.Rmd)
 -------------------
 
-- [Final tables as A4 .pdf](finalTables.pdf)
-
 # Paper
 
 - [Article draft in .html](article2013.html)
@@ -90,7 +92,7 @@ html-ouput                                                source code
 # Presentation slides
 
 - HSE Moscow - November 12, 2013
-- Jatkokoulutusseminaari Turku November 7, 2013
+- [Jatkokoulutusseminaari Turku November 7, 2013](turku2013/slidesTkuJatko20131107.html)
 - [ESA Torino - August 29, 2013](torino2013/TorinoSlides2013_final.html)
 
 

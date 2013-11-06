@@ -27,7 +27,6 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 
 
 ```{rmultilevelLoadData}
-library(lme4)
 #########################################
 #########################################
 setwd("~/workspace/lits/attrib/attrib_year2013/")
@@ -43,6 +42,8 @@ df.model <- df[df$group_general != "Western Europe",]
 date      comment
 --------  -------------------
 20131103  Non multi-level logistic regression done but not interpret yet. Bivariate multilevel models the same. Multivariate multilevel models running over night.
+20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
+20131106  Model names fixed. Multinomial models coming by midday
 
 
 # Description
@@ -206,38 +207,6 @@ htmlreg(list(mulbisoc.1,mulbisoc.2,
 
 ```
 
-#### Diagnostics of the final model
-
-```{r}
-confint(mulbisoc.6)
-```
-
-
-```{r}
-exp(cbind(OR = coef(mulbisoc.6), confint(mulbisoc.6)))
-```
-
-
-```{r}
-newdata2 <- with(df.model, data.frame(gre = rep(seq(from = 200, to = 800, length.out = 100),
-    4), gpa = mean(gpa), rank = factor(rep(1:4, each = 100))))
-
-newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
-    se = TRUE))
-newdata3 <- within(newdata3, {
-    PredictedProb <- plogis(fit)
-    LL <- plogis(fit - (1.96 * se.fit))
-    UL <- plogis(fit + (1.96 * se.fit))
-})
-
-ggplot(newdata3, aes(x = gre, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-    ymax = UL, fill = rank), alpha = 0.2) + geom_line(aes(colour = rank),
-    size = 1)
-
-```
-
-
-
 
 
 #### Interpretation
@@ -314,20 +283,114 @@ Of the DV values we use `Social Blame` as a reference category as it is distinct
 
 ## Simple multinomial logistic regression
 
+<!--
 
-```{rmultiNomSimple}
+### using nnet-package
+
+This model follows tutorial by UCLA [Multinomial regression](http://www.ats.ucla.edu/stat/r/dae/mlogit.htm) and it uses [nnet](http://cran.r-project.org/web/packages/nnet/index.html)-package.
+
+-->
+
+```{rmultiNomSimplennet, eval=FALSE, echo=FALSE}
+library(nnet)
+df.model$poverty2 <- relevel(df.model$poverty, ref = "Social Blame")
+test <- multinom(poverty2 ~ incsour3 + edu2 + income2 +
+                   past.diff + future.diff + crise, data = df.model)
+#library(texreg)
+#screenreg(list(test))
+summary(test)$coefficients/summary(test)$standard.errors
+
+# The ratio of the probability of choosing one outcome category over the
+# probability of choosing the baseline category is often referred as relative
+# risk (and it is also sometimes referred as odds as we have just used to
+# described the regression parameters above). The relative risk is the right-hand
+# side linear equation exponentiated, leading to the fact that the exponentiated
+# regression coefficients are relative risk ratios for a unit change in the
+# predictor variable. We can exponentiate the coefficients from our model to see
+# these risk ratios.
+
+exp(coef(test))
 
 ```
 
 
-```{rmultiNomSimpleOutput, results='asis'}
 
+### using mlogit-package
+
+This follows the example from [University of Toronto](http://www.utstat.toronto.edu/~brunner/oldclass/312f12/lectures/MultinomialLogitWithR.pdf) and [Discrete-Choice Logit Models with R by Philip A. Viton (October 26, 2013)](http://facweb.knowlton.ohio-state.edu/pviton/courses2/crp5700/5700-mlogit.pdf)
+
+
+
+```{rmultiNomSimpleMlogit, results='markup'}
+library(mlogit)
+dat.mlogit <- df.model[,c("poverty","edu2","incsour3","income2",
+                          "past.diff","future.diff","crise")]
+ dat.mlogit <- mlogit.data(dat.mlogit, shape="wide", choice="poverty")
+# 
+# 
+# model.mlogit1 <- mlogit(poverty ~ 0 | incsour3,
+#                                data = dat.mlogit, 
+#                                reflevel ="Social Blame")
+# model.mlogit2 <- mlogit(poverty ~ 0 | incsour3 + edu2,
+#                                data = dat.mlogit, 
+#                                reflevel ="Social Blame")
+# model.mlogit3 <- mlogit(poverty ~ 0 | incsour3 + edu2 + 
+#                                       past.diff,
+#                                data = dat.mlogit, 
+#                                reflevel ="Social Blame")
+# model.mlogit4 <- mlogit(poverty ~ 0 | incsour3 + edu2 + 
+#                                       past.diff + future.diff,
+#                                data = dat.mlogit, 
+#                                reflevel ="Social Blame")
+model.mlogit5 <- mlogit(poverty ~ 0 | incsour3 + edu2 + 
+                                      past.diff + future.diff +
+                                      crise, 
+                               data = dat.mlogit, 
+                               reflevel ="Social Blame")
+
+summary(model.mlogit5)
 ```
 
 ### Interpretation
 
 
-## Multivariate multinomial logistic regression
+
+```{r, eval=FALSE, echo=FALSE}
+
+screenreg(list(model.mlogit1,model.mlogit2))
+
+
+f <- coeftest(model.mlogit)
+xtable(as.data.frame(f))model1 <- multinom(formula = reason ~ supu+income, data = ml.06)
+
+
+
+summary(m)
+coeftest(m)
+
+
+X <- mlogit.data(ml.10, shape="wide", choice="poverty")
+coeftest(mlogit(poverty ~ 0 | success,
+               data = X, reflevel ="Because of injustice in our society"))
+summary(mlogit(poverty ~ 0 | success,
+                data = X, reflevel ="Because of injustice in our society"))
+
+coef(mlogit(poverty ~ 0 | success,
+               data = X, reflevel ="Because of injustice in our society"))
+
+```
+
+
+
+## Multilevel multinomial logistic regression
+
+Can be modelled in R in Bayesian manner using either [ChoiceModelR](http://cran.r-project.org/web/packages/ChoiceModelR/index.html) and  [Zelig](http://cran.r-project.org/web/packages/Zelig/).
+
+
+Marco Steenbergen discusses the stat theory and imlementation in Stata in this video
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/q_t9VerQ2ko" frameborder="0" allowfullscreen></iframe>
+
 
 ```{rmultiNomMulti}
 
@@ -340,8 +403,6 @@ Of the DV values we use `Social Blame` as a reference category as it is distinct
 ```
 
 
-### Interpretation
-
 
 # Multilevel regression
 
@@ -351,6 +412,7 @@ Of the DV values we use `Social Blame` as a reference category as it is distinct
 
 
 ```{rmultilevelBivarSoc}
+library(lme4)
 bisoc.1 <- glmer(pov.log.social ~ incsour3+(1|cntry),
                         family = binomial(logit), data = df.model)
 bisoc.2 <- glmer(pov.log.social ~ edu2+(1|cntry),
@@ -363,24 +425,21 @@ bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
  bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
                          family = binomial(logit), data = df.model)
-#  bisoc.7 <- glmer(pov.log.social ~ group_general+(1|cntry),
-#                          family = binomial(logit), data = df.model)
  bisoc.8 <- glmer(pov.log.social ~ uw_gini+(1|cntry),
                          family = binomial(logit), data = df.model)
  bisoc.9 <- glmer(pov.log.social ~ gdpchange07.10+(1|cntry),
                          family = binomial(logit), data = df.model)
  bisoc.10 <- glmer(pov.log.social ~ wbgi_vae+(1|cntry),
                           family = binomial(logit), data = df.model)
-
 ```
 
-```{rregressionBivarSocOutput, results='asis'}
+
+```{rmultilevelBivarSocOutputNOCI, results='asis'}
 
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-                      #"Country grouping (CIS vs. CEE)",
                       "Gini coefficient",
                       "Change in GDP between 2007 to 2010",
                       "Good governance")
@@ -389,10 +448,10 @@ library(texreg)
 htmlreg(list(bisoc.1,bisoc.2,
           bisoc.3,bisoc.4,
           bisoc.5,bisoc.6,
-          #bisoc.7,
           bisoc.8,
           bisoc.9,bisoc.10),
         custom.coef.names = coef.names.multi,
+        naive = TRUE,
         inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
@@ -404,6 +463,9 @@ htmlreg(list(bisoc.1,bisoc.2,
 ```
 
 #### Interpretation
+
+
+
 
 ### Individual blame explained
 
@@ -420,8 +482,6 @@ biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
                         family = binomial(logit), data = df.model)
-# biind.7 <- glmer(pov.log.individual ~ group_general+(1|cntry),
-#                         family = binomial(logit), data = df.model)
 biind.8 <- glmer(pov.log.individual ~ uw_gini+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.9 <- glmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
@@ -431,21 +491,22 @@ biind.10 <- glmer(pov.log.individual ~ wbgi_vae+(1|cntry),
 ```
 
 
-```{rmultilevelBivarIndOuput, results='asis'}
+```{rmultilevelBivarIndOuputNOCI, results='asis'}
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
           biind.5,biind.6,
-          #biind.7,
           biind.8,
           biind.9,biind.10),
         custom.coef.names = coef.names.multi,
+        naive = TRUE,
         inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
         body.tag = FALSE,
         use.packages=FALSE,
+        include.pvalues=TRUE,
         caption="Bivariate individual blame", 
         caption.above=TRUE)
 ```
@@ -454,10 +515,13 @@ htmlreg(list(biind.1,biind.2,
 
 ## Multivariate multilevel regressions
 
+
 ### Social blame type of explanation
 
 ```{rmultilevelMultiSoc}
 library(lme4)
+
+
 soc.0 <- glmer(pov.log.social ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -484,7 +548,17 @@ soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
 ```
 
 
-```{rmultilevelMultiSocOutput, results='asis'}
+
+
+```{rmultilevelMultiSocOutputNOCI, results='asis'}
+coef.names.multi = c("(intercept)", 
+                      "Dependent","Low education",
+                      "Low income","Income has worsened",
+                      "Income will worsen","Has affected great or fair amount",
+                      "Gini coefficient",
+                      "Change in GDP between 2007 to 2010",
+                      "Good governance")
+
 model.names.multi = c("Empty",
                       "Only individual",
                       "Gini added",
@@ -498,15 +572,19 @@ htmlreg(list(soc.0,
         soc.4),
         custom.model.names = model.names.multi,
         custom.coef.names = coef.names.multi,
+        naive = TRUE,
         inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
         body.tag = FALSE,
         include.pvalues=TRUE,
-          caption="Logistic multilevel random intercept model for social blame type of explanation", 
+        caption="Logistic multilevel random intercept model for social blame type of explanation", 
         caption.above=TRUE)
+
 ```
+
+
 
 #### Interpretation
 
@@ -515,7 +593,9 @@ htmlreg(list(soc.0,
 ### Individual blame type of explanation
 
 
-```{rmultilevelMultiInd, eval=FALSE}
+```{rmultilevelMultiInd}
+
+
 ind.0 <- glmer(pov.log.individual ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -538,18 +618,23 @@ ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
+
+
 ```
 
 
+```{rmultilevelMultiIndOutputNOCI, results='asis'}
 
-```{rmultilevelMultiIndOutput, results='asis', eval=FALSE}
-htmlreg(list(soc.0,
+
+htmlreg(list(ind.0,
        ind.1,
        ind.2,
        ind.3,
        ind.4),
         custom.model.names = model.names.multi,
         custom.coef.names = coef.names.multi,
+        naive = TRUE,
+        ci.test = NULL,
         inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
@@ -558,10 +643,63 @@ htmlreg(list(soc.0,
         include.pvalues=TRUE,
           caption="Logistic multilevel random intercept model for social blame type of explanation", 
         caption.above=TRUE)
+
+```
+
+### Comparison of full models with our last model 
+
+```{rmultilevelMultivarFull}
+
+soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+
+ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+
+df.model$pov.log.socVsInc[df.model$poverty == "Social Blame"] <- 1
+df.model$pov.log.socVsInc[df.model$poverty == "Individual Blame"] <- 0
+
+socVsInc <- glmer(pov.log.socVsInc ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+
+
 ```
 
 
-#### Interpretation
+
+```{rrmultilevelMultivarFullOutput, results='asis', eval=TRUE}
+model.names.multi.2 = c("Social blame vs. not",
+                      "Individual blame vs. not",
+                        "Social blame vs. Individual blame")
+
+library(texreg)
+htmlreg(list(soc.4,ind.4,socVsInc),
+        naive = TRUE,
+        custom.model.names = model.names.multi.2,
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+        caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
+        caption.above=TRUE)
+
+
+```
+
+
+
 
 
 

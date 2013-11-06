@@ -1,3 +1,5 @@
+% Multilevel modelling
+
 
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attrib/attrib_year2013/code/")
@@ -9,6 +11,7 @@ system("~/.cabal/bin/pandoc -s multilevel_models.md -o multilevel_models.html")
 
 #system("perl -pi -e 's/footnotesize/tiny/g' multilevel_models.tex")
 ```
+
 
 <link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
 
@@ -23,26 +26,7 @@ setwd("~/workspace/lits/attrib/attrib_year2013/code")
 #########################################
 load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
 
-summary(bisoc.1 <- glmer(pov.log.social ~ incsour3+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.2 <- glmer(pov.log.social ~ edu2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.3 <- glmer(pov.log.social ~ income2+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.4 <- glmer(pov.log.social ~ past.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.7 <- glmer(pov.log.social ~ group1+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.8 <- glmer(pov.log.social ~ uw.gini+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.9 <- glmer(pov.log.social ~ gdpchange07.10+(1|cntry),
-                        family = binomial(logit), data=df))
-summary(bisoc.10 <- glmer(pov.log.social ~ wbgi.vae+(1|cntry),
-                         family = binomial(logit), data=df))
+
 
 summary(biind.1 <- glmer(pov.log.individual ~ incsour3+(1|cntry),
                         family = binomial(logit), data=df))
