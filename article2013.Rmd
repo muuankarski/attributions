@@ -33,11 +33,6 @@ system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --to
 
 ```
 
-**Nootti**
-
-*Paperi on vielä hieman vaiheessa ja suosittelen tutustumaan tutkimuksen analytiikkaan osoitteessa: [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/). Yritän parhaillaan saada monitasomallintamista paremmalle tolalle. Paperissa olevat mallit ovat alustavia ja pitävät sisällään sekä teoreettista että menetelmällistä epätarkkuutta.*
-
-****
 
 **Abstract**
 
@@ -62,7 +57,7 @@ Pioneering empirical studies on lay explanations of poverty emerged at the early
 
 van Oorschot and Halman (2000) have suggested a four-tier typology (Table 1) in which individual blame emphasises internal factors, such as undesirable behaviour of the poor, moral looseness and laziness. Individual fate type of explanation emphasises that poverty can be caused by uncontrollable and inescapable internal factors. These are factors such as personal misfortune, illness or just bad luck. Social fate points out that poverty is caused by societal factors, but these factors are due to impersonal and unavoidable processes such as economic recessions. Finally, social blame sees poverty as the result of processes induced and controlled by the actions of certain groups and parties in society. Therefore, these groups and parties can be blamed for poverty.
 
-![Dimensions and types of explanations of poverty](figure/nelikentta.png)
+![Dimensions and types of explanations of poverty](figure/nelikentta.pdf)
 
 Prior empirical findings on attributions for poverty in Europe have shown that there are some differences between the West and the East of Europe. Western Europeans are more inclined to support structural explanations for poverty than their Eastern counterparts. On the other hand, individual blame type of explanation is generally more popular in the East than in the West of Europe (Kallio and Niemelä, 2010; Kreidl, 2000; Lepianka, 2007; Lepianka et al., 2010; van Oorschot and Halman, 2000). Earlier results suggest, however, that there are variations both within and across groups of countries. Interestingly enough, the variation is highest within the East Central European countries (Kallio and Niemelä, 2010). Also Lepianka et al. (2010) come to the conclusion that further investigation is required due to rather large variation across countries. They showed that individual fate type of explanation is supported relatively less frequently in the East of Europe than in Western European countries. Regarding the variation within the Eastern European countries, they found that in some countries individual blame is strongly endorsed: especially the citizens of Czech Republic attribute poverty in internal terms (see also Lepianka, 2007). On the other hand, there are countries like Lithuania, Poland, Romania and Croatia in which social blame type of explanation is strongly supported. Finally, social fate type of explanation – living in poverty is explained as simply being part of modern progress – is endorsed especially in Russia.
 
@@ -108,7 +103,7 @@ The study utilizes the data from the second wave of Life in Transition Survey[^*
 
 [^***2]:[ebrd.com/pages/research/publications/special/transitionII.shtml](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml)
 
-![Countries used in the analysis](figure/mapplot.png)
+![Countries used in the analysis](figure/mapplot.pdf)
 
 We are using LiTS2 data from 21 transition countries with additional 4 Western European countries (France, Germany, Italy and Sweden) (See Figure 1). In total 23513 households from 25 countries are included in the analysis. Transition countries were broken down into two groups. CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. 
 
@@ -148,7 +143,7 @@ Transfer dependency         Social or private transfers as main source of income
 
 Low education               No or only compulsory level education
 
-Perceived low income level  Perceived income level below the country median
+Perceived low income level  Perceived income level below the country median (median calculated from the 10 step scale)
 
 Income compared to past     Perceived change in income compared to situation in four years ago
 
@@ -200,7 +195,7 @@ source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5, 
                     caption="Weighted population shares of dependent variable by country",),
-              type="html",
+              type="latex",
               comment=FALSE, 
               include.rownames=FALSE,
              caption.placement="top")
@@ -218,25 +213,47 @@ Hence, the results are in line with our assumptions and prior research (Lepianka
 
 The results above indicate that there are cross-national differences between countries and within country groups which means that there are also some other contextual and individual-level factors which should explain the cross-national differences. Therefore, we will also analyse the importance of country-level economic, social and political conditions and individual-level risk factors related to financial hardship as determinants for attributions for poverty. Because the descriptive results showed that the majority of citizens in the post-socialist countries endorsed social and individual blame types of explanations, the subsequent analyses will focus only on these two explanations.
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.png)
+![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.pdf)
 
 Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.png)
+![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.pdf)
 
 There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.png)
+![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
->Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.png)
+>Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.pdf)
 
 In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 
 ## Multilevel analysis
 
-*There we some issues in converts regression outputs so the tables are evolving and can be browsed at: [http://research.muuankarski.org/attributions/code/multilevel_models.html](http://research.muuankarski.org/attributions/code/multilevel_models.html)*
 
-****
+```{rrmultilevelMultivarFullOutput, results='asis', eval=TRUE}
+load("data/finalModels.RData")
+
+model.names.multi.2 = c("Social blame vs. not",
+                      "Individual blame vs. not",
+                        "Social blame vs. Individual blame")
+
+library(texreg)
+texreg(list(soc.4,ind.4,socVsInc),
+        naive = TRUE,
+        custom.model.names = model.names.multi.2,
+        custom.coef.names = coef.names.multi,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+        caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
+        caption.above=TRUE)
+
+
+```
+
 
 <!--
 

@@ -671,7 +671,7 @@ socVsInc <- glmer(pov.log.socVsInc ~ incsour3+edu2+income2+
                        family = binomial(logit),
                        data = df.model)
 
-
+save(ind.4,soc.4,socVsInc, file="data/finalModels.RData")
 ```
 
 
