@@ -672,6 +672,8 @@ socVsInc <- glmer(pov.log.socVsInc ~ incsour3+edu2+income2+
                        data = df.model)
 
 save(ind.4,soc.4,socVsInc, file="data/finalModels.RData")
+save(ind.1,ind.2,ind.3,ind.4, file="data/finalModelsX.RData")
+
 ```
 
 

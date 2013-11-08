@@ -20,7 +20,10 @@ opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.w
 setwd("~/workspace/lits/attrib/attrib_year2013/")
 library(knitr)
 knit("article2013.Rmd")
-system("~/.cabal/bin/pandoc article2013.md --number-sections -o article2013.pdf")
+system("~/.cabal/bin/pandoc article2013.md --template=../../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --latex-engine=xelatex -o article2013.pdf")
+
+system("~/.cabal/bin/pandoc article2013.md  --number-sections -o article2013.pdf")
+
 system("~/.cabal/bin/pandoc -s article2013.md --toc --number-sections -o article2013.html")
 system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.docx --standalone --toc --number-sections")
 system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --toc --number-sections")
@@ -102,8 +105,6 @@ As an individual-level determinants for the perceptions article test to what ext
 The study utilizes the data from the second wave of Life in Transition Survey[^***2] (LiTS2), conducted by European Bank of Development and Reconstruction (EBRD) and  World Bank (WB) in 2010. The survey was collected using a two-stage clustered stratified sampling procedure to select the households that were included in the sample. More information regarding how households were sampled and people interviewed is available at ERBD, 2011. Second round of the survey had a special focus on how peoples lives were affected by the global economic crisis and it's aftermath. The dataset, documentation and publications are freely available at the survey website.
 
 [^***2]:[ebrd.com/pages/research/publications/special/transitionII.shtml](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml)
-
-![Countries used in the analysis](figure/mapplot.pdf)
 
 We are using LiTS2 data from 21 transition countries with additional 4 Western European countries (France, Germany, Italy and Sweden) (See Figure 1). In total 23513 households from 25 countries are included in the analysis. Transition countries were broken down into two groups. CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. 
 
@@ -194,11 +195,11 @@ Table 3 shows the proportion of the total number of respondents in a country whi
 source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5, 
-                    caption="Weighted population shares of dependent variable by country",),
+                    caption="Weighted population shares of dependent variable by country",),table.placement="H",
               type="latex",
               comment=FALSE, 
               include.rownames=FALSE,
-             caption.placement="top")
+             caption.placement="top",)
 
 ```
 
@@ -227,41 +228,48 @@ There is also a substantial variation in the level of income inequality among po
 
 In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 
+\newpage
+
 ## Multilevel analysis
 
+*As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.*
 
-```{rrmultilevelMultivarFullOutput, results='asis', eval=TRUE}
+
+```{rarticleModels, results='asis', eval=TRUE}
 load("data/finalModels.RData")
 
-model.names.multi.2 = c("Social blame vs. not",
-                      "Individual blame vs. not",
-                        "Social blame vs. Individual blame")
+model.names.multi.2 = c("SB vs. not",
+                      "IB vs. not",
+                        "SB vs. IB")
+
+coef.names.multi = c("(intercept)", 
+                      "Dependent","Low education",
+                      "Low income","Income has worsened",
+                      "Income will worsen","Has affected great or fair amount",
+                      "Gini coefficient",
+                      "Change in GDP between 2007 to 2010",
+                      "Good governance")
 
 library(texreg)
-texreg(list(soc.4,ind.4,socVsInc),
-        naive = TRUE,
+texreg(list(soc.4,ind.4,socVsInc),float.pos="H",
+        use.packages=TRUE,
+        #booktabs=TRUE,
+        #dcolumn=TRUE,
+        #sideways=TRUE, 
+        naive = TRUE, 
+        caption.above=TRUE,
+        doctype=FALSE,
         custom.model.names = model.names.multi.2,
         custom.coef.names = coef.names.multi,
-        inline.css = FALSE,
-        doctype = FALSE,
-        html.tag = FALSE,
-        head.tag = FALSE,
-        body.tag = FALSE,
         include.pvalues=TRUE,
-        caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
-        caption.above=TRUE)
+        caption="Logistic multilevel random intercept model for social and individual blame type of explanation")
 
 
 ```
 
 
-<!--
-
-As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
-
--->
-
 Table 4 and 5 present figures for multilevel logistic analysis. Calculating R² or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
+
 
 Between-country variances are on the first rows in random effects, meaning the variance in dependent variable that is explained by country differences. Variance in empty models is .29 in social blame and .12 in individual blame indicating that there are differences between countries, and that differences are greater in respect to support for social blame type of explanation. Inclusion of individual level predictors decreases the variance in both models, but only moderately.
 
