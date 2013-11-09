@@ -70,11 +70,10 @@ plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame,
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=gdpchange07.10, 
-                          y=socialBlame, 
-                            color=group_general), alpha=.5) +
+                          y=socialBlame, color=group_general)) +
   geom_text(data=west, aes(x=gdpchange07.10, 
                            y=socialBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   labs(x = "Change in GDP between 2007 and 2010 (%)", 
        y = "Support for social blame type of explanation (%)") + 
@@ -110,11 +109,10 @@ plot2 <- ggplot(t4, aes(x=gdpchange07.10,
              y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=gdpchange07.10, 
-                            y=individualBlame, 
-                            color=group_general), alpha=.5) +
+                            y=individualBlame, color=group_general)) +
   geom_text(data=west, aes(x=gdpchange07.10, 
                            y=individualBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   labs(x = "Change in GDP between 2007 and 2010 (%)", 
        y = "Support for individual blame type of explanation (%)") +
@@ -131,13 +129,13 @@ plot2 <- ggplot(t4, aes(x=gdpchange07.10,
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gdp.pdf", width=14/2.54, height=22/2.54)
-grid.arrange(plot1,plot2, ncol=1)
+pdf("figure/scatter_gdp.pdf", width=14/2.54, height=10/2.54)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gdp.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=1)
+png("figure/scatter_gdp.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 ```
 
@@ -169,11 +167,10 @@ plot1 <- ggplot(t4, aes(x=uw_gini, y=socialBlame, label=cntry)) +
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=uw_gini, 
-                            y=socialBlame, 
-                            color=group_general), alpha=.5) +
+                            y=socialBlame, color=group_general)) +
   geom_text(data=west, aes(x=uw_gini, 
                            y=socialBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(20,60)) +
@@ -207,11 +204,10 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
                           y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=uw_gini, 
-                            y=individualBlame, 
-                            color=group_general), alpha=.5) +
+                            y=individualBlame, color=group_general)) +
   geom_text(data=west, aes(x=uw_gini, 
                            y=individualBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(20,60)) +
@@ -226,13 +222,13 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gini.pdf", width=14/2.54, height=22/2.54)
-grid.arrange(plot1,plot2, ncol=1)
+pdf("figure/scatter_gini.pdf", width=14/2.54, height=10/2.54)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gini.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=1)
+png("figure/scatter_gini.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 ```
 
@@ -264,11 +260,10 @@ plot1 <- ggplot(t4, aes(x=wbgi_vae, y=socialBlame,
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=wbgi_vae, 
-                            y=socialBlame,
-                            color=group_general), alpha=.5) +
+                            y=socialBlame, color=group_general)) +
   geom_text(data=west, aes(x=wbgi_vae, 
                            y=socialBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(-2,2)) +
@@ -303,11 +298,10 @@ geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) 
                           y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=wbgi_vae, 
-                            y=individualBlame, 
-                            color=group_general), alpha=.5) +
+                            y=individualBlame, color=group_general)) +
   geom_text(data=west, aes(x=wbgi_vae, 
                            y=individualBlame, label=cntry),
-            alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
+            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(-2,2)) +
@@ -322,13 +316,13 @@ geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) 
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_wbgi.pdf", width=14/2.54, height=22/2.54)
-grid.arrange(plot1,plot2, ncol=1)
+pdf("figure/scatter_wbgi.pdf", width=14/2.54, height=10/2.54)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_wbgi.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=1)
+png("figure/scatter_wbgi.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=2)
 dev.off()
 
 ```
@@ -336,7 +330,9 @@ dev.off()
 ![](figure/scatter_wbgi.png)
 
 
+```{rattribFinalPlotsx, eval=FALSE}
 
+```
 
 
 

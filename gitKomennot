@@ -1,0 +1,10 @@
+# git
+cd ~/workspace/lits/attrib/attrib_year2013
+git branch mikko
+git checkout mikko
+# tee muutokset 
+commit -a -m 'muutos tehty'
+
+git checkout master
+git merge mikko
+
