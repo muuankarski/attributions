@@ -82,8 +82,12 @@ lits2$group_analysis[lits2$cntry %in% c('Armenia','Azerbaijan',
                                         'Moldova','Tajikistan',
                                         'Ukraine','Uzbekistan','Russia')] <- 'CIS'
 
-summary(factor(lits2$group_analysis))
+lits2$group_analysis <- factor(lits2$group_analysis, levels=c("Western Europe",
+                                                             "CEE",
+                                                             "CIS",
+                                                             NA))
 
+summary(lits2$group_analysis)
 ```
 
 ## Recoding the dependent variable
@@ -412,7 +416,10 @@ datQogSum.w$group_general[datQogSum.w$cname %in% c('Armenia','Azerbaijan','Belar
                                                    'Tajikistan','Ukraine',
                                                    'Uzbekistan','Russia')] <- 'CIS'
 
-datQogSum.w$group_general <- factor(datQogSum.w$group_general)
+datQogSum.w$group_general <- factor(datQogSum.w$group_general, 
+                                    levels=c("Western Europe",
+                                             "CEE",
+                                             "CIS"))
 
 df.qog <- datQogSum.w
 # underschores into dots for latex...

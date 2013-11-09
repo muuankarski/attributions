@@ -35,8 +35,7 @@ library(grid)
 #########################################
 setwd("~/workspace/lits/attrib/attrib_year2013")
 #########################################
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
-
+cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
 
 
 #########################################
@@ -48,8 +47,7 @@ load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
 ## GDP change
 
 ```{rattribFinalPlotsGDP}
-# valitaan vaan kohdemaat
-
+# valitaan vaan kohdemaat #
 t3 <- subset(macro, group_fine != 'West Europe')
 west <- subset(macro, group_fine == 'West Europe')
 #t3 <- macro
@@ -62,6 +60,7 @@ func <- function(t3)
 df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(socialBlame, gdpchange07.10) ~ COR, data=t4, mean),2)
+  
 plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame, 
                         label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
@@ -134,12 +133,12 @@ plot2 <- ggplot(t4, aes(x=gdpchange07.10,
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gdp.pdf", width=14/2.54, height=22/2.54)
+pdf("figure/scatter_gdp.pdf", width=12/2.54, height=18/2.54)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gdp.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+png("figure/scatter_gdp.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 ```
@@ -229,12 +228,12 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gini.pdf", width=14/2.54, height=22/2.54)
+pdf("figure/scatter_gini.pdf", width=12/2.54, height=18/2.54)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gini.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+png("figure/scatter_gini.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 ```
@@ -325,14 +324,16 @@ geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_wbgi.pdf", width=14/2.54, height=22/2.54)
+pdf("figure/scatter_wbgi.pdf", width=12/2.54, height=18/2.54)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_wbgi.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+png("figure/scatter_wbgi.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
+
+
 
 ```
 
@@ -340,6 +341,7 @@ dev.off()
 
 
 ```{rattribFinalPlotsMap}
+
 library(RColorBrewer)
 library(mapproj)
 library(maptools)
@@ -365,11 +367,6 @@ map$group_analysis[map$NAME %in% c('Armenia','Azerbaijan',
                                         'Moldova','Tajikistan',
                                         'Ukraine','Uzbekistan','Russia')] <- 'CIS'
 map$NAME <- as.factor(map$NAME)
-
-map$group_analysis <- factor(map$group_analysis, levels=c("Western Europe",
-                                                             "CEE",
-                                                             "CIS",
-                                                             NA))
 
 # shapefile into data.frame
 map@data$id <- rownames(map@data)
@@ -402,12 +399,12 @@ mapplot <- ggplot(map.df, aes(long,lat,group=group)) +
   
   
 
-pdf("figure/mapplot.pdf", width=14/2.54, height=10/2.54)
+pdf("figure/mapplot.pdf", width=14/2.54, height=12/2.54)
 mapplot
 dev.off()
 
 ppi <- 300
-png("figure/mapplot.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
+png("figure/mapplot.png", width=14/2.54*ppi, height=12/2.54*ppi, res=ppi)
 mapplot
 dev.off()
 

@@ -37,6 +37,7 @@ date      comment
 20131103  Regression modelling in process. Final models will be published on Tuesday afternoon
 20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
 20131106  Regression modelling somewhat done for Turku seminar.
+20131109  Corrections from Turku and the text restuctured. Methods needs to be opened
 
 
 # Introduction
@@ -80,12 +81,13 @@ html-ouput                                                source code
 [Final tables](finalTables.html)                          [source](finalTables.Rmd)
 -------------------
 
-# Paper
+# Article draft
 
-- [Article draft in .html](article2013.html)
-- [Article draft in .pdf](article2013.pdf)
-- [Article draft in .epub](article2013.epub)
-- [Article draft in .docx](article2013.docx)
+-------------------
+pdf-output                                                source code
+------------                                              --------------
+[Article draft in .pdf](article2013.pdf)                  [source](article2013.Rmd)
+-------------------
 
 
 
