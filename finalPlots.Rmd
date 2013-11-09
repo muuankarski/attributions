@@ -22,7 +22,7 @@ system("pandoc -s finalPlots.md -o finalPlots.html --toc --number-section")
 
 
 ```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
+opts_chunk$set(echo=FALSE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
 ```
 
 
@@ -35,7 +35,10 @@ library(grid)
 #########################################
 setwd("~/workspace/lits/attrib/attrib_year2013")
 #########################################
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
+
+
+
 #########################################
 load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
 ```
@@ -61,7 +64,7 @@ t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(socialBlame, gdpchange07.10) ~ COR, data=t4, mean),2)
 plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame, 
                         label=cntry)) +
-  geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +  
+  geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(data=cnames, aes(gdpchange07.10,socialBlame, label = COR, group=COR), 
             size=2.5, color="black") +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
@@ -70,10 +73,11 @@ plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame,
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=gdpchange07.10, 
-                          y=socialBlame, color=group_general)) +
+                          y=socialBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=gdpchange07.10, 
                            y=socialBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   labs(x = "Change in GDP between 2007 and 2010 (%)", 
        y = "Support for social blame type of explanation (%)") + 
@@ -100,7 +104,7 @@ t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(individualBlame, gdpchange07.10) ~ COR, data=t4, mean),2)
 plot2 <- ggplot(t4, aes(x=gdpchange07.10, 
                         y=individualBlame, label=cntry)) +
-  geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +  
+  geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5, color="black") +
   geom_text(data=cnames, aes(gdpchange07.10,individualBlame, label = COR, group=COR), 
             size=2.5, color="black") +
@@ -109,10 +113,11 @@ plot2 <- ggplot(t4, aes(x=gdpchange07.10,
              y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=gdpchange07.10, 
-                            y=individualBlame, color=group_general)) +
+                            y=individualBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=gdpchange07.10, 
                            y=individualBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   labs(x = "Change in GDP between 2007 and 2010 (%)", 
        y = "Support for individual blame type of explanation (%)") +
@@ -129,13 +134,13 @@ plot2 <- ggplot(t4, aes(x=gdpchange07.10,
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gdp.pdf", width=14/2.54, height=10/2.54)
-grid.arrange(plot1,plot2, ncol=2)
+pdf("figure/scatter_gdp.pdf", width=14/2.54, height=22/2.54)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gdp.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=2)
+png("figure/scatter_gdp.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 ```
 
@@ -156,7 +161,7 @@ df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(socialBlame, uw_gini) ~ COR, data=t4, mean),2)
 plot1 <- ggplot(t4, aes(x=uw_gini, y=socialBlame, label=cntry)) +
-  geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +  
+  geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
   geom_text(data=cnames, aes(uw_gini,socialBlame, label = COR, group=COR), 
             size=2.5, color="black") +
@@ -167,10 +172,11 @@ plot1 <- ggplot(t4, aes(x=uw_gini, y=socialBlame, label=cntry)) +
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=uw_gini, 
-                            y=socialBlame, color=group_general)) +
+                            y=socialBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=uw_gini, 
                            y=socialBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(20,60)) +
@@ -193,7 +199,7 @@ df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(individualBlame, uw_gini) ~ COR, data=t4, mean),2)
 plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
-  geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +  
+  geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
   geom_text(data=cnames, aes(uw_gini,individualBlame, label = COR, group=COR), 
             size=2.5, color="black") +
@@ -204,10 +210,11 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
                           y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=uw_gini, 
-                            y=individualBlame, color=group_general)) +
+                            y=individualBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=uw_gini, 
                            y=individualBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(20,60)) +
@@ -222,13 +229,13 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gini.pdf", width=14/2.54, height=10/2.54)
-grid.arrange(plot1,plot2, ncol=2)
+pdf("figure/scatter_gini.pdf", width=14/2.54, height=22/2.54)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gini.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=2)
+png("figure/scatter_gini.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 ```
 
@@ -249,7 +256,7 @@ t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(socialBlame, wbgi_vae) ~ COR, data=t4, mean),2)
 plot1 <- ggplot(t4, aes(x=wbgi_vae, y=socialBlame, 
                         label=cntry)) +
-  geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +
+  geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
   geom_text(data=cnames, aes(wbgi_vae,socialBlame, label = COR, group=COR), 
             size=2.5, color="black") +
@@ -260,10 +267,11 @@ plot1 <- ggplot(t4, aes(x=wbgi_vae, y=socialBlame,
                           y=socialBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=wbgi_vae, 
-                            y=socialBlame, color=group_general)) +
+                            y=socialBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=wbgi_vae, 
                            y=socialBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(-2,2)) +
@@ -287,7 +295,7 @@ t4 <- join(t3,df.cor,by="group1")
 cnames <- round(stats:::aggregate.formula(cbind(individualBlame, wbgi_vae) ~ COR, data=t4, mean),2)
 plot2 <- ggplot(t4, aes(x=wbgi_vae, 
                         y=individualBlame, label=cntry)) +
-geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) +
+geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
   geom_text(data=cnames, aes(wbgi_vae,individualBlame, label = COR, group=COR), 
             size=2.5, color="black") +
@@ -298,10 +306,11 @@ geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) 
                           y=individualBlame, color=group_general)) +
   # west reference
   geom_point(data=west, aes(x=wbgi_vae, 
-                            y=individualBlame, color=group_general)) +
+                            y=individualBlame, 
+                            color=group_general), alpha=.5) +
   geom_text(data=west, aes(x=wbgi_vae, 
                            y=individualBlame, label=cntry),
-            color="Dim Grey", size=2, vjust=-0.8, hjust=0.5) +
+             alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
   coord_cartesian(xlim=c(-2,2)) +
@@ -316,13 +325,13 @@ geom_smooth(method=lm, se=FALSE, color="Dim Grey", linetype="dashed", size=0.5) 
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_wbgi.pdf", width=14/2.54, height=10/2.54)
-grid.arrange(plot1,plot2, ncol=2)
+pdf("figure/scatter_wbgi.pdf", width=14/2.54, height=22/2.54)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_wbgi.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
-grid.arrange(plot1,plot2, ncol=2)
+png("figure/scatter_wbgi.png", width=14/2.54*ppi, height=22/2.54*ppi, res=ppi)
+grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ```
@@ -330,9 +339,80 @@ dev.off()
 ![](figure/scatter_wbgi.png)
 
 
-```{rattribFinalPlotsx, eval=FALSE}
+```{rattribFinalPlotsMap}
+library(RColorBrewer)
+library(mapproj)
+library(maptools)
+library(rgdal)
+map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
+                                layer="lits_all_simple"))
+
+map$NAME <- as.character(map$NAME)
+map$NAME[map$NAME == "United Kingdom"] <- 'Great Britain'
+map$group_analysis[map$NAME %in% c('France','Germany',
+                                        'Great Britain',
+                                        'Italy','Sweden')] <- 'Western Europe'
+
+map$group_analysis[map$NAME %in% c('Czech Republic','Estonia',
+                                        'Hungary','Bulgaria',
+                                        'Latvia','Lithuania',
+                                        'Poland','Slovakia',
+                                        'Slovenia','Romania')] <- 'CEE'
+
+map$group_analysis[map$NAME %in% c('Armenia','Azerbaijan',
+                                        'Belarus','Georgia',
+                                        'Kazakhstan','Kyrgyzstan',
+                                        'Moldova','Tajikistan',
+                                        'Ukraine','Uzbekistan','Russia')] <- 'CIS'
+map$NAME <- as.factor(map$NAME)
+
+map$group_analysis <- factor(map$group_analysis, levels=c("Western Europe",
+                                                             "CEE",
+                                                             "CIS",
+                                                             NA))
+
+# shapefile into data.frame
+map@data$id <- rownames(map@data)
+library(ggplot2)
+map.points <- fortify(map, region="id")
+map.df <- merge(map.points, map@data, by="id")
+# only east of longitude -25
+map.df <- subset(map.df, long >= -15 & long <= 80)
+# names for countries in analysis (excluding others)
+namedata <- map.df[!is.na(map.df$group_analysis),]
+cnames <- stats:::aggregate.formula(cbind(long, lat) ~ NAME, data=namedata, mean)
+
+mapplot <- ggplot(map.df, aes(long,lat,group=group)) +
+  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(aes(fill = group_analysis)) + # or group_fine !!
+  scale_fill_manual(values=cbPalette) +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white", size=.3) +
+  geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
+  coord_map(project="orthographic") +
+  theme_minimal() + 
+  theme(legend.position="top") +
+  theme(legend.title=element_blank()) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank()) +
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank()) +
+  theme(legend.key.size = unit(3, "mm"))
+  
+  
+
+pdf("figure/mapplot.pdf", width=14/2.54, height=10/2.54)
+mapplot
+dev.off()
+
+ppi <- 300
+png("figure/mapplot.png", width=14/2.54*ppi, height=10/2.54*ppi, res=ppi)
+mapplot
+dev.off()
 
 ```
 
 
+![](figure/mapplot.png)
 

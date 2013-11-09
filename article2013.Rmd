@@ -1,4 +1,4 @@
-﻿% Attributions for Poverty in Post-Socialist Countries[^*]
+% Attributions for Poverty in Post-Socialist Countries[^*]
 % Markus Kainu[^**];Mikko Niemelä[^***]
 % October 2013
 
@@ -20,7 +20,9 @@ opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.w
 setwd("~/workspace/lits/attrib/attrib_year2013/")
 library(knitr)
 knit("article2013.Rmd")
-system("~/.cabal/bin/pandoc article2013.md --number-sections -o article2013.pdf")
+system("~/.cabal/bin/pandoc article2013.md --template=../../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --latex-engine=xelatex -o article2013.pdf")
+system("~/.cabal/bin/pandoc article2013.md  --number-sections -o article2013.pdf")
+
 system("~/.cabal/bin/pandoc -s article2013.md --toc --number-sections -o article2013.html")
 system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.docx --standalone --toc --number-sections")
 system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --toc --number-sections")
@@ -33,11 +35,6 @@ system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --to
 
 ```
 
-**Nootti**
-
-*Paperi on vielä hieman vaiheessa ja suosittelen tutustumaan tutkimuksen analytiikkaan osoitteessa: [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/). Yritän parhaillaan saada monitasomallintamista paremmalle tolalle. Paperissa olevat mallit ovat alustavia ja pitävät sisällään sekä teoreettista että menetelmällistä epätarkkuutta.*
-
-****
 
 **Abstract**
 
@@ -64,7 +61,7 @@ Pioneering empirical studies on lay explanations of poverty emerged at the early
 
 van Oorschot and Halman (2000) have suggested a four-tier typology (Table 1) in which individual blame emphasizes internal factors, such as undesirable behaviour of the poor, moral looseness and laziness. Individual fate type of explanation emphasizes that poverty can be caused by uncontrollable and inescapable internal factors. These are factors such as personal misfortune, illness or just bad luck. Social fate points out that poverty is caused by societal factors, but these factors are due to impersonal and unavoidable processes such as economic recessions. Finally, social blame sees poverty as the result of processes induced and controlled by the actions of certain groups and parties in society. Therefore, these groups and parties can be blamed for poverty.
 
-![Dimensions and types of explanations of poverty](figure/nelikentta.png)
+![Dimensions and types of explanations of poverty](figure/nelikentta.pdf)
 
 Prior empirical findings on attributions for poverty in Europe have shown that there are some differences between the West and the East of Europe. Western Europeans are more inclined to support social explanations for poverty than their Eastern counterparts. On the other hand, individual blame type of explanation is generally more popular in the East than in the West of Europe (Kallio and Niemelä, 2013; Kreidl, 2000; Lepianka, 2007; Lepianka et al., 2010; van Oorschot and Halman, 2000). Earlier results suggest, however, that there are variations both within and across groups of countries. Interestingly enough, the variation is highest within the East Central European countries (Kallio and Niemelä, 2013). Also Lepianka et al. (2010) come to the conclusion that further investigation is required due to rather large variation across countries. They showed that individual fate type of explanation is supported relatively less frequently in the East of Europe than in Western European countries. Regarding the variation within the Eastern European countries, they found that in some countries individual blame is strongly endorsed: especially the citizens of Czech Republic attribute poverty in internal terms (see also Lepianka, 2007). On the other hand, there are countries like Lithuania, Poland, Romania and Croatia in which social blame type of explanation is strongly supported. Finally, social fate type of explanation – living in poverty is explained as simply being part of modern progress – is endorsed especially in Russia.
 
@@ -115,7 +112,7 @@ Thus, the question is a standard forced-choice question which is used also in ot
 
 As country-level determinants of perceptions, we will analyze, whether this variation can be explained by different regimes within post-socialist countries and the post-socialist legacy. The study divides post-socialist countries into two groups: Central Eastern Europe (CEE) and Commonwealth of Independent States (CIS). CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. The survey data enables us also to compare post-socialist countries to a selection of Western European nations (France, Germany, Italy and Sweden). Thus, in order to examine the distinctiveness of post-socialist perception, Western European countries are included in the descriptive analyses. (See Figure 1.)
 
-![Countries used in the analysis](figure/mapplot.png)
+![Countries used in the analysis](figure/mapplot.pdf)
 
 [^****]:Georgia withdrawn its membership from CIS in 2008
 
@@ -130,7 +127,7 @@ Table: Description of independent variables in the analyses.
 -----------------------------------------------------------------------------
 Variable                    Description
 ------------------------    -------------------------------------------------
-Individual-level
+**Individual-level**
 
 Transfer dependency         Social or private transfers as main source of income
 
@@ -144,7 +141,7 @@ Income compared to future   Expected change in income over the next four years
 
 Effect of financial crises  Whether respondents perceives that their household has suffered the financial crisis great or fair amount
 
-Country-level
+**Country-level**
 
 Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010
 
@@ -178,10 +175,10 @@ Table 3 shows the proportion of the total number of respondents in a country whi
 source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5, 
-                    caption="Weighted population shares of dependent variable by country",),
-              type="html",
-              comment=FALSE, 
-              include.rownames=FALSE,
+                    caption="Weighted population shares of dependent variable by country",),table.placement="H",
+             type="latex",
+             comment=FALSE, 
+             include.rownames=FALSE,
              caption.placement="top")
 
 ```
@@ -197,31 +194,56 @@ Hence, the results are in line with our assumptions and prior research (Lepianka
 
 The results above indicate that there are cross-national differences between countries and within country groups which means that there are also some other contextual and individual-level factors which should explain the cross-national differences. Therefore, we will also analyse the importance of country-level economic, social and political conditions and individual-level risk factors related to financial hardship as determinants for attributions for poverty. Because the descriptive results showed that the majority of citizens in the post-socialist countries endorsed social and individual blame types of explanations, the subsequent analyses will focus only on these two explanations.
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gdp.png)
+![Change in total GDP in 2007 - 2010 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gdp.pdf)
 
 Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_gini.png)
+![Gini coefficient and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gini.pdf)
 
 There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](figure/scatter_wbgi.png)
+![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
->Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.png)
+>Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.pdf)
 
 In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 
 ## Multilevel analysis
 
-*There we some issues in converts regression outputs so the tables are evolving and can be browsed at: [http://research.muuankarski.org/attributions/code/multilevel_models.html](http://research.muuankarski.org/attributions/code/multilevel_models.html)*
+*As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.*
 
-****
 
-<!--
 
-As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
+```{rarticleModels, results='asis', eval=TRUE}
+load("data/finalModels.RData")
 
--->
+model.names.multi.2 = c("SB vs. not",
+                        "IB vs. not",
+                        "SB vs. IB")
+
+coef.names.multi = c("(intercept)",
+                     "Dependent","Low education",
+                     "Low income","Income has worsened",
+                     "Income will worsen","Has affected great or fair amount",
+                     "Gini coefficient",
+                     "Change in GDP between 2007 to 2010",
+                     "Good governance")
+
+library(texreg)
+texreg(list(soc.4,ind.4,socVsInc),float.pos="H",
+       use.packages=TRUE,
+       #booktabs=TRUE,
+       #dcolumn=TRUE,
+       #sideways=TRUE,
+       naive = TRUE,
+       caption.above=TRUE,
+       doctype=FALSE,
+       custom.model.names = model.names.multi.2,
+       custom.coef.names = coef.names.multi,
+       include.pvalues=TRUE,
+       caption="Logistic multilevel random intercept model for social and individual blame type of explanation")
+ 
+```
 
 Table 4 and 5 present figures for multilevel logistic analysis. Calculating R² or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
 
