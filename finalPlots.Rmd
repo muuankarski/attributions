@@ -141,6 +141,15 @@ ppi <- 300
 png("figure/scatter_gdp.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
+
+png("figure/scatter_gdpSB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot1
+dev.off()
+png("figure/scatter_gdpIB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot2
+dev.off()
+
+
 ```
 
 ![](figure/scatter_gdp.png)
@@ -235,6 +244,13 @@ dev.off()
 ppi <- 300
 png("figure/scatter_gini.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
+dev.off()
+
+png("figure/scatter_giniSB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot1
+dev.off()
+png("figure/scatter_giniIB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot2
 dev.off()
 ```
 
@@ -333,7 +349,12 @@ png("figure/scatter_wbgi.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
-
+png("figure/scatter_wbgiSB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot1
+dev.off()
+png("figure/scatter_wbgiIB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+plot2
+dev.off()
 
 ```
 

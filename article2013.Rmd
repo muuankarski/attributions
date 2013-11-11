@@ -23,7 +23,7 @@ library(knitr)
 knit("article2013.Rmd")
 system("~/.cabal/bin/pandoc article2013.md --template=../../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --toc --latex-engine=xelatex -V lang=en -V papersize:a4paper -V documentclass=scrreprt -o article2013.pdf")
 # Kuvat kohdalleen - avaa päätte
-~/.cabal/bin/pandoc article2013.md --template=../../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --toc --latex-engine=xelatex -V lang=en -V papersize:a4paper -V documentclass=scrreprt -o article2013.tex
+~/.cabal/bin/pandoc article2013.md --template=../../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --toc --latex-engine=xelatex -V lang=english -V papersize:a4paper -V documentclass=scrreprt -o article2013.tex
 sed -i 's/begin{figure}\[htbp\]/begin{figure}\[H\]/g' article2013.tex
 xelatex article2013.tex
 
@@ -121,46 +121,45 @@ As an individual-level determinants for the perceptions article test to what ext
 
 Table: Description of independent variables in the analyses. 
 
------------------------------------------------------------------------------
-Variable                          Description
-------------------------          -------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+Variable                          Description                                                                                                   Source
+------------------------          ------------------------                                                                                      -----------
 **Individual-level**
 
-Transfer dependency               Social or private transfers as main source of income
+Transfer dependency               Social or private transfers as main source of income                                                          lits
 
-Low education                     No or only compulsory level education
+Low education                     No or only compulsory level education                                                                         lits
 
-Perceived low income level        Perceived income level below the country median
+Perceived low income level        Perceived income level below the country median                                                               lits
 
-Income compared to past           Perceived change in income compared to situation in four years ago
+Income compared to past           Perceived change in income compared to situation in four years ago                                            lits
 
-Income compared to future         Expected change in income over the next four years
+Income compared to future         Expected change in income over the next four years                                                            lits
 
-Effect of financial crises        Whether respondents perceives that their household has suffered the financial crisis great or fair amount
+Effect of financial crises        Whether respondents perceives that their household has suffered the financial crisis great or fair amount     list
 
 **Country-level**
 
-Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010
+Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010                                                                             World Bank
 
-Gini coefficient                  Measures the distribution of income or consumption expenditure among individuals or households
+Gini coefficient                  Measures the distribution of income or consumption expenditure among individuals or households                World Bank
 
-Voice and Accountability          Indicators measuring the political process, civil liberties and political rights. These indicators measure the extent to which citizens of a country are able to participate in the selection of governments. Indicators measuring the independence of the media is also included.
-Description
------------------------------------------------------------------------------
+Voice and Accountability          Indicators measuring the political process, civil liberties and political rights.                             World Bank
+--------------------------------------------------------------------------------------------
+
 
 An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of four variables: 1) change in total GDP in 2007 - 2010, 2) gini coefficient of economic inequality, 3) 2011 democracy index and 4) country grouping. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), gini coefficients from [UNU-WIDER World Income Inequality Database](http://www.wider.unu.edu/research/Database/en_GB/database/) and Democracy Index from the [Economist Intelligence Unit](http://www.eiu.com/Default.aspx). Gini coefficient for each country is the latest available varying from 2002 to 2006. (see Appendix A)
 
-TÄMÄ YLLÄ MAINITTU TEKSTI VOIDAAN KUITATA SÄRMÄSTI SILLÄ ETTÄ LISÄTÄÄN TUOHON TABLE 2:EN OIKEALLE PUOLELLE YKSI SARAKE OTSIKOLLA "DATA SOURCE" SIIHEN SITTEN INDIVIDUAL-LEVEL MUUTTUJIEN KOHDALLE JOKA RIVILLE LIFE IN TRANSITION SURVEY JA MAKROMUUTTUJIEN KOHDALLE TYYLIIN WORLD BANK 2013 JA SITTEN LÄHTEISIIN LÄHDEVIITEMERKINNÄT NÄILLE ELI WORLD BANK (2013) JA ONLINEVIITTAUS LEHDEN SÄÄTÖJEN MUKAISESTI.
+The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors, it is recommended to use multilevel regression analysis for this task (Snijders \& Bosker, 2011).  Multilevel analysis requires hierarchical dataset and allows the estimation of country-level effects on individual level outcomes. The analysis is performed using lmer-function from lme4 package in R. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
 
-The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors, it is recommended to use multilevel regression analysis for this task (Snijders \& Bosker, 2011).  Multilevel analysis requires hierarchical dataset and allows the estimation of country-level effects on individual level outcomes. The analysis is performed using lmer-function from lme4 package in R [^*****]. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
+Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. 
 
-[^*****]:R-code for data transformation and analysis is available at [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/)
-
-TÄTÄ YLLÄ MAINITTUA ALAVIITETTÄ EI VARMAANKAAN SAA LAITTAA SUBMITTED-VERSIOON. SE VOIDAAN HALUTTAESSA LISÄTÄ SITTEN KUN PAPERI ON HYVÄKSYTTY LEHTEEN.
-
-Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. Full model summaries currently available at [http://research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/).
+*A more throughout description of modelling will be added as the final details in modelling will be decided*
 
 # Results
+
+*Results and conclusions are not yet reshaped to match the recent changes in the analysis...*
 
 ## Descriptive statistics
 
@@ -227,12 +226,16 @@ model.names.multi = c("Empty",
                       "GDP change added",
                       "Good governance added")
 
-texreg(list(soc.0,
-        soc.1,
-        soc.2,
-        soc.3,
-        soc.4),
-        custom.model.names = model.names.multi,
+model.names.multi.A = c("SB empty",
+                      "SB individual",
+                      "SB all",
+                      "IB empty",
+                      "IB individual",
+                        "IB all")
+
+texreg(list(soc.0,soc.1,soc.4,
+            ind.0,ind.1,ind.4),
+        custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
         use.packages=TRUE,
@@ -244,23 +247,7 @@ texreg(list(soc.0,
 
 ```
 
-```{rarticleModelsInd, results='asis', eval=TRUE}
-texreg(list(ind.0,
-        ind.1,
-        ind.2,
-        ind.3,
-        ind.4),
-        custom.model.names = model.names.multi,
-        custom.coef.names = coef.names.multi,
-        naive = TRUE,
-        use.packages=TRUE,
-        include.pvalues=TRUE,
-        #sideways=TRUE,
-        scriptsize=TRUE,
-        caption="Logistic multilevel random intercept model for individual blame type of explanation", 
-        caption.above=TRUE)
 
-```
 
 ```{rarticleModelsFull, results='asis', eval=TRUE}
 load("data/finalModels.RData")
@@ -276,6 +263,7 @@ coef.names.multi = c("(intercept)",
                      "Gini coefficient",
                      "Change in GDP between 2007 to 2010",
                      "Good governance")
+
 
 library(texreg)
 texreg(list(soc.4,ind.4,socVsInc),float.pos="H",

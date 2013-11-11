@@ -102,7 +102,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 ## Individual blame
@@ -115,7 +116,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 
@@ -129,7 +131,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 ## Individual fate
@@ -142,7 +145,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 ## Not stated
@@ -155,7 +159,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 ## Dont know
@@ -168,7 +173,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 
@@ -191,7 +197,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 ### Gini coefficient
@@ -204,7 +211,8 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low=muted("blue"), high=muted("red"), midpoint=33.55) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
 
 
@@ -218,5 +226,6 @@ ggplot(plotMap, aes(long,lat,group=group)) +
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
   scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(legend.text = element_text(size=14))
 ```
