@@ -1,0 +1,47 @@
+# Attributions for Poverty in Post-Socialist Countries
+
+Markus Kainu & Mikko Niemelä
+
+August 28, 2013
+
+ESA Conference, Torino, Italy
+
+
+
+<aside class="notes">
+Hello all! We are taking your next 15 minutes to present our paper titled "XXX"
+</aside>
+
+```{r, eval=FALSE, echo=FALSE}
+library(knitr)
+setwd("~/workspace/lits/attrib/attrib_year2013/slides")
+knit("slides_attrib.Rmd")
+system("~/.cabal/bin/pandoc --section-divs -t html5 -s --template template_muuankarski.revealjs -o slides_attrib.html slides_attrib.md")
+
+
+```
+
+#
+
+![](http://www.markusossi.fi/wp-content/uploads/ilmaveivi.gif)
+
+
+# Scatterplots
+
+#
+
+## 
+
+![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gdp.png)
+
+#
+
+## 
+
+![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gini.png)
+
+#
+
+## 
+
+![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_wbgi.png)
