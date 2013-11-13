@@ -1,23 +1,13 @@
 Attributions for poverty in Post-Socialist Countries
 ========================================================
-author: European Sociological Association
-date: Torino, August 29, 2013
+author: Jatkokoulutusseminaari 
+date: Turussa, 7. marraskuuta 2013
+transition: fade
+css: ../../../../template/rpresentation/slides.css
 
-**Markus Kainu** </br>
-PhD student, [Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland </br>
-
-**Mikko Niemelä** </br>
-Senior Researcher, [Social Insurance Institution](http://kela.fi), Finland
-
-Slides url: [goo.gl/4nXQR1](http://goo.gl/4nXQR1)
+Markus Kainu &  Mikko Niemelä
 
 
-<!-- ---| notes begin |--------------------------------
-Few words about the authors and the beauty of Torino and the smooth arrangements of the conference
-
-cd ~/workspace/lits/attrib/attrib_year2013
-lftp -u np16003 -e "put TorinoSlides2013_final.html;quit" ftp://np16003@www.muuankarski.org/domains/markuskainu.fi/public_html/material/presentation
----------| notes end |-----------------------------  --> 
  
 Purpose of the study
 ========================================================
@@ -32,6 +22,14 @@ Can perceptions be attributed to certain contextual and individual level factors
 2. Contextual level: democracy, income inequality and changes in national economy
 
 
+Novelty of the study
+=======================================================
+- in depth study of "post-soviet welfare regime"
+- wider variety of political and economical regimes
+    - dynamics of welfare attitudes, welfare state and democracy in authoritarian regimes
+- assessing the impact of past, present and future expectations 
+
+
 
 <!-- ---| notes begin |--------------------------------
  
@@ -39,12 +37,11 @@ Can perceptions be attributed to certain contextual and individual level factors
  
 Different types of explanations
 ========================================================
-![](figure/nelikentta_slide.png)
+![](../figure/nelikentta_slide.png)
 
-<!-- ---| notes begin |--------------------------------
- 
----------| notes end |-----------------------------  --> 
- 
+*Source: van Oorschot and Halman (2000)*
+
+
 Assumptions
 ========================================================
 ## Cross-national differences
@@ -93,213 +90,244 @@ So, here is the question in regard to our dependent variable. This is a standard
 In regard to van Oorschot and Halman's typology of explanations, they equates "Unlucky" as individual fate, "laziness" as individual blame, "injustice" as social blame and "modern life" as social fate.
 ---------| notes end |-----------------------------  --> 
  
-Independent variables: Individual level
-========================================================
-```{rtablepredictor, results='asis', echo=FALSE}
-source("~/workspace/lits/attrib/attrib_year2013/code/iv_indiv_table.R")
-library(xtable)
-print.xtable(xtable(table), type="html", comment=FALSE, include.rownames=FALSE)
 
+results
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Key variables and descriptive figures</h1>
+
+Weighted population shares of DV by country
+========================================================
+
+```{rdvtbl2, echo=FALSE, fig.width=12}
+source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
+library(reshape2)
+tbl5 <- tbl5[c(-30:-32),]
+tbl5$country <- reorder(tbl5$country, tbl5$socialBlame, median)
+tbl5l <- melt(data=tbl5, id.vars="country")
+library(ggplot2)
+ggplot(tbl5l, aes(x=country,
+                  y=value,fill=variable)) +
+  geom_bar(stat="identity") + 
+  coord_flip() + 
+  theme(legend.position="top")
 
 ```
+
+
+
+Support for Social blame
+========================================================
+
+![](../figure/mapPlotsDV1.png)
+
+
+Support for Individual blame
+========================================================
+
+![](../figure/mapPlotsDV2.png)
+
+
+Support for Social fate
+========================================================
+
+![](../figure/mapPlotsDV3.png)
+
+Support for Individual fate
+========================================================
+
+![](../figure/mapPlotsDV4.png)
+
+
+Don't know
+========================================================
+
+![](../figure/mapPlotsDV5.png)
+
+Not stated
+========================================================
+
+![](../figure/mapPlotsDV6.png)
+
+results
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Independent variables</h1>
+
+Independent variables: Individual level
+========================================================
+
+<table>
+<col width="35%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Transfer dependency</td>
+<td align="left">Social or private transfers as main source of income</td>
+</tr>
+<tr class="even">
+<td align="left">Low education</td>
+<td align="left">No or only compulsory level education</td>
+</tr>
+<tr class="odd">
+<td align="left">Perceived low income level</td>
+<td align="left">Perceived income level below the country median</td>
+</tr>
+<tr class="even">
+<td align="left">Income compared to past</td>
+<td align="left">Perceived change in income compared to situation in four years ago</td>
+</tr>
+<tr class="odd">
+<td align="left">Income compared to future</td>
+<td align="left">Expected change in income over the next four years</td>
+</tr>
+<tr class="even">
+<td align="left">Effect of financial crises</td>
+<td align="left">Whether respondents perceives that their household has suffered the financial crisis great or fair amount</td>
+</tr>
+</tbody>
+</table>
+
+[Descriptive figures](../descriptive_analysis.html)
 
 <!-- ---| notes begin |--------------------------------
 As an independent individual level determinants we will examine factors related to individual's risk of poverty. They can be devided to "cross-sectional situation" (dependency, education and low income) and to perceived changes in econimic situation (past, future expectations, effect of economic crises)
 ---------| notes end |-----------------------------  --> 
+
  
 Independent variables: Contextual level
 ========================================================
-```{rtablepredictormacro, results='asis', echo=FALSE}
-source("~/workspace/lits/attrib/attrib_year2013/code/iv_macro_table.R")
-library(xtable)
-print.xtable(xtable(macrotable), type="html", comment=FALSE, include.rownames=FALSE)
 
-```
+<table>
+<col width="40%" />
+<col width="59%" />
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ghange in total GDP 2007 – 2010</td>
+<td align="left">Relative change from 2007 to 2010</td>
+</tr>
+<tr class="even">
+<td align="left">Gini coefficient</td>
+<td align="left">Measures the distribution of income or consumption expenditure among individuals or households</td>
+</tr>
+<tr class="odd">
+<td align="left">Voice and Accountability Description</td>
+<td align="left">Indicators measuring the political process, civil liberties and political rights. These indicators measure the extent to which citizens of a country are able to participate in the selection of governments. Indicators measuring the independence of the media is also included.</td>
+</tr>
+</tbody>
+</table>
 
-<!-- ---| notes begin |--------------------------------
-TÄHÄN SAMANLAINEN TAULUKKO KUIN EDELLÄ. Kolme saraketta: Variable, Description, Data source
-LISÄKSI TÄHÄN TAULUKKOON VOISI LAITTAA MAAJAON TAI SITTEN SE ESITELLÄÄN SEURAAVAN SLIDEN AVULLA
----------| notes end |-----------------------------  --> 
- 
+IV's - Change in GDP 
+========================================================
+![](../figure/mapPlotsIvMacro1.png)
 
-Country grouping
+
+Change in GDP vs. DV
 ========================================================
 title:false
-<caption>Country selection</caption>
-![](figure/mapplot.png)
+<caption>Change in total GDP in 2007 - 2010 and support for social (left) and  individual (right) blame types of attributions for  poverty</caption>
+![](../figure/scatter_gdp.png)
+
+
+
 
 <!-- ---| notes begin |--------------------------------
-Tässä pitää sitten selittää tuo jako ja se, että Western-maat ovat ikään kuin kontorlliporukkana tässä.
-OBS! Meillä on hajontakuvioissa eri maajako kuin tässä...
-OBS! Mun Oslon RC19 paperissa on merkintä, että voisimme tehdä niin, että western-maat olisivat kuvailevissa mukana paikantamassa East-maiden erilaisuuden astetta, mutta multilevel-jutut voitaisiin tehdä sitten pelkästään East-mailla. Mietitään Torinossa tehdäänkö näin. Hajontakuvioissahan ne aiheutti hieman sekaannusta Oslon paperissa,
 ---------| notes end |-----------------------------  --> 
  
+IV's - Gini coefficient 
+========================================================
+![](../figure/mapPlotsIvMacro2.png)
+ 
+Gini coefficient vs. DV
+========================================================
+title:false
+<caption>Gini  coefficient and support  for social (left) and  individual (right) blame types of attributions for  poverty</caption>
+![](../figure/scatter_gini.png)
+
 
 <!-- ---| notes begin |--------------------------------
-
-Preferences and trust
-TÄHÄN SAMANLAINEN TAULUKKO KUIN EDELLÄ. Kaksi saraketta: Variable, Description
-
 ---------| notes end |-----------------------------  --> 
  
+IV's - Voice and accountability 
+========================================================
+![](../figure/mapPlotsIvMacro3.png)
+ 
+Democracy vs. DV
+========================================================
+title:false
+<caption>World  Bank's Voice and Accountability index in 2011 and support ...</caption>
+
+![](../figure/scatter_wbgi.png)
+
+
 results
 ========================================================
 title: false
-<h1 style="text-align:center;padding-top:200px;">Results:</BR> descriptive analysis</h1>
+<h1 style="text-align:center;padding-top:200px;">Modelling the data</h1>
 
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-Weighted population shares of DV by country
+
+Regression modelling - constraints
 ========================================================
-<div style="font-size:0.8em;line-height:0.8em;">
-```{rdvtbl2, echo=FALSE, results='asis'}
-source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
-library(xtable)
-print.xtable(xtable(tbl5), type="html", include.rownames=FALSE)
 
-```
-</div>
-
-<!-- ---| notes begin |--------------------------------
-Tässä vain lyhyesti maininta siitä, että vastauksissa painottuu blame-kategoriat, mutta samanaikaisesti siellä on myös suurehkoja maiden välisiä eroja. Ei tarkempaa / yksityiskohtaisempaa selittelyä, koska ne näkyvät seuraavissa kuvissa
-JA SIKSI, jatkoanalyyseissä keskityimme social and individual blame -selityksiin.
----------| notes end |-----------------------------  --> 
- 
- 
- 
-spatialviewofblames
+- DV is categorical/factor with values: A,B,C,D
+- Major differences in IV's by country 
+    - clustered data (individual within countries)
+    - multilevel/mixed effects model setting
+    
+Regression modelling - solution..?
 ========================================================
-title:false
-<caption>Spatial view of support for blame type of explanations</caption>
-![](figure/mapplotfacet.png)
-
-contextualresults
-========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Contextual level associations</h1>
-
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
-
-
-Descriptive analysis - Change in GDP 
-========================================================
-title:false
-<caption>Change  in total GDP in 2007 - 2010 and support for social (left) and  individual (right) blame types of attributions for  poverty</caption>
-![](figure/scatter_gdp.png)
+    
+- As we are interested in two blame type of explanation
+- Our current solution to recode variable into two binary variables
+    - 1. A/not-A
+    - 1. B/not-B and 
+- model the data using logistic binary multilevel models for A/not-A, B/not-B and A/B - [Modelling](../regressionModelling.html)
 
 
 
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-Descriptive analysis - Gini coefficient
-========================================================
-title:false
-<caption>Gini  coefficient and support for social (left) and individual (right) blame  types of attributions for poverty</caption>
-![](figure/scatter_gini.png)
-
-
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-Descriptive analysis - Democracy
-========================================================
-title:false
-<caption>World  Bank's Voice and Accountability index in 2011 and support for social  (left) and individual (right) blame types of attributions for  poverty</caption>
-
-![](figure/scatter_wbgi.png)
-
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-Determinants: Multivariate analysis 
-========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Results: </br>Multivariate Analysis</h1>
-
-Multivariate Analysis - SOCIAL BLAME
-========================================================
-<div style="font-size:0.8em;line-height:0.8em;">
-```{rmultivariate1, echo=FALSE, results='asis'}
-source("~/workspace/lits/attrib/attrib_year2013/code/multi_logit.R")
-library(texreg)
-htmlreg(list(soc.0,
-       soc.1,
-       soc.2,
-       soc.3,
-       soc.4),
-       use.package=FALSE,
-       include.pvalues=TRUE,
-          caption="Logistic multilevel random intercept model for social blame type of explanation.", caption.above=TRUE, doctype = FALSE,
-        custom.coef.names=c("Intercept",
-                             "Transfer dependency (Not dependent)",
-                             "Education (No education)",
-                             "Perceived income (Low)",
-                             "Perceived change in income compared to four years ago (Has worsened)",
-                             "Expected change in income over next four years (Will worsen)",
-                             "Effect of financial crisis (Suffered great or fair amount)",
-                             "gini coefficient",
-                             "GDP change 2007-2010",
-                             "Voice And Accountability (WB)"),
-        custom.model.names=c("empty","Model SB1","Model SB2",
-                             "Model SB3","Model SB4"))
-```
-</div>
-
-<!-- ---| notes begin |--------------------------------
-Alkuun voi kertoa, että analyysit aloitettin bivariaattitarkastelulla, ja malleihin otettiin ne jotka olivat yksittäistarkasteluissa merkitseviä.
-Sanallisesti sitten vaan maininta päätuloksista. Ne kannattaa kirjoittaa muistiin valmiiksi.
----------| notes end |-----------------------------  --> 
-
- 
-Multivariate Analysis - INDIVIDUAL BLAME
-========================================================
-<div style="font-size:0.8em;line-height:0.8em;">
-```{rmultivariate2, echo=FALSE, results='asis'}
-
-
-htmlreg(list(ind.0,
-          ind.1,
-          ind.2,
-          ind.3,
-          ind.4),
-       use.packages=FALSE,
-       include.pvalues=TRUE,
-       caption="Logistic multilevel random intercept model for individual blame type of explanation.", 
-       caption.above=TRUE, 
-        doctype = FALSE,
-                custom.coef.names=c("Intercept",
-                             "Transfer dependency (Not dependent)",
-                             "Education (No education)",
-                             "Perceived income (Low)",
-                             "Perceived change in income compared to four years ago (Has worsened)",
-                             "Expected change in income over next four years (Will worsen)",
-                             "Effect of financial crisis (Suffered great or fair amount)",
-                             "gini coefficient",
-                             "GDP change 2007-2010",
-                             "Voice And Accountability (WB)"),
-        custom.model.names=c("empty","Model IB1","Model IB2",
-                             "Model IB3","Model IB4"))
-```
-</div>
- 
 Key results of modelling
 ========================================================
-incremental:true
-## country differences
+incremental:false
+### country differences
 - between-country variance .29 vs. .12, after individual predictors .23, .10, after gdp change .13 vs .05
 
-## individual level predictors
+### individual level predictors
 - **social blame**
     - of sign. Perceived low income level, Expected change in income over the next four years, suffered the financial crisis
     - of non-sign. Low education, worsened household income level
 - **individual blame**
     - of sign. all predictors, suffered the financial crisis
 
-## contextual level predictors
+Key results of modelling
+========================================================
+
+### contextual level predictors
 - Ghange in total GDP 2007 – 2010 
+
+
+Conclusions
+========================================================
+incremental:false
+
+## Cross-national differences
+- highest support for social blame, followed by individual blame
+- still, variation between countries relatively high
+
+## Determinants
+- contextual level: economic changes
+- individual level: self-interest hypothesis supported
 
 <!-- ---| notes begin |--------------------------------
 Between-country variances meaning the variance independent variable that is explained by country differences. Variance in empty models is.29 in social blame and .12 in individual blame indicating that there 
@@ -318,60 +346,5 @@ The betterthe national economy has performed during the financial crises, the mo
 As for explaining the between-country variation the inclusion of country grouping adds avery little. Gini coefficient reduces variation from .24 to .19 for social blame, but it isthe inclusion of GDP change that has the greatest effect. Between-country variation to.12 for social blame and .04 for individual blame. In the final models the inclusion ofdemocracy index results country-level variances at .09 and .02 for social and individualtype of explanation, respectively. In other words, only 9% and 2% of the variation in thefinal models are due to country differences at final stage.
 ---------| notes end |-----------------------------  -->  
  
-Conclusions
-========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Conclusions</h1>
 
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
  
-Conclusions
-========================================================
-incremental:true
-
-## Cross-national differences
-- highest support for social blame, followed by individual blame
-- still, variation between countries relatively high
-
-## Determinants
-- contextual level: economic changes
-- individual level: self-interest hypothesis supported
-
-
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-
-thankyou
-========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Thank you!</h1>
-
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
-
-Country grouping
-======================================================== 
-```{rcntrygroupingtable, echo=FALSE, results='asis'}
-CEE <- c("Bulgaria","Czech Republic",
-         "Estonia","Hungary",
-         "Latvia","Lithuania",
-         "Poland","Romania",
-         "Slovakia","Slovenia","")
-CIS <- c("Armenia","Azerbaijan",
-         "Belarus","Georgia",
-         "Kazakhstan","Kyrgyzstan",
-         "Moldova","Russia",
-         "Tajikistan","Ukraine",
-         "Uzbekistan")
-WesternEurope <- c("France","Germany",
-                    "Great Britain","Italy",
-                    "Sweden","","","","","","")
-tbl <- data.frame(CEE,CIS,WesternEurope)
-names(tbl) <- c("Central Eastern Europe",
-               "Commonwealth of Independent States",
-               "Western Europe")
-library(xtable)
-print.xtable(xtable(tbl), type="html", comment=FALSE, include.rownames=FALSE)
-```
