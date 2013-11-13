@@ -1,11 +1,16 @@
 Attributions for poverty in Post-Socialist Countries
 ========================================================
-author: Jatkokoulutusseminaari 
-date: Turussa, 7. marraskuuta 2013
+author: 3rd LCSR conference at HSE Moscow on Nov 12th 2013
 transition: fade
 css: ../../../../template/rpresentation/slides.css
 
-Markus Kainu &  Mikko Niemelä
+Slides: [goo.gl/zlsf6r](http://goo.gl/zlsf6r) | Analysis: [goo.gl/c6542c](http://goo.gl/c6542c)
+
+**Markus Kainu**
+*PhD student, [Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri) </br>*
+
+**Mikko Niemelä**
+*Senior Researcher, [Social Insurance Institution](http://kela.fi), Finland*
 
 
  
@@ -27,7 +32,8 @@ Novelty of the study
 - in depth study of "post-soviet welfare regime"
 - wider variety of political and economical regimes
     - dynamics of welfare attitudes, welfare state and democracy in authoritarian regimes
-- assessing the impact of past, present and future expectations 
+- assessing the impact of past, present and future expectations
+- comparing countries that have suffered from financial crisis and countries that have not
 
 
 
@@ -37,7 +43,7 @@ Novelty of the study
  
 Different types of explanations
 ========================================================
-![](../figure/nelikentta_slide.png)
+![](figure/nelikentta_slide.png)
 
 *Source: van Oorschot and Halman (2000)*
 
@@ -74,6 +80,12 @@ Data
  
 ---------| notes end |-----------------------------  -->
  
+
+Countries used in the analysis
+===================================
+
+![](figure/mapplot.png)
+ 
 Dependent variable
 ========================================================
 **In your opinion, what is the main reason why there are some people in need in our country today?** (Variable `q309` in LiTS-data)
@@ -99,10 +111,11 @@ title: false
 Weighted population shares of DV by country
 ========================================================
 
-```{rdvtbl2, echo=FALSE, fig.width=12}
+```{rdvtbl2, echo=FALSE, fig.width=12, fig.height=8}
 source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
 library(reshape2)
-tbl5 <- tbl5[c(-30:-32),]
+tbl5 <- tbl5[c(-27:-32),]
+
 tbl5$country <- reorder(tbl5$country, tbl5$socialBlame, median)
 tbl5l <- melt(data=tbl5, id.vars="country")
 library(ggplot2)
@@ -110,44 +123,47 @@ ggplot(tbl5l, aes(x=country,
                   y=value,fill=variable)) +
   geom_bar(stat="identity") + 
   coord_flip() + 
-  theme(legend.position="top")
-
+  theme(legend.position="top") +
+  theme(axis.text.x = element_text(size=14),
+        axis.text.y = element_text(size=14),
+        legend.text = element_text(size=14))
 ```
+
 
 
 
 Support for Social blame
 ========================================================
 
-![](../figure/mapPlotsDV1.png)
+![](figure/mapPlotsDV1.png)
 
 
 Support for Individual blame
 ========================================================
 
-![](../figure/mapPlotsDV2.png)
+![](figure/mapPlotsDV2.png)
 
 
 Support for Social fate
 ========================================================
 
-![](../figure/mapPlotsDV3.png)
+![](figure/mapPlotsDV3.png)
 
 Support for Individual fate
 ========================================================
 
-![](../figure/mapPlotsDV4.png)
+![](figure/mapPlotsDV4.png)
 
 
 Don't know
 ========================================================
 
-![](../figure/mapPlotsDV5.png)
+![](figure/mapPlotsDV5.png)
 
 Not stated
 ========================================================
 
-![](../figure/mapPlotsDV6.png)
+![](figure/mapPlotsDV6.png)
 
 results
 ========================================================
@@ -231,16 +247,21 @@ Independent variables: Contextual level
 
 IV's - Change in GDP 
 ========================================================
-![](../figure/mapPlotsIvMacro1.png)
+![](figure/mapPlotsIvMacro1.png)
 
 
 Change in GDP vs. DV
 ========================================================
 title:false
-<caption>Change in total GDP in 2007 - 2010 and support for social (left) and  individual (right) blame types of attributions for  poverty</caption>
-![](../figure/scatter_gdp.png)
+<caption>Change in total GDP in 2007 - 2010 and support for social blame type of attributions for  poverty</caption>
+![](figure/scatter_gdpSB.png)
 
 
+Change in GDP vs. DV
+========================================================
+title:false
+<caption>Change in total GDP in 2007 - 2010 and support for social individual blame type of attributions for  poverty</caption>
+![](figure/scatter_gdpIB.png)
 
 
 <!-- ---| notes begin |--------------------------------
@@ -248,28 +269,43 @@ title:false
  
 IV's - Gini coefficient 
 ========================================================
-![](../figure/mapPlotsIvMacro2.png)
+![](figure/mapPlotsIvMacro2.png)
  
+
 Gini coefficient vs. DV
 ========================================================
 title:false
-<caption>Gini  coefficient and support  for social (left) and  individual (right) blame types of attributions for  poverty</caption>
-![](../figure/scatter_gini.png)
+<caption>Gini  coefficient and support for social blame type of attributions for  poverty</caption>
+![](figure/scatter_giniSB.png)
+
+
+Gini  coefficient vs. DV
+========================================================
+title:false
+<caption>Gini  coefficient and support for social individual blame type of attributions for  poverty</caption>
+![](figure/scatter_giniIB.png)
 
 
 <!-- ---| notes begin |--------------------------------
 ---------| notes end |-----------------------------  --> 
  
-IV's - Voice and accountability 
+IV's - Good governance 
 ========================================================
-![](../figure/mapPlotsIvMacro3.png)
+![](figure/mapPlotsIvMacro3.png)
  
-Democracy vs. DV
+
+Good governance vs. DV
 ========================================================
 title:false
-<caption>World  Bank's Voice and Accountability index in 2011 and support ...</caption>
+<caption>Good governance and support for social blame type of attributions for  poverty</caption>
+![](figure/scatter_wbgiSB.png)
 
-![](../figure/scatter_wbgi.png)
+
+Gini  coefficient vs. DV
+========================================================
+title:false
+<caption>Good governance and support for social individual blame type of attributions for  poverty</caption>
+![](figure/scatter_wbgiIB.png)
 
 
 results
@@ -286,14 +322,16 @@ Regression modelling - constraints
     - clustered data (individual within countries)
     - multilevel/mixed effects model setting
     
-Regression modelling - solution..?
+Regression modelling - current solution..
 ========================================================
     
 - As we are interested in two blame type of explanation
 - Our current solution to recode variable into two binary variables
     - 1. A/not-A
     - 1. B/not-B and 
-- model the data using logistic binary multilevel models for A/not-A, B/not-B and A/B - [Modelling](../regressionModelling.html)
+- model the data using logistic binary multilevel models for A/not-A, B/not-B and A/B 
+
+- [See the tables](../regressionModelling.html#tables-for-presentation)
 
 
 
@@ -329,6 +367,17 @@ incremental:false
 - contextual level: economic changes
 - individual level: self-interest hypothesis supported
 
+questions
+========================================================
+title: false
+<h2 style="text-align:center;padding-top:200px;">Questions & comments</h2>
+
+<center>
+
+![](figure/question.gif)
+
+</center>
+
 <!-- ---| notes begin |--------------------------------
 Between-country variances meaning the variance independent variable that is explained by country differences. Variance in empty models is.29 in social blame and .12 in individual blame indicating that there 
 1. are differences betweencountries, and that 
@@ -346,5 +395,4 @@ The betterthe national economy has performed during the financial crises, the mo
 As for explaining the between-country variation the inclusion of country grouping adds avery little. Gini coefficient reduces variation from .24 to .19 for social blame, but it isthe inclusion of GDP change that has the greatest effect. Between-country variation to.12 for social blame and .04 for individual blame. In the final models the inclusion ofdemocracy index results country-level variances at .09 and .02 for social and individualtype of explanation, respectively. In other words, only 9% and 2% of the variation in thefinal models are due to country differences at final stage.
 ---------| notes end |-----------------------------  -->  
  
-
  

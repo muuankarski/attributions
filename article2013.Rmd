@@ -155,6 +155,8 @@ The empirical section starts by presenting the results of descriptive analyses. 
 
 Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. 
 
+--------
+
 *A more throughout description of modelling will be added as the final details in modelling will be decided*
 
 # Results

@@ -100,4 +100,12 @@ pdf-output                                                source code
 - [Jatkokoulutusseminaari Turku November 7, 2013](turku2013/slidesTkuJatko20131107.html)
 - [ESA Torino - August 29, 2013](torino2013/TorinoSlides2013_final.html)
 
+# Misc links
+
+- [Article code in github](https://github.com/muuankarski/attributions)
+- [rustfare-package](http://markuskainu.fi/rustfare/) *- toolbox for R language for open welfare data from Russian Federation*
+- [rOpenGov](http://ropengov.github.io/) *-  R Ecosystem for Open Government Data and Computational Social Science*
+- [markuskainu.fi](http://markuskainu.fi) *- personal website*
+
+-----
 
