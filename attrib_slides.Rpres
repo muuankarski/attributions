@@ -1,47 +1,783 @@
-# Attributions for Poverty in Post-Socialist Countries
+Attributions for poverty in Post-Socialist Countries
+========================================================
+author: European Sociological Association
+date: Torino, August 29, 2013
 
-Markus Kainu & Mikko Niemelä
-
-August 28, 2013
-
-ESA Conference, Torino, Italy
-
+**Markus Kainu** </br>
+PhD student, [Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland </br>
+**Mikko Niemelä** </br>
+Senior Researcher, [National Social Insurance Institute](http://kela.fi), Finland
 
 
-<aside class="notes">
-Hello all! We are taking your next 15 minutes to present our paper titled "XXX"
-</aside>
+<!-- ---| notes begin |--------------------------------
+Few words about the authors and the beauty of Torino and the smooth arrangements of the conference
 
-```{r, eval=FALSE, echo=FALSE}
-library(knitr)
-setwd("~/workspace/lits/attrib/attrib_year2013/slides")
-knit("slides_attrib.Rmd")
-system("~/.cabal/bin/pandoc --section-divs -t html5 -s --template template_muuankarski.revealjs -o slides_attrib.html slides_attrib.md")
 
+cd ~/workspace/lits/attrib/attrib_year2013
+lftp -u np16003 -e "put SlidesTorino2013.html;quit" ftp://np16003@www.muuankarski.org/domains/markuskainu.fi/public_html/material/presentation
+
+---------| notes end |-----------------------------  -->
+
+
+what
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">What? </br> Attributions for poverty in Post-Socialist Countries</h1>
+
+<!-- ---| notes begin |--------------------------------
+WHAT HAS BEEN STUDIES:
+Citizens' attitudes towards the poor can be seen as reflecting the dominant ideology of country as well as the moral economy of the welfare state. Prior research has also shown that attributions for poverty have implications for the legitimacy of welfare system and for the viability of and support for anti-poverty policies. Findings of the comparative studies have emphasized clear differences between Western and Eastern European countries.
+
+WHAT WE WILL DO:
+Utilising The Life in Transition Surveys (LiTS), the purpose of the project is to provide a more up-to-date picture on the public perceptions of the causes of poverty in post-socialist space. Project examines cross-country differences in attributions for poverty and explores whether different explanations of poverty can be attributed to specific socio-demographic characteristics, ethnicity, economic circumstances and wider values and attitudes.
+
+BUDOWSKI:
+The two authors seek to understand the how and why public perceptions of the causes poverty. They are interested in particular in the variations among Eastern European Countries as empirical evidence shows that public perceptions vary consistently between Western and Eastern European Countries, with Eastern Europen Countries blaming either individual behaviour or the problems with the economic system. 
+---------| notes end |-----------------------------  -->
+
+
+Why1
+========================================================
+title: false
+
+<h1 style="text-align:center;padding-top:200px;">Why?</h1>
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+
+Why attributions for poverty?
+========================================================
+
+Welfare attitudes can be associated with policy changes in two ways
+- They can be seen as normative background assumptions or ideas that constrain
+decision-making and institutional change
+- Type of welfare policy has been claimed to affects public attitudes. Explanations of poverty are more often based on individual morality in selective welfare-policy dominated liberal regimes than in the Continental and Nordic welfare states
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+The authors present two bodies of research through which such attitudes are explained. On the one hand, reseach the link between norms and values and public attitudes and on the other welfare policy research attitudes. 
+
+1. If I understood correctly, the research on norms and values claims that norms and values are hard to change, and that therefore “constrain decision-making and institutional change by limiting the range of programmes” that decision-making elites are likely to perceive acceptable and legitimate. Consequently – if I understood correctly – poverty attitudes continue to follow the decision-making of elites.
+
+2. The second strand of research explanations of poverty are contingent on the welfare regime, with individual morality explaining  poverty in liberal regimes more often than structural and external explanations more common in Continental and Nordic welfare state.
+
+BUDOWSKI CRITICS:
+Justification of your research question:
+In my opinion the reason “lack of research” to justify the relevance is not a convincing one. I think you could convince me more if you were more precise on why your research question is relevant. I could ask back: What do you expect to find beyond results up to date for post-socialist countries? 
+Why is it important to analyse the variations? Why is it in particular important to differentiate CEE and CIS countries? What criteria exactly differentiate between the CEE and the CIS countries that are relevant with regards to your research question?
+---------| notes end |-----------------------------  -->
+
+
+Why post-socialist countries?
+========================================================
+
+*Post-socialist countries:* Shortage of comparative studies focusing on the Post-socialist countries and need for a detailed and up-to-date analysis of the public perceptions of the causes of poverty
+
+*Risks of poverty:* Earlier studies have explained perceptions of poverty with several sosio-economic and attitudinal variables, but this study has special focus on variables associated with high risk of poverty. in particular, we are interested in how poverty risks explain poverty attributions.
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI
+The justify their research by the lack of research on attitudes of poverty explanation in the post-socialist countries. And in particular the lack of comparative research among post-socialist countries.
+
+---------| notes end |-----------------------------  -->
+
+
+Theoretical approach
+========================================================
+![](figure/nelikentta_slide.png)
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+The authors apply van Oorschots and Halman’s Dimension and  types of poverty and distinguish between the dimensions: “Individual and Social” and “Blame” and “Fate”. This provides a 4-cell-table with Explanations of individual and social blame and individual and social fate. 
+
+---------| notes end |-----------------------------  -->
+
+
+
+What are our hypothesis?
+========================================================
+
+## Focus on three issues
+1. Examine cross-country differences in attributions for poverty in **post-socialist countries**
+2. Explore whether different explanations of poverty can be attributed to specific risks related to households financial circumstances, eg. **risks of poverty**
+3. Analyse the **association**between attributions for poverty and preferences for market economy, democracy, income redistribution as well as political and interpersonal trust.
+
+<!-- ---| notes begin |--------------------------------
+
+
+BUDOWSKI:
+Their hypothesis is that in general post-socialist countries more likely adhere to individual blame and social blame types of explanations (than West European countries). However they expect considerable variation between the post-socialist countries.
+---------| notes end |-----------------------------  -->
+
+
+
+research design
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Research Design</h1>
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+
+Data
+========================================================
+## Life in Transition Survey - 2nd round (LiTS2)
+- collected in late 2010 in 34 countries and 39000 households
+- assess public attitudes, well-being and the impacts of economic and political change at the household level
+- special emphasis on how lives have been affected by the global economic crisis and its aftermath
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+For this purpose they use “The Life in Transituib –survey (LiTS) 2010.
+In addition to this comparison within post-socialist countries, they also want to investigate the “role of changes in the countries’ economic performance during the period of global financial crisis, income inequality and state of democracy”.
+---------| notes end |-----------------------------  -->
+
+
+Country grouping
+========================================================
+The **Western-European** countries are: France, German, Italy and Sweden. 
+Transition countries are: 
+- **CEE**: Czech Republic, Estoniy, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania
+- **CIS:**  Armenia, Azaraijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia.
+
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+The authors want to primarily compare two country groups with socialist and post-socialist past: the Central Easter European (CEE countries) and the Commonwealth of Independent States (CIS) countries (the “ex-soviet” block).
+To explore differences between these and Western Europe a few Western Europe countries are included. 
+The Western-European countries are: France, German, Italy and Sweden. 
+Transition countries are: 
+CEE: Czech Republic, Estoniy, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania
+CIS:  Armenia, Azaraijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia.
+
+BUDOWSKI CRITICS:
+Methodology
+Selection of countries:
+I did not understand the criteria for the selection of the countries. Why did you only four Western-European Countries, and why did you choose exactly these four? What are the criteria for choosing these four? Why do you include 10 CEE and 11 CIS countries.
+As I am not sure what the relevant criteria for the selection of countries for your research question is, I do not know why it is important to group the countries as to whether they are CEE and CIS countries. Might a different grouping according to indicators relevant to your hypothesis lead to different results?
+
+---------| notes end |-----------------------------  -->
+
+Country grouping
+========================================================
+```{rmap1, results='hide', echo=FALSE}
+source("~/workspace/lits/attrib/attrib_year2013/code/plot_map.R")
 
 ```
 
-#
 
-![](http://www.markusossi.fi/wp-content/uploads/ilmaveivi.gif)
+```{rmap2, fig.width=12, fig.height=9, echo=FALSE}
+mapplot
+```
 
 
-# Scatterplots
+Dependent Variable
+========================================================
 
-#
+The dependent Variable in the model the individual perception of why people are poor.
 
-## 
 
-![Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gdp.png)
+<!-- ---| notes begin |--------------------------------
 
-#
 
-## 
+BUDOWSKI:
+The dependent variable is constructed from the question “In your opinion, what is the main reason why there are some people in need in our country today?”
+The answer to this question are four (exclusive?) categories and one residual category: 
+Because they have been unlucky (fate individual) internal
+Because of laziness and lack of willpower (blame individual) internal
+Because of injustice in our society (blame social) external
+It is an inevitable part of modern life (fate social) external
+Residual category: other
 
-![Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_gini.png)
+BUDOWSKI CRITICS:
+Construction of dependent variable
+You construct your dependent variables out of one question where the five answer categories (values) are dependent upon each other. This means – as far as I understand – that the four variables you build your analyses on are dependent on each other. In addition, one of the five interdependent values that can be chosen by the respondents as an answer is omitted completely without further deliberations: it is the category “other explanaction”. How many people for example opted for the residual category “other” explanations of poverty? What does this interdependency of answers to the same question mean for your analysis? How do you treat the category “other” in terms of missing values to your question? Might this have consequences for your analyses?
 
-#
 
-## 
+---------| notes end |-----------------------------  -->
 
-![World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty](../figure/scatter_wbgi.png)
+
+Dependent variables - All options
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rdvtbl1, echo=FALSE, results='asis'}
+source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
+library(xtable)
+print.xtable(xtable(tbl2), type="html", include.rownames=FALSE)
+```
+</div>
+
+
+
+Dependent variables - four choices
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rdvtbl2, echo=FALSE, results='asis'}
+source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
+library(xtable)
+print.xtable(xtable(tbl5), type="html", include.rownames=FALSE)
+
+```
+</div>
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+Country level independent variables
+Change in total GDP in 2007-2010
+Gini coefficient of economic inequality
+2011 democracy index
+country grouping (CEE, CIS, WE).
+---------| notes end |-----------------------------  -->
+
+
+Dependent variables - four choices
+========================================================
+```{rmapfacet1, results='hide', echo=FALSE}
+source("~/workspace/lits/attrib/attrib_year2013/code/plot_map.R")
+
+```
+
+
+```{rmapfacet2, fig.width=12, fig.height=8, echo=FALSE}
+mapplotfacet
+```
+
+
+Independent variables - Country level
+========================================================
+
+<div style="font-size:0.7em;line-height:0.7em;">
+```{rmacrotbl, echo=FALSE, results='asis'}
+source("~/workspace/lits/attrib/attrib_year2013/code/iv_macro_table.R")
+library(xtable)
+print.xtable(xtable(tbl), type="html", include.rownames=FALSE)
+
+```
+</div>
+
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+Country level independent variables
+Change in total GDP in 2007-2010
+Gini coefficient of economic inequality
+2011 democracy index
+country grouping (CEE, CIS, WE).
+---------| notes end |-----------------------------  -->
+
+
+Independent variables - Individual level
+========================================================
+```{rtablepredictor, results='asis', echo=FALSE}
+source("~/workspace/lits/attrib/attrib_year2013/code/iv_indiv_table.R")
+library(xtable)
+print.xtable(xtable(table), type="html", comment=FALSE, include.rownames=FALSE)
+
+```
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+Individual independent variables were all recoded as binomial:
+Transfer dependency
+Low education
+Perceived low income level
+Income compared to past
+Income compared to future
+Effect of financial crisis.
+---------| notes end |-----------------------------  -->
+
+Independent variables - Individual level
+========================================================
+
+<div style="font-size:0.9em;line-height:0.9em;">
+```{riv_indiv_tables, echo=FALSE, results='asis'}
+source("~/workspace/lits/attrib/attrib_year2013/code/iv_indiv_table.R")
+library(xtable)
+print.xtable(xtable(tbl), type="html", include.rownames=FALSE)
+
+
+
+```
+</div>
+
+
+
+
+
+Methods
+========================================================
+
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+Applied methods:
+In a first step the authors applied descriptive statistic and presented first results by means of with percentages and the coefficient of variation.  
+In a second step, they investigate the determinants of the perceptions but reduce their model to two explanations of poverty only, namely “individual” and “social blame”. The authors reason that as a majority of citizens in the post-socialist countries endorsed social and individual blame-explanations, therefor  this reduction from four to two explanations is justified. They apply logistic multivariate regressions to compare the three country groups. 
+In the third step, they apply the multilevel analysis to investigate differences between the countries
+
+BUDOWSKI CRITICS
+Methods:
+You applied logistic multivariate methods and dichotomised all variables. In combination with the construction of your dependent variable I wonder, whether this is the appropriate way to procede and whether you are unneccesarily losing too much valuable information (page 8). You did not justify why it is necessary to construct dichotomous variables. You could for example also use the multinomial logistic regression where you can apply the 4 answer categories of the question providing your dependent variable and would not need to dichotomize all your independent variables.
+I have quite a few questions regarding Table 3 on page 10:
+Where is the category “other” in this table? How did you deal with missings?
+You provide the percentages but not the n for each country. You compute the totals for the country group, but it is not mentioned on which level: the individual or the country level. If I compute the country level for social blame for CEE-countries, I get a total mean of 48.30% (and not 43.13% as you have in the table). So if I am right in assuming that you calculated the CEE total on the individual level, wouldn’t this mean that the large countries with a large number of respondents would be overrepresented? What would this mean for the interpretation of your results?
+In line with my question on individual or country level, maybe you should think about whether it makes more sense compute the coefficient of variation on the country and not the individual level. (page 10)
+Moldava is listed twice: once as a CEE and once as a CIS country.
+In addition: the coefficient of variance is usually used with interval-scaled variables and not for 1/0 coded Variablen, that are described by relative frequences (i.e. percentages) I wonder therefore, if this is the right coefficient to use: my question here is: what do you want to say with this coefficient of variance and why did you use the coefficient of variance.
+
+---------| notes end |-----------------------------  -->
+
+
+
+Results
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Results</h1>
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI:
+Brief results:
+General social blame explanation is the most popular in post-socialist countries
+Thereafter follows individual blame
+Differences between the countries make up for 30% of the variation in the support for social blame and 12 Percent for individual blame, however the contextual level predictors decreased the variance down to 9 and 2% variance respectively.
+Changes in economic performance was the most significant predictor of country-level variables for both types of explanations: the better the economy performs, the more support of individual blame explanations.
+Lower levels of democracy was associated with stronger support for individual blame explanations
+No differentiation according to country groups was significant.
+
+
+BODOWSKI CRITICS:
+In your analysis of the determinants of perceptions I also have some questions
+The figures (Figure 2 page 11, Figure 3 page 12, Figure 4 page 13) are not very meaningful, as they are not readable.
+It is unclear how you drew the regression lines: what were the criteria?
+You mention that GB is an outlier. How come you include it and draw the regression line the way you did? Would it maybe make more sense to include other countries (coming back to one of my previous comments on the selection criteria for the Western-European countries).
+You restricted your analyses to social and individual blame reasoning that the respondents used these two categories more often. I’m not so convinced that this argument is really a founded one: maybe the categories on fate differentiate /discriminate the countries better than fate? Did you look at that?
+In Table 5, (page 16) I also am not quite sure what it represents, so I’ll give you my questions:
+You are using overlapping categories in the binary regression: the “dependent” variable according to how you constructed means that the answers to individual and social blame are connected.
+As a result of the question of dependency between the answer categories from which the dependent variables were constructed, I was wondering whether a multilevel-multinomial logistic regression be more adequate?
+Did you on purpose leave out the results of the random effects on the individual level in the multilevel analysis in Tables 4 and 5? The results are only reported on the country level.
+Did you use individual or aggregate country-level data? You only show the between country variance and not the individual-level variance.
+In the results of the Random-effects of the between-country variance, the “empty model” are not significant and do not become so despite the added variables. What does the non-significance of the between-country effects in your models mean for the interpretation of the significance of the other variables? 
+In the same tables the empty models have an n of 25’513; the rest of the models have an n of 17’138, i.e. about 1/3 less. What does this mean: how much is due to the “social or individual fate” variables and to the category “other” in the dependent variable? 
+
+---------| notes end |-----------------------------  -->
+
+DescriptiveAnalysis
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Descriptive Analysis</h1>
+
+
+
+Descriptive analysis - Change in GDP 
+========================================================
+![](figure/scatter_gdp.png)
+<figcaption>Change in total GDP in 2007 - 2010 and support for social (left) and individual (right) blame types of attributions for poverty</figcaption>
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
+
+
+Descriptive analysis - Gini coefficient
+========================================================
+![](figure/scatter_gini.png)
+<figcaption>Gini coefficient and support for social (left) and individual (right) blame types of attributions for poverty</figcaption>
+
+<!-- ---| notes begin |--------------------------------
+
+There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
+
+---------| notes end |-----------------------------  -->
+
+
+
+Descriptive analysis - Democracy
+========================================================
+![](figure/scatter_wbgi.png)
+<figcaption>World Bank's Voice and Accountability index in 2011 and support for social (left) and individual (right) blame types of attributions for poverty</figcaption>
+
+<!-- ---| notes begin |--------------------------------
+
+In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
+
+---------| notes end |-----------------------------  -->
+
+
+Preliminary results - Descriptive analysis
+========================================================
+
+## Cross-country
+- On the average, post-socialist countries more inclined towards Social blame -type of explanation, but variation great in all country-groups
+- Russia has similar figures with Hungary, Lithuania, Ukraine and Armenia
+
+## Cross-variable
+- Post-socialism, income related and financial crises variables significant
+- Transfer-dependency and low education less significant
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+
+MultivariateAnalysis
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Multivariate Analysis</h1>
+
+
+
+Bivariate Analysis - SOCIAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rbivariate1, echo=FALSE}
+source("~/workspace/lits/attrib/attrib_year2013/code/multi_bivariate.R")
+```
+
+```{rbivartbl1,echo=FALSE, results='asis'}
+library(texreg)
+
+htmlreg(list(bisoc.1,bisoc.2,
+          bisoc.3,bisoc.4,
+          bisoc.5),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="bivariate social blame", 
+        caption.above=TRUE, 
+        doctype = FALSE,
+        custom.coef.names = c("Intercept",
+                              "Transfer dependency (Not dependent)",
+                              "Education (No education)",
+                              "Low income",
+                              "Worse than 4 years ago",
+                              "Future will be worse"),
+        custom.model.names = c("Social blame 1",
+                        "Social blame 2",
+                        "Social blame 3",
+                        "Social blame 4",
+                        "Social blame 5")
+        )
+```
+</div>
+
+Bivariate Analysis - SOCIAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rbivartbl2, echo=FALSE, results='asis'}
+library(texreg)
+htmlreg(list(bisoc.6,
+          bisoc.7,bisoc.8,
+          bisoc.9,bisoc.10),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="bivatiate social blame", 
+        caption.above=TRUE, doctype = FALSE,
+        custom.coef.names=c("Intercept",
+                            "Suffered from crisis",
+                            "CIS member",
+                            "Western member",
+                            "gini coefficient",
+                            "GDP change 2007-2010",
+                            "Voice And Accountability (WB)"),
+        custom.model.names=c("Social blame 6",
+                             "Social blame 7",
+                             "Social blame 8",
+                             "Social blame 9",
+                             "Social blame 10"))
+```
+</div>
+
+Bivariate Analysis - INDIVIDUAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rbivariate3, echo=FALSE, results='asis'}
+library(texreg)
+htmlreg(list(biind.1,biind.2,
+          biind.3,biind.4,
+          biind.5),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="bivatiate individual blame", 
+        caption.above=TRUE, doctype = FALSE,
+        custom.coef.names = c("Intercept",
+                              "Transfer dependency (Not dependent)",
+                              "Education (No education)",
+                              "Low income",
+                              "Worse than 4 years ago",
+                              "Future will be worse"),
+        custom.model.names = c("Social blame 1",
+                        "Individual blame 2",
+                        "Individual blame 3",
+                        "Individual blame 4",
+                        "Individual blame 5"))
+```
+</div>
+
+Bivariate Analysis - SOCIAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rbivariate4, echo=FALSE, results='asis'}
+library(texreg)
+htmlreg(list(biind.6,
+          biind.7,biind.8,
+          biind.9,biind.10),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="bivatiate social blame", 
+        caption.above=TRUE, doctype = FALSE,
+        custom.coef.names=c("Intercept",
+                            "Suffered from crisis",
+                            "CIS member",
+                            "Western member",
+                            "gini coefficient",
+                            "GDP change 2007-2010",
+                            "Voice And Accountability (WB)"),
+        custom.model.names=c("Individual blame 6",
+                             "Individual blame 7",
+                             "Individual blame 8",
+                             "Individual blame 9",
+                             "Individual blame 10"))
+```
+</div>
+
+
+
+Multivariate Analysis - SOCIAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rmultivariate1, echo=FALSE, results='asis'}
+source("~/workspace/lits/attrib/attrib_year2013/code/multi_logit.R")
+
+library(texreg)
+htmlreg(list(soc.0,
+       soc.1,
+       soc.2,
+       soc.3,
+       soc.4),
+       use.package=FALSE,
+       include.pvalues=TRUE,
+          caption="Logistic multilevel random intercept model for social blame type of explanation( Using texreg-package (p-value stars missing)).", caption.above=TRUE, doctype = FALSE,
+        custom.coef.names=c("Intercept",
+                             "Transfer dependency (Not dependent)",
+                             "Education (No education)",
+                             "Low income",
+                             "Worse than 4 years ago",
+                             "Future will be worse",
+                             "Suffered from crisis",
+                             "gini coefficient",
+                             "GDP change 2007-2010",
+                             "Voice And Accountability (WB)"),
+        custom.model.names=c("empty","Model SB1","Model SB2",
+                             "Model SB3","Model SB4"))
+```
+</div>
+
+
+
+Multivariate Analysis - INDIVIDUAL BLAME
+========================================================
+
+<div style="font-size:0.8em;line-height:0.8em;">
+```{rmultivariate2, echo=FALSE, results='asis'}
+htmlreg(list(ind.0,
+          ind.1,
+          ind.2,
+          ind.3,
+          ind.4),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="Logistic multilevel random intercept model for individual blame type of explanation (Using texreg-package (p-value stars missing)).", 
+       caption.above=TRUE, 
+        doctype = FALSE,
+                custom.coef.names=c("Intercept",
+                             "Transfer dependency (Not dependent)",
+                             "Education (No education)",
+                             "Low income",
+                             "Worse than 4 years ago",
+                             "Future will be worse",
+                             "Suffered from crisis",
+                             "gini coefficient",
+                             "GDP change 2007-2010",
+                             "Voice And Accountability (WB)"),
+        custom.model.names=c("empty","Model IB1","Model IB2",
+                             "Model IB3","Model IB4"))
+
+```
+</div>
+
+
+Conclusions
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Conclusions</h1>
+
+<!-- ---| notes begin |--------------------------------
+
+BUDOWSKI CRITICS:
+To conclude I have a couple of remarks on formal issues:
+Use of different terms for the same issue is sometimes confusing: what are “internal” and “external” explanations? This is not defined and the readers have to deduce what they are.
+The figures – as already mentioned – are not easily comprehensible (e.g. figure 1 the names of the countries).
+
+Well, that is what I have at the moment: I hope my comments are useful to you. Thank-you for your attention.
+---------| notes end |-----------------------------  -->
+
+
+Conclusions
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Misc slides not to be included</h1>
+
+
+
+
+Preliminary results - Regression analysis
+========================================================
+
+## All countries - all risks
+- Model explains social blame better than individual blame
+- Low education (-), low income (+), expected income (+) and effect of financial crises (+) have significant impact on attributions for poverty 
+- Transfer dependency and change in income less so
+
+## Applied to country groups
+- Model fits better in "CIS excl. Russia" and "CEE" -groups, worse in "Russia" and "Western Europe".
+- Low education loses it's significance 
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Preliminary results - Regression analysis
+========================================================
+
+## Adding country groupings
+- Post-socialism improves the model 1
+- More detailed grouping improves model 1 bit more, model 2 remains intact
+- CIS excl. Russia and Russia more prone to Social blame compared to WE or CEE
+- Finally, "Low income level" & "Great or fair effect of financial crises" remains the best indicators both for support of Social blame and non-support of Individual blame
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+
+Preliminary results - Associations
+========================================================
+## Preference for Market economy
+- French and Italian figures may cause confusion here
+- Social blame people tend to support market economy less in all country group
+- Fate supporters are more in favour of market economy
+- Distinction very clear in Russia
+
+## Preference for Democracy
+- Social blame people supporting democracy in Post-socialist countries, individual blame people in WE
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Preliminary results - Associations
+========================================================
+## General trust
+- Social blame people have lower interpersonal trust in post-socialist countries, in WE individual blame people have lower trust
+- Social fate people have most trust in all countries
+
+## Institutional Trust
+- Social blame people have lower trust in political institutions
+- Individual blame people have significantly higher trust in CIS, Russia and WE
+
+## Preference for redistributive policies
+- Clear patterns except in CIS excl. Russia: Social blame favours redistribution and individual blame does not
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Conclusions
+========================================================
+title: false
+<h1 style="text-align:center;padding-top:200px;">Conclusions</h1>
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Post-socialism
+========================================================
+- Attributions for poverty: On average, more inclined towards social blame -type of explanation, but vanishes when poverty risks are controlled for
+- Welfare state attitudes: less inclined towards market economy and democracy, similar levels of trust and support for redistribution
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Poverty risks and attributions for poverty
+========================================================
+- People with low current income level and high perceived effect of financial crises are blaming society for poverty more, individual less
+- Poverty risks (or their absence) explain individual blame type of explanation less
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Associations between attributions for poverty and "welfare state attitudes"
+========================================================
+- Social blame people favour democracy, but not market economy. They enjoy lower interpersonal and institutional trust (in WE lower institutional trust), but favour redistributive policies. 
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+Open questions
+========================================================
+- True conclusions..?
+- Focus..?
+- Country grouping..? Too many?
+
+<!-- ---| notes begin |--------------------------------
+
+
+---------| notes end |-----------------------------  -->
+
+
+
+Title
+========================================================
+
+
+<!-- ---| notes begin |--------------------------------
+
+---------| notes end |-----------------------------  -->
