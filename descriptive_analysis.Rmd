@@ -14,7 +14,7 @@ Sys.time()
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions")
 library(kaRski)
 knit("descriptive_analysis.Rmd")
 system("pandoc -s descriptive_analysis.md -o descriptive_analysis.html --toc --number-section")
@@ -34,7 +34,7 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 ### Original variable
 
 ```{rdescplot1_1}
-load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+load("~/workspace/lits/attributions/data/lits.RData")
 library(ggplot2)
 library(reshape2)
 

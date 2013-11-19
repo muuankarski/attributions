@@ -14,7 +14,7 @@ Sys.time()
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions/")
 library(kaRski)
 knitpandoc("loadClean")
 ```
@@ -489,8 +489,7 @@ rm(wb.w)
 rm(cntry)
 rm(iso2c)
 
-save.image("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
-#load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+save.image("~/workspace/lits/attributions/data/lits.RData")
+#load("~/workspace/lits/attributions/data/lits.RData")
 ```
-
 

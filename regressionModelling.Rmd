@@ -13,7 +13,7 @@ Sys.time()
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions/")
 library(knitr)
 knit("regressionModelling.Rmd")
 system("pandoc -s regressionModelling.md -o regressionModelling.html --toc --number-section")
@@ -29,10 +29,10 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.w
 ```{rmultilevelLoadData}
 #########################################
 #########################################
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions/")
 
 #########################################
-load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+load("~/workspace/lits/attributions/data/lits.RData")
 df.model <- df[df$group_general != "Western Europe",]
 
 ```
