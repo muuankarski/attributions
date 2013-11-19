@@ -13,7 +13,7 @@ Sys.time()
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions/")
 library(kaRski)
 knit("finalPlots.Rmd")
 system("pandoc -s finalPlots.md -o finalPlots.html --toc --number-section")
@@ -39,7 +39,8 @@ cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D
 
 
 #########################################
-load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+load("~/workspace/lits/attributions/data/lits.RData")
+
 ```
 
 # Scatterplots

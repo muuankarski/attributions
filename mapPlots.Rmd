@@ -13,7 +13,7 @@ Sys.time()
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013/")
+setwd("~/workspace/lits/attributions/")
 library(knitr)
 knit("mapPlots.Rmd")
 system("pandoc -s mapPlots.md -o mapPlots.html --toc --number-section")
@@ -31,7 +31,7 @@ library(RColorBrewer)
 library(mapproj)
 library(maptools)
 library(rgdal)
-load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+load("~/workspace/lits/attributions/data/lits.RData")
 map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
                                 layer="lits_all_simple"))
 
