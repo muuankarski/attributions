@@ -15,7 +15,7 @@ Sys.time()
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
 library(knitr)
-knit("regressionModelling.Rmd")
+knit2html('regressionModelling.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
 system("pandoc -s regressionModelling.md -o regressionModelling.html --toc --number-section")
 
 ```
@@ -728,9 +728,6 @@ htmlreg(list(soc.4,ind.4,socVsInc),
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
 ```
-
-
-
 
 
 
