@@ -1,23 +1,12 @@
-% Descriptive visualizations
-
-- [back to index](index.html)
-
-
-`generated at:`
-```{r, echo=FALSE}
-Sys.time()
-```
----
-
+# Descriptive visualizations
 
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
-
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions")
-library(kaRski)
-knit("descriptive_analysis.Rmd")
-system("pandoc -s descriptive_analysis.md -o descriptive_analysis.html --toc --number-section")
+library(knitr)
+knit2html('descriptive_analysis.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+
 
 knitpandoc("descriptive_analysis",toc)
 ```

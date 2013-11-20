@@ -1,13 +1,4 @@
-% Spatial visualization
-
-- [back to index](index.html)
-
-
-`generated at:`
-```{r, echo=FALSE}
-Sys.time()
-```
----
+# Spatial visualization
 
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
@@ -15,8 +6,8 @@ Sys.time()
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
 library(knitr)
-knit("mapPlots.Rmd")
-system("pandoc -s mapPlots.md -o mapPlots.html --toc --number-section")
+knit2html('mapPlots.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+
 ```
 
 
