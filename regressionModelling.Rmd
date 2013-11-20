@@ -671,12 +671,28 @@ model.names.multi.A = c("SB empty",
                       "SB all",
                       "IB empty",
                       "IB individual",
-                        "IB all")
+                        "IB all",
+                        "SB perGini",
+                        "IB perGini")
+
+SBperGini <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        perGini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+IBperGini <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        perGini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data = df.model)
+
+
 
 htmlreg(list(soc.0,soc.1,soc.4,
-            ind.0,ind.1,ind.4),
+            ind.0,ind.1,ind.4,
+             SBperGini,IBperGini),
         custom.model.names = model.names.multi.A,
-        custom.coef.names = coef.names.multi,
+        #custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = TRUE,
         doctype = FALSE,
