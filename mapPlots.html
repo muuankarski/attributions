@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Spatial visualization</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Spatial visualization</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#country-grouping"><span class="toc-section-number">1</span> Country grouping</a></li>
+<li><a href="#dependent-variables"><span class="toc-section-number">2</span> Dependent variables</a><ul>
+<li><a href="#support-for-social-blame"><span class="toc-section-number">2.1</span> Support for Social blame</a></li>
+<li><a href="#individual-blame"><span class="toc-section-number">2.2</span> Individual blame</a></li>
+<li><a href="#social-fate"><span class="toc-section-number">2.3</span> Social fate</a></li>
+<li><a href="#individual-fate"><span class="toc-section-number">2.4</span> Individual fate</a></li>
+<li><a href="#not-stated"><span class="toc-section-number">2.5</span> Not stated</a></li>
+<li><a href="#dont-know"><span class="toc-section-number">2.6</span> Dont know</a></li>
+</ul></li>
+<li><a href="#independent-variables"><span class="toc-section-number">3</span> Independent variables</a><ul>
+<li><a href="#individual-level"><span class="toc-section-number">3.1</span> Individual level</a></li>
+<li><a href="#macro-level"><span class="toc-section-number">3.2</span> Macro level</a><ul>
+<li><a href="#gdp-change"><span class="toc-section-number">3.2.1</span> GDP change</a></li>
+<li><a href="#gini-coefficient"><span class="toc-section-number">3.2.2</span> Gini coefficient</a></li>
+<li><a href="#voice-and-accountability"><span class="toc-section-number">3.2.3</span> Voice and Accountability</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<ul>
+<li><a href="index.html">back to index</a></li>
+</ul>
+<p><code>generated at:</code></p>
+<pre><code>## [1] &quot;2013-11-18 22:56:07 EET&quot;</code></pre>
+<hr />
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link>
+<h1 id="country-grouping"><a href="#TOC"><span class="header-section-number">1</span> Country grouping</a></h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RColorBrewer)
+<span class="kw">library</span>(mapproj)
+<span class="kw">library</span>(maptools)
+<span class="kw">library</span>(rgdal)
+<span class="kw">load</span>(<span class="st">&quot;~/workspace/lits/attributions/data/lits.RData&quot;</span>)
+map &lt;- <span class="kw">suppressWarnings</span>(<span class="kw">readOGR</span>(<span class="dt">dsn =</span> <span class="st">&quot;/home/aurelius/workspace/data/shapefiles/lits/&quot;</span>, 
+    <span class="dt">layer =</span> <span class="st">&quot;lits_all_simple&quot;</span>))</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;/home/aurelius/workspace/data/shapefiles/lits/&quot;, layer: &quot;lits_all_simple&quot;
+## with 58 features and 7 fields
+## Feature type: wkbPolygon with 2 dimensions</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+map$NAME &lt;- <span class="kw">as.character</span>(map$NAME)
+map$NAME[map$NAME == <span class="st">&quot;United Kingdom&quot;</span>] &lt;- <span class="st">&quot;Great Britain&quot;</span>
+map$group_analysis[map$NAME %in% <span class="kw">c</span>(<span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Great Britain&quot;</span>, <span class="st">&quot;Italy&quot;</span>, 
+    <span class="st">&quot;Sweden&quot;</span>)] &lt;- <span class="st">&quot;Western Europe&quot;</span>
+
+map$group_analysis[map$NAME %in% <span class="kw">c</span>(<span class="st">&quot;Czech Republic&quot;</span>, <span class="st">&quot;Estonia&quot;</span>, <span class="st">&quot;Hungary&quot;</span>, <span class="st">&quot;Bulgaria&quot;</span>, 
+    <span class="st">&quot;Latvia&quot;</span>, <span class="st">&quot;Lithuania&quot;</span>, <span class="st">&quot;Poland&quot;</span>, <span class="st">&quot;Slovakia&quot;</span>, <span class="st">&quot;Slovenia&quot;</span>, <span class="st">&quot;Romania&quot;</span>)] &lt;- <span class="st">&quot;CEE&quot;</span>
+
+map$group_analysis[map$NAME %in% <span class="kw">c</span>(<span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Azerbaijan&quot;</span>, <span class="st">&quot;Belarus&quot;</span>, <span class="st">&quot;Georgia&quot;</span>, 
+    <span class="st">&quot;Kazakhstan&quot;</span>, <span class="st">&quot;Kyrgyzstan&quot;</span>, <span class="st">&quot;Moldova&quot;</span>, <span class="st">&quot;Tajikistan&quot;</span>, <span class="st">&quot;Ukraine&quot;</span>, <span class="st">&quot;Uzbekistan&quot;</span>, 
+    <span class="st">&quot;Russia&quot;</span>)] &lt;- <span class="st">&quot;CIS&quot;</span>
+map$NAME &lt;- <span class="kw">as.factor</span>(map$NAME)
+
+<span class="co"># shapefile into data.frame</span>
+map@data$id &lt;- <span class="kw">rownames</span>(map@data)
+<span class="kw">library</span>(ggplot2)
+map.points &lt;- <span class="kw">fortify</span>(map, <span class="dt">region =</span> <span class="st">&quot;id&quot;</span>)
+map.df &lt;- <span class="kw">merge</span>(map.points, map@data, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)
+<span class="co"># only east of longitude -25</span>
+map.df &lt;- <span class="kw">subset</span>(map.df, long &gt;= -<span class="dv">15</span> &amp; long &lt;= <span class="dv">80</span>)
+<span class="co"># names for countries in analysis (excluding others)</span>
+namedata &lt;- map.df[!<span class="kw">is.na</span>(map.df$group_analysis), ]
+cnames &lt;- stats:::<span class="kw">aggregate.formula</span>(<span class="kw">cbind</span>(long, lat) ~ NAME, <span class="dt">data =</span> namedata, 
+    mean)
+cbPalette &lt;- <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>, <span class="st">&quot;#009E73&quot;</span>, <span class="st">&quot;#F0E442&quot;</span>, <span class="st">&quot;#0072B2&quot;</span>, 
+    <span class="st">&quot;gray90&quot;</span>, <span class="st">&quot;#CC79A7&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(map.df, <span class="kw">aes</span>(long,lat,<span class="dt">group=</span>group)) +
+  <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, <span class="kw">aes</span>(long,lat), <span class="dt">fill=</span><span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) +
+  <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> group_analysis)) + <span class="co"># or group_fine !!</span>
+  <span class="kw">scale_fill_manual</span>(<span class="dt">values=</span>cbPalette) +
+  <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, <span class="kw">aes</span>(long,lat), <span class="dt">fill=</span><span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) +
+  <span class="kw">geom_text</span>(<span class="dt">data=</span>cnames, <span class="kw">aes</span>(long, lat, <span class="dt">label =</span> NAME, <span class="dt">group=</span>NAME), <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) +
+  <span class="kw">coord_map</span>(<span class="dt">project=</span><span class="st">&quot;orthographic&quot;</span>) +
+  <span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;top&quot;</span>)</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsGroup1.png" alt="plot of chunk mapPlotsGroup1" /><p class="caption">plot of chunk mapPlotsGroup1</p>
+</div>
+<h1 id="dependent-variables"><a href="#TOC"><span class="header-section-number">2</span> Dependent variables</a></h1>
+<p><strong>The darker the higher the support</strong></p>
+<h2 id="support-for-social-blame"><a href="#TOC"><span class="header-section-number">2.1</span> Support for Social blame</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r">### Faceted showing population shares of explanations
+<span class="kw">library</span>(scales)
+plotMap &lt;- <span class="kw">merge</span>(map.df, macro, <span class="dt">by.x =</span> <span class="st">&quot;NAME&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;cntry&quot;</span>)
+plotMap &lt;- plotMap[<span class="kw">order</span>(plotMap$order), ]
+
+<span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> socialBlame)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV1.png" alt="plot of chunk mapPlotsDV1" /><p class="caption">plot of chunk mapPlotsDV1</p>
+</div>
+<h2 id="individual-blame"><a href="#TOC"><span class="header-section-number">2.2</span> Individual blame</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> individualBlame)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV2.png" alt="plot of chunk mapPlotsDV2" /><p class="caption">plot of chunk mapPlotsDV2</p>
+</div>
+<h2 id="social-fate"><a href="#TOC"><span class="header-section-number">2.3</span> Social fate</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> socialFate)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV3.png" alt="plot of chunk mapPlotsDV3" /><p class="caption">plot of chunk mapPlotsDV3</p>
+</div>
+<h2 id="individual-fate"><a href="#TOC"><span class="header-section-number">2.4</span> Individual fate</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> individualFate)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV4.png" alt="plot of chunk mapPlotsDV4" /><p class="caption">plot of chunk mapPlotsDV4</p>
+</div>
+<h2 id="not-stated"><a href="#TOC"><span class="header-section-number">2.5</span> Not stated</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> not.stated)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV5.png" alt="plot of chunk mapPlotsDV5" /><p class="caption">plot of chunk mapPlotsDV5</p>
+</div>
+<h2 id="dont-know"><a href="#TOC"><span class="header-section-number">2.6</span> Dont know</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> dont.know)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsDV6.png" alt="plot of chunk mapPlotsDV6" /><p class="caption">plot of chunk mapPlotsDV6</p>
+</div>
+<h1 id="independent-variables"><a href="#TOC"><span class="header-section-number">3</span> Independent variables</a></h1>
+<h2 id="individual-level"><a href="#TOC"><span class="header-section-number">3.1</span> Individual level</a></h2>
+<h2 id="macro-level"><a href="#TOC"><span class="header-section-number">3.2</span> Macro level</a></h2>
+<p><strong>Blue is &quot;positive&quot;, red is &quot;negative&quot;</strong></p>
+<h3 id="gdp-change"><a href="#TOC"><span class="header-section-number">3.2.1</span> GDP change</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> gdpchange07<span class="fl">.10</span>)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="kw">muted</span>(<span class="st">&quot;red&quot;</span>), 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsIvMacro1.png" alt="plot of chunk mapPlotsIvMacro1" /><p class="caption">plot of chunk mapPlotsIvMacro1</p>
+</div>
+<h3 id="gini-coefficient"><a href="#TOC"><span class="header-section-number">3.2.2</span> Gini coefficient</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> uw_gini)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>), 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;red&quot;</span>), <span class="dt">midpoint =</span> <span class="fl">33.55</span>) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + 
+    <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsIvMacro2.png" alt="plot of chunk mapPlotsIvMacro2" /><p class="caption">plot of chunk mapPlotsIvMacro2</p>
+</div>
+<h3 id="voice-and-accountability"><a href="#TOC"><span class="header-section-number">3.2.3</span> Voice and Accountability</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(plotMap, <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group)) + <span class="kw">geom_polygon</span>(<span class="dt">data =</span> map.df, 
+    <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="st">&quot;gray90&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) + <span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> wbgi_vae)) + 
+    <span class="kw">geom_polygon</span>(<span class="dt">data =</span> plotMap, <span class="kw">aes</span>(long, lat), <span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, 
+        <span class="dt">size =</span> <span class="fl">0.1</span>) + <span class="kw">coord_map</span>(<span class="dt">project =</span> <span class="st">&quot;orthographic&quot;</span>) + <span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="kw">muted</span>(<span class="st">&quot;red&quot;</span>), 
+    <span class="dt">high =</span> <span class="kw">muted</span>(<span class="st">&quot;blue&quot;</span>)) + <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>) + <span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>))</code></pre>
+<div class="figure">
+<img src="figure/mapPlotsIvMacro3.png" alt="plot of chunk mapPlotsIvMacro3" /><p class="caption">plot of chunk mapPlotsIvMacro3</p>
+</div>
+</body>
+</html>

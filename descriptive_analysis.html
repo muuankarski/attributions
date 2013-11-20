@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Descriptive visualizations</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Descriptive visualizations</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#visualizing-the-predictors"><span class="toc-section-number">1</span> Visualizing the predictors</a><ul>
+<li><a href="#perceived-income"><span class="toc-section-number">1.1</span> Perceived income</a><ul>
+<li><a href="#original-variable"><span class="toc-section-number">1.1.1</span> Original variable</a><ul>
+<li><a href="#transformed-variable"><span class="toc-section-number">1.1.1.1</span> Transformed variable</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#transfer-dependencyincome-source"><span class="toc-section-number">1.2</span> Transfer dependency/Income source</a><ul>
+<li><a href="#original-variable-1"><span class="toc-section-number">1.2.1</span> Original variable</a></li>
+<li><a href="#transformed-variable-1"><span class="toc-section-number">1.2.2</span> Transformed variable</a></li>
+</ul></li>
+<li><a href="#past"><span class="toc-section-number">1.3</span> Past</a><ul>
+<li><a href="#original-variable-2"><span class="toc-section-number">1.3.1</span> Original variable</a></li>
+<li><a href="#transformed-variable-2"><span class="toc-section-number">1.3.2</span> Transformed variable</a></li>
+</ul></li>
+<li><a href="#future"><span class="toc-section-number">1.4</span> Future</a><ul>
+<li><a href="#original-variable-3"><span class="toc-section-number">1.4.1</span> Original variable</a></li>
+<li><a href="#transformed-variable-3"><span class="toc-section-number">1.4.2</span> Transformed variable</a></li>
+</ul></li>
+<li><a href="#education"><span class="toc-section-number">1.5</span> Education</a><ul>
+<li><a href="#original-variable-4"><span class="toc-section-number">1.5.1</span> Original variable</a></li>
+<li><a href="#transformed-variable-4"><span class="toc-section-number">1.5.2</span> Transformed variable</a></li>
+</ul></li>
+<li><a href="#crises"><span class="toc-section-number">1.6</span> Crises</a><ul>
+<li><a href="#original-variable-5"><span class="toc-section-number">1.6.1</span> Original variable</a></li>
+<li><a href="#transformed-variable-5"><span class="toc-section-number">1.6.2</span> Transformed variable</a></li>
+</ul></li>
+<li><a href="#macro-level"><span class="toc-section-number">1.7</span> Macro level</a></li>
+</ul></li>
+<li><a href="#dependent-variable"><span class="toc-section-number">2</span> Dependent variable</a></li>
+</ul>
+</div>
+<ul>
+<li><a href="index.html">back to index</a></li>
+</ul>
+<p><code>generated at:</code></p>
+<pre><code>## [1] &quot;2013-11-18 22:46:26 EET&quot;</code></pre>
+<hr />
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link>
+<h1 id="visualizing-the-predictors"><a href="#TOC"><span class="header-section-number">1</span> Visualizing the predictors</a></h1>
+<h2 id="perceived-income"><a href="#TOC"><span class="header-section-number">1.1</span> Perceived income</a></h2>
+<h3 id="original-variable"><a href="#TOC"><span class="header-section-number">1.1.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;~/workspace/attributions/lits.RData&quot;</span>)</code></pre>
+<pre><code>## Error: cannot open the connection</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(reshape2)
+
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q227), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cond &lt;- <span class="kw">as.numeric</span>(<span class="kw">levels</span>(x$cond))[x$cond]
+x &lt;- <span class="kw">subset</span>(x, cond &gt;= -<span class="dv">1</span>)
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot1_1.png" alt="plot of chunk descplot1_1" /><p class="caption">plot of chunk descplot1_1</p>
+</div>
+<h4 id="transformed-variable"><a href="#TOC"><span class="header-section-number">1.1.1.1</span> Transformed variable</a></h4>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$income), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot1_2.png" alt="plot of chunk descplot1_2" /><p class="caption">plot of chunk descplot1_2</p>
+</div>
+<h2 id="transfer-dependencyincome-source"><a href="#TOC"><span class="header-section-number">1.2</span> Transfer dependency/Income source</a></h2>
+<h3 id="original-variable-1"><a href="#TOC"><span class="header-section-number">1.2.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q226m), <span class="dv">1</span>) * <span class="dv">100</span>)</code></pre>
+<pre><code>## Error: all arguments must have the same length</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot2_1.png" alt="plot of chunk descplot2_1" /><p class="caption">plot of chunk descplot2_1</p>
+</div>
+<h3 id="transformed-variable-1"><a href="#TOC"><span class="header-section-number">1.2.2</span> Transformed variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$incsour3), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Dependent&quot;</span>, <span class="st">&quot;Not.dependent&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<pre><code>## Error: &#39;to&#39; cannot be NA, NaN or infinite</code></pre>
+<h2 id="past"><a href="#TOC"><span class="header-section-number">1.3</span> Past</a></h2>
+<h3 id="original-variable-2"><a href="#TOC"><span class="header-section-number">1.3.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q228), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cond &lt;- <span class="kw">as.numeric</span>(<span class="kw">levels</span>(x$cond))[x$cond]
+x &lt;- <span class="kw">subset</span>(x, cond &gt;= -<span class="dv">1</span>)
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot3_1.png" alt="plot of chunk descplot3_1" /><p class="caption">plot of chunk descplot3_1</p>
+</div>
+<h3 id="transformed-variable-2"><a href="#TOC"><span class="header-section-number">1.3.2</span> Transformed variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$past), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;same or better&quot;</span>, <span class="st">&quot;worse&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot3_2.png" alt="plot of chunk descplot3_2" /><p class="caption">plot of chunk descplot3_2</p>
+</div>
+<h2 id="future"><a href="#TOC"><span class="header-section-number">1.4</span> Future</a></h2>
+<h3 id="original-variable-3"><a href="#TOC"><span class="header-section-number">1.4.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q229), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cond &lt;- <span class="kw">as.numeric</span>(<span class="kw">levels</span>(x$cond))[x$cond]
+x &lt;- <span class="kw">subset</span>(x, cond &gt;= -<span class="dv">1</span>)
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot4_1.png" alt="plot of chunk descplot4_1" /><p class="caption">plot of chunk descplot4_1</p>
+</div>
+<h3 id="transformed-variable-3"><a href="#TOC"><span class="header-section-number">1.4.2</span> Transformed variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$future), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;same or better&quot;</span>, <span class="st">&quot;worse&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot4_2.png" alt="plot of chunk descplot4_2" /><p class="caption">plot of chunk descplot4_2</p>
+</div>
+<h2 id="education"><a href="#TOC"><span class="header-section-number">1.5</span> Education</a></h2>
+<h3 id="original-variable-4"><a href="#TOC"><span class="header-section-number">1.5.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q515), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cond &lt;- <span class="kw">as.numeric</span>(<span class="kw">levels</span>(x$cond))[x$cond]
+x &lt;- <span class="kw">subset</span>(x, cond &gt;= -<span class="dv">1</span>)
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot5_1.png" alt="plot of chunk descplot5_1" /><p class="caption">plot of chunk descplot5_1</p>
+</div>
+<h3 id="transformed-variable-4"><a href="#TOC"><span class="header-section-number">1.5.2</span> Transformed variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$edu2), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;no or compulsory&quot;</span>, <span class="st">&quot;higher&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot5_2.png" alt="plot of chunk descplot5_2" /><p class="caption">plot of chunk descplot5_2</p>
+</div>
+<h2 id="crises"><a href="#TOC"><span class="header-section-number">1.6</span> Crises</a></h2>
+<h3 id="original-variable-5"><a href="#TOC"><span class="header-section-number">1.6.1</span> Original variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$q801), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>)) + 
+    <span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;dim grey&quot;</span>, 
+        <span class="st">&quot;grey&quot;</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot6_1.png" alt="plot of chunk descplot6_1" /><p class="caption">plot of chunk descplot6_1</p>
+</div>
+<h3 id="transformed-variable-5"><a href="#TOC"><span class="header-section-number">1.6.2</span> Transformed variable</a></h3>
+<pre class="sourceCode r"><code class="sourceCode r">
+tbl &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$cntry, df$crise), <span class="dv">1</span>) * <span class="dv">100</span>)
+reg &lt;- <span class="kw">as.data.frame</span>(<span class="kw">table</span>(df$cntry, df$group_general))
+reg &lt;- <span class="kw">subset</span>(reg, Freq &gt; <span class="dv">0</span>)
+reg &lt;- reg[<span class="kw">with</span>(reg, <span class="kw">order</span>(Var2)), ]
+x &lt;- <span class="kw">merge</span>(tbl, reg[, <span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">by =</span> <span class="st">&quot;Var1&quot;</span>)
+<span class="kw">names</span>(x) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;cond&quot;</span>, <span class="st">&quot;freq&quot;</span>, <span class="st">&quot;group&quot;</span>)
+x$cond &lt;- <span class="kw">factor</span>(x$cond, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Little or not at all&quot;</span>, <span class="st">&quot;Great or fair amount&quot;</span>))
+
+x &lt;- x[<span class="kw">with</span>(x, <span class="kw">order</span>(cond)), ]
+x$cntry &lt;- <span class="kw">factor</span>(x$cntry, <span class="dt">levels =</span> reg$Var1)
+
+<span class="kw">ggplot</span>(x, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> freq, <span class="dt">fill =</span> cond)) + <span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) + 
+    <span class="kw">facet_grid</span>(group ~ .) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<div class="figure">
+<img src="figure/descplot6_2.png" alt="plot of chunk descplot6_2" /><p class="caption">plot of chunk descplot6_2</p>
+</div>
+<h2 id="macro-level"><a href="#TOC"><span class="header-section-number">1.7</span> Macro level</a></h2>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;- macro[<span class="kw">with</span>(macro, <span class="kw">order</span>(uw_gini)), ]
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry, <span class="dt">levels =</span> df$cntry)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> uw_gini, <span class="dt">colour =</span> group)) + <span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">5</span>) + 
+    <span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;gini coeficient&quot;</span>) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, 
+    <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<pre><code>## Error: object &#39;group&#39; not found</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;- macro[<span class="kw">with</span>(macro, <span class="kw">order</span>(gdpchange07<span class="fl">.10</span>)), ]
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry, <span class="dt">levels =</span> df$cntry)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> gdpchange07<span class="fl">.10</span>, <span class="dt">colour =</span> group)) + <span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">5</span>) + 
+    <span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;gdp change 2007 - 2010&quot;</span>) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, 
+    <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<pre><code>## Error: object &#39;group&#39; not found</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;- macro[<span class="kw">with</span>(macro, <span class="kw">order</span>(wbgi_vae)), ]
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry, <span class="dt">levels =</span> df$cntry)
+
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> cntry, <span class="dt">y =</span> wbgi_vae, <span class="dt">colour =</span> group)) + <span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">5</span>) + 
+    <span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Voice and accountability&quot;</span>) + <span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, 
+    <span class="dt">vjust =</span> <span class="fl">0.5</span>))</code></pre>
+<pre><code>## Error: object &#39;group&#39; not found</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
+<span class="kw">ggpairs</span>(macro[, <span class="kw">c</span>(<span class="st">&quot;uw_gini&quot;</span>, <span class="st">&quot;gdpchange07.10&quot;</span>, <span class="st">&quot;wbgi_vae&quot;</span>, <span class="st">&quot;socialBlame&quot;</span>, <span class="st">&quot;individualBlame&quot;</span>)])</code></pre>
+<div class="figure">
+<img src="figure/descplot10.png" alt="plot of chunk descplot10" /><p class="caption">plot of chunk descplot10</p>
+</div>
+<h1 id="dependent-variable"><a href="#TOC"><span class="header-section-number">2</span> Dependent variable</a></h1>
+</body>
+</html>
