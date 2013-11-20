@@ -7,7 +7,6 @@
 setwd("~/workspace/lits/attributions/")
 library(knitr)
 knit2html('regressionModelling.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-
 ```
 
 

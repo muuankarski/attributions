@@ -1,22 +1,11 @@
-% Final graphics for the paper
-
-- [back to index](index.html)
-
-
-`generated at:`
-```{r, echo=FALSE}
-Sys.time()
-```
----
+# Final graphics for the paper
 
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
-
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
-library(kaRski)
-knit("finalPlots.Rmd")
-system("pandoc -s finalPlots.md -o finalPlots.html --toc --number-section")
+library(knitr)
+knit2html('finalPlots.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
 
 ```
 
