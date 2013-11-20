@@ -29,6 +29,24 @@ opts_chunk$set(echo=TRUE,eval=TRUE, cache=FALSE,message=FALSE,warning=FALSE,fig.
 
 ```{rLoadClean1}
 # FROM WEB
+# temp <- tempfile()
+# download.file("http://www.ebrd.com/downloads/research/surveys/litscsv.zip", temp)
+# unzip(temp)
+# lits1 <- read.csv("LITS2006_1.csv")
+# lits2 <- read.csv("LITS2006_2.csv")
+# lits3 <- read.csv("LITS2006_3.csv")
+# lits4 <- read.csv("LITS2006_4.csv")
+# lits5 <- read.csv("LITS2006_5.csv")
+# 
+# lits <- merge(lits1,lits2, by="id")
+# lits <- merge(lits,lits3, by="id")
+# lits <- merge(lits,lits4, by="id")
+# lits1 <- merge(lits,lits5, by="id")
+# save(lits1, 
+#       file="~/workspace/data/lits/lits1.RData")
+
+load("~/workspace/data/lits/lits1.RData")
+# FROM WEB
 #temp <- tempfile()
 #download.file("http://www.ebrd.com/downloads/research/surveys/lits2.dta", temp)
 #library(foreign)
@@ -44,11 +62,60 @@ load("~/workspace/data/lits/lits2.RData")
 ## Country names & groupings
 
 ```{rLoadClean2}
+### ------ BEGIN 2006 ---------- ####
+
+# different country groupings
+# Function the uppercase the first characters
+.simpleCap <- function(x) {
+    s <- strsplit(x, " ")[[1]]
+    paste(toupper(substring(s, 1, 1)), substring(s, 2),
+          sep = "", collapse = " ")
+}
+lits1$countryname <- as.character(lits1$countryname)
+lits1$cntry <- sapply(lits1$countryname, .simpleCap)
+# recongin to match lits2 cntry names
+lits1$cntry[lits1$cntry %in% "Czechrep"] <- "Czech Republic"
+
+### ------ END 2006 ---------- ####
 # different country groupings
 ## remove whitespaces from country
 library(stringr)
 lits2$cntry <- str_trim(lits2$country_, side="right")
 lits2$cntry <- factor(lits2$cntry)
+
+### ------ BEGIN 2006 ---------- ####
+
+lits1$socialism[lits1$cntry %in% c('Czech Republic','Estonia','Hungary',
+                                   'Bulgaria','Latvia','Lithuania',
+                                   'Poland','Slovakia','Slovenia',
+                                   'Romania','Albania','Bosnia',
+                                   'Bulgaria','Croatia','Macedonia',
+                                   'Montenegro','Kosovo','Serbia',
+                                   'Armenia','Azerbaijan','Belarus',
+                                   'Georgia','Kazakhstan','Kyrgyzstan',
+                                   'Moldova','Mongolia','Russia',
+                                   'Tajikistan','Ukraine','Uzbekistan')] <- 'Post-socialist'
+summary(factor(lits1$socialism))
+
+lits1$group_analysis[lits1$cntry %in% c('Czech Republic','Estonia',
+                                        'Hungary','Bulgaria',
+                                        'Latvia','Lithuania',
+                                        'Poland','Slovakia',
+                                        'Slovenia','Romania')] <- 'CEE'
+
+lits1$group_analysis[lits1$cntry %in% c('Armenia','Azerbaijan',
+                                        'Belarus','Georgia',
+                                        'Kazakhstan','Kyrgyzstan',
+                                        'Moldova','Tajikistan',
+                                        'Ukraine','Uzbekistan','Russia')] <- 'CIS'
+
+lits1$group_analysis <- factor(lits1$group_analysis, levels=c("CEE",
+                                                             "CIS",
+                                                             NA))
+
+summary(lits1$group_analysis)
+
+### ------ END 2006 ---------- ####
 
 lits2$socialism[lits2$cntry %in% c('France','Germany','Great Britain',
                                    'Italy','Sweden')]                   <- 'Market economy'
@@ -88,11 +155,64 @@ lits2$group_analysis <- factor(lits2$group_analysis, levels=c("Western Europe",
                                                              NA))
 
 summary(lits2$group_analysis)
+
+tbl <- merge(as.data.frame(table(lits2$cntry)),as.data.frame(table(lits1$cntry)),by="Var1",all.x=TRUE)
+names(tbl) <- c("cntry","n2010","n2006")
+tbl
 ```
 
 ## Recoding the dependent variable
 
 ```{rLoadClean3}
+
+### ------ BEGIN 2006 ---------- ####
+summary(lits1$q308)
+# All options
+lits1$q309 <- as.character(lits1$q308)
+lits1$q309[lits1$q309 %in% 'injustice in society'] <- 'Social Blame'
+lits1$q309[lits1$q309 %in% 'laziness and lack of willpower'] <- 'Individual Blame'
+lits1$q309[lits1$q309 %in% 'unlucky'] <- 'Individual Fate'
+lits1$q309[lits1$q309 %in% 'inevitable part of modern life'] <- 'Social Fate'
+lits1$q309[lits1$q309 %in% 'other'] <- 'Not stated'
+lits1$q309[!(lits1$q309 %in% c("Social Blame",
+                              "Individual Blame",
+                              "Individual Fate",
+                              "Social Fate",
+                              "Not stated"))] <- NA
+
+lits1$q309 <- factor(lits1$q309, levels=c("Social Blame",
+                                          "Individual Blame",
+                                          "Individual Fate",
+                                          "Social Fate",
+                                          "Not stated"))
+summary(factor(lits1$q309))
+# not stated and dont know coded NA
+
+lits1$poverty <- lits1$q309
+lits1$poverty[lits1$poverty %in% 'Not stated'] <- NA
+lits1$poverty <- factor(lits1$poverty)
+summary(lits1$poverty)
+
+## For logistic regressions
+# $pov.log.social
+
+lits1$pov.log.social[lits1$q309 == 'Social Blame'] <- 1
+lits1$pov.log.social[lits1$q309 != 'Social Blame'] <- 0
+
+summary(factor(lits1$pov.log.social))
+
+# $pov_log_individual
+###
+
+lits1$pov.log.individual[lits1$q309 == 'Individual Blame'] <- 1
+lits1$pov.log.individual[lits1$q309 != 'Individual Blame'] <- 0
+
+summary(factor(lits1$pov.log.individual))
+
+### ------ END 2006 ---------- ####
+
+
+
 summary(lits2$q309)
 # reason for poverty
 library(stringr)
@@ -139,25 +259,48 @@ lits2$pov.log.individual[lits2$q309 != 'Individual Blame'] <- 0
 
 summary(factor(lits2$pov.log.individual))
 
+#
+tbl <- merge(as.data.frame(table(lits2$cntry,lits2$pov.log.social)),
+      as.data.frame(table(lits1$cntry,lits1$pov.log.social)),
+      by="Var1",all.x=TRUE)
+names(tbl) <- c("cntry","Var2010","N2010","Var2006","N2006")
+tbl
+#
+tbl <- merge(as.data.frame(table(lits2$cntry,lits2$pov.log.individual)),
+      as.data.frame(table(lits1$cntry,lits1$pov.log.individual)),
+      by="Var1",all.x=TRUE)
+names(tbl) <- c("cntry","Var2010","N2010","Var2006","N2006")
+tbl
+#
+
 ```
 
 ## Independent variables
 
 ```{rLoadClean4}
+
+### ------ BEGIN 2006 ---------- ####
+# $sex
+lits1$sex <- lits1$q102_1
+# $income
+library(plyr)
+medianData <- ddply(lits1,~cntry,summarise,incMedian=median(q211, na.rm=TRUE))
+lits1 <- merge(lits1,medianData,by="cntry",all.x=TRUE)
+
+lits1$income2[lits1$q211 < lits1$incMedian]  <- 'Low'
+lits1$income2[lits1$q211 >= lits1$incMedian]  <- 'High'
+
+lits1$income2 <- factor(lits1$income2, 
+                       levels=c("Low",
+                                "High"))
+
+summary(lits1$income2)
+### ------ END 2006 ---------- ####
+
 # $sex
 lits2$sex <- lits2$q102_1
 # $income
 
-lits2$income[lits2$q227 >= 1 & lits2$q227 <= 3]  <- 'Low income'
-lits2$income[lits2$q227 >= 4 & lits2$q227 <= 7]  <- 'Middle income'
-lits2$income[lits2$q227 >= 8] <-'High income'
-
-lits2$income <- factor(lits2$income, 
-                       levels=c("Low income",
-                                "Middle income",
-                                "High income"))
-
-summary(lits2$income)
 
 lits2$income2[lits2$q227 >= 1 & lits2$q227 <= 5]  <- 'Low'
 lits2$income2[lits2$q227 >= 6 & lits2$q227 <= 10]  <- 'High'
@@ -166,74 +309,88 @@ lits2$income2 <- factor(lits2$income2,
                        levels=c("Low",
                                 "High"))
 
-summary(lits2$income2)
-
-# median(lits2)
-#svyquantile(~q227, d.df, quantile = c(0.25, 0.5, 0.75), ci = TRUE)
-library(car)
 lits2$q227_rec <- lits2$q227
-lits2$q227_rec[lits2$q227_rec <= 0] <- NA
-# $future
-###
+lits2$q227_rec[lits2$q227 <= 0] <- NA
 
-summary(factor(lits2$q229))
+library(plyr)
+medianData <- ddply(lits2,~cntry,summarise,incMedian=median(q227_rec, na.rm=TRUE))
+lits2 <- merge(lits2,medianData,by="cntry",all.x=TRUE)
 
-lits2$future[lits2$q229 >= 1 & lits2$q229 <= 3] <- "low income"
-lits2$future[lits2$q229 >= 4 & lits2$q229 <= 7] <- "middle income"
-lits2$future[lits2$q229 >= 8 & lits2$q229 <= 10] <- "high income"
+lits2$income2[lits2$q227 < lits2$incMedian]  <- 'Low'
+lits2$income2[lits2$q227 >= lits2$incMedian]  <- 'High'
 
-summary(factor(lits2$future))
+lits2$income2 <- factor(lits2$income2, 
+                       levels=c("Low",
+                                "High"))
 
-lits2$q229_rec <- lits2$q229
-lits2$q229_rec[lits2$q229_rec <= 0] <- NA
+### ------ BEGIN 2006 ---------- ####
+## perGini
+library(laeken)
+perGini2006 <- as.data.frame(gini(inc="q211",
+                      weights = "weight_1",
+                      data = lits1,
+                      na.rm = TRUE,
+                      breakdown="cntry")[2])
 
-summary(factor(lits2$q229_rec))
+names(perGini2006) <- c("cntry","perGini")
+perGini2006
 
-lits2$future.diff[lits2$q227_rec > lits2$q229_rec] <- 'worse'
-lits2$future.diff[lits2$q227_rec <= lits2$q229_rec] <- 'same or better'
-lits2$future.diff <- factor(lits2$future.diff, levels=c("worse",
-                                                        "same or better"))
+### ------ END 2006 ---------- ####
 
-summary(lits2$future.diff)
-# $past
-###
+library(laeken)
+perGini2010 <- as.data.frame(gini(inc="q227_rec",
+                      weights = "weight",
+                      data = lits2,
+                      na.rm = TRUE,
+                      breakdown="cntry")[2])
 
-summary(factor(lits2$q228))
+names(perGini2010) <- c("cntry","perGini")
+perGini2010
 
-lits2$past[lits2$q228 >= 1 & lits2$q228 <= 3] <- "low income"
-lits2$past[lits2$q228 >= 4 & lits2$q228 <= 7] <- "middle income"
-lits2$past[lits2$q228 >= 8 & lits2$q228 <= 10] <- "high income"
-
-summary(factor(lits2$past))
-
-lits2$q228_rec <- lits2$q228
-lits2$q228_rec[lits2$q228_rec <= 0] <- NA
-
-summary(factor(lits2$q228_rec))
-
-lits2$past.diff[lits2$q227_rec < lits2$q228_rec] <- 'worse'
-lits2$past.diff[lits2$q227_rec >= lits2$q228_rec] <- 'same or better'
-lits2$past.diff <- factor(lits2$past.diff, levels=c("worse",
-                                                    "same or better"))
-# $age
-###
-
-lits2$ageclass[lits2$q104a_1 <= 29] <- '29 or younger'
-lits2$ageclass[lits2$q104a_1 >= 30 & lits2$q104a_1 <= 44] <- '30 to 44'
-lits2$ageclass[lits2$q104a_1 >= 45 & lits2$q104a_1 <= 59] <- '45 to 59'
-lits2$ageclass[lits2$q104a_1 >= 60 & lits2$q104a_1 <= 120] <- '60 and older'
-
-lits2$ageclass <- factor(lits2$ageclass, 
-                         levels=c("29 or younger",
-                                  "30 to 44",
-                                  "45 to 59",
-                                  "60 and older"))
-
-summary(lits2$ageclass)
-
+lits1$age <- lits1$age1
 lits2$age <- lits2$q104a_1
 
+### ------ BEGIN 2006 ---------- ####
+
+# $incsour tulonlähde
 ###
+summary(factor(lits1$q210b))
+
+lits1$incsour3[lits1$q210b %in% c('state provided social benefits',
+                                  'unemployment benefits',
+                                  'pensions',
+                                  'community/privately provided social benefits',
+                                  'help from charities and NGOs',
+                                  'help from relatives/friend in the country',
+                                  'help from relatives/friends abroad')] <- "dependent"
+lits1$incsour3[!(lits1$q210b %in% c('state provided social benefits',
+                                  'unemployment benefits',
+                                  'pensions',
+                                  'community/privately provided social benefits',
+                                  'help from charities and NGOs',
+                                  'help from relatives/friend in the country',
+                                  'help from relatives/friends abroad'))] <- "notDependent"
+
+lits1$incsour3 <- factor(lits1$incsour3, 
+                         levels=c("dependent",
+                                  "notDependent"))
+summary(lits1$incsour3)
+###
+
+# $edu
+###
+
+lits1$edu2[lits1$q501 %in% c('compulsory school education',
+                         'no degree/education')] <- 'no or compulsory'
+lits1$edu2[!(lits1$q501 %in% c('compulsory school education',
+                         'no degree/education'))] <- 'higher'
+  
+lits1$edu2 <- factor(lits1$edu2,
+                     levels=c("no or compulsory",
+                              "higher"))
+
+summary(lits1$edu2)
+### ------ END 2006 ---------- ####
 
 # $incsour tulonlähde
 ###
@@ -262,6 +419,26 @@ lits2$edu2 <- factor(lits2$edu2,
 
 summary(lits2$edu2)
 #################
+
+
+
+# $future
+###
+lits2$q229_rec <- lits2$q229
+lits2$q229_rec[lits2$q229 <= 0] <- NA
+
+lits2$future.diff[lits2$q227_rec > lits2$q229_rec] <- 'worse'
+lits2$future.diff[lits2$q227_rec <= lits2$q229_rec] <- 'same or better'
+lits2$future.diff <- factor(lits2$future.diff, levels=c("worse",
+                                                        "same or better"))
+# $past
+lits2$q228_rec <- lits2$q228
+lits2$q228_rec[lits2$q228 <= 0] <- NA
+
+lits2$past.diff[lits2$q227_rec < lits2$q228_rec] <- 'worse'
+lits2$past.diff[lits2$q227_rec >= lits2$q228_rec] <- 'same or better'
+lits2$past.diff <- factor(lits2$past.diff, levels=c("worse",
+                                                    "same or better"))
 # $crise - kriisikokemus
 #################
 library(stringr)
@@ -290,23 +467,15 @@ summary(lits2$crise)
 ```{rLoadClean5, eval=TRUE}
 ## Data for the analysis
 df <- subset(lits2, select=c("SerialID","weight","cntry","country0","q309",
-                             "sex",
-                             "ageclass","age",
+                             "sex","age",
                              "future.diff","past.diff",
                              "pov.log.social",
                              "pov.log.individual",
                              "socialism","incsour3",
                              "edu2",
                              "group_analysis",
-                             #"group_general","group_fine",
                              "income2",
                              "crise",
-                             "q227", # income
-                             "q228", # menneisyys
-                             "q229", # tulevaisuus
-#                             "q226m_txt", # tulonlähde
-                             "q515", # edu
-                             "q801", # crise,
                              "poverty"
                              ))
 # filter out not wanted countries
@@ -355,114 +524,100 @@ names(summaryPovertyw) <- c("cntry","socialBlame","individualBlame","individualF
 ```{rLoadClean7, eval=TRUE}
 #######
 # Quality of governance
-library(rustfare)
-datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
-                   'Ukraine','Moldova','Belarus','Kyrgyzstan',
-                   'Kazakhstan','Tajikistan',
-                   'Uzbekistan','Estonia','Latvia','Lithuania',
-                   'Poland','Czech Republic','Slovakia','Hungary',
-                   'Slovenia','Romania','Bulgaria',
-                   'Italy','Germany','United Kingdom',
-                   'Sweden','France'), 
-       indicator = c("ffp_fsi", # Failed States Index
-                     "wbgi_vae", # World Bank - Voice and Accountability
-                     "undp_hdi", # UNDP Human Development Index
-                     "fh_polity2", # Democracy (Freedom House/Polity)
-                     "uw_gini"))
-# subset the latest value per cntry per indicator
-library(plyr)
-datQogSum <- ddply(datQog, c("cname","indicator"), 
-                   subset, year == max(year))
+# library(rustfare)
+# datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
+#                    'Ukraine','Moldova','Belarus','Kyrgyzstan',
+#                    'Kazakhstan','Tajikistan',
+#                    'Uzbekistan','Estonia','Latvia','Lithuania',
+#                    'Poland','Czech Republic','Slovakia','Hungary',
+#                    'Slovenia','Romania','Bulgaria',
+#                    'Italy','Germany','United Kingdom',
+#                    'Sweden','France'), 
+#        indicator = c("ffp_fsi", # Failed States Index
+#                      "wbgi_vae", # World Bank - Voice and Accountability
+#                      "undp_hdi", # UNDP Human Development Index
+#                      "fh_polity2", # Democracy (Freedom House/Polity)
+#                      "uw_gini"))
+# # subset the latest value per cntry per indicator
+# library(plyr)
+# datQogSum <- ddply(datQog, c("cname","indicator"), 
+#                    subset, year == max(year))
 
-# library(ggplot2)
-# ggplot(datQogSum, aes(x=year,y=value,color=cname)) + 
-#   geom_point(size=4) +
-#   geom_text(data = datQogSum,
-#             aes(x=year,y=value,
-#                 color=cname,
-#                 label=cname),
-#             size=3.5) +
-#   facet_wrap(~indicator, scales="free") +
-#   theme(legend.position="none")
+# datQogSum.w <- dcast(datQogSum, 
+#                      cname ~ indicator, 
+#                      value.var="value")
+# 
+# datQogSum.w$cname <-  as.character(datQogSum.w$cname)
+# datQogSum.w$cname[datQogSum.w$cname %in% "United Kingdom"] <- "Great Britain"
+# 
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Armenia','Azerbaijan','Georgia')] <- 'Caucasus'
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Russia','Ukraine','Moldova','Belarus')] <- 'CIS North'
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Kyrgyzstan','Kazakhstan','Tajikistan','Uzbekistan')] <- 'Central Asia'
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Estonia','Latvia','Lithuania')] <- 'Baltic States'
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Poland','Czech Republic','Slovakia','Hungary',
+#                                                 'Slovenia','Romania','Bulgaria')] <- 'CEE EU'
+# datQogSum.w$group_fine[datQogSum.w$cname %in% c('Italy','Germany','Great Britain','Sweden','France')] <- 'West Europe'
+#                          
+# datQogSum.w$group_fine <- factor(datQogSum.w$group_fine)
+# 
+# summary(factor(datQogSum.w$group_fine))
+# 
+# datQogSum.w$group_general[datQogSum.w$cname %in% c('France','Germany',
+#                                                    'Great Britain','Italy','Sweden')] <- 'Western Europe'
+# datQogSum.w$group_general[datQogSum.w$cname %in% c('Czech Republic','Estonia',
+#                                                    'Hungary','Bulgaria',
+#                                                    'Latvia','Lithuania','Poland',
+#                                                    'Slovakia','Slovenia','Romania')] <- 'CEE'
+# datQogSum.w$group_general[datQogSum.w$cname %in% c('Armenia','Azerbaijan','Belarus',
+#                                                    'Georgia','Kazakhstan',
+#                                                    'Kyrgyzstan','Moldova',
+#                                                    'Tajikistan','Ukraine',
+#                                                    'Uzbekistan','Russia')] <- 'CIS'
+# 
+# datQogSum.w$group_general <- factor(datQogSum.w$group_general, 
+#                                     levels=c("Western Europe",
+#                                              "CEE",
+#                                              "CIS"))
+# 
+#df.qog <- datQogSum.w
+# 
+# names(df.qog)[1] <- "cntry"
 
-datQogSum.w <- dcast(datQogSum, 
-                     cname ~ indicator, 
-                     value.var="value")
-
-datQogSum.w$cname <-  as.character(datQogSum.w$cname)
-datQogSum.w$cname[datQogSum.w$cname %in% "United Kingdom"] <- "Great Britain"
-
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Armenia','Azerbaijan','Georgia')] <- 'Caucasus'
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Russia','Ukraine','Moldova','Belarus')] <- 'CIS North'
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Kyrgyzstan','Kazakhstan','Tajikistan','Uzbekistan')] <- 'Central Asia'
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Estonia','Latvia','Lithuania')] <- 'Baltic States'
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Poland','Czech Republic','Slovakia','Hungary',
-                                                'Slovenia','Romania','Bulgaria')] <- 'CEE EU'
-datQogSum.w$group_fine[datQogSum.w$cname %in% c('Italy','Germany','Great Britain','Sweden','France')] <- 'West Europe'
-                         
-datQogSum.w$group_fine <- factor(datQogSum.w$group_fine)
-
-summary(factor(datQogSum.w$group_fine))
-
-datQogSum.w$group_general[datQogSum.w$cname %in% c('France','Germany',
-                                                   'Great Britain','Italy','Sweden')] <- 'Western Europe'
-datQogSum.w$group_general[datQogSum.w$cname %in% c('Czech Republic','Estonia',
-                                                   'Hungary','Bulgaria',
-                                                   'Latvia','Lithuania','Poland',
-                                                   'Slovakia','Slovenia','Romania')] <- 'CEE'
-datQogSum.w$group_general[datQogSum.w$cname %in% c('Armenia','Azerbaijan','Belarus',
-                                                   'Georgia','Kazakhstan',
-                                                   'Kyrgyzstan','Moldova',
-                                                   'Tajikistan','Ukraine',
-                                                   'Uzbekistan','Russia')] <- 'CIS'
-
-datQogSum.w$group_general <- factor(datQogSum.w$group_general, 
-                                    levels=c("Western Europe",
-                                             "CEE",
-                                             "CIS"))
-
-df.qog <- datQogSum.w
-# underschores into dots for latex...
-#names <- names(df.qog)
-#library(stringr)
-#names <- str_replace_all(names, "_",".")
-#names(df.qog) <- names
-names(df.qog)[1] <- "cntry"
 ```
 
 ## Data from World Bank
 
 ```{rLoadClean8, eval=TRUE}
-## GDP change from WB
-### We need iso2c countrycode
-library(countrycode)
-cntry <- levels(df$cntry) # countrynames
-iso2c <- countrycode(cntry, "country.name", "iso2c")
-iso2c # copy paste into WDI search
-library(WDI)
-# WDIsearch(string='gdp', field='name', cache=NULL)
-wb <- WDI(indicator = c("NY.GDP.MKTP.CD"), 
-          country = c("AL","AM","AZ","BY","BA","BG","HR",
-                      "CZ","EE","FR","GE","DE","GB","HU",
-                      "IT","KZ","KG","LV","LT","MK","MD",
-                      "MN","ME","PL","RO","RU","RS","SK",
-                      "SI","SE","TJ","TR","UA","UZ"), 
-           start = 2007, end = 2010)
-
-library(reshape2)
-names(wb) <- c("iso2c","cntry","var","year")
-wb.w <- dcast(wb, 
-              cntry ~ year, 
-              value.var="var")
-
-names(wb.w) <- c("cntry","x2007","x2008","x2009","x2010")
-wb.w$gdpchange07.10 <- wb.w$x2010/wb.w$x2007 * 100 - 100
-gdp <- wb.w[,c(1,6)]
-
-gdp$cntry[gdp$cntry == 'Russian Federation'] <- 'Russia'
-gdp$cntry[gdp$cntry == 'Kyrgyz Republic'] <- 'Kyrgyzstan'
-gdp$cntry[gdp$cntry == 'United Kingdom'] <- 'Great Britain'
-gdp$cntry[gdp$cntry == 'Slovak Republic'] <- 'Slovakia'
+# ## GDP change from WB
+# ### We need iso2c countrycode
+# library(countrycode)
+# cntry <- levels(df$cntry) # countrynames
+# iso2c <- countrycode(cntry, "country.name", "iso2c")
+# iso2c # copy paste into WDI search
+# library(WDI)
+# # WDIsearch(string='gdp', field='name', cache=NULL)
+# wb <- WDI(indicator = c("NY.GDP.MKTP.CD"), 
+#           country = c("AL","AM","AZ","BY","BA","BG","HR",
+#                       "CZ","EE","FR","GE","DE","GB","HU",
+#                       "IT","KZ","KG","LV","LT","MK","MD",
+#                       "MN","ME","PL","RO","RU","RS","SK",
+#                       "SI","SE","TJ","TR","UA","UZ"), 
+#            start = 2007, end = 2010)
+# 
+# library(reshape2)
+# names(wb) <- c("iso2c","cntry","var","year")
+# wb.w <- dcast(wb, 
+#               cntry ~ year, 
+#               value.var="var")
+# 
+# names(wb.w) <- c("cntry","x2007","x2008","x2009","x2010")
+# wb.w$gdpchange07.10 <- wb.w$x2010/wb.w$x2007 * 100 - 100
+# gdp <- wb.w[,c(1,6)]
+# 
+# gdp$cntry[gdp$cntry == 'Russian Federation'] <- 'Russia'
+# gdp$cntry[gdp$cntry == 'Kyrgyz Republic'] <- 'Kyrgyzstan'
+# gdp$cntry[gdp$cntry == 'United Kingdom'] <- 'Great Britain'
+# gdp$cntry[gdp$cntry == 'Slovak Republic'] <- 'Slovakia'
 
 ```
 
@@ -471,8 +626,11 @@ gdp$cntry[gdp$cntry == 'Slovak Republic'] <- 'Slovakia'
 ```{rLoadClean9}
 
 # yhdistetään nää aikaisempien datojen kanssa
-macro <- merge(summary309w,gdp,by="cntry", all.x=TRUE)
-macro <- merge(macro,df.qog,by="cntry")
+# macro <- merge(summary309w,gdp,by="cntry", all.x=TRUE)
+# macro <- merge(macro,df.qog,by="cntry")
+#save(macro, file="data/macro.RData")
+load("data/macro.RData")
+macro <- merge(macro,perGini2010,by="cntry")
 
 df <- merge(df,macro,by="cntry")
 
@@ -488,6 +646,10 @@ rm(wb)
 rm(wb.w)
 rm(cntry)
 rm(iso2c)
+rm(lits1)
+rm(medianData)
+rm(perGini2006)
+rm(perGini2010)
 
 save.image("~/workspace/lits/attributions/data/lits.RData")
 #load("~/workspace/lits/attributions/data/lits.RData")

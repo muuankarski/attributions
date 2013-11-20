@@ -35,6 +35,7 @@ setwd("~/workspace/lits/attributions/")
 load("~/workspace/lits/attributions/data/lits.RData")
 df.model <- df[df$group_general != "Western Europe",]
 
+
 ```
 
 `log of changes`
@@ -394,18 +395,22 @@ bisoc.11 <- glmer(pov.log.social ~ group_analysis+(1|cntry),
                           family = binomial(logit), data = df.model)
 bisoc.12 <- glmer(pov.log.social ~ group_balinCis+(1|cntry),
                           family = binomial(logit), data = df.model)
+bisoc.13 <- glmer(pov.log.social ~ perGini+(1|cntry),
+                          family = binomial(logit), data = df.model)
 
 ```
 
 
 ```{rmultilevelBivarSocOutputNOCI, results='asis'}
+
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
                       "Gini coefficient",
                       "Change in GDP between 2007 to 2010",
-                      "Good governance","Cgroup","CgroupMod")
+                      "Good governance","Cgroup","CgroupMod",
+                     "Perceived Gini")
 
 library(texreg)
 htmlreg(list(bisoc.1,bisoc.2,
@@ -413,7 +418,8 @@ htmlreg(list(bisoc.1,bisoc.2,
           bisoc.5,bisoc.6,
           bisoc.8,
           bisoc.9,bisoc.10,
-             bisoc.11,bisoc.12),
+             bisoc.11,bisoc.12,
+             bisoc.13),
         custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = FALSE,
@@ -423,6 +429,7 @@ htmlreg(list(bisoc.1,bisoc.2,
         body.tag = FALSE,
         include.pvalues=TRUE,
         caption="Bivariate social blame", caption.above=TRUE)
+
 
 ```
 
@@ -456,18 +463,23 @@ biind.11 <- glmer(pov.log.individual ~ group_analysis+(1|cntry),
                           family = binomial(logit), data = df.model)
 bisoc.12 <- glmer(pov.log.individual ~ group_balinCis+(1|cntry),
                           family = binomial(logit), data = df.model)
+bisoc.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
+                          family = binomial(logit), data = df.model)
+
 
 ```
 
 
 ```{rmultilevelBivarIndOuputNOCI, results='asis'}
+
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
           biind.5,biind.6,
           biind.8,
           biind.9,biind.10,
-          biind.11,biind.12),
+          biind.11,biind.12,
+             biind.13),
         custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = FALSE,
@@ -479,6 +491,8 @@ htmlreg(list(biind.1,biind.2,
         include.pvalues=TRUE,
         caption="Bivariate individual blame", 
         caption.above=TRUE)
+
+
 ```
 
 #### Interpretation
