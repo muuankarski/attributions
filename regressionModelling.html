@@ -1,227 +1,294 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>Regression modellining</title>
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Regression modellining</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
 </head>
+
 <body>
-<div id="header">
-<h1 class="title">Regression modellining</h1>
-</div>
-<div id="TOC">
-<ul>
-<li><a href="#description"><span class="toc-section-number">1</span> Description</a></li>
-<li><a href="#unilevel-regression-analysis"><span class="toc-section-number">2</span> Unilevel regression analysis</a><ul>
-<li><a href="#bivariate-logistic-regression"><span class="toc-section-number">2.1</span> Bivariate logistic regression</a><ul>
-<li><a href="#explaining-social-blame"><span class="toc-section-number">2.1.1</span> Explaining social blame</a><ul>
-<li><a href="#interpretation"><span class="toc-section-number">2.1.1.1</span> Interpretation</a></li>
-</ul></li>
-<li><a href="#explaining-individual-blame"><span class="toc-section-number">2.1.2</span> Explaining individual blame</a><ul>
-<li><a href="#interpretation-1"><span class="toc-section-number">2.1.2.1</span> Interpretation</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#multivariate-logistic-regression"><span class="toc-section-number">2.2</span> Multivariate logistic regression</a><ul>
-<li><a href="#social-blame"><span class="toc-section-number">2.2.1</span> Social blame</a><ul>
-<li><a href="#interpretation-2"><span class="toc-section-number">2.2.1.1</span> Interpretation</a></li>
-</ul></li>
-<li><a href="#individual-blame"><span class="toc-section-number">2.2.2</span> Individual blame</a><ul>
-<li><a href="#interpretation-3"><span class="toc-section-number">2.2.2.1</span> Interpretation</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#multinomial-logistic-regression"><span class="toc-section-number">3</span> Multinomial logistic regression</a><ul>
-<li><a href="#simple-multinomial-logistic-regression"><span class="toc-section-number">3.1</span> Simple multinomial logistic regression</a><ul>
-<li><a href="#using-mlogit-package"><span class="toc-section-number">3.1.1</span> using mlogit-package</a></li>
-<li><a href="#interpretation-4"><span class="toc-section-number">3.1.2</span> Interpretation</a></li>
-</ul></li>
-<li><a href="#multilevel-multinomial-logistic-regression"><span class="toc-section-number">3.2</span> Multilevel multinomial logistic regression</a></li>
-</ul></li>
-<li><a href="#multilevel-regression"><span class="toc-section-number">4</span> Multilevel regression</a><ul>
-<li><a href="#bivariate-analysis"><span class="toc-section-number">4.1</span> Bivariate analysis</a><ul>
-<li><a href="#social-blame-explained"><span class="toc-section-number">4.1.1</span> Social blame explained</a><ul>
-<li><a href="#interpretation-5"><span class="toc-section-number">4.1.1.1</span> Interpretation</a></li>
-</ul></li>
-<li><a href="#individual-blame-explained"><span class="toc-section-number">4.1.2</span> Individual blame explained</a><ul>
-<li><a href="#interpretation-6"><span class="toc-section-number">4.1.2.1</span> Interpretation</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#multivariate-multilevel-regressions"><span class="toc-section-number">4.2</span> Multivariate multilevel regressions</a><ul>
-<li><a href="#social-blame-type-of-explanation"><span class="toc-section-number">4.2.1</span> Social blame type of explanation</a><ul>
-<li><a href="#interpretation-7"><span class="toc-section-number">4.2.1.1</span> Interpretation</a></li>
-</ul></li>
-<li><a href="#individual-blame-type-of-explanation"><span class="toc-section-number">4.2.2</span> Individual blame type of explanation</a></li>
-<li><a href="#comparison-of-full-models-with-our-last-model"><span class="toc-section-number">4.2.3</span> Comparison of full models with our last model</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#tables-for-presentation"><span class="toc-section-number">5</span> Tables for presentation</a><ul>
-<li><a href="#partial"><span class="toc-section-number">5.1</span> Partial</a></li>
-<li><a href="#comparison-of-full-models"><span class="toc-section-number">5.2</span> Comparison of full models</a></li>
-</ul></li>
-</ul>
-</div>
+<h1>Regression modellining</h1>
+
 <ul>
 <li><a href="index.html">back to index</a></li>
 </ul>
+
 <p><code>generated at:</code></p>
-<pre><code>## [1] &quot;2013-11-19 17:35:28 EET&quot;</code></pre>
-<hr />
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link>
-<pre class="sourceCode r"><code class="sourceCode r">######################################### 
-<span class="kw">setwd</span>(<span class="st">&quot;~/workspace/lits/attributions/&quot;</span>)
+
+<pre><code>## [1] &quot;2013-11-20 14:22:50 EET&quot;
+</code></pre>
+
+<hr/>
+
+<p><link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> </p>
+
+<pre><code class="r">######################################### 
+setwd(&quot;~/workspace/lits/attributions/&quot;)
 
 ######################################### 
-<span class="kw">load</span>(<span class="st">&quot;~/workspace/lits/attributions/data/lits.RData&quot;</span>)
-df.model &lt;- df[df$group_general != <span class="st">&quot;Western Europe&quot;</span>, ]</code></pre>
+load(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
+df.model &lt;- df[df$group_general != &quot;Western Europe&quot;, ]
+
+</code></pre>
+
 <p><code>log of changes</code></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">date</th>
-<th align="left">comment</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">20131103</td>
-<td align="left">Non multi-level logistic regression done but not interpret yet. Bivariate multilevel models the same. Multivariate multilevel models running over night.</td>
-</tr>
-<tr class="even">
-<td align="left">20131105</td>
-<td align="left">Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.</td>
-</tr>
-<tr class="odd">
-<td align="left">20131106</td>
-<td align="left">Model names fixed. Multinomial models coming by midday</td>
-</tr>
-</tbody>
-</table>
-<h1 id="description"><a href="#TOC"><span class="header-section-number">1</span> Description</a></h1>
-<p>This page includes everything related to modelling of the data. <a href="finalTables.html">Click here for the final tables</a>.</p>
+
+<p>date      comment</p>
+
+<hr/>
+
+<p>20131103  Non multi-level logistic regression done but not interpret yet. Bivariate multilevel models the same. Multivariate multilevel models running over night.
+20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
+20131106  Model names fixed. Multinomial models coming by midday</p>
+
+<h1>Description</h1>
+
+<p>This page includes everything related to modelling of the data. <a href="finalTables.html">Click here for the final tables</a>. </p>
+
 <p>In this paper we have two depentend variables (DV) that are both binomial</p>
-<ol style="list-style-type: decimal">
+
+<ol>
 <li>support for social blame type of explanation</li>
 <li>support for individual blame type of explanation</li>
 </ol>
-<h1 id="unilevel-regression-analysis"><a href="#TOC"><span class="header-section-number">2</span> Unilevel regression analysis</a></h1>
-<p>Unilevel is used here for making distinction between multilevel analysis later. <em>In the analysis of this chapter <strong>no</strong> contextual level variables are used</em>.</p>
-<p>I'm using the University of California's resource <a href="http://www.ats.ucla.edu/stat/r/dae/logit.htm">R Data Analysis Examples: Logit Regression</a> as a reference here.</p>
-<h2 id="bivariate-logistic-regression"><a href="#TOC"><span class="header-section-number">2.1</span> Bivariate logistic regression</a></h2>
-<h3 id="explaining-social-blame"><a href="#TOC"><span class="header-section-number">2.1.1</span> Explaining social blame</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">unbisoc<span class="fl">.1</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbisoc<span class="fl">.2</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ edu2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbisoc<span class="fl">.3</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ income2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbisoc<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ past.diff, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbisoc<span class="fl">.5</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ future.diff, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbisoc<span class="fl">.6</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ crise, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(texreg)
 
-model.names = <span class="kw">c</span>(<span class="st">&quot;Transfer Dependency&quot;</span>, <span class="st">&quot;Education level&quot;</span>, <span class="st">&quot;Perceived income&quot;</span>, 
-    <span class="st">&quot;Income compared to past&quot;</span>, <span class="st">&quot;Income compared to future&quot;</span>, <span class="st">&quot;Effect of financial crises&quot;</span>)
+<h1>Unilevel regression analysis</h1>
 
-coef.names = <span class="kw">c</span>(<span class="st">&quot;(intercept)&quot;</span>, <span class="st">&quot;Dependent vs. non-dependent&quot;</span>, <span class="st">&quot;Low education vs. non-low education&quot;</span>, 
-    <span class="st">&quot;Low income vs. high income&quot;</span>, <span class="st">&quot;Income has worsened vs. has not&quot;</span>, <span class="st">&quot;Income will worsen vs. will not&quot;</span>, 
-    <span class="st">&quot;Has affected great or fair amount vs. has not&quot;</span>)
+<p>Unilevel is used here for making distinction between multilevel analysis later. <em>In the analysis of this chapter **no</em>* contextual level variables are used*.</p>
 
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(unbisoc<span class="fl">.1</span>, unbisoc<span class="fl">.2</span>, unbisoc<span class="fl">.3</span>, unbisoc<span class="fl">.4</span>, unbisoc<span class="fl">.5</span>, unbisoc<span class="fl">.6</span>), 
-    <span class="dt">custom.model.names =</span> model.names, <span class="dt">custom.coef.names =</span> coef.names, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">caption =</span> <span class="st">&quot;Simple logistic regression on social blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+<p>I&#39;m using the University of California&#39;s resource <a href="http://www.ats.ucla.edu/stat/r/dae/logit.htm">R Data Analysis Examples: Logit Regression</a> as a reference here.</p>
+
+<h2>Bivariate logistic regression</h2>
+
+<h3>Explaining social blame</h3>
+
+<pre><code class="r">unbisoc.1 &lt;- glm(pov.log.social ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+unbisoc.2 &lt;- glm(pov.log.social ~ edu2, data = df.model, family = &quot;binomial&quot;)
+unbisoc.3 &lt;- glm(pov.log.social ~ income2, data = df.model, family = &quot;binomial&quot;)
+unbisoc.4 &lt;- glm(pov.log.social ~ past.diff, data = df.model, family = &quot;binomial&quot;)
+unbisoc.5 &lt;- glm(pov.log.social ~ future.diff, data = df.model, family = &quot;binomial&quot;)
+unbisoc.6 &lt;- glm(pov.log.social ~ crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+
+model.names = c(&quot;Transfer Dependency&quot;, &quot;Education level&quot;, &quot;Perceived income&quot;, 
+    &quot;Income compared to past&quot;, &quot;Income compared to future&quot;, &quot;Effect of financial crises&quot;)
+
+coef.names = c(&quot;(intercept)&quot;, &quot;Dependent vs. non-dependent&quot;, &quot;Low education vs. non-low education&quot;, 
+    &quot;Low income vs. high income&quot;, &quot;Income has worsened vs. has not&quot;, &quot;Income will worsen vs. will not&quot;, 
+    &quot;Has affected great or fair amount vs. has not&quot;)
+
+htmlreg(list(unbisoc.1, unbisoc.2, unbisoc.3, unbisoc.4, unbisoc.5, unbisoc.6), 
+    custom.model.names = model.names, custom.coef.names = coef.names, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, caption = &quot;Simple logistic regression on social blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on social blame</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on social blame</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Transfer Dependency</b>
-</th>
-    <th>
-<b>Education level</b>
-</th>
-    <th>
-<b>Perceived income</b>
-</th>
-    <th>
-<b>Income compared to past</b>
-</th>
-    <th>
-<b>Income compared to future</b>
-</th>
-    <th>
-<b>Effect of financial crises</b>
-</th>
+    <th><b>Transfer Dependency</b></th>
+    <th><b>Education level</b></th>
+    <th><b>Perceived income</b></th>
+    <th><b>Income compared to past</b></th>
+    <th><b>Income compared to future</b></th>
+    <th><b>Effect of financial crises</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--0.20<sup><em>*</em></sup>
-</td>
-    <td>
--0.28<sup><em>*</em></sup>
-</td>
-    <td>
--0.24<sup><em>*</em></sup>
-</td>
-    <td>
--0.11<sup><em>*</em></sup>
-</td>
-    <td>
-0.02
-</td>
-    <td>
--0.07<sup><em>*</em></sup>
-</td>
+    <td>(intercept)</td>
+    <td>-0.20<sup>***</sup></td>
+    <td>-0.28<sup>***</sup></td>
+    <td>-0.24<sup>***</sup></td>
+    <td>-0.11<sup>***</sup></td>
+    <td>0.02</td>
+    <td>-0.07<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.02)
-</td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.02)
-</td>
+    <td>(0.06)</td>
+    <td>(0.04)</td>
+    <td>(0.01)</td>
+    <td>(0.02)</td>
+    <td>(0.03)</td>
+    <td>(0.02)</td>
   </tr>
   <tr>
-    <td>
-Dependent vs. non-dependent
-</td>
-    <td>
--0.16<sup>**</sup>
-</td>
+    <td>Dependent vs. non-dependent</td>
+    <td>-0.16<sup>**</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -230,9 +297,7 @@ Dependent vs. non-dependent
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
+    <td>(0.06)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -240,13 +305,9 @@ Dependent vs. non-dependent
     <td></td>
   </tr>
   <tr>
-    <td>
-Low education vs. non-low education
-</td>
+    <td>Low education vs. non-low education</td>
     <td></td>
-    <td>
--0.08
-</td>
+    <td>-0.08</td>
     <td></td>
     <td></td>
     <td></td>
@@ -255,23 +316,17 @@ Low education vs. non-low education
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Low income vs. high income
-</td>
+    <td>Low income vs. high income</td>
     <td></td>
     <td></td>
-    <td>
--0.59<sup><em>*</em></sup>
-</td>
+    <td>-0.59<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -280,23 +335,17 @@ Low income vs. high income
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Income has worsened vs. has not
-</td>
+    <td>Income has worsened vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.39<sup><em>*</em></sup>
-</td>
+    <td>-0.39<sup>***</sup></td>
     <td></td>
     <td></td>
   </tr>
@@ -305,23 +354,17 @@ Income has worsened vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Income will worsen vs. will not
-</td>
+    <td>Income will worsen vs. will not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.49<sup><em>*</em></sup>
-</td>
+    <td>-0.49<sup>***</sup></td>
     <td></td>
   </tr>
   <tr>
@@ -330,23 +373,17 @@ Income will worsen vs. will not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount vs. has not
-</td>
+    <td>Has affected great or fair amount vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.46<sup><em>*</em></sup>
-</td>
+    <td>-0.46<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -355,136 +392,66 @@ Has affected great or fair amount vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-31792.27
-</td>
-    <td class="midRule">
-31856.09
-</td>
-    <td class="midRule">
-30960.87
-</td>
-    <td class="midRule">
-30682.55
-</td>
-    <td class="midRule">
-24863.69
-</td>
-    <td class="midRule">
-29145.44
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">31792.27</td>
+    <td class="midRule">31856.09</td>
+    <td class="midRule">30960.87</td>
+    <td class="midRule">30682.55</td>
+    <td class="midRule">24863.69</td>
+    <td class="midRule">29145.44</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-31808.40
-</td>
-    <td>
-31872.22
-</td>
-    <td>
-30976.96
-</td>
-    <td>
-30698.61
-</td>
-    <td>
-24879.34
-</td>
-    <td>
-29161.41
-</td>
+    <td>BIC</td>
+    <td>31808.40</td>
+    <td>31872.22</td>
+    <td>30976.96</td>
+    <td>30698.61</td>
+    <td>24879.34</td>
+    <td>29161.41</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--15894.14
-</td>
-    <td>
--15926.04
-</td>
-    <td>
--15478.43
-</td>
-    <td>
--15339.27
-</td>
-    <td>
--12429.84
-</td>
-    <td>
--14570.72
-</td>
+    <td>Log Likelihood</td>
+    <td>-15894.14</td>
+    <td>-15926.04</td>
+    <td>-15478.43</td>
+    <td>-15339.27</td>
+    <td>-12429.84</td>
+    <td>-14570.72</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-31788.27
-</td>
-    <td>
-31852.09
-</td>
-    <td>
-30956.87
-</td>
-    <td>
-30678.55
-</td>
-    <td>
-24859.69
-</td>
-    <td>
-29141.44
-</td>
+    <td>Deviance</td>
+    <td>31788.27</td>
+    <td>31852.09</td>
+    <td>30956.87</td>
+    <td>30678.55</td>
+    <td>24859.69</td>
+    <td>29141.44</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Num. obs.
-</td>
-    <td class="bottomRule">
-23461
-</td>
-    <td class="bottomRule">
-23504
-</td>
-    <td class="bottomRule">
-23047
-</td>
-    <td class="bottomRule">
-22777
-</td>
-    <td class="bottomRule">
-18526
-</td>
-    <td class="bottomRule">
-21614
-</td>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23504</td>
+    <td class="bottomRule">23047</td>
+    <td class="bottomRule">22777</td>
+    <td class="bottomRule">18526</td>
+    <td class="bottomRule">21614</td>
   </tr>
   <tr>
-    <td colspan="7">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
-<pre class="sourceCode r"><code class="sourceCode r"></code></pre>
-<h4 id="interpretation"><a href="#TOC"><span class="header-section-number">2.1.1.1</span> Interpretation</a></h4>
+<pre><code class="r">
+</code></pre>
+
+<h4>Interpretation</h4>
+
 <ul>
-<li>all the predictors are statistically significant which means that the <em>null hypothesis</em> of
+<li>all the predictors are statistically significant which means that the <em>null hypothesis</em> of 
+
 <ul>
 <li>The probability of supporting the social blame type of explanation decreases by <code>-0.16</code> if we compare individual who is dependent on tranfers with individual who is not dependent</li>
 <li>The probability of supporting the social blame type of explanation decreases by <code>-0.08</code> if we compare individual with low education with individual with no-low education</li>
@@ -495,93 +462,56 @@ Num. obs.
 </ul></li>
 <li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
 </ul>
-<h3 id="explaining-individual-blame"><a href="#TOC"><span class="header-section-number">2.1.2</span> Explaining individual blame</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">unbiind<span class="fl">.1</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbiind<span class="fl">.2</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ edu2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbiind<span class="fl">.3</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ income2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbiind<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ past.diff, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbiind<span class="fl">.5</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ future.diff, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-unbiind<span class="fl">.6</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ crise, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(unbiind<span class="fl">.1</span>, unbiind<span class="fl">.2</span>, unbiind<span class="fl">.3</span>, unbiind<span class="fl">.4</span>, unbiind<span class="fl">.5</span>, unbiind<span class="fl">.6</span>), 
-    <span class="dt">custom.model.names =</span> model.names, <span class="dt">custom.coef.names =</span> coef.names, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">caption =</span> <span class="st">&quot;Simple logistic regression on individual blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+
+<h3>Explaining individual blame</h3>
+
+<pre><code class="r">unbiind.1 &lt;- glm(pov.log.individual ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+unbiind.2 &lt;- glm(pov.log.individual ~ edu2, data = df.model, family = &quot;binomial&quot;)
+unbiind.3 &lt;- glm(pov.log.individual ~ income2, data = df.model, family = &quot;binomial&quot;)
+unbiind.4 &lt;- glm(pov.log.individual ~ past.diff, data = df.model, family = &quot;binomial&quot;)
+unbiind.5 &lt;- glm(pov.log.individual ~ future.diff, data = df.model, family = &quot;binomial&quot;)
+unbiind.6 &lt;- glm(pov.log.individual ~ crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(unbiind.1, unbiind.2, unbiind.3, unbiind.4, unbiind.5, unbiind.6), 
+    custom.model.names = model.names, custom.coef.names = coef.names, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, caption = &quot;Simple logistic regression on individual blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on individual blame</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on individual blame</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Transfer Dependency</b>
-</th>
-    <th>
-<b>Education level</b>
-</th>
-    <th>
-<b>Perceived income</b>
-</th>
-    <th>
-<b>Income compared to past</b>
-</th>
-    <th>
-<b>Income compared to future</b>
-</th>
-    <th>
-<b>Effect of financial crises</b>
-</th>
+    <th><b>Transfer Dependency</b></th>
+    <th><b>Education level</b></th>
+    <th><b>Perceived income</b></th>
+    <th><b>Income compared to past</b></th>
+    <th><b>Income compared to future</b></th>
+    <th><b>Effect of financial crises</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--1.67<sup><em>*</em></sup>
-</td>
-    <td>
--1.23<sup><em>*</em></sup>
-</td>
-    <td>
--1.28<sup><em>*</em></sup>
-</td>
-    <td>
--1.41<sup><em>*</em></sup>
-</td>
-    <td>
--1.48<sup><em>*</em></sup>
-</td>
-    <td>
--1.52<sup><em>*</em></sup>
-</td>
+    <td>(intercept)</td>
+    <td>-1.67<sup>***</sup></td>
+    <td>-1.23<sup>***</sup></td>
+    <td>-1.28<sup>***</sup></td>
+    <td>-1.41<sup>***</sup></td>
+    <td>-1.48<sup>***</sup></td>
+    <td>-1.52<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.02)
-</td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.03)
-</td>
+    <td>(0.08)</td>
+    <td>(0.05)</td>
+    <td>(0.02)</td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td>
-Dependent vs. non-dependent
-</td>
-    <td>
-0.49<sup><em>*</em></sup>
-</td>
+    <td>Dependent vs. non-dependent</td>
+    <td>0.49<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -590,9 +520,7 @@ Dependent vs. non-dependent
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.08)
-</td>
+    <td>(0.08)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -600,13 +528,9 @@ Dependent vs. non-dependent
     <td></td>
   </tr>
   <tr>
-    <td>
-Low education vs. non-low education
-</td>
+    <td>Low education vs. non-low education</td>
     <td></td>
-    <td>
-0.03
-</td>
+    <td>0.03</td>
     <td></td>
     <td></td>
     <td></td>
@@ -615,23 +539,17 @@ Low education vs. non-low education
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Low income vs. high income
-</td>
+    <td>Low income vs. high income</td>
     <td></td>
     <td></td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
+    <td>0.38<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -640,23 +558,17 @@ Low income vs. high income
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Income has worsened vs. has not
-</td>
+    <td>Income has worsened vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.32<sup><em>*</em></sup>
-</td>
+    <td>0.32<sup>***</sup></td>
     <td></td>
     <td></td>
   </tr>
@@ -665,23 +577,17 @@ Income has worsened vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Income will worsen vs. will not
-</td>
+    <td>Income will worsen vs. will not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.40<sup><em>*</em></sup>
-</td>
+    <td>0.40<sup>***</sup></td>
     <td></td>
   </tr>
   <tr>
@@ -690,23 +596,17 @@ Income will worsen vs. will not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount vs. has not
-</td>
+    <td>Has affected great or fair amount vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.53<sup><em>*</em></sup>
-</td>
+    <td>0.53<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -715,136 +615,63 @@ Has affected great or fair amount vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-25314.01
-</td>
-    <td class="midRule">
-25392.72
-</td>
-    <td class="midRule">
-24844.49
-</td>
-    <td class="midRule">
-24576.83
-</td>
-    <td class="midRule">
-20388.41
-</td>
-    <td class="midRule">
-23070.37
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">25314.01</td>
+    <td class="midRule">25392.72</td>
+    <td class="midRule">24844.49</td>
+    <td class="midRule">24576.83</td>
+    <td class="midRule">20388.41</td>
+    <td class="midRule">23070.37</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-25330.13
-</td>
-    <td>
-25408.85
-</td>
-    <td>
-24860.58
-</td>
-    <td>
-24592.90
-</td>
-    <td>
-20404.06
-</td>
-    <td>
-23086.33
-</td>
+    <td>BIC</td>
+    <td>25330.13</td>
+    <td>25408.85</td>
+    <td>24860.58</td>
+    <td>24592.90</td>
+    <td>20404.06</td>
+    <td>23086.33</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--12655.00
-</td>
-    <td>
--12694.36
-</td>
-    <td>
--12420.25
-</td>
-    <td>
--12286.42
-</td>
-    <td>
--10192.20
-</td>
-    <td>
--11533.19
-</td>
+    <td>Log Likelihood</td>
+    <td>-12655.00</td>
+    <td>-12694.36</td>
+    <td>-12420.25</td>
+    <td>-12286.42</td>
+    <td>-10192.20</td>
+    <td>-11533.19</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-25310.01
-</td>
-    <td>
-25388.72
-</td>
-    <td>
-24840.49
-</td>
-    <td>
-24572.83
-</td>
-    <td>
-20384.41
-</td>
-    <td>
-23066.37
-</td>
+    <td>Deviance</td>
+    <td>25310.01</td>
+    <td>25388.72</td>
+    <td>24840.49</td>
+    <td>24572.83</td>
+    <td>20384.41</td>
+    <td>23066.37</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Num. obs.
-</td>
-    <td class="bottomRule">
-23461
-</td>
-    <td class="bottomRule">
-23504
-</td>
-    <td class="bottomRule">
-23047
-</td>
-    <td class="bottomRule">
-22777
-</td>
-    <td class="bottomRule">
-18526
-</td>
-    <td class="bottomRule">
-21614
-</td>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23504</td>
+    <td class="bottomRule">23047</td>
+    <td class="bottomRule">22777</td>
+    <td class="bottomRule">18526</td>
+    <td class="bottomRule">21614</td>
   </tr>
   <tr>
-    <td colspan="7">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h4>Interpretation</h4>
 
-<h4 id="interpretation-1"><a href="#TOC"><span class="header-section-number">2.1.2.1</span> Interpretation</a></h4>
 <ul>
 <li>all the predictors, but <em>education level</em> are statistically significant
+
 <ul>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.49</code> if we compare individual who is dependent on tranfers to individual who is not dependent</li>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.03</code> if we compare individual with low education with individual with no-low education. <em>This is not statistically significant</em></li>
@@ -855,259 +682,141 @@ Num. obs.
 </ul></li>
 <li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
 </ul>
-<h2 id="multivariate-logistic-regression"><a href="#TOC"><span class="header-section-number">2.2</span> Multivariate logistic regression</a></h2>
-<h3 id="social-blame"><a href="#TOC"><span class="header-section-number">2.2.1</span> Social blame</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">mulbisoc<span class="fl">.1</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.2</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.3</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2 + income2, <span class="dt">data =</span> df.model, 
-    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, <span class="dt">data =</span> df.model, 
-    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, <span class="dt">data =</span> df.model, 
-    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.5</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff, 
-    <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbisoc<span class="fl">.6</span> &lt;- <span class="kw">glm</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(mulbisoc<span class="fl">.1</span>, mulbisoc<span class="fl">.2</span>, mulbisoc<span class="fl">.3</span>, mulbisoc<span class="fl">.4</span>, mulbisoc<span class="fl">.5</span>, mulbisoc<span class="fl">.6</span>), 
-    <span class="dt">custom.coef.names =</span> coef.names, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">caption =</span> <span class="st">&quot;Multiple logistic regression on social blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+
+<h2>Multivariate logistic regression</h2>
+
+<h3>Social blame</h3>
+
+<pre><code class="r">mulbisoc.1 &lt;- glm(pov.log.social ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+mulbisoc.2 &lt;- glm(pov.log.social ~ incsour3 + edu2, data = df.model, family = &quot;binomial&quot;)
+mulbisoc.3 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.4 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.4 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.5 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbisoc.6 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(mulbisoc.1, mulbisoc.2, mulbisoc.3, mulbisoc.4, mulbisoc.5, mulbisoc.6), 
+    custom.coef.names = coef.names, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, 
+    head.tag = FALSE, body.tag = FALSE, caption = &quot;Multiple logistic regression on social blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on social blame</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on social blame</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Model 1</b>
-</th>
-    <th>
-<b>Model 2</b>
-</th>
-    <th>
-<b>Model 3</b>
-</th>
-    <th>
-<b>Model 4</b>
-</th>
-    <th>
-<b>Model 5</b>
-</th>
-    <th>
-<b>Model 6</b>
-</th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--0.20<sup><em>*</em></sup>
-</td>
-    <td>
--0.13
-</td>
-    <td>
--0.10
-</td>
-    <td>
-0.08
-</td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
-    <td>
-0.53<sup><em>*</em></sup>
-</td>
+    <td>(intercept)</td>
+    <td>-0.20<sup>***</sup></td>
+    <td>-0.13</td>
+    <td>-0.10</td>
+    <td>0.08</td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.53<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
+    <td>(0.06)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
   </tr>
   <tr>
-    <td>
-Dependent vs. non-dependent
-</td>
-    <td>
--0.16<sup>**</sup>
-</td>
-    <td>
--0.16<sup>**</sup>
-</td>
-    <td>
--0.12<sup>*</sup>
-</td>
-    <td>
--0.11
-</td>
-    <td>
--0.17<sup>*</sup>
-</td>
-    <td>
--0.14
-</td>
+    <td>Dependent vs. non-dependent</td>
+    <td>-0.16<sup>**</sup></td>
+    <td>-0.16<sup>**</sup></td>
+    <td>-0.12<sup>*</sup></td>
+    <td>-0.11</td>
+    <td>-0.17<sup>*</sup></td>
+    <td>-0.14</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
   </tr>
   <tr>
-    <td>
-Low education vs. non-low education
-</td>
+    <td>Low education vs. non-low education</td>
     <td></td>
-    <td>
--0.08
-</td>
-    <td>
--0.03
-</td>
-    <td>
--0.03
-</td>
-    <td>
--0.04
-</td>
-    <td>
--0.05
-</td>
+    <td>-0.08</td>
+    <td>-0.03</td>
+    <td>-0.03</td>
+    <td>-0.04</td>
+    <td>-0.05</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Low income vs. high income
-</td>
+    <td>Low income vs. high income</td>
     <td></td>
     <td></td>
-    <td>
--0.58<sup><em>*</em></sup>
-</td>
-    <td>
--0.53<sup><em>*</em></sup>
-</td>
-    <td>
--0.56<sup><em>*</em></sup>
-</td>
-    <td>
--0.50<sup><em>*</em></sup>
-</td>
+    <td>-0.58<sup>***</sup></td>
+    <td>-0.53<sup>***</sup></td>
+    <td>-0.56<sup>***</sup></td>
+    <td>-0.50<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income has worsened vs. has not
-</td>
+    <td>Income has worsened vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
-    <td>
--0.25<sup><em>*</em></sup>
-</td>
-    <td>
--0.17<sup><em>*</em></sup>
-</td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.25<sup>***</sup></td>
+    <td>-0.17<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td>
-Income will worsen vs. will not
-</td>
+    <td>Income will worsen vs. will not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.43<sup><em>*</em></sup>
-</td>
-    <td>
--0.39<sup><em>*</em></sup>
-</td>
+    <td>-0.43<sup>***</sup></td>
+    <td>-0.39<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -1115,25 +824,17 @@ Income will worsen vs. will not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount vs. has not
-</td>
+    <td>Has affected great or fair amount vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.34<sup><em>*</em></sup>
-</td>
+    <td>-0.34<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -1142,400 +843,206 @@ Has affected great or fair amount vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-31792.27
-</td>
-    <td class="midRule">
-31778.61
-</td>
-    <td class="midRule">
-30880.30
-</td>
-    <td class="midRule">
-30386.96
-</td>
-    <td class="midRule">
-24346.34
-</td>
-    <td class="midRule">
-22635.05
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">31792.27</td>
+    <td class="midRule">31778.61</td>
+    <td class="midRule">30880.30</td>
+    <td class="midRule">30386.96</td>
+    <td class="midRule">24346.34</td>
+    <td class="midRule">22635.05</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-31808.40
-</td>
-    <td>
-31802.80
-</td>
-    <td>
-30912.47
-</td>
-    <td>
-30427.12
-</td>
-    <td>
-24393.25
-</td>
-    <td>
-22689.28
-</td>
+    <td>BIC</td>
+    <td>31808.40</td>
+    <td>31802.80</td>
+    <td>30912.47</td>
+    <td>30427.12</td>
+    <td>24393.25</td>
+    <td>22689.28</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--15894.14
-</td>
-    <td>
--15886.31
-</td>
-    <td>
--15436.15
-</td>
-    <td>
--15188.48
-</td>
-    <td>
--12167.17
-</td>
-    <td>
--11310.53
-</td>
+    <td>Log Likelihood</td>
+    <td>-15894.14</td>
+    <td>-15886.31</td>
+    <td>-15436.15</td>
+    <td>-15188.48</td>
+    <td>-12167.17</td>
+    <td>-11310.53</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-31788.27
-</td>
-    <td>
-31772.61
-</td>
-    <td>
-30872.30
-</td>
-    <td>
-30376.96
-</td>
-    <td>
-24334.34
-</td>
-    <td>
-22621.05
-</td>
+    <td>Deviance</td>
+    <td>31788.27</td>
+    <td>31772.61</td>
+    <td>30872.30</td>
+    <td>30376.96</td>
+    <td>24334.34</td>
+    <td>22621.05</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Num. obs.
-</td>
-    <td class="bottomRule">
-23461
-</td>
-    <td class="bottomRule">
-23452
-</td>
-    <td class="bottomRule">
-22990
-</td>
-    <td class="bottomRule">
-22721
-</td>
-    <td class="bottomRule">
-18374
-</td>
-    <td class="bottomRule">
-17089
-</td>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">22990</td>
+    <td class="bottomRule">22721</td>
+    <td class="bottomRule">18374</td>
+    <td class="bottomRule">17089</td>
   </tr>
   <tr>
-    <td colspan="7">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h4>Interpretation</h4>
 
-
-
-<h4 id="interpretation-2"><a href="#TOC"><span class="header-section-number">2.2.1.1</span> Interpretation</a></h4>
 <ul>
 <li>all the predictors, but <em>education level</em> are statistically significant
+
 <ul>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.49</code> if we compare individual who is dependent on tranfers to individual who is not dependent</li>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.03</code> if we compare individual with low education with individual with no-low education. <em>This is not statistically significant</em></li>
-<li>The probability of supporting the individual blame type of explanation increases by XXX` if we compare individual with low perceived income with individual with high perceived income</li>
+<li>The probability of supporting the individual blame type of explanation increases by XXX if we compare individual with low perceived income with individual with high perceived income</li>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.32</code> if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened</li>
 <li>The probability of supporting the individual blame type of explanation increases by <code>0.40</code> if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase</li>
 <li>The probability of supporting the individual blame type of explanation increases by <code>-XXX</code> if we compare individual who has suffered <em>Great or fair amount</em> from the financial crisis with individual who has suffered <em>Little or not at all</em></li>
 </ul></li>
 <li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
 </ul>
-<h3 id="individual-blame"><a href="#TOC"><span class="header-section-number">2.2.2</span> Individual blame</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">mulbiind<span class="fl">.1</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.2</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.3</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2 + income2, <span class="dt">data =</span> df.model, 
-    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
-    <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.4</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
-    <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.5</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
-mulbiind<span class="fl">.6</span> &lt;- <span class="kw">glm</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise, <span class="dt">data =</span> df.model, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(mulbiind<span class="fl">.1</span>, mulbiind<span class="fl">.2</span>, mulbiind<span class="fl">.3</span>, mulbiind<span class="fl">.4</span>, mulbiind<span class="fl">.5</span>, mulbiind<span class="fl">.6</span>), 
-    <span class="dt">custom.coef.names =</span> coef.names, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">caption =</span> <span class="st">&quot;Multiple logistic regression on individual blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+
+<h3>Individual blame</h3>
+
+<pre><code class="r">mulbiind.1 &lt;- glm(pov.log.individual ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+mulbiind.2 &lt;- glm(pov.log.individual ~ incsour3 + edu2, data = df.model, family = &quot;binomial&quot;)
+mulbiind.3 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbiind.4 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbiind.4 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbiind.5 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff, data = df.model, family = &quot;binomial&quot;)
+mulbiind.6 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(mulbiind.1, mulbiind.2, mulbiind.3, mulbiind.4, mulbiind.5, mulbiind.6), 
+    custom.coef.names = coef.names, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, 
+    head.tag = FALSE, body.tag = FALSE, caption = &quot;Multiple logistic regression on individual blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on individual blame</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on individual blame</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Model 1</b>
-</th>
-    <th>
-<b>Model 2</b>
-</th>
-    <th>
-<b>Model 3</b>
-</th>
-    <th>
-<b>Model 4</b>
-</th>
-    <th>
-<b>Model 5</b>
-</th>
-    <th>
-<b>Model 6</b>
-</th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--1.67<sup><em>*</em></sup>
-</td>
-    <td>
--1.69<sup><em>*</em></sup>
-</td>
-    <td>
--1.71<sup><em>*</em></sup>
-</td>
-    <td>
--1.86<sup><em>*</em></sup>
-</td>
-    <td>
--2.02<sup><em>*</em></sup>
-</td>
-    <td>
--2.15<sup><em>*</em></sup>
-</td>
+    <td>(intercept)</td>
+    <td>-1.67<sup>***</sup></td>
+    <td>-1.69<sup>***</sup></td>
+    <td>-1.71<sup>***</sup></td>
+    <td>-1.86<sup>***</sup></td>
+    <td>-2.02<sup>***</sup></td>
+    <td>-2.15<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.11)
-</td>
-    <td>
-(0.12)
-</td>
+    <td>(0.08)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.11)</td>
+    <td>(0.12)</td>
   </tr>
   <tr>
-    <td>
-Dependent vs. non-dependent
-</td>
-    <td>
-0.49<sup><em>*</em></sup>
-</td>
-    <td>
-0.49<sup><em>*</em></sup>
-</td>
-    <td>
-0.46<sup><em>*</em></sup>
-</td>
-    <td>
-0.45<sup><em>*</em></sup>
-</td>
-    <td>
-0.39<sup><em>*</em></sup>
-</td>
-    <td>
-0.33<sup><em>*</em></sup>
-</td>
+    <td>Dependent vs. non-dependent</td>
+    <td>0.49<sup>***</sup></td>
+    <td>0.49<sup>***</sup></td>
+    <td>0.46<sup>***</sup></td>
+    <td>0.45<sup>***</sup></td>
+    <td>0.39<sup>***</sup></td>
+    <td>0.33<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
   </tr>
   <tr>
-    <td>
-Low education vs. non-low education
-</td>
+    <td>Low education vs. non-low education</td>
     <td></td>
-    <td>
-0.03
-</td>
-    <td>
-0.00
-</td>
-    <td>
--0.01
-</td>
-    <td>
-0.00
-</td>
-    <td>
-0.00
-</td>
+    <td>0.03</td>
+    <td>0.00</td>
+    <td>-0.01</td>
+    <td>0.00</td>
+    <td>0.00</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
   </tr>
   <tr>
-    <td>
-Low income vs. high income
-</td>
+    <td>Low income vs. high income</td>
     <td></td>
     <td></td>
-    <td>
-0.37<sup><em>*</em></sup>
-</td>
-    <td>
-0.32<sup><em>*</em></sup>
-</td>
-    <td>
-0.32<sup><em>*</em></sup>
-</td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
+    <td>0.37<sup>***</sup></td>
+    <td>0.32<sup>***</sup></td>
+    <td>0.32<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income has worsened vs. has not
-</td>
+    <td>Income has worsened vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.27<sup><em>*</em></sup>
-</td>
-    <td>
-0.21<sup><em>*</em></sup>
-</td>
-    <td>
-0.15<sup><em>*</em></sup>
-</td>
+    <td>0.27<sup>***</sup></td>
+    <td>0.21<sup>***</sup></td>
+    <td>0.15<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income will worsen vs. will not
-</td>
+    <td>Income will worsen vs. will not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.35<sup><em>*</em></sup>
-</td>
-    <td>
-0.32<sup><em>*</em></sup>
-</td>
+    <td>0.35<sup>***</sup></td>
+    <td>0.32<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -1543,25 +1050,17 @@ Income will worsen vs. will not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount vs. has not
-</td>
+    <td>Has affected great or fair amount vs. has not</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
+    <td>0.44<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -1570,144 +1069,75 @@ Has affected great or fair amount vs. has not
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-25314.01
-</td>
-    <td class="midRule">
-25308.50
-</td>
-    <td class="midRule">
-24765.71
-</td>
-    <td class="midRule">
-24430.19
-</td>
-    <td class="midRule">
-20110.20
-</td>
-    <td class="midRule">
-18525.63
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">25314.01</td>
+    <td class="midRule">25308.50</td>
+    <td class="midRule">24765.71</td>
+    <td class="midRule">24430.19</td>
+    <td class="midRule">20110.20</td>
+    <td class="midRule">18525.63</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-25330.13
-</td>
-    <td>
-25332.69
-</td>
-    <td>
-24797.89
-</td>
-    <td>
-24470.35
-</td>
-    <td>
-20157.11
-</td>
-    <td>
-18579.85
-</td>
+    <td>BIC</td>
+    <td>25330.13</td>
+    <td>25332.69</td>
+    <td>24797.89</td>
+    <td>24470.35</td>
+    <td>20157.11</td>
+    <td>18579.85</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--12655.00
-</td>
-    <td>
--12651.25
-</td>
-    <td>
--12378.86
-</td>
-    <td>
--12210.10
-</td>
-    <td>
--10049.10
-</td>
-    <td>
--9255.82
-</td>
+    <td>Log Likelihood</td>
+    <td>-12655.00</td>
+    <td>-12651.25</td>
+    <td>-12378.86</td>
+    <td>-12210.10</td>
+    <td>-10049.10</td>
+    <td>-9255.82</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-25310.01
-</td>
-    <td>
-25302.50
-</td>
-    <td>
-24757.71
-</td>
-    <td>
-24420.19
-</td>
-    <td>
-20098.20
-</td>
-    <td>
-18511.63
-</td>
+    <td>Deviance</td>
+    <td>25310.01</td>
+    <td>25302.50</td>
+    <td>24757.71</td>
+    <td>24420.19</td>
+    <td>20098.20</td>
+    <td>18511.63</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Num. obs.
-</td>
-    <td class="bottomRule">
-23461
-</td>
-    <td class="bottomRule">
-23452
-</td>
-    <td class="bottomRule">
-22990
-</td>
-    <td class="bottomRule">
-22721
-</td>
-    <td class="bottomRule">
-18374
-</td>
-    <td class="bottomRule">
-17089
-</td>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">22990</td>
+    <td class="bottomRule">22721</td>
+    <td class="bottomRule">18374</td>
+    <td class="bottomRule">17089</td>
   </tr>
   <tr>
-    <td colspan="7">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h4>Interpretation</h4>
 
-<h4 id="interpretation-3"><a href="#TOC"><span class="header-section-number">2.2.2.1</span> Interpretation</a></h4>
-<h1 id="multinomial-logistic-regression"><a href="#TOC"><span class="header-section-number">3</span> Multinomial logistic regression</a></h1>
+<h1>Multinomial logistic regression</h1>
+
 <p>In multinomial setting we use variable <code>poverty</code>as DV. <code>Dont know</code> and <code>not stated</code> values are exluded from the analysis and we are left with following four values:</p>
+
 <ul>
-<li>Social Blame</li>
+<li>Social Blame </li>
 <li>Individual Blame</li>
 <li>Individual Fate</li>
 <li>Social Fate</li>
 </ul>
+
 <p>Of the DV values we use <code>Social Blame</code> as a reference category as it is distinctive category and allows me to make clear interpretations of the significance of the predictors. (<a href="http://stats.stackexchange.com/questions/34574/is-there-any-criterion-about-choosing-reference-factor-in-multinomial-logistic-r">source</a>)</p>
-<h2 id="simple-multinomial-logistic-regression"><a href="#TOC"><span class="header-section-number">3.1</span> Simple multinomial logistic regression</a></h2>
+
+<h2>Simple multinomial logistic regression</h2>
+
 <!--
 
 ### using nnet-package
@@ -1716,22 +1146,21 @@ This model follows tutorial by UCLA [Multinomial regression](http://www.ats.ucla
 
 -->
 
+<h3>using mlogit-package</h3>
 
+<p>This follows the example from <a href="http://www.utstat.toronto.edu/%7Ebrunner/oldclass/312f12/lectures/MultinomialLogitWithR.pdf">University of Toronto</a> and <a href="http://facweb.knowlton.ohio-state.edu/pviton/courses2/crp5700/5700-mlogit.pdf">Discrete-Choice Logit Models with R by Philip A. Viton (October 26, 2013)</a></p>
 
+<pre><code class="r">library(mlogit)
+dat.mlogit &lt;- df.model[, c(&quot;poverty&quot;, &quot;edu2&quot;, &quot;incsour3&quot;, &quot;income2&quot;, &quot;past.diff&quot;, 
+    &quot;future.diff&quot;, &quot;crise&quot;)]
+dat.mlogit &lt;- mlogit.data(dat.mlogit, shape = &quot;wide&quot;, choice = &quot;poverty&quot;)
+# ------- #
+model.mlogit5 &lt;- mlogit(poverty ~ 0 | incsour3 + edu2 + past.diff + future.diff + 
+    crise, data = dat.mlogit, reflevel = &quot;Social Blame&quot;)
 
+summary(model.mlogit5)
+</code></pre>
 
-
-<h3 id="using-mlogit-package"><a href="#TOC"><span class="header-section-number">3.1.1</span> using mlogit-package</a></h3>
-<p>This follows the example from <a href="http://www.utstat.toronto.edu/~brunner/oldclass/312f12/lectures/MultinomialLogitWithR.pdf">University of Toronto</a> and <a href="http://facweb.knowlton.ohio-state.edu/pviton/courses2/crp5700/5700-mlogit.pdf">Discrete-Choice Logit Models with R by Philip A. Viton (October 26, 2013)</a></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlogit)
-dat.mlogit &lt;- df.model[, <span class="kw">c</span>(<span class="st">&quot;poverty&quot;</span>, <span class="st">&quot;edu2&quot;</span>, <span class="st">&quot;incsour3&quot;</span>, <span class="st">&quot;income2&quot;</span>, <span class="st">&quot;past.diff&quot;</span>, 
-    <span class="st">&quot;future.diff&quot;</span>, <span class="st">&quot;crise&quot;</span>)]
-dat.mlogit &lt;- <span class="kw">mlogit.data</span>(dat.mlogit, <span class="dt">shape =</span> <span class="st">&quot;wide&quot;</span>, <span class="dt">choice =</span> <span class="st">&quot;poverty&quot;</span>)
-<span class="co"># ------- #</span>
-model.mlogit5 &lt;- <span class="kw">mlogit</span>(poverty ~ <span class="dv">0</span> | incsour3 + edu2 + past.diff + future.diff + 
-    crise, <span class="dt">data =</span> dat.mlogit, <span class="dt">reflevel =</span> <span class="st">&quot;Social Blame&quot;</span>)
-
-<span class="kw">summary</span>(model.mlogit5)</code></pre>
 <pre><code>## 
 ## Call:
 ## mlogit(formula = poverty ~ 0 | incsour3 + edu2 + past.diff + 
@@ -1791,193 +1220,126 @@ model.mlogit5 &lt;- <span class="kw">mlogit</span>(poverty ~ <span class="dv">0<
 ## 
 ## Log-Likelihood: -19500
 ## McFadden R^2:  0.0143 
-## Likelihood ratio test : chisq = 564 (p.value = &lt;2e-16)</code></pre>
-<h3 id="interpretation-4"><a href="#TOC"><span class="header-section-number">3.1.2</span> Interpretation</a></h3>
-<h2 id="multilevel-multinomial-logistic-regression"><a href="#TOC"><span class="header-section-number">3.2</span> Multilevel multinomial logistic regression</a></h2>
-<p>Can be modelled in R in Bayesian manner using either <a href="http://cran.r-project.org/web/packages/ChoiceModelR/index.html">ChoiceModelR</a> and <a href="http://cran.r-project.org/web/packages/Zelig/">Zelig</a>.</p>
+## Likelihood ratio test : chisq = 564 (p.value = &lt;2e-16)
+</code></pre>
+
+<h3>Interpretation</h3>
+
+<h2>Multilevel multinomial logistic regression</h2>
+
+<p>Can be modelled in R in Bayesian manner using either <a href="http://cran.r-project.org/web/packages/ChoiceModelR/index.html">ChoiceModelR</a> and  <a href="http://cran.r-project.org/web/packages/Zelig/">Zelig</a>.</p>
+
 <p>Marco Steenbergen discusses the stat theory and imlementation in Stata in this video</p>
+
 <iframe width="420" height="315" src="//www.youtube.com/embed/q_t9VerQ2ko" frameborder="0" allowfullscreen></iframe>
 
+<h1>Multilevel regression</h1>
 
-<h1 id="multilevel-regression"><a href="#TOC"><span class="header-section-number">4</span> Multilevel regression</a></h1>
-<h2 id="bivariate-analysis"><a href="#TOC"><span class="header-section-number">4.1</span> Bivariate analysis</a></h2>
-<h3 id="social-blame-explained"><a href="#TOC"><span class="header-section-number">4.1.1</span> Social blame explained</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
-df.model$group_balinCis[df.model$cntry %in% <span class="kw">c</span>(<span class="st">&quot;Czech Republic&quot;</span>, <span class="st">&quot;Hungary&quot;</span>, <span class="st">&quot;Bulgaria&quot;</span>, 
-    <span class="st">&quot;Poland&quot;</span>, <span class="st">&quot;Slovakia&quot;</span>, <span class="st">&quot;Slovenia&quot;</span>, <span class="st">&quot;Romania&quot;</span>)] &lt;- <span class="st">&quot;CEE&quot;</span>
+<h2>Bivariate analysis</h2>
 
-df.model$group_balinCis[df.model$cntry %in% <span class="kw">c</span>(<span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Azerbaijan&quot;</span>, <span class="st">&quot;Belarus&quot;</span>, 
-    <span class="st">&quot;Georgia&quot;</span>, <span class="st">&quot;Kazakhstan&quot;</span>, <span class="st">&quot;Kyrgyzstan&quot;</span>, <span class="st">&quot;Moldova&quot;</span>, <span class="st">&quot;Tajikistan&quot;</span>, <span class="st">&quot;Ukraine&quot;</span>, 
-    <span class="st">&quot;Uzbekistan&quot;</span>, <span class="st">&quot;Russia&quot;</span>, <span class="st">&quot;Estonia&quot;</span>, <span class="st">&quot;Latvia&quot;</span>, <span class="st">&quot;Lithuania&quot;</span>)] &lt;- <span class="st">&quot;CIS&quot;</span>
-df.model$group_balinCis &lt;- <span class="kw">factor</span>(df.model$group_balinCis, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;CEE&quot;</span>, 
-    <span class="st">&quot;CIS&quot;</span>))
+<h3>Social blame explained</h3>
+
+<pre><code class="r">library(lme4)
+df.model$group_balinCis[df.model$cntry %in% c(&quot;Czech Republic&quot;, &quot;Hungary&quot;, &quot;Bulgaria&quot;, 
+    &quot;Poland&quot;, &quot;Slovakia&quot;, &quot;Slovenia&quot;, &quot;Romania&quot;)] &lt;- &quot;CEE&quot;
+
+df.model$group_balinCis[df.model$cntry %in% c(&quot;Armenia&quot;, &quot;Azerbaijan&quot;, &quot;Belarus&quot;, 
+    &quot;Georgia&quot;, &quot;Kazakhstan&quot;, &quot;Kyrgyzstan&quot;, &quot;Moldova&quot;, &quot;Tajikistan&quot;, &quot;Ukraine&quot;, 
+    &quot;Uzbekistan&quot;, &quot;Russia&quot;, &quot;Estonia&quot;, &quot;Latvia&quot;, &quot;Lithuania&quot;)] &lt;- &quot;CIS&quot;
+df.model$group_balinCis &lt;- factor(df.model$group_balinCis, levels = c(&quot;CEE&quot;, 
+    &quot;CIS&quot;))
 
 
-bisoc<span class="fl">.1</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.2</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ edu2 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.3</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ income2 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ past.diff + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.5</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ future.diff + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.6</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ crise + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.8</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ uw_gini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.9</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ gdpchange07<span class="fl">.10</span> + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.10</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ wbgi_vae + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.11</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ group_analysis + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.12</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ group_balinCis + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.13</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ perGini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">
-coef.names.multi = <span class="kw">c</span>(<span class="st">&quot;(intercept)&quot;</span>, <span class="st">&quot;Dependent&quot;</span>, <span class="st">&quot;Low education&quot;</span>, <span class="st">&quot;Low income&quot;</span>, 
-    <span class="st">&quot;Income has worsened&quot;</span>, <span class="st">&quot;Income will worsen&quot;</span>, <span class="st">&quot;Has affected great or fair amount&quot;</span>, 
-    <span class="st">&quot;Gini coefficient&quot;</span>, <span class="st">&quot;Change in GDP between 2007 to 2010&quot;</span>, <span class="st">&quot;Good governance&quot;</span>, 
-    <span class="st">&quot;Cgroup&quot;</span>, <span class="st">&quot;CgroupMod&quot;</span>, <span class="st">&quot;Perceived Gini&quot;</span>)
+bisoc.1 &lt;- glmer(pov.log.social ~ incsour3 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.2 &lt;- glmer(pov.log.social ~ edu2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.3 &lt;- glmer(pov.log.social ~ income2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.4 &lt;- glmer(pov.log.social ~ past.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.5 &lt;- glmer(pov.log.social ~ future.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.6 &lt;- glmer(pov.log.social ~ crise + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.8 &lt;- glmer(pov.log.social ~ uw_gini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.9 &lt;- glmer(pov.log.social ~ gdpchange07.10 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.10 &lt;- glmer(pov.log.social ~ wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.11 &lt;- glmer(pov.log.social ~ group_analysis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.12 &lt;- glmer(pov.log.social ~ group_balinCis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.13 &lt;- glmer(pov.log.social ~ perGini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+</code></pre>
 
-<span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(bisoc<span class="fl">.1</span>, bisoc<span class="fl">.2</span>, bisoc<span class="fl">.3</span>, bisoc<span class="fl">.4</span>, bisoc<span class="fl">.5</span>, bisoc<span class="fl">.6</span>, bisoc<span class="fl">.8</span>, 
-    bisoc<span class="fl">.9</span>, bisoc<span class="fl">.10</span>, bisoc<span class="fl">.11</span>, bisoc<span class="fl">.12</span>, bisoc<span class="fl">.13</span>), <span class="dt">custom.coef.names =</span> coef.names.multi, 
-    <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, <span class="dt">caption =</span> <span class="st">&quot;Bivariate social blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code class="r">
+coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;, 
+    &quot;Cgroup&quot;, &quot;CgroupMod&quot;, &quot;Perceived Gini&quot;)
+
+library(texreg)
+htmlreg(list(bisoc.1, bisoc.2, bisoc.3, bisoc.4, bisoc.5, bisoc.6, bisoc.8, 
+    bisoc.9, bisoc.10, bisoc.11, bisoc.12, bisoc.13), custom.coef.names = coef.names.multi, 
+    naive = TRUE, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, head.tag = FALSE, 
+    body.tag = FALSE, include.pvalues = TRUE, caption = &quot;Bivariate social blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Bivariate social blame</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Bivariate social blame</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Model 1</b>
-</th>
-    <th>
-<b>Model 2</b>
-</th>
-    <th>
-<b>Model 3</b>
-</th>
-    <th>
-<b>Model 4</b>
-</th>
-    <th>
-<b>Model 5</b>
-</th>
-    <th>
-<b>Model 6</b>
-</th>
-    <th>
-<b>Model 7</b>
-</th>
-    <th>
-<b>Model 8</b>
-</th>
-    <th>
-<b>Model 9</b>
-</th>
-    <th>
-<b>Model 10</b>
-</th>
-    <th>
-<b>Model 11</b>
-</th>
-    <th>
-<b>Model 12</b>
-</th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
+    <th><b>Model 7</b></th>
+    <th><b>Model 8</b></th>
+    <th><b>Model 9</b></th>
+    <th><b>Model 10</b></th>
+    <th><b>Model 11</b></th>
+    <th><b>Model 12</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--0.19
-</td>
-    <td>
--0.46<sup><em>*</em></sup>
-</td>
-    <td>
--0.16
-</td>
-    <td>
--0.23
-</td>
-    <td>
--0.12
-</td>
-    <td>
--0.14
-</td>
-    <td>
--0.69
-</td>
-    <td>
--0.16
-</td>
-    <td>
--0.37<sup><em>*</em></sup>
-</td>
-    <td>
--0.26
-</td>
-    <td>
--0.34
-</td>
-    <td>
--2.01<sup>**</sup>
-</td>
+    <td>(intercept)</td>
+    <td>-0.19</td>
+    <td>-0.46<sup>***</sup></td>
+    <td>-0.16</td>
+    <td>-0.23</td>
+    <td>-0.12</td>
+    <td>-0.14</td>
+    <td>-0.69</td>
+    <td>-0.16</td>
+    <td>-0.37<sup>***</sup></td>
+    <td>-0.26</td>
+    <td>-0.34</td>
+    <td>-2.01<sup>**</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.13)
-</td>
-    <td>
-(0.13)
-</td>
-    <td>
-(0.12)
-</td>
-    <td>
-(0.12)
-</td>
-    <td>
-(0.12)
-</td>
-    <td>
-(0.11)
-</td>
-    <td>
-(0.64)
-</td>
-    <td>
-(0.11)
-</td>
-    <td>
-(0.11)
-</td>
-    <td>
-(0.17)
-</td>
-    <td>
-(0.20)
-</td>
-    <td>
-(0.63)
-</td>
+    <td>(0.13)</td>
+    <td>(0.13)</td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.11)</td>
+    <td>(0.64)</td>
+    <td>(0.11)</td>
+    <td>(0.11)</td>
+    <td>(0.17)</td>
+    <td>(0.20)</td>
+    <td>(0.63)</td>
   </tr>
   <tr>
-    <td>
-Dependent
-</td>
-    <td>
--0.21<sup><em>*</em></sup>
-</td>
+    <td>Dependent</td>
+    <td>-0.21<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -1992,9 +1354,7 @@ Dependent
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
+    <td>(0.06)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2008,13 +1368,9 @@ Dependent
     <td></td>
   </tr>
   <tr>
-    <td>
-Low education
-</td>
+    <td>Low education</td>
     <td></td>
-    <td>
-0.08
-</td>
+    <td>0.08</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2029,9 +1385,7 @@ Low education
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2044,14 +1398,10 @@ Low education
     <td></td>
   </tr>
   <tr>
-    <td>
-Low income
-</td>
+    <td>Low income</td>
     <td></td>
     <td></td>
-    <td>
--0.39<sup><em>*</em></sup>
-</td>
+    <td>-0.39<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2066,9 +1416,7 @@ Low income
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2080,15 +1428,11 @@ Low income
     <td></td>
   </tr>
   <tr>
-    <td>
-Income has worsened
-</td>
+    <td>Income has worsened</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.25<sup><em>*</em></sup>
-</td>
+    <td>-0.25<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2103,9 +1447,7 @@ Income has worsened
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2116,16 +1458,12 @@ Income has worsened
     <td></td>
   </tr>
   <tr>
-    <td>
-Income will worsen
-</td>
+    <td>Income will worsen</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.37<sup><em>*</em></sup>
-</td>
+    <td>-0.37<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2140,9 +1478,7 @@ Income will worsen
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2152,17 +1488,13 @@ Income will worsen
     <td></td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount
-</td>
+    <td>Has affected great or fair amount</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.42<sup><em>*</em></sup>
-</td>
+    <td>-0.42<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2177,9 +1509,7 @@ Has affected great or fair amount
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2188,18 +1518,14 @@ Has affected great or fair amount
     <td></td>
   </tr>
   <tr>
-    <td>
-Gini coefficient
-</td>
+    <td>Gini coefficient</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.01
-</td>
+    <td>0.01</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2214,9 +1540,7 @@ Gini coefficient
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.02)
-</td>
+    <td>(0.02)</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2224,9 +1548,7 @@ Gini coefficient
     <td></td>
   </tr>
   <tr>
-    <td>
-Change in GDP between 2007 to 2010
-</td>
+    <td>Change in GDP between 2007 to 2010</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2234,9 +1556,7 @@ Change in GDP between 2007 to 2010
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.01<sup><em>*</em></sup>
-</td>
+    <td>-0.01<sup>***</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2251,18 +1571,14 @@ Change in GDP between 2007 to 2010
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.00)
-</td>
+    <td>(0.00)</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Good governance
-</td>
+    <td>Good governance</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2271,9 +1587,7 @@ Good governance
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.24<sup>*</sup>
-</td>
+    <td>0.24<sup>*</sup></td>
     <td></td>
     <td></td>
     <td></td>
@@ -2288,17 +1602,13 @@ Good governance
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.11)
-</td>
+    <td>(0.11)</td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Cgroup
-</td>
+    <td>Cgroup</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2308,9 +1618,7 @@ Cgroup
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.24
-</td>
+    <td>-0.24</td>
     <td></td>
     <td></td>
   </tr>
@@ -2325,16 +1633,12 @@ Cgroup
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.23)
-</td>
+    <td>(0.23)</td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td>
-CgroupMod
-</td>
+    <td>CgroupMod</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2345,9 +1649,7 @@ CgroupMod
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.07
-</td>
+    <td>-0.07</td>
     <td></td>
   </tr>
   <tr>
@@ -2362,15 +1664,11 @@ CgroupMod
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.25)
-</td>
+    <td>(0.25)</td>
     <td></td>
   </tr>
   <tr>
-    <td>
-Perceived Gini
-</td>
+    <td>Perceived Gini</td>
     <td></td>
     <td></td>
     <td></td>
@@ -2382,9 +1680,7 @@ Perceived Gini
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.08<sup>**</sup>
-</td>
+    <td>0.08<sup>**</sup></td>
   </tr>
   <tr>
     <td></td>
@@ -2399,739 +1695,378 @@ Perceived Gini
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.03)
-</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-30262.21
-</td>
-    <td class="midRule">
-30330.17
-</td>
-    <td class="midRule">
-30147.92
-</td>
-    <td class="midRule">
-29305.05
-</td>
-    <td class="midRule">
-23667.34
-</td>
-    <td class="midRule">
-27981.03
-</td>
-    <td class="midRule">
-30345.17
-</td>
-    <td class="midRule">
-30334.53
-</td>
-    <td class="midRule">
-30341.00
-</td>
-    <td class="midRule">
-30344.31
-</td>
-    <td class="midRule">
-30345.33
-</td>
-    <td class="midRule">
-30339.48
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">30262.21</td>
+    <td class="midRule">30330.17</td>
+    <td class="midRule">30147.92</td>
+    <td class="midRule">29305.05</td>
+    <td class="midRule">23667.34</td>
+    <td class="midRule">27981.03</td>
+    <td class="midRule">30345.17</td>
+    <td class="midRule">30334.53</td>
+    <td class="midRule">30341.00</td>
+    <td class="midRule">30344.31</td>
+    <td class="midRule">30345.33</td>
+    <td class="midRule">30339.48</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-30286.40
-</td>
-    <td>
-30354.37
-</td>
-    <td>
-30172.11
-</td>
-    <td>
-29329.15
-</td>
-    <td>
-23690.82
-</td>
-    <td>
-28004.97
-</td>
-    <td>
-30369.37
-</td>
-    <td>
-30358.73
-</td>
-    <td>
-30365.19
-</td>
-    <td>
-30368.50
-</td>
-    <td>
-30369.52
-</td>
-    <td>
-30363.68
-</td>
+    <td>BIC</td>
+    <td>30286.40</td>
+    <td>30354.37</td>
+    <td>30172.11</td>
+    <td>29329.15</td>
+    <td>23690.82</td>
+    <td>28004.97</td>
+    <td>30369.37</td>
+    <td>30358.73</td>
+    <td>30365.19</td>
+    <td>30368.50</td>
+    <td>30369.52</td>
+    <td>30363.68</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--15128.11
-</td>
-    <td>
--15162.09
-</td>
-    <td>
--15070.96
-</td>
-    <td>
--14649.53
-</td>
-    <td>
--11830.67
-</td>
-    <td>
--13987.51
-</td>
-    <td>
--15169.59
-</td>
-    <td>
--15164.27
-</td>
-    <td>
--15167.50
-</td>
-    <td>
--15169.15
-</td>
-    <td>
--15169.66
-</td>
-    <td>
--15166.74
-</td>
+    <td>Log Likelihood</td>
+    <td>-15128.11</td>
+    <td>-15162.09</td>
+    <td>-15070.96</td>
+    <td>-14649.53</td>
+    <td>-11830.67</td>
+    <td>-13987.51</td>
+    <td>-15169.59</td>
+    <td>-15164.27</td>
+    <td>-15167.50</td>
+    <td>-15169.15</td>
+    <td>-15169.66</td>
+    <td>-15166.74</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-30256.21
-</td>
-    <td>
-30324.17
-</td>
-    <td>
-30141.92
-</td>
-    <td>
-29299.05
-</td>
-    <td>
-23661.34
-</td>
-    <td>
-27975.03
-</td>
-    <td>
-30339.17
-</td>
-    <td>
-30328.53
-</td>
-    <td>
-30335.00
-</td>
-    <td>
-30338.31
-</td>
-    <td>
-30339.33
-</td>
-    <td>
-30333.48
-</td>
+    <td>Deviance</td>
+    <td>30256.21</td>
+    <td>30324.17</td>
+    <td>30141.92</td>
+    <td>29299.05</td>
+    <td>23661.34</td>
+    <td>27975.03</td>
+    <td>30339.17</td>
+    <td>30328.53</td>
+    <td>30335.00</td>
+    <td>30338.31</td>
+    <td>30339.33</td>
+    <td>30333.48</td>
   </tr>
   <tr>
-    <td>
-Num. obs.
-</td>
-    <td>
-23461
-</td>
-    <td>
-23504
-</td>
-    <td>
-23513
-</td>
-    <td>
-22777
-</td>
-    <td>
-18526
-</td>
-    <td>
-21614
-</td>
-    <td>
-23513
-</td>
-    <td>
-23513
-</td>
-    <td>
-23513
-</td>
-    <td>
-23513
-</td>
-    <td>
-23513
-</td>
-    <td>
-23513
-</td>
+    <td>Num. obs.</td>
+    <td>23461</td>
+    <td>23504</td>
+    <td>23513</td>
+    <td>22777</td>
+    <td>18526</td>
+    <td>21614</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
   </tr>
   <tr>
-    <td>
-Num. groups: cntry
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
   </tr>
   <tr>
-    <td>
-Variance: cntry.(Intercept)
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.28
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.26
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.17
-</td>
-    <td>
-0.23
-</td>
-    <td>
-0.27
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.22
-</td>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.29</td>
+    <td>0.29</td>
+    <td>0.29</td>
+    <td>0.28</td>
+    <td>0.29</td>
+    <td>0.26</td>
+    <td>0.29</td>
+    <td>0.17</td>
+    <td>0.23</td>
+    <td>0.27</td>
+    <td>0.29</td>
+    <td>0.22</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Variance: Residual
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
   </tr>
   <tr>
-    <td colspan="13">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="13"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
-<pre class="sourceCode r"><code class="sourceCode r"></code></pre>
-<h4 id="interpretation-5"><a href="#TOC"><span class="header-section-number">4.1.1.1</span> Interpretation</a></h4>
-<h3 id="individual-blame-explained"><a href="#TOC"><span class="header-section-number">4.1.2</span> Individual blame explained</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">biind<span class="fl">.1</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.2</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ edu2 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.3</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ income2 + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ past.diff + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.5</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ future.diff + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.6</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ crise + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.8</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ uw_gini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.9</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ gdpchange07<span class="fl">.10</span> + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.10</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ wbgi_vae + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-biind<span class="fl">.11</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ group_analysis + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.12</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ group_balinCis + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-bisoc<span class="fl">.13</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ perGini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(biind<span class="fl">.1</span>, biind<span class="fl">.2</span>, biind<span class="fl">.3</span>, biind<span class="fl">.4</span>, biind<span class="fl">.5</span>, biind<span class="fl">.6</span>, biind<span class="fl">.8</span>, 
-    biind<span class="fl">.9</span>, biind<span class="fl">.10</span>, biind<span class="fl">.11</span>, biind<span class="fl">.12</span>, biind<span class="fl">.13</span>), <span class="dt">custom.coef.names =</span> coef.names.multi, 
-    <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">use.packages =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, <span class="dt">caption =</span> <span class="st">&quot;Bivariate individual blame&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
-<pre><code>## Error: object &#39;biind.12&#39; not found</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"></code></pre>
-<h4 id="interpretation-6"><a href="#TOC"><span class="header-section-number">4.1.2.1</span> Interpretation</a></h4>
-<h2 id="multivariate-multilevel-regressions"><a href="#TOC"><span class="header-section-number">4.2</span> Multivariate multilevel regressions</a></h2>
-<h3 id="social-blame-type-of-explanation"><a href="#TOC"><span class="header-section-number">4.2.1</span> Social blame type of explanation</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
+<pre><code class="r">
+</code></pre>
 
-soc<span class="fl">.0</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-soc<span class="fl">.1</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-soc<span class="fl">.2</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise + uw_gini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-soc<span class="fl">.3</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise + uw_gini + gdpchange07<span class="fl">.10</span> + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-soc<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise + uw_gini + gdpchange07<span class="fl">.10</span> + wbgi_vae + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">coef.names.multi = <span class="kw">c</span>(<span class="st">&quot;(intercept)&quot;</span>, <span class="st">&quot;Dependent&quot;</span>, <span class="st">&quot;Low education&quot;</span>, <span class="st">&quot;Low income&quot;</span>, 
-    <span class="st">&quot;Income has worsened&quot;</span>, <span class="st">&quot;Income will worsen&quot;</span>, <span class="st">&quot;Has affected great or fair amount&quot;</span>, 
-    <span class="st">&quot;Gini coefficient&quot;</span>, <span class="st">&quot;Change in GDP between 2007 to 2010&quot;</span>, <span class="st">&quot;Good governance&quot;</span>)
+<h4>Interpretation</h4>
 
-model.names.multi = <span class="kw">c</span>(<span class="st">&quot;Empty&quot;</span>, <span class="st">&quot;Only individual&quot;</span>, <span class="st">&quot;Gini added&quot;</span>, <span class="st">&quot;GDP change added&quot;</span>, 
-    <span class="st">&quot;Good governance added&quot;</span>)
+<h3>Individual blame explained</h3>
 
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(soc<span class="fl">.0</span>, soc<span class="fl">.1</span>, soc<span class="fl">.2</span>, soc<span class="fl">.3</span>, soc<span class="fl">.4</span>), <span class="dt">custom.model.names =</span> model.names.multi, 
-    <span class="dt">custom.coef.names =</span> coef.names.multi, <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">caption =</span> <span class="st">&quot;Logistic multilevel random intercept model for social blame type of explanation&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code class="r">biind.1 &lt;- glmer(pov.log.individual ~ incsour3 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.2 &lt;- glmer(pov.log.individual ~ edu2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.3 &lt;- glmer(pov.log.individual ~ income2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.4 &lt;- glmer(pov.log.individual ~ past.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.5 &lt;- glmer(pov.log.individual ~ future.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.6 &lt;- glmer(pov.log.individual ~ crise + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.8 &lt;- glmer(pov.log.individual ~ uw_gini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.9 &lt;- glmer(pov.log.individual ~ gdpchange07.10 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.10 &lt;- glmer(pov.log.individual ~ wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.11 &lt;- glmer(pov.log.individual ~ group_analysis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.12 &lt;- glmer(pov.log.individual ~ group_balinCis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.13 &lt;- glmer(pov.log.individual ~ perGini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+</code></pre>
+
+<pre><code class="r">
+library(texreg)
+htmlreg(list(biind.1, biind.2, biind.3, biind.4, biind.5, biind.6, biind.8, 
+    biind.9, biind.10, biind.11, biind.12, biind.13), custom.coef.names = coef.names.multi, 
+    naive = TRUE, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, head.tag = FALSE, 
+    body.tag = FALSE, use.packages = FALSE, include.pvalues = TRUE, caption = &quot;Bivariate individual blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<pre><code>## Error: object &#39;biind.12&#39; not found
+</code></pre>
+
+<pre><code class="r">
+</code></pre>
+
+<h4>Interpretation</h4>
+
+<h2>Multivariate multilevel regressions</h2>
+
+<h3>Social blame type of explanation</h3>
+
+<pre><code class="r">library(lme4)
+
+soc.0 &lt;- glmer(pov.log.social ~ (1 | cntry), family = binomial(logit), data = df.model)
+soc.1 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + (1 | cntry), family = binomial(logit), data = df.model)
+soc.2 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + uw_gini + (1 | cntry), family = binomial(logit), data = df.model)
+soc.3 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + uw_gini + gdpchange07.10 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+soc.4 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + uw_gini + gdpchange07.10 + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+</code></pre>
+
+<pre><code class="r">coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
+
+model.names.multi = c(&quot;Empty&quot;, &quot;Only individual&quot;, &quot;Gini added&quot;, &quot;GDP change added&quot;, 
+    &quot;Good governance added&quot;)
+
+htmlreg(list(soc.0, soc.1, soc.2, soc.3, soc.4), custom.model.names = model.names.multi, 
+    custom.coef.names = coef.names.multi, naive = TRUE, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social blame type of explanation</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social blame type of explanation</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Empty</b>
-</th>
-    <th>
-<b>Only individual</b>
-</th>
-    <th>
-<b>Gini added</b>
-</th>
-    <th>
-<b>GDP change added</b>
-</th>
-    <th>
-<b>Good governance added</b>
-</th>
+    <th><b>Empty</b></th>
+    <th><b>Only individual</b></th>
+    <th><b>Gini added</b></th>
+    <th><b>GDP change added</b></th>
+    <th><b>Good governance added</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--0.39<sup>**</sup>
-</td>
-    <td>
-0.30<sup>*</sup>
-</td>
-    <td>
-0.13
-</td>
-    <td>
--0.46
-</td>
-    <td>
--0.67
-</td>
+    <td>(intercept)</td>
+    <td>-0.39<sup>**</sup></td>
+    <td>0.30<sup>*</sup></td>
+    <td>0.13</td>
+    <td>-0.46</td>
+    <td>-0.67</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.12)
-</td>
-    <td>
-(0.15)
-</td>
-    <td>
-(0.61)
-</td>
-    <td>
-(0.47)
-</td>
-    <td>
-(0.59)
-</td>
+    <td>(0.12)</td>
+    <td>(0.15)</td>
+    <td>(0.61)</td>
+    <td>(0.47)</td>
+    <td>(0.59)</td>
   </tr>
   <tr>
-    <td>
-Dependent
-</td>
+    <td>Dependent</td>
     <td></td>
-    <td>
--0.22<sup>**</sup>
-</td>
-    <td>
--0.22<sup>**</sup>
-</td>
-    <td>
--0.22<sup>**</sup>
-</td>
-    <td>
--0.22<sup>**</sup>
-</td>
+    <td>-0.22<sup>**</sup></td>
+    <td>-0.22<sup>**</sup></td>
+    <td>-0.22<sup>**</sup></td>
+    <td>-0.22<sup>**</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
   </tr>
   <tr>
-    <td>
-Low education
-</td>
+    <td>Low education</td>
     <td></td>
-    <td>
-0.06
-</td>
-    <td>
-0.06
-</td>
-    <td>
-0.06
-</td>
-    <td>
-0.06
-</td>
+    <td>0.06</td>
+    <td>0.06</td>
+    <td>0.06</td>
+    <td>0.06</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.06)
-</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
   </tr>
   <tr>
-    <td>
-Low income
-</td>
+    <td>Low income</td>
     <td></td>
-    <td>
--0.45<sup><em>*</em></sup>
-</td>
-    <td>
--0.45<sup><em>*</em></sup>
-</td>
-    <td>
--0.45<sup><em>*</em></sup>
-</td>
-    <td>
--0.45<sup><em>*</em></sup>
-</td>
+    <td>-0.45<sup>***</sup></td>
+    <td>-0.45<sup>***</sup></td>
+    <td>-0.45<sup>***</sup></td>
+    <td>-0.45<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income has worsened
-</td>
+    <td>Income has worsened</td>
     <td></td>
-    <td>
--0.07
-</td>
-    <td>
--0.07
-</td>
-    <td>
--0.07
-</td>
-    <td>
--0.07
-</td>
+    <td>-0.07</td>
+    <td>-0.07</td>
+    <td>-0.07</td>
+    <td>-0.07</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income will worsen
-</td>
+    <td>Income will worsen</td>
     <td></td>
-    <td>
--0.31<sup><em>*</em></sup>
-</td>
-    <td>
--0.31<sup><em>*</em></sup>
-</td>
-    <td>
--0.31<sup><em>*</em></sup>
-</td>
-    <td>
--0.31<sup><em>*</em></sup>
-</td>
+    <td>-0.31<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount
-</td>
+    <td>Has affected great or fair amount</td>
     <td></td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.03)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
   </tr>
   <tr>
-    <td>
-Gini coefficient
-</td>
+    <td>Gini coefficient</td>
     <td></td>
     <td></td>
-    <td>
-0.00
-</td>
-    <td>
-0.03<sup>*</sup>
-</td>
-    <td>
-0.03<sup>*</sup>
-</td>
+    <td>0.00</td>
+    <td>0.03<sup>*</sup></td>
+    <td>0.03<sup>*</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.02)
-</td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.02)
-</td>
+    <td>(0.02)</td>
+    <td>(0.01)</td>
+    <td>(0.02)</td>
   </tr>
   <tr>
-    <td>
-Change in GDP between 2007 to 2010
-</td>
+    <td>Change in GDP between 2007 to 2010</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
--0.02<sup><em>*</em></sup>
-</td>
-    <td>
--0.01<sup>*</sup>
-</td>
+    <td>-0.02<sup>***</sup></td>
+    <td>-0.01<sup>*</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.00)
-</td>
-    <td>
-(0.01)
-</td>
+    <td>(0.00)</td>
+    <td>(0.01)</td>
   </tr>
   <tr>
-    <td>
-Good governance
-</td>
+    <td>Good governance</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.09
-</td>
+    <td>0.09</td>
   </tr>
   <tr>
     <td></td>
@@ -3139,530 +2074,264 @@ Good governance
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.16)
-</td>
+    <td>(0.16)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-30343.40
-</td>
-    <td class="midRule">
-21785.43
-</td>
-    <td class="midRule">
-21787.35
-</td>
-    <td class="midRule">
-21776.32
-</td>
-    <td class="midRule">
-21777.96
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">30343.40</td>
+    <td class="midRule">21785.43</td>
+    <td class="midRule">21787.35</td>
+    <td class="midRule">21776.32</td>
+    <td class="midRule">21777.96</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-30359.53
-</td>
-    <td>
-21847.40
-</td>
-    <td>
-21857.07
-</td>
-    <td>
-21853.78
-</td>
-    <td>
-21863.17
-</td>
+    <td>BIC</td>
+    <td>30359.53</td>
+    <td>21847.40</td>
+    <td>21857.07</td>
+    <td>21853.78</td>
+    <td>21863.17</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--15169.70
-</td>
-    <td>
--10884.72
-</td>
-    <td>
--10884.68
-</td>
-    <td>
--10878.16
-</td>
-    <td>
--10877.98
-</td>
+    <td>Log Likelihood</td>
+    <td>-15169.70</td>
+    <td>-10884.72</td>
+    <td>-10884.68</td>
+    <td>-10878.16</td>
+    <td>-10877.98</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-30339.40
-</td>
-    <td>
-21769.43
-</td>
-    <td>
-21769.35
-</td>
-    <td>
-21756.32
-</td>
-    <td>
-21755.96
-</td>
+    <td>Deviance</td>
+    <td>30339.40</td>
+    <td>21769.43</td>
+    <td>21769.35</td>
+    <td>21756.32</td>
+    <td>21755.96</td>
   </tr>
   <tr>
-    <td>
-Num. obs.
-</td>
-    <td>
-23513
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
+    <td>Num. obs.</td>
+    <td>23513</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
   </tr>
   <tr>
-    <td>
-Num. groups: cntry
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
   </tr>
   <tr>
-    <td>
-Variance: cntry.(Intercept)
-</td>
-    <td>
-0.29
-</td>
-    <td>
-0.25
-</td>
-    <td>
-0.25
-</td>
-    <td>
-0.13
-</td>
-    <td>
-0.13
-</td>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.29</td>
+    <td>0.25</td>
+    <td>0.25</td>
+    <td>0.13</td>
+    <td>0.13</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Variance: Residual
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
   </tr>
   <tr>
-    <td colspan="6">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="6"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h4>Interpretation</h4>
 
+<h3>Individual blame type of explanation</h3>
 
+<pre><code class="r">
 
-<h4 id="interpretation-7"><a href="#TOC"><span class="header-section-number">4.2.1.1</span> Interpretation</a></h4>
-<h3 id="individual-blame-type-of-explanation"><a href="#TOC"><span class="header-section-number">4.2.2</span> Individual blame type of explanation</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">
+ind.0 &lt;- glmer(pov.log.individual ~ (1 | cntry), family = binomial(logit), data = df.model)
+ind.1 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + (1 | cntry), family = binomial(logit), data = df.model)
+ind.2 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + uw_gini + (1 | cntry), family = binomial(logit), data = df.model)
+ind.3 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + uw_gini + gdpchange07.10 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+ind.4 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + uw_gini + gdpchange07.10 + wbgi_vae + (1 | cntry), 
+    family = binomial(logit), data = df.model)
+</code></pre>
 
-ind<span class="fl">.0</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-ind<span class="fl">.1</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-ind<span class="fl">.2</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + uw_gini + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
-ind<span class="fl">.3</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + uw_gini + gdpchange07<span class="fl">.10</span> + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
-ind<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + uw_gini + gdpchange07<span class="fl">.10</span> + wbgi_vae + (<span class="dv">1</span> | cntry), 
-    <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">htmlreg</span>(<span class="kw">list</span>(ind<span class="fl">.0</span>, ind<span class="fl">.1</span>, ind<span class="fl">.2</span>, ind<span class="fl">.3</span>, ind<span class="fl">.4</span>), <span class="dt">custom.model.names =</span> model.names.multi, 
-    <span class="dt">custom.coef.names =</span> coef.names.multi, <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">ci.test =</span> <span class="ot">NULL</span>, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">doctype =</span> <span class="ot">FALSE</span>, <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">caption =</span> <span class="st">&quot;Logistic multilevel random intercept model for individual blame type of explanation&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code class="r">htmlreg(list(ind.0, ind.1, ind.2, ind.3, ind.4), custom.model.names = model.names.multi, 
+    custom.coef.names = coef.names.multi, naive = TRUE, ci.test = NULL, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for individual blame type of explanation</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for individual blame type of explanation</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Empty</b>
-</th>
-    <th>
-<b>Only individual</b>
-</th>
-    <th>
-<b>Gini added</b>
-</th>
-    <th>
-<b>GDP change added</b>
-</th>
-    <th>
-<b>Good governance added</b>
-</th>
+    <th><b>Empty</b></th>
+    <th><b>Only individual</b></th>
+    <th><b>Gini added</b></th>
+    <th><b>GDP change added</b></th>
+    <th><b>Good governance added</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--1.25<sup><em>*</em></sup>
-</td>
-    <td>
--2.06<sup><em>*</em></sup>
-</td>
-    <td>
--2.39<sup><em>*</em></sup>
-</td>
-    <td>
--2.00<sup><em>*</em></sup>
-</td>
-    <td>
--2.02<sup><em>*</em></sup>
-</td>
+    <td>(intercept)</td>
+    <td>-1.25<sup>***</sup></td>
+    <td>-2.06<sup>***</sup></td>
+    <td>-2.39<sup>***</sup></td>
+    <td>-2.00<sup>***</sup></td>
+    <td>-2.02<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.08)
-</td>
-    <td>
-(0.14)
-</td>
-    <td>
-(0.40)
-</td>
-    <td>
-(0.32)
-</td>
-    <td>
-(0.39)
-</td>
+    <td>(0.08)</td>
+    <td>(0.14)</td>
+    <td>(0.40)</td>
+    <td>(0.32)</td>
+    <td>(0.39)</td>
   </tr>
   <tr>
-    <td>
-Dependent
-</td>
+    <td>Dependent</td>
     <td></td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
+    <td>0.38<sup>***</sup></td>
+    <td>0.38<sup>***</sup></td>
+    <td>0.38<sup>***</sup></td>
+    <td>0.38<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.09)
-</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
   </tr>
   <tr>
-    <td>
-Low education
-</td>
+    <td>Low education</td>
     <td></td>
-    <td>
--0.07
-</td>
-    <td>
--0.07
-</td>
-    <td>
--0.08
-</td>
-    <td>
--0.08
-</td>
+    <td>-0.07</td>
+    <td>-0.07</td>
+    <td>-0.08</td>
+    <td>-0.08</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
   </tr>
   <tr>
-    <td>
-Low income
-</td>
+    <td>Low income</td>
     <td></td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income has worsened
-</td>
+    <td>Income has worsened</td>
     <td></td>
-    <td>
-0.09<sup>*</sup>
-</td>
-    <td>
-0.09<sup>*</sup>
-</td>
-    <td>
-0.08<sup>*</sup>
-</td>
-    <td>
-0.08<sup>*</sup>
-</td>
+    <td>0.09<sup>*</sup></td>
+    <td>0.09<sup>*</sup></td>
+    <td>0.08<sup>*</sup></td>
+    <td>0.08<sup>*</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Income will worsen
-</td>
+    <td>Income will worsen</td>
     <td></td>
-    <td>
-0.26<sup><em>*</em></sup>
-</td>
-    <td>
-0.25<sup><em>*</em></sup>
-</td>
-    <td>
-0.25<sup><em>*</em></sup>
-</td>
-    <td>
-0.25<sup><em>*</em></sup>
-</td>
+    <td>0.26<sup>***</sup></td>
+    <td>0.25<sup>***</sup></td>
+    <td>0.25<sup>***</sup></td>
+    <td>0.25<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount
-</td>
+    <td>Has affected great or fair amount</td>
     <td></td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
   </tr>
   <tr>
-    <td>
-Gini coefficient
-</td>
+    <td>Gini coefficient</td>
     <td></td>
     <td></td>
-    <td>
-0.01
-</td>
-    <td>
--0.01
-</td>
-    <td>
-0.00
-</td>
+    <td>0.01</td>
+    <td>-0.01</td>
+    <td>0.00</td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.01)
-</td>
+    <td>(0.01)</td>
+    <td>(0.01)</td>
+    <td>(0.01)</td>
   </tr>
   <tr>
-    <td>
-Change in GDP between 2007 to 2010
-</td>
+    <td>Change in GDP between 2007 to 2010</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.01<sup><em>*</em></sup>
-</td>
-    <td>
-0.01<sup>**</sup>
-</td>
+    <td>0.01<sup>***</sup></td>
+    <td>0.01<sup>**</sup></td>
   </tr>
   <tr>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.00)
-</td>
-    <td>
-(0.00)
-</td>
+    <td>(0.00)</td>
+    <td>(0.00)</td>
   </tr>
   <tr>
-    <td>
-Good governance
-</td>
+    <td>Good governance</td>
     <td></td>
     <td></td>
     <td></td>
     <td></td>
-    <td>
-0.01
-</td>
+    <td>0.01</td>
   </tr>
   <tr>
     <td></td>
@@ -3670,1189 +2339,588 @@ Good governance
     <td></td>
     <td></td>
     <td></td>
-    <td>
-(0.10)
-</td>
+    <td>(0.10)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-24900.01
-</td>
-    <td class="midRule">
-18261.11
-</td>
-    <td class="midRule">
-18262.37
-</td>
-    <td class="midRule">
-18251.44
-</td>
-    <td class="midRule">
-18253.44
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">24900.01</td>
+    <td class="midRule">18261.11</td>
+    <td class="midRule">18262.37</td>
+    <td class="midRule">18251.44</td>
+    <td class="midRule">18253.44</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-24916.15
-</td>
-    <td>
-18323.08
-</td>
-    <td>
-18332.08
-</td>
-    <td>
-18328.91
-</td>
-    <td>
-18338.64
-</td>
+    <td>BIC</td>
+    <td>24916.15</td>
+    <td>18323.08</td>
+    <td>18332.08</td>
+    <td>18328.91</td>
+    <td>18338.64</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--12448.01
-</td>
-    <td>
--9122.56
-</td>
-    <td>
--9122.18
-</td>
-    <td>
--9115.72
-</td>
-    <td>
--9115.72
-</td>
+    <td>Log Likelihood</td>
+    <td>-12448.01</td>
+    <td>-9122.56</td>
+    <td>-9122.18</td>
+    <td>-9115.72</td>
+    <td>-9115.72</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-24896.01
-</td>
-    <td>
-18245.11
-</td>
-    <td>
-18244.37
-</td>
-    <td>
-18231.44
-</td>
-    <td>
-18231.44
-</td>
+    <td>Deviance</td>
+    <td>24896.01</td>
+    <td>18245.11</td>
+    <td>18244.37</td>
+    <td>18231.44</td>
+    <td>18231.44</td>
   </tr>
   <tr>
-    <td>
-Num. obs.
-</td>
-    <td>
-23513
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
+    <td>Num. obs.</td>
+    <td>23513</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
   </tr>
   <tr>
-    <td>
-Num. groups: cntry
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
   </tr>
   <tr>
-    <td>
-Variance: cntry.(Intercept)
-</td>
-    <td>
-0.12
-</td>
-    <td>
-0.10
-</td>
-    <td>
-0.10
-</td>
-    <td>
-0.05
-</td>
-    <td>
-0.05
-</td>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.12</td>
+    <td>0.10</td>
+    <td>0.10</td>
+    <td>0.05</td>
+    <td>0.05</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Variance: Residual
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
   </tr>
   <tr>
-    <td colspan="6">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="6"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h3>Comparison of full models with our last model</h3>
 
-<h3 id="comparison-of-full-models-with-our-last-model"><a href="#TOC"><span class="header-section-number">4.2.3</span> Comparison of full models with our last model</a></h3>
-<pre class="sourceCode r"><code class="sourceCode r">
-soc<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
-    crise + uw_gini + gdpchange07<span class="fl">.10</span> + wbgi_vae + (<span class="dv">1</span> | cntry), <span class="dt">family =</span> <span class="kw">binomial</span>(logit), 
-    <span class="dt">data =</span> df.model)
+<pre><code class="r">
+soc.4 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + uw_gini + gdpchange07.10 + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
 
-ind<span class="fl">.4</span> &lt;- <span class="kw">glmer</span>(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + uw_gini + gdpchange07<span class="fl">.10</span> + wbgi_vae + (<span class="dv">1</span> | cntry), 
-    <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
+ind.4 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + uw_gini + gdpchange07.10 + wbgi_vae + (1 | cntry), 
+    family = binomial(logit), data = df.model)
 
-df.model$pov.log.socVsInc[df.model$poverty == <span class="st">&quot;Social Blame&quot;</span>] &lt;- <span class="dv">1</span>
-df.model$pov.log.socVsInc[df.model$poverty == <span class="st">&quot;Individual Blame&quot;</span>] &lt;- <span class="dv">0</span>
+df.model$pov.log.socVsInc[df.model$poverty == &quot;Social Blame&quot;] &lt;- 1
+df.model$pov.log.socVsInc[df.model$poverty == &quot;Individual Blame&quot;] &lt;- 0
 
-socVsInc &lt;- <span class="kw">glmer</span>(pov.log.socVsInc ~ incsour3 + edu2 + income2 + past.diff + 
-    future.diff + crise + uw_gini + gdpchange07<span class="fl">.10</span> + wbgi_vae + (<span class="dv">1</span> | cntry), 
-    <span class="dt">family =</span> <span class="kw">binomial</span>(logit), <span class="dt">data =</span> df.model)
+socVsInc &lt;- glmer(pov.log.socVsInc ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + uw_gini + gdpchange07.10 + wbgi_vae + (1 | cntry), 
+    family = binomial(logit), data = df.model)
 
-<span class="kw">save</span>(ind<span class="fl">.0</span>, ind<span class="fl">.1</span>, ind<span class="fl">.2</span>, ind<span class="fl">.3</span>, ind<span class="fl">.4</span>, soc<span class="fl">.0</span>, soc<span class="fl">.1</span>, soc<span class="fl">.2</span>, soc<span class="fl">.3</span>, soc<span class="fl">.4</span>, socVsInc, 
-    <span class="dt">file =</span> <span class="st">&quot;data/finalModels.RData&quot;</span>)</code></pre>
-<h1 id="tables-for-presentation"><a href="#TOC"><span class="header-section-number">5</span> Tables for presentation</a></h1>
-<h2 id="partial"><a href="#TOC"><span class="header-section-number">5.1</span> Partial</a></h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(texreg)
-coef.names.multi = <span class="kw">c</span>(<span class="st">&quot;(intercept)&quot;</span>, <span class="st">&quot;Dependent&quot;</span>, <span class="st">&quot;Low education&quot;</span>, <span class="st">&quot;Low income&quot;</span>, 
-    <span class="st">&quot;Income has worsened&quot;</span>, <span class="st">&quot;Income will worsen&quot;</span>, <span class="st">&quot;Has affected great or fair amount&quot;</span>, 
-    <span class="st">&quot;Gini coefficient&quot;</span>, <span class="st">&quot;Change in GDP between 2007 to 2010&quot;</span>, <span class="st">&quot;Good governance&quot;</span>)
+save(ind.0, ind.1, ind.2, ind.3, ind.4, soc.0, soc.1, soc.2, soc.3, soc.4, socVsInc, 
+    file = &quot;data/finalModels.RData&quot;)
+</code></pre>
 
-model.names.multi = <span class="kw">c</span>(<span class="st">&quot;Empty&quot;</span>, <span class="st">&quot;Only individual&quot;</span>, <span class="st">&quot;Gini added&quot;</span>, <span class="st">&quot;GDP change added&quot;</span>, 
-    <span class="st">&quot;Good governance added&quot;</span>)
+<h1>Tables for presentation</h1>
 
-model.names.multi.A = <span class="kw">c</span>(<span class="st">&quot;SB empty&quot;</span>, <span class="st">&quot;SB individual&quot;</span>, <span class="st">&quot;SB all&quot;</span>, <span class="st">&quot;IB empty&quot;</span>, <span class="st">&quot;IB individual&quot;</span>, 
-    <span class="st">&quot;IB all&quot;</span>)
+<h2>Partial</h2>
 
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(soc<span class="fl">.0</span>, soc<span class="fl">.1</span>, soc<span class="fl">.4</span>, ind<span class="fl">.0</span>, ind<span class="fl">.1</span>, ind<span class="fl">.4</span>), <span class="dt">custom.model.names =</span> model.names.multi.A, 
-    <span class="dt">custom.coef.names =</span> coef.names.multi, <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">inline.css =</span> <span class="ot">TRUE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">caption =</span> <span class="st">&quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code class="r">library(texreg)
+coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
+
+model.names.multi = c(&quot;Empty&quot;, &quot;Only individual&quot;, &quot;Gini added&quot;, &quot;GDP change added&quot;, 
+    &quot;Good governance added&quot;)
+
+model.names.multi.A = c(&quot;SB empty&quot;, &quot;SB individual&quot;, &quot;SB all&quot;, &quot;IB empty&quot;, &quot;IB individual&quot;, 
+    &quot;IB all&quot;)
+
+htmlreg(list(soc.0, soc.1, soc.4, ind.0, ind.1, ind.4), custom.model.names = model.names.multi.A, 
+    custom.coef.names = coef.names.multi, naive = TRUE, inline.css = TRUE, doctype = FALSE, 
+    html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center" style="border: none;">
-  
-<caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
+  <tr>
     <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"></th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>SB empty</b>
-</th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>SB individual</b>
-</th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>SB all</b>
-</th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>IB empty</b>
-</th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>IB individual</b>
-</th>
-    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;">
-<b>IB all</b>
-</th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB empty</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB individual</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB all</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB empty</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB individual</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB all</b></th>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-(intercept)
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.39<sup style="vertical-align: 4px;">**</sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.30<sup style="vertical-align: 4px;">*</sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.67
-</td>
-    <td style="padding-right: 12px; border: none;">
--1.25<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--2.06<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--2.02<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">(intercept)</td>
+    <td style="padding-right: 12px; border: none;">-0.39<sup style="vertical-align: 4px;">**</sup></td>
+    <td style="padding-right: 12px; border: none;">0.30<sup style="vertical-align: 4px;">*</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.67</td>
+    <td style="padding-right: 12px; border: none;">-1.25<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-2.06<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-2.02<sup style="vertical-align: 4px;">***</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.12)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.15)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.59)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.08)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.14)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.39)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.12)</td>
+    <td style="padding-right: 12px; border: none;">(0.15)</td>
+    <td style="padding-right: 12px; border: none;">(0.59)</td>
+    <td style="padding-right: 12px; border: none;">(0.08)</td>
+    <td style="padding-right: 12px; border: none;">(0.14)</td>
+    <td style="padding-right: 12px; border: none;">(0.39)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Dependent
-</td>
+    <td style="padding-right: 12px; border: none;">Dependent</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.22<sup style="vertical-align: 4px;">**</sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.22<sup style="vertical-align: 4px;">**</sup>
-</td>
+    <td style="padding-right: 12px; border: none;">-0.22<sup style="vertical-align: 4px;">**</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.22<sup style="vertical-align: 4px;">**</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.38<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.38<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.38<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.38<sup style="vertical-align: 4px;">***</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.07)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.07)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.09)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.09)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.09)</td>
+    <td style="padding-right: 12px; border: none;">(0.09)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Low education
-</td>
+    <td style="padding-right: 12px; border: none;">Low education</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.06
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.06
-</td>
+    <td style="padding-right: 12px; border: none;">0.06</td>
+    <td style="padding-right: 12px; border: none;">0.06</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.07
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.08
-</td>
+    <td style="padding-right: 12px; border: none;">-0.07</td>
+    <td style="padding-right: 12px; border: none;">-0.08</td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.06)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.06)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.06)</td>
+    <td style="padding-right: 12px; border: none;">(0.06)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.07)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.07)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Low income
-</td>
+    <td style="padding-right: 12px; border: none;">Low income</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.45<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.45<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">-0.45<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.45<sup style="vertical-align: 4px;">***</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.28<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.28<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.28<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.28<sup style="vertical-align: 4px;">***</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Income has worsened
-</td>
+    <td style="padding-right: 12px; border: none;">Income has worsened</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.07
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.07
-</td>
+    <td style="padding-right: 12px; border: none;">-0.07</td>
+    <td style="padding-right: 12px; border: none;">-0.07</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.09<sup style="vertical-align: 4px;">*</sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.08<sup style="vertical-align: 4px;">*</sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.09<sup style="vertical-align: 4px;">*</sup></td>
+    <td style="padding-right: 12px; border: none;">0.08<sup style="vertical-align: 4px;">*</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Income will worsen
-</td>
+    <td style="padding-right: 12px; border: none;">Income will worsen</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.31<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.31<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">-0.31<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.31<sup style="vertical-align: 4px;">***</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.26<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.25<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.26<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.25<sup style="vertical-align: 4px;">***</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.05)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.05)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.05)</td>
+    <td style="padding-right: 12px; border: none;">(0.05)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Has affected great or fair amount
-</td>
+    <td style="padding-right: 12px; border: none;">Has affected great or fair amount</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.32<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
--0.32<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">-0.32<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.32<sup style="vertical-align: 4px;">***</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.44<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.44<sup style="vertical-align: 4px;"><em>*</em></sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.44<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.44<sup style="vertical-align: 4px;">***</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.03)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.03)</td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
-    <td style="padding-right: 12px; border: none;">
-(0.04)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Gini coefficient
-</td>
+    <td style="padding-right: 12px; border: none;">Gini coefficient</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.03<sup style="vertical-align: 4px;">*</sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.03<sup style="vertical-align: 4px;">*</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.00
-</td>
+    <td style="padding-right: 12px; border: none;">0.00</td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.02)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.02)</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.01)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.01)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Change in GDP between 2007 to 2010
-</td>
+    <td style="padding-right: 12px; border: none;">Change in GDP between 2007 to 2010</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
--0.01<sup style="vertical-align: 4px;">*</sup>
-</td>
+    <td style="padding-right: 12px; border: none;">-0.01<sup style="vertical-align: 4px;">*</sup></td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.01<sup style="vertical-align: 4px;">**</sup>
-</td>
+    <td style="padding-right: 12px; border: none;">0.01<sup style="vertical-align: 4px;">**</sup></td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.01)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.01)</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.00)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.00)</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Good governance
-</td>
+    <td style="padding-right: 12px; border: none;">Good governance</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.09
-</td>
+    <td style="padding-right: 12px; border: none;">0.09</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-0.01
-</td>
+    <td style="padding-right: 12px; border: none;">0.01</td>
   </tr>
   <tr>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.16)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.16)</td>
     <td style="padding-right: 12px; border: none;"></td>
     <td style="padding-right: 12px; border: none;"></td>
-    <td style="padding-right: 12px; border: none;">
-(0.10)
-</td>
+    <td style="padding-right: 12px; border: none;">(0.10)</td>
   </tr>
   <tr>
-    <td style="border-top: 1px solid black;">
-AIC
-</td>
-    <td style="border-top: 1px solid black;">
-30343.40
-</td>
-    <td style="border-top: 1px solid black;">
-21785.43
-</td>
-    <td style="border-top: 1px solid black;">
-21777.96
-</td>
-    <td style="border-top: 1px solid black;">
-24900.01
-</td>
-    <td style="border-top: 1px solid black;">
-18261.11
-</td>
-    <td style="border-top: 1px solid black;">
-18253.44
-</td>
+    <td style="border-top: 1px solid black;">AIC</td>
+    <td style="border-top: 1px solid black;">30343.40</td>
+    <td style="border-top: 1px solid black;">21785.43</td>
+    <td style="border-top: 1px solid black;">21777.96</td>
+    <td style="border-top: 1px solid black;">24900.01</td>
+    <td style="border-top: 1px solid black;">18261.11</td>
+    <td style="border-top: 1px solid black;">18253.44</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-BIC
-</td>
-    <td style="padding-right: 12px; border: none;">
-30359.53
-</td>
-    <td style="padding-right: 12px; border: none;">
-21847.40
-</td>
-    <td style="padding-right: 12px; border: none;">
-21863.17
-</td>
-    <td style="padding-right: 12px; border: none;">
-24916.15
-</td>
-    <td style="padding-right: 12px; border: none;">
-18323.08
-</td>
-    <td style="padding-right: 12px; border: none;">
-18338.64
-</td>
+    <td style="padding-right: 12px; border: none;">BIC</td>
+    <td style="padding-right: 12px; border: none;">30359.53</td>
+    <td style="padding-right: 12px; border: none;">21847.40</td>
+    <td style="padding-right: 12px; border: none;">21863.17</td>
+    <td style="padding-right: 12px; border: none;">24916.15</td>
+    <td style="padding-right: 12px; border: none;">18323.08</td>
+    <td style="padding-right: 12px; border: none;">18338.64</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Log Likelihood
-</td>
-    <td style="padding-right: 12px; border: none;">
--15169.70
-</td>
-    <td style="padding-right: 12px; border: none;">
--10884.72
-</td>
-    <td style="padding-right: 12px; border: none;">
--10877.98
-</td>
-    <td style="padding-right: 12px; border: none;">
--12448.01
-</td>
-    <td style="padding-right: 12px; border: none;">
--9122.56
-</td>
-    <td style="padding-right: 12px; border: none;">
--9115.72
-</td>
+    <td style="padding-right: 12px; border: none;">Log Likelihood</td>
+    <td style="padding-right: 12px; border: none;">-15169.70</td>
+    <td style="padding-right: 12px; border: none;">-10884.72</td>
+    <td style="padding-right: 12px; border: none;">-10877.98</td>
+    <td style="padding-right: 12px; border: none;">-12448.01</td>
+    <td style="padding-right: 12px; border: none;">-9122.56</td>
+    <td style="padding-right: 12px; border: none;">-9115.72</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Deviance
-</td>
-    <td style="padding-right: 12px; border: none;">
-30339.40
-</td>
-    <td style="padding-right: 12px; border: none;">
-21769.43
-</td>
-    <td style="padding-right: 12px; border: none;">
-21755.96
-</td>
-    <td style="padding-right: 12px; border: none;">
-24896.01
-</td>
-    <td style="padding-right: 12px; border: none;">
-18245.11
-</td>
-    <td style="padding-right: 12px; border: none;">
-18231.44
-</td>
+    <td style="padding-right: 12px; border: none;">Deviance</td>
+    <td style="padding-right: 12px; border: none;">30339.40</td>
+    <td style="padding-right: 12px; border: none;">21769.43</td>
+    <td style="padding-right: 12px; border: none;">21755.96</td>
+    <td style="padding-right: 12px; border: none;">24896.01</td>
+    <td style="padding-right: 12px; border: none;">18245.11</td>
+    <td style="padding-right: 12px; border: none;">18231.44</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Num. obs.
-</td>
-    <td style="padding-right: 12px; border: none;">
-23513
-</td>
-    <td style="padding-right: 12px; border: none;">
-17089
-</td>
-    <td style="padding-right: 12px; border: none;">
-17089
-</td>
-    <td style="padding-right: 12px; border: none;">
-23513
-</td>
-    <td style="padding-right: 12px; border: none;">
-17089
-</td>
-    <td style="padding-right: 12px; border: none;">
-17089
-</td>
+    <td style="padding-right: 12px; border: none;">Num. obs.</td>
+    <td style="padding-right: 12px; border: none;">23513</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">23513</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Num. groups: cntry
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
-    <td style="padding-right: 12px; border: none;">
-21
-</td>
+    <td style="padding-right: 12px; border: none;">Num. groups: cntry</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;">
-Variance: cntry.(Intercept)
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.29
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.25
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.13
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.12
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.10
-</td>
-    <td style="padding-right: 12px; border: none;">
-0.05
-</td>
+    <td style="padding-right: 12px; border: none;">Variance: cntry.(Intercept)</td>
+    <td style="padding-right: 12px; border: none;">0.29</td>
+    <td style="padding-right: 12px; border: none;">0.25</td>
+    <td style="padding-right: 12px; border: none;">0.13</td>
+    <td style="padding-right: 12px; border: none;">0.12</td>
+    <td style="padding-right: 12px; border: none;">0.10</td>
+    <td style="padding-right: 12px; border: none;">0.05</td>
   </tr>
   <tr>
-    <td style="border-bottom: 2px solid black;">
-Variance: Residual
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
-    <td style="border-bottom: 2px solid black;">
-1.00
-</td>
+    <td style="border-bottom: 2px solid black;">Variance: Residual</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
   </tr>
   <tr>
-    <td style="padding-right: 12px; border: none;" colspan="7">
-<span style="font-size:0.8em"><sup style="vertical-align: 4px;"><em><strong></sup>p &lt; 0.001, <sup style="vertical-align: 4px;"></strong></sup>p &lt; 0.01, <sup style="vertical-align: 4px;"></em></sup>p &lt; 0.05</span>
-</td>
+    <td style="padding-right: 12px; border: none;" colspan="7"><span style="font-size:0.8em"><sup style="vertical-align: 4px;">***</sup>p &lt; 0.001, <sup style="vertical-align: 4px;">**</sup>p &lt; 0.01, <sup style="vertical-align: 4px;">*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
 
+<h2>Comparison of full models</h2>
 
-<h2 id="comparison-of-full-models"><a href="#TOC"><span class="header-section-number">5.2</span> Comparison of full models</a></h2>
-<pre class="sourceCode r"><code class="sourceCode r">coef.names.multi = <span class="kw">c</span>(<span class="st">&quot;(intercept)&quot;</span>, <span class="st">&quot;Dependent&quot;</span>, <span class="st">&quot;Low education&quot;</span>, <span class="st">&quot;Low income&quot;</span>, 
-    <span class="st">&quot;Income has worsened&quot;</span>, <span class="st">&quot;Income will worsen&quot;</span>, <span class="st">&quot;Has affected great or fair amount&quot;</span>, 
-    <span class="st">&quot;Gini coefficient&quot;</span>, <span class="st">&quot;Change in GDP between 2007 to 2010&quot;</span>, <span class="st">&quot;Good governance&quot;</span>)
+<pre><code class="r">coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
 
-model.names.multi<span class="fl">.2</span> = <span class="kw">c</span>(<span class="st">&quot;Social blame vs. not&quot;</span>, <span class="st">&quot;Individual blame vs. not&quot;</span>, 
-    <span class="st">&quot;Social blame vs. Individual blame&quot;</span>)
+model.names.multi.2 = c(&quot;Social blame vs. not&quot;, &quot;Individual blame vs. not&quot;, 
+    &quot;Social blame vs. Individual blame&quot;)
 
-<span class="kw">library</span>(texreg)
-<span class="kw">htmlreg</span>(<span class="kw">list</span>(soc<span class="fl">.4</span>, ind<span class="fl">.4</span>, socVsInc), <span class="dt">naive =</span> <span class="ot">TRUE</span>, <span class="dt">custom.model.names =</span> model.names.multi<span class="fl">.2</span>, 
-    <span class="dt">custom.coef.names =</span> coef.names.multi, <span class="dt">inline.css =</span> <span class="ot">FALSE</span>, <span class="dt">doctype =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">html.tag =</span> <span class="ot">FALSE</span>, <span class="dt">head.tag =</span> <span class="ot">FALSE</span>, <span class="dt">body.tag =</span> <span class="ot">FALSE</span>, <span class="dt">include.pvalues =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">caption =</span> <span class="st">&quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;</span>, 
-    <span class="dt">caption.above =</span> <span class="ot">TRUE</span>)</code></pre>
+library(texreg)
+htmlreg(list(soc.4, ind.4, socVsInc), naive = TRUE, custom.model.names = model.names.multi.2, 
+    custom.coef.names = coef.names.multi, inline.css = FALSE, doctype = FALSE, 
+    html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
 <table cellspacing="0" align="center">
-  
-<caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
-<tr>
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
+  <tr>
     <th></th>
-    <th>
-<b>Social blame vs. not</b>
-</th>
-    <th>
-<b>Individual blame vs. not</b>
-</th>
-    <th>
-<b>Social blame vs. Individual blame</b>
-</th>
+    <th><b>Social blame vs. not</b></th>
+    <th><b>Individual blame vs. not</b></th>
+    <th><b>Social blame vs. Individual blame</b></th>
   </tr>
   <tr>
-    <td>
-(intercept)
-</td>
-    <td>
--0.67
-</td>
-    <td>
--2.02<sup><em>*</em></sup>
-</td>
-    <td>
-1.00
-</td>
+    <td>(intercept)</td>
+    <td>-0.67</td>
+    <td>-2.02<sup>***</sup></td>
+    <td>1.00</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.59)
-</td>
-    <td>
-(0.39)
-</td>
-    <td>
-(0.55)
-</td>
+    <td>(0.59)</td>
+    <td>(0.39)</td>
+    <td>(0.55)</td>
   </tr>
   <tr>
-    <td>
-Dependent
-</td>
-    <td>
--0.22<sup>**</sup>
-</td>
-    <td>
-0.38<sup><em>*</em></sup>
-</td>
-    <td>
--0.44<sup><em>*</em></sup>
-</td>
+    <td>Dependent</td>
+    <td>-0.22<sup>**</sup></td>
+    <td>0.38<sup>***</sup></td>
+    <td>-0.44<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.09)
-</td>
-    <td>
-(0.10)
-</td>
+    <td>(0.07)</td>
+    <td>(0.09)</td>
+    <td>(0.10)</td>
   </tr>
   <tr>
-    <td>
-Low education
-</td>
-    <td>
-0.06
-</td>
-    <td>
--0.08
-</td>
-    <td>
-0.10
-</td>
+    <td>Low education</td>
+    <td>0.06</td>
+    <td>-0.08</td>
+    <td>0.10</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.06)
-</td>
-    <td>
-(0.07)
-</td>
-    <td>
-(0.07)
-</td>
+    <td>(0.06)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
   </tr>
   <tr>
-    <td>
-Low income
-</td>
-    <td>
--0.45<sup><em>*</em></sup>
-</td>
-    <td>
-0.28<sup><em>*</em></sup>
-</td>
-    <td>
--0.51<sup><em>*</em></sup>
-</td>
+    <td>Low income</td>
+    <td>-0.45<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>-0.51<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Income has worsened
-</td>
-    <td>
--0.07
-</td>
-    <td>
-0.08<sup>*</sup>
-</td>
-    <td>
--0.11<sup>*</sup>
-</td>
+    <td>Income has worsened</td>
+    <td>-0.07</td>
+    <td>0.08<sup>*</sup></td>
+    <td>-0.11<sup>*</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Income will worsen
-</td>
-    <td>
--0.31<sup><em>*</em></sup>
-</td>
-    <td>
-0.25<sup><em>*</em></sup>
-</td>
-    <td>
--0.39<sup><em>*</em></sup>
-</td>
+    <td>Income will worsen</td>
+    <td>-0.31<sup>***</sup></td>
+    <td>0.25<sup>***</sup></td>
+    <td>-0.39<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.05)
-</td>
-    <td>
-(0.06)
-</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
+    <td>(0.06)</td>
   </tr>
   <tr>
-    <td>
-Has affected great or fair amount
-</td>
-    <td>
--0.32<sup><em>*</em></sup>
-</td>
-    <td>
-0.44<sup><em>*</em></sup>
-</td>
-    <td>
--0.53<sup><em>*</em></sup>
-</td>
+    <td>Has affected great or fair amount</td>
+    <td>-0.32<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>-0.53<sup>***</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.03)
-</td>
-    <td>
-(0.04)
-</td>
-    <td>
-(0.05)
-</td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
   </tr>
   <tr>
-    <td>
-Gini coefficient
-</td>
-    <td>
-0.03<sup>*</sup>
-</td>
-    <td>
-0.00
-</td>
-    <td>
-0.02
-</td>
+    <td>Gini coefficient</td>
+    <td>0.03<sup>*</sup></td>
+    <td>0.00</td>
+    <td>0.02</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.02)
-</td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.01)
-</td>
+    <td>(0.02)</td>
+    <td>(0.01)</td>
+    <td>(0.01)</td>
   </tr>
   <tr>
-    <td>
-Change in GDP between 2007 to 2010
-</td>
-    <td>
--0.01<sup>*</sup>
-</td>
-    <td>
-0.01<sup>**</sup>
-</td>
-    <td>
--0.02<sup>**</sup>
-</td>
+    <td>Change in GDP between 2007 to 2010</td>
+    <td>-0.01<sup>*</sup></td>
+    <td>0.01<sup>**</sup></td>
+    <td>-0.02<sup>**</sup></td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.01)
-</td>
-    <td>
-(0.00)
-</td>
-    <td>
-(0.01)
-</td>
+    <td>(0.01)</td>
+    <td>(0.00)</td>
+    <td>(0.01)</td>
   </tr>
   <tr>
-    <td>
-Good governance
-</td>
-    <td>
-0.09
-</td>
-    <td>
-0.01
-</td>
-    <td>
-0.05
-</td>
+    <td>Good governance</td>
+    <td>0.09</td>
+    <td>0.01</td>
+    <td>0.05</td>
   </tr>
   <tr>
     <td></td>
-    <td>
-(0.16)
-</td>
-    <td>
-(0.10)
-</td>
-    <td>
-(0.15)
-</td>
+    <td>(0.16)</td>
+    <td>(0.10)</td>
+    <td>(0.15)</td>
   </tr>
   <tr>
-    <td class="midRule">
-AIC
-</td>
-    <td class="midRule">
-21777.96
-</td>
-    <td class="midRule">
-18253.44
-</td>
-    <td class="midRule">
-13567.93
-</td>
+    <td class="midRule">AIC</td>
+    <td class="midRule">21777.96</td>
+    <td class="midRule">18253.44</td>
+    <td class="midRule">13567.93</td>
   </tr>
   <tr>
-    <td>
-BIC
-</td>
-    <td>
-21863.17
-</td>
-    <td>
-18338.64
-</td>
-    <td>
-13648.46
-</td>
+    <td>BIC</td>
+    <td>21863.17</td>
+    <td>18338.64</td>
+    <td>13648.46</td>
   </tr>
   <tr>
-    <td>
-Log Likelihood
-</td>
-    <td>
--10877.98
-</td>
-    <td>
--9115.72
-</td>
-    <td>
--6772.96
-</td>
+    <td>Log Likelihood</td>
+    <td>-10877.98</td>
+    <td>-9115.72</td>
+    <td>-6772.96</td>
   </tr>
   <tr>
-    <td>
-Deviance
-</td>
-    <td>
-21755.96
-</td>
-    <td>
-18231.44
-</td>
-    <td>
-13545.93
-</td>
+    <td>Deviance</td>
+    <td>21755.96</td>
+    <td>18231.44</td>
+    <td>13545.93</td>
   </tr>
   <tr>
-    <td>
-Num. obs.
-</td>
-    <td>
-17089
-</td>
-    <td>
-17089
-</td>
-    <td>
-11169
-</td>
+    <td>Num. obs.</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>11169</td>
   </tr>
   <tr>
-    <td>
-Num. groups: cntry
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
-    <td>
-21
-</td>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
   </tr>
   <tr>
-    <td>
-Variance: cntry.(Intercept)
-</td>
-    <td>
-0.13
-</td>
-    <td>
-0.05
-</td>
-    <td>
-0.11
-</td>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.13</td>
+    <td>0.05</td>
+    <td>0.11</td>
   </tr>
   <tr>
-    <td class="bottomRule">
-Variance: Residual
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
-    <td class="bottomRule">
-1.00
-</td>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
   </tr>
   <tr>
-    <td colspan="4">
-<span style="font-size:0.8em"><sup><em><strong></sup>p &lt; 0.001, <sup></strong></sup>p &lt; 0.01, <sup></em></sup>p &lt; 0.05</span>
-</td>
+    <td colspan="4"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
   </tr>
 </table>
-
-
-
-
-
-
-
 
 </body>
+
 </html>
+
