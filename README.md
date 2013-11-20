@@ -4,7 +4,6 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 **Analytical code is licensed under open [FreeBSD](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)-licence.**
 
-
 # Data Analysis
 
 ## Cleaning the data & variable summaries
@@ -40,6 +39,9 @@ This site gathers together all the data analysis behind the actual paper. Data a
 | [Article draft in .pdf](https://rawgithub.com/muuankarski/attributions/master/article2013.pdf)                  | [source](https://rawgithub.com/muuankarski/attributions/master/article2013.Rmd)
 
 
+
+
+
 # Presentation slides
 
 -  [the latest](https://rawgithub.com/muuankarski/attributions/master/attrib_slides.html)
@@ -49,3 +51,5 @@ This site gathers together all the data analysis behind the actual paper. Data a
 - [rustfare-package](http://markuskainu.fi/rustfare/) *- toolbox for R language for open welfare data from Russian Federation*
 - [rOpenGov](http://ropengov.github.io/) *-  R Ecosystem for Open Government Data and Computational Social Science*
 - [markuskainu.fi](http://markuskainu.fi) *- personal website*
+
+-----
