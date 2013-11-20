@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Loading and cleaning the data</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Loading and cleaning the data</h1>
+</div>
+<ul>
+<li><a href="index.html">back to index</a></li>
+</ul>
+<p><code>generated at:</code></p>
+<pre><code>## [1] &quot;2013-11-18 23:09:09 EET&quot;</code></pre>
+<hr />
+<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link>
+<h1 id="loading-the-data-from-ebrd">Loading the data from EBRD</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FROM WEB temp &lt;- tempfile()</span>
+<span class="co"># download.file(&#39;http://www.ebrd.com/downloads/research/surveys/lits2.dta&#39;,</span>
+<span class="co"># temp) library(foreign) lits2 &lt;- read.dta(temp)</span>
+
+<span class="co"># FROM LOCAL DISK</span>
+<span class="kw">load</span>(<span class="st">&quot;~/workspace/data/lits/lits2.RData&quot;</span>)</code></pre>
+<h1 id="munging-the-data">Munging the data</h1>
+<h2 id="country-names-groupings">Country names &amp; groupings</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># different country groupings remove whitespaces from country</span>
+<span class="kw">library</span>(stringr)
+lits2$cntry &lt;- <span class="kw">str_trim</span>(lits2$country_, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)
+lits2$cntry &lt;- <span class="kw">factor</span>(lits2$cntry)
+
+lits2$socialism[lits2$cntry %in% <span class="kw">c</span>(<span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Great Britain&quot;</span>, <span class="st">&quot;Italy&quot;</span>, 
+    <span class="st">&quot;Sweden&quot;</span>)] &lt;- <span class="st">&quot;Market economy&quot;</span>
+
+lits2$socialism[lits2$cntry %in% <span class="kw">c</span>(<span class="st">&quot;Czech Republic&quot;</span>, <span class="st">&quot;Estonia&quot;</span>, <span class="st">&quot;Hungary&quot;</span>, <span class="st">&quot;Bulgaria&quot;</span>, 
+    <span class="st">&quot;Latvia&quot;</span>, <span class="st">&quot;Lithuania&quot;</span>, <span class="st">&quot;Poland&quot;</span>, <span class="st">&quot;Slovakia&quot;</span>, <span class="st">&quot;Slovenia&quot;</span>, <span class="st">&quot;Romania&quot;</span>, <span class="st">&quot;Albania&quot;</span>, 
+    <span class="st">&quot;Bosnia&quot;</span>, <span class="st">&quot;Bulgaria&quot;</span>, <span class="st">&quot;Croatia&quot;</span>, <span class="st">&quot;Macedonia&quot;</span>, <span class="st">&quot;Montenegro&quot;</span>, <span class="st">&quot;Kosovo&quot;</span>, <span class="st">&quot;Serbia&quot;</span>, 
+    <span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Azerbaijan&quot;</span>, <span class="st">&quot;Belarus&quot;</span>, <span class="st">&quot;Georgia&quot;</span>, <span class="st">&quot;Kazakhstan&quot;</span>, <span class="st">&quot;Kyrgyzstan&quot;</span>, 
+    <span class="st">&quot;Moldova&quot;</span>, <span class="st">&quot;Mongolia&quot;</span>, <span class="st">&quot;Russia&quot;</span>, <span class="st">&quot;Tajikistan&quot;</span>, <span class="st">&quot;Ukraine&quot;</span>, <span class="st">&quot;Uzbekistan&quot;</span>)] &lt;- <span class="st">&quot;Post-socialist&quot;</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$socialism))</code></pre>
+<pre><code>## Market economy Post-socialist           NA&#39;s 
+##           5504          32356           1004</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$group_analysis[lits2$cntry %in% <span class="kw">c</span>(<span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Great Britain&quot;</span>, 
+    <span class="st">&quot;Italy&quot;</span>, <span class="st">&quot;Sweden&quot;</span>)] &lt;- <span class="st">&quot;Western Europe&quot;</span>
+
+lits2$group_analysis[lits2$cntry %in% <span class="kw">c</span>(<span class="st">&quot;Czech Republic&quot;</span>, <span class="st">&quot;Estonia&quot;</span>, <span class="st">&quot;Hungary&quot;</span>, 
+    <span class="st">&quot;Bulgaria&quot;</span>, <span class="st">&quot;Latvia&quot;</span>, <span class="st">&quot;Lithuania&quot;</span>, <span class="st">&quot;Poland&quot;</span>, <span class="st">&quot;Slovakia&quot;</span>, <span class="st">&quot;Slovenia&quot;</span>, <span class="st">&quot;Romania&quot;</span>)] &lt;- <span class="st">&quot;CEE&quot;</span>
+
+lits2$group_analysis[lits2$cntry %in% <span class="kw">c</span>(<span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Azerbaijan&quot;</span>, <span class="st">&quot;Belarus&quot;</span>, 
+    <span class="st">&quot;Georgia&quot;</span>, <span class="st">&quot;Kazakhstan&quot;</span>, <span class="st">&quot;Kyrgyzstan&quot;</span>, <span class="st">&quot;Moldova&quot;</span>, <span class="st">&quot;Tajikistan&quot;</span>, <span class="st">&quot;Ukraine&quot;</span>, 
+    <span class="st">&quot;Uzbekistan&quot;</span>, <span class="st">&quot;Russia&quot;</span>)] &lt;- <span class="st">&quot;CIS&quot;</span>
+
+lits2$group_analysis &lt;- <span class="kw">factor</span>(lits2$group_analysis, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Western Europe&quot;</span>, 
+    <span class="st">&quot;CEE&quot;</span>, <span class="st">&quot;CIS&quot;</span>, <span class="ot">NA</span>))
+
+<span class="kw">summary</span>(lits2$group_analysis)</code></pre>
+<pre><code>## Western Europe            CEE            CIS           NA&#39;s 
+##           5504          10802          12711           9847</code></pre>
+<h2 id="recoding-the-dependent-variable">Recoding the dependent variable</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lits2$q309)</code></pre>
+<pre><code>##                                   Refused 
+##                                         0 
+##                            Not applicable 
+##                                         0 
+##                                Don&#39;t know 
+##                                      2185 
+##                                  Filtered 
+##                                         0 
+##                                Not stated 
+##                                      1167 
+##            Because they have been unlucky 
+##                                      3630 
+## Because of laziness and lack of willpower 
+##                                      8600 
+##       Because of injustice in our society 
+##                                     17209 
+##   It is an inevitable part of modern life 
+##                                      6073 
+##                           Other (specify) 
+##                                         0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reason for poverty</span>
+<span class="kw">library</span>(stringr)
+lits2$q309 &lt;- <span class="kw">as.factor</span>(<span class="kw">str_replace</span>(lits2$q309, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Dont know&quot;</span>))
+<span class="co"># All options</span>
+lits2$q309 &lt;- <span class="kw">as.character</span>(lits2$q309)
+lits2$q309[lits2$q309 %in% <span class="st">&quot;Because of injustice in our society&quot;</span>] &lt;- <span class="st">&quot;Social Blame&quot;</span>
+lits2$q309[lits2$q309 %in% <span class="st">&quot;Because of laziness and lack of willpower&quot;</span>] &lt;- <span class="st">&quot;Individual Blame&quot;</span>
+lits2$q309[lits2$q309 %in% <span class="st">&quot;Because they have been unlucky&quot;</span>] &lt;- <span class="st">&quot;Individual Fate&quot;</span>
+lits2$q309[lits2$q309 %in% <span class="st">&quot;It is an inevitable part of modern life&quot;</span>] &lt;- <span class="st">&quot;Social Fate&quot;</span>
+lits2$q309[lits2$q309 %in% <span class="st">&quot;Not stated&quot;</span>] &lt;- <span class="st">&quot;Not stated&quot;</span>
+lits2$q309[lits2$q309 %in% <span class="st">&quot;Dont know&quot;</span>] &lt;- <span class="st">&quot;Dont know&quot;</span>
+
+lits2$q309 &lt;- <span class="kw">factor</span>(lits2$q309, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Social Blame&quot;</span>, <span class="st">&quot;Individual Blame&quot;</span>, 
+    <span class="st">&quot;Individual Fate&quot;</span>, <span class="st">&quot;Social Fate&quot;</span>, <span class="st">&quot;Not stated&quot;</span>, <span class="st">&quot;Dont know&quot;</span>))
+
+<span class="kw">summary</span>(lits2$q309)</code></pre>
+<pre><code>##     Social Blame Individual Blame  Individual Fate      Social Fate 
+##            17209             8600             3630             6073 
+##       Not stated        Dont know 
+##             1167             2185</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># not stated and dont know coded NA</span>
+
+lits2$poverty &lt;- lits2$q309
+lits2$poverty[lits2$poverty %in% <span class="kw">c</span>(<span class="st">&quot;Not stated&quot;</span>, <span class="st">&quot;Dont know&quot;</span>)] &lt;- <span class="ot">NA</span>
+lits2$poverty &lt;- <span class="kw">factor</span>(lits2$poverty)
+<span class="kw">summary</span>(lits2$poverty)</code></pre>
+<pre><code>##     Social Blame Individual Blame  Individual Fate      Social Fate 
+##            17209             8600             3630             6073 
+##             NA&#39;s 
+##             3352</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+## For logistic regressions $pov.log.social
+
+lits2$pov.log.social[lits2$q309 == <span class="st">&quot;Social Blame&quot;</span>] &lt;- <span class="dv">1</span>
+lits2$pov.log.social[lits2$q309 != <span class="st">&quot;Social Blame&quot;</span>] &lt;- <span class="dv">0</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$pov.log.social))</code></pre>
+<pre><code>##     0     1 
+## 21655 17209</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># $pov_log_individual</span>
+
+lits2$pov.log.individual[lits2$q309 == <span class="st">&quot;Individual Blame&quot;</span>] &lt;- <span class="dv">1</span>
+lits2$pov.log.individual[lits2$q309 != <span class="st">&quot;Individual Blame&quot;</span>] &lt;- <span class="dv">0</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$pov.log.individual))</code></pre>
+<pre><code>##     0     1 
+## 30264  8600</code></pre>
+<h2 id="independent-variables">Independent variables</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># $sex</span>
+lits2$sex &lt;- lits2$q102_1
+<span class="co"># $income</span>
+
+lits2$income[lits2$q227 &gt;= <span class="dv">1</span> &amp; lits2$q227 &lt;= <span class="dv">3</span>] &lt;- <span class="st">&quot;Low income&quot;</span>
+lits2$income[lits2$q227 &gt;= <span class="dv">4</span> &amp; lits2$q227 &lt;= <span class="dv">7</span>] &lt;- <span class="st">&quot;Middle income&quot;</span>
+lits2$income[lits2$q227 &gt;= <span class="dv">8</span>] &lt;- <span class="st">&quot;High income&quot;</span>
+
+lits2$income &lt;- <span class="kw">factor</span>(lits2$income, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Middle income&quot;</span>, 
+    <span class="st">&quot;High income&quot;</span>))
+
+<span class="kw">summary</span>(lits2$income)</code></pre>
+<pre><code>##    Low income Middle income   High income          NA&#39;s 
+##         11441         25404          1390           629</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$income2[lits2$q227 &gt;= <span class="dv">1</span> &amp; lits2$q227 &lt;= <span class="dv">5</span>] &lt;- <span class="st">&quot;Low&quot;</span>
+lits2$income2[lits2$q227 &gt;= <span class="dv">6</span> &amp; lits2$q227 &lt;= <span class="dv">10</span>] &lt;- <span class="st">&quot;High&quot;</span>
+
+lits2$income2 &lt;- <span class="kw">factor</span>(lits2$income2, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>))
+
+<span class="kw">summary</span>(lits2$income2)</code></pre>
+<pre><code>##   Low  High  NA&#39;s 
+## 29440  8795   629</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># median(lits2) svyquantile(~q227, d.df, quantile = c(0.25, 0.5, 0.75), ci =</span>
+<span class="co"># TRUE)</span>
+<span class="kw">library</span>(car)
+lits2$q227_rec &lt;- lits2$q227
+lits2$q227_rec[lits2$q227_rec &lt;= <span class="dv">0</span>] &lt;- <span class="ot">NA</span>
+<span class="co"># $future</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q229))</code></pre>
+<pre><code>##  -99  -97   -1    1    2    3    4    5    6    7    8    9   10 
+##  301 5766    2 2097 2592 3944 4726 6459 4908 3999 2557  887  626</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$future[lits2$q229 &gt;= <span class="dv">1</span> &amp; lits2$q229 &lt;= <span class="dv">3</span>] &lt;- <span class="st">&quot;low income&quot;</span>
+lits2$future[lits2$q229 &gt;= <span class="dv">4</span> &amp; lits2$q229 &lt;= <span class="dv">7</span>] &lt;- <span class="st">&quot;middle income&quot;</span>
+lits2$future[lits2$q229 &gt;= <span class="dv">8</span> &amp; lits2$q229 &lt;= <span class="dv">10</span>] &lt;- <span class="st">&quot;high income&quot;</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$future))</code></pre>
+<pre><code>##   high income    low income middle income          NA&#39;s 
+##          4070          8633         20092          6069</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$q229_rec &lt;- lits2$q229
+lits2$q229_rec[lits2$q229_rec &lt;= <span class="dv">0</span>] &lt;- <span class="ot">NA</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q229_rec))</code></pre>
+<pre><code>##    1    2    3    4    5    6    7    8    9   10 NA&#39;s 
+## 2097 2592 3944 4726 6459 4908 3999 2557  887  626 6069</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$future.diff[lits2$q227_rec &gt; lits2$q229_rec] &lt;- <span class="st">&quot;worse&quot;</span>
+lits2$future.diff[lits2$q227_rec &lt;= lits2$q229_rec] &lt;- <span class="st">&quot;same or better&quot;</span>
+lits2$future.diff &lt;- <span class="kw">factor</span>(lits2$future.diff, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;worse&quot;</span>, <span class="st">&quot;same or better&quot;</span>))
+
+<span class="kw">summary</span>(lits2$future.diff)</code></pre>
+<pre><code>##          worse same or better           NA&#39;s 
+##           6290          26428           6146</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># $past</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q228))</code></pre>
+<pre><code>##  -99  -97    1    2    3    4    5    6    7    8    9   10 
+##  181  762 1548 2884 5544 6942 9287 5611 3644 1779  482  200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$past[lits2$q228 &gt;= <span class="dv">1</span> &amp; lits2$q228 &lt;= <span class="dv">3</span>] &lt;- <span class="st">&quot;low income&quot;</span>
+lits2$past[lits2$q228 &gt;= <span class="dv">4</span> &amp; lits2$q228 &lt;= <span class="dv">7</span>] &lt;- <span class="st">&quot;middle income&quot;</span>
+lits2$past[lits2$q228 &gt;= <span class="dv">8</span> &amp; lits2$q228 &lt;= <span class="dv">10</span>] &lt;- <span class="st">&quot;high income&quot;</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$past))</code></pre>
+<pre><code>##   high income    low income middle income          NA&#39;s 
+##          2461          9976         25484           943</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$q228_rec &lt;- lits2$q228
+lits2$q228_rec[lits2$q228_rec &lt;= <span class="dv">0</span>] &lt;- <span class="ot">NA</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q228_rec))</code></pre>
+<pre><code>##    1    2    3    4    5    6    7    8    9   10 NA&#39;s 
+## 1548 2884 5544 6942 9287 5611 3644 1779  482  200  943</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$past.diff[lits2$q227_rec &lt; lits2$q228_rec] &lt;- <span class="st">&quot;worse&quot;</span>
+lits2$past.diff[lits2$q227_rec &gt;= lits2$q228_rec] &lt;- <span class="st">&quot;same or better&quot;</span>
+lits2$past.diff &lt;- <span class="kw">factor</span>(lits2$past.diff, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;worse&quot;</span>, <span class="st">&quot;same or better&quot;</span>))
+<span class="co"># $age</span>
+
+lits2$ageclass[lits2$q104a_1 &lt;= <span class="dv">29</span>] &lt;- <span class="st">&quot;29 or younger&quot;</span>
+lits2$ageclass[lits2$q104a_1 &gt;= <span class="dv">30</span> &amp; lits2$q104a_1 &lt;= <span class="dv">44</span>] &lt;- <span class="st">&quot;30 to 44&quot;</span>
+lits2$ageclass[lits2$q104a_1 &gt;= <span class="dv">45</span> &amp; lits2$q104a_1 &lt;= <span class="dv">59</span>] &lt;- <span class="st">&quot;45 to 59&quot;</span>
+lits2$ageclass[lits2$q104a_1 &gt;= <span class="dv">60</span> &amp; lits2$q104a_1 &lt;= <span class="dv">120</span>] &lt;- <span class="st">&quot;60 and older&quot;</span>
+
+lits2$ageclass &lt;- <span class="kw">factor</span>(lits2$ageclass, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;29 or younger&quot;</span>, <span class="st">&quot;30 to 44&quot;</span>, 
+    <span class="st">&quot;45 to 59&quot;</span>, <span class="st">&quot;60 and older&quot;</span>))
+
+<span class="kw">summary</span>(lits2$ageclass)</code></pre>
+<pre><code>## 29 or younger      30 to 44      45 to 59  60 and older 
+##          3690         10192         13154         11828</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$age &lt;- lits2$q104a_1
+
+### 
+
+<span class="co"># $incsour tulonlähde</span>
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q226m))</code></pre>
+<pre><code>##    -1     1     2     3     4     5     6     7     8 
+##    69 19651  4729  1643 10111  1052  1293   312     4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$incsour3[lits2$q226m == <span class="dv">5</span> | lits2$q226m == <span class="dv">6</span>] &lt;- <span class="st">&quot;dependent&quot;</span>
+lits2$incsour3[lits2$q226m &gt; <span class="dv">0</span> &amp; lits2$q226m &lt; <span class="dv">5</span> | lits2$q226m &gt; <span class="dv">6</span>] &lt;- <span class="st">&quot;notDependent&quot;</span>
+
+lits2$incsour3 &lt;- <span class="kw">factor</span>(lits2$incsour3, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;dependent&quot;</span>, <span class="st">&quot;notDependent&quot;</span>))
+<span class="kw">summary</span>(lits2$incsour3)</code></pre>
+<pre><code>##    dependent notDependent         NA&#39;s 
+##         2345        36450           69</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">### 
+
+<span class="co"># $edu</span>
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(lits2$q515))</code></pre>
+<pre><code>##    -1     1     2     3     4     5     6     7 
+##    10  1282  3951  6754 12397  6618  5477  2375</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$edu2[lits2$q515 == <span class="dv">1</span> | lits2$q515 == <span class="dv">2</span>] &lt;- <span class="st">&quot;no or compulsory&quot;</span>
+lits2$edu2[lits2$q515 &gt;= <span class="dv">3</span>] &lt;- <span class="st">&quot;higher&quot;</span>
+
+lits2$edu2 &lt;- <span class="kw">factor</span>(lits2$edu2, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;no or compulsory&quot;</span>, <span class="st">&quot;higher&quot;</span>))
+
+<span class="kw">summary</span>(lits2$edu2)</code></pre>
+<pre><code>## no or compulsory           higher             NA&#39;s 
+##             5233            33621               10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">################# $crise - kriisikokemus
+<span class="kw">library</span>(stringr)
+lits2$q801 &lt;- <span class="kw">as.factor</span>(<span class="kw">str_replace</span>(lits2$q801, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;DONT KNOW&quot;</span>))
+
+<span class="kw">summary</span>(lits2$q801)</code></pre>
+<pre><code>## A FAIR AMOUNT  A GREAT DEAL     DONT KNOW JUST A LITTLE    NOT AT ALL 
+##         10469          6671          1908          8903         10534 
+##       Refused 
+##           379</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+lits2$q801 &lt;- <span class="kw">factor</span>(lits2$q801, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;A GREAT DEAL&quot;</span>, <span class="st">&quot;A FAIR AMOUNT&quot;</span>, 
+    <span class="st">&quot;JUST A LITTLE&quot;</span>, <span class="st">&quot;NOT AT ALL&quot;</span>, <span class="st">&quot;DONT KNOW&quot;</span>, <span class="st">&quot;Refused&quot;</span>))
+
+lits2$crise[lits2$q801 %in% <span class="kw">c</span>(<span class="st">&quot;A GREAT DEAL&quot;</span>, <span class="st">&quot;A FAIR AMOUNT&quot;</span>)] &lt;- <span class="st">&quot;Great or fair amount&quot;</span>
+lits2$crise[lits2$q801 %in% <span class="kw">c</span>(<span class="st">&quot;NOT AT ALL&quot;</span>, <span class="st">&quot;JUST A LITTLE&quot;</span>)] &lt;- <span class="st">&quot;Little or not at all&quot;</span>
+
+lits2$crise &lt;- <span class="kw">factor</span>(lits2$crise, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Great or fair amount&quot;</span>, <span class="st">&quot;Little or not at all&quot;</span>))
+<span class="kw">summary</span>(lits2$crise)</code></pre>
+<pre><code>## Great or fair amount Little or not at all                 NA&#39;s 
+##                17140                19437                 2287</code></pre>
+<h1 id="subsetting-data-for-analysis">Subsetting data for analysis</h1>
+<pre class="sourceCode r"><code class="sourceCode r">## Data for the analysis
+df &lt;- <span class="kw">subset</span>(lits2, <span class="dt">select=</span><span class="kw">c</span>(<span class="st">&quot;SerialID&quot;</span>,<span class="st">&quot;weight&quot;</span>,<span class="st">&quot;cntry&quot;</span>,<span class="st">&quot;country0&quot;</span>,<span class="st">&quot;q309&quot;</span>,
+                             <span class="st">&quot;sex&quot;</span>,
+                             <span class="st">&quot;ageclass&quot;</span>,<span class="st">&quot;age&quot;</span>,
+                             <span class="st">&quot;future.diff&quot;</span>,<span class="st">&quot;past.diff&quot;</span>,
+                             <span class="st">&quot;pov.log.social&quot;</span>,
+                             <span class="st">&quot;pov.log.individual&quot;</span>,
+                             <span class="st">&quot;socialism&quot;</span>,<span class="st">&quot;incsour3&quot;</span>,
+                             <span class="st">&quot;edu2&quot;</span>,
+                             <span class="st">&quot;group_analysis&quot;</span>,
+                             <span class="co">#&quot;group_general&quot;,&quot;group_fine&quot;,</span>
+                             <span class="st">&quot;income2&quot;</span>,
+                             <span class="st">&quot;crise&quot;</span>,
+                             <span class="st">&quot;q227&quot;</span>, <span class="co"># income</span>
+                             <span class="st">&quot;q228&quot;</span>, <span class="co"># menneisyys</span>
+                             <span class="st">&quot;q229&quot;</span>, <span class="co"># tulevaisuus</span>
+<span class="co">#                             &quot;q226m_txt&quot;, # tulonlähde</span>
+                             <span class="st">&quot;q515&quot;</span>, <span class="co"># edu</span>
+                             <span class="st">&quot;q801&quot;</span>, <span class="co"># crise,</span>
+                             <span class="st">&quot;poverty&quot;</span>
+                             ))
+<span class="co"># filter out not wanted countries</span>
+df &lt;- df[!<span class="kw">is.na</span>(df$group_analysis),] <span class="co"># valitaan vaan group1 -muuttujan maat</span>
+df$cntry &lt;- <span class="kw">factor</span>(df$cntry)
+<span class="kw">summary</span>(df)</code></pre>
+<pre><code>##     SerialID            weight                cntry      
+##  Min.   :8.00e+06   Min.   :    0   Poland       : 1616  
+##  1st Qu.:6.30e+07   1st Qu.: 3319   Russia       : 1584  
+##  Median :9.20e+07   Median : 8336   Ukraine      : 1559  
+##  Mean   :9.94e+07   Mean   :17891   Great Britain: 1504  
+##  3rd Qu.:1.41e+08   3rd Qu.:22320   Uzbekistan   : 1500  
+##  Max.   :1.82e+08   Max.   :93430   Romania      : 1078  
+##                                     (Other)      :20176  
+##                    country0                   q309           sex       
+##  Western Europe        : 5504   Social Blame    :11666   Male  :16428  
+##  Central/Eastern/Baltic: 8710   Individual Blame: 6681   Female:12589  
+##  Southern Europe       : 2092   Individual Fate : 2844                 
+##  CIS and Mongolia      :12711   Social Fate     : 5039                 
+##                                 Not stated      : 1049                 
+##                                 Dont know       : 1738                 
+##                                                                        
+##           ageclass         age              future.diff   
+##  29 or younger:2848   Min.   : -1   worse         : 4733  
+##  30 to 44     :7608   1st Qu.: 39   same or better:19007  
+##  45 to 59     :9630   Median : 50   NA&#39;s          : 5277  
+##  60 and older :8931   Mean   : 51                         
+##                       3rd Qu.: 62                         
+##                       Max.   :118                         
+##                                                           
+##           past.diff     pov.log.social  pov.log.individual
+##  worse         : 9845   Min.   :0.000   Min.   :0.00      
+##  same or better:18339   1st Qu.:0.000   1st Qu.:0.00      
+##  NA&#39;s          :  833   Median :0.000   Median :0.00      
+##                         Mean   :0.402   Mean   :0.23      
+##                         3rd Qu.:1.000   3rd Qu.:0.00      
+##                         Max.   :1.000   Max.   :1.00      
+##                                                           
+##   socialism                 incsour3                   edu2      
+##  Length:29017       dependent   : 1679   no or compulsory: 2858  
+##  Class :character   notDependent:27269   higher          :26149  
+##  Mode  :character   NA&#39;s        :   69   NA&#39;s            :   10  
+##                                                                  
+##                                                                  
+##                                                                  
+##                                                                  
+##         group_analysis  income2                       crise      
+##  Western Europe: 5504   Low :22039   Great or fair amount:11464  
+##  CEE           :10802   High: 6454   Little or not at all:15558  
+##  CIS           :12711   NA&#39;s:  524   NA&#39;s                : 1995  
+##                                                                  
+##                                                                  
+##                                                                  
+##                                                                  
+##       q227             q228             q229            q515     
+##  Min.   :-99.00   Min.   :-99.00   Min.   :-99.0   Min.   :-1.0  
+##  1st Qu.:  3.00   1st Qu.:  3.00   1st Qu.:  2.0   1st Qu.: 3.0  
+##  Median :  4.00   Median :  5.00   Median :  4.0   Median : 4.0  
+##  Mean   :  2.55   Mean   :  2.01   Mean   :-13.4   Mean   : 4.3  
+##  3rd Qu.:  5.00   3rd Qu.:  6.00   3rd Qu.:  6.0   3rd Qu.: 5.0  
+##  Max.   : 10.00   Max.   : 10.00   Max.   : 10.0   Max.   : 7.0  
+##                                                                  
+##             q801                  poverty     
+##  A GREAT DEAL :4075   Social Blame    :11666  
+##  A FAIR AMOUNT:7389   Individual Blame: 6681  
+##  JUST A LITTLE:7467   Individual Fate : 2844  
+##  NOT AT ALL   :8091   Social Fate     : 5039  
+##  DONT KNOW    :1659   NA&#39;s            : 2787  
+##  Refused      : 336                           
+## </code></pre>
+<h1 id="macro-level-data">Macro level data</h1>
+<h2 id="summarising-micro-data-at-the-country-level">Summarising micro data at the country level</h2>
+<pre class="sourceCode r"><code class="sourceCode r">### 
+<span class="kw">library</span>(reshape2)
+<span class="kw">library</span>(survey)
+d.df &lt;- <span class="kw">svydesign</span>(<span class="dt">id =</span> ~SerialID, <span class="dt">weights =</span> ~weight, <span class="dt">data =</span> df)
+
+summary309 &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">svytable</span>(~q309 + cntry, d.df), <span class="dv">2</span>) * <span class="dv">100</span>)
+
+summary309 &lt;- summary309[!<span class="kw">is.na</span>(summary309$Freq), ]
+summary309w &lt;- <span class="kw">dcast</span>(summary309, cntry ~ q309, <span class="dt">value.var =</span> <span class="st">&quot;Freq&quot;</span>)
+<span class="kw">names</span>(summary309w) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;socialBlame&quot;</span>, <span class="st">&quot;individualBlame&quot;</span>, <span class="st">&quot;individualFate&quot;</span>, 
+    <span class="st">&quot;socialFate&quot;</span>, <span class="st">&quot;not.stated&quot;</span>, <span class="st">&quot;dont.know&quot;</span>)
+
+summaryPoverty &lt;- <span class="kw">data.frame</span>(<span class="kw">prop.table</span>(<span class="kw">svytable</span>(~poverty + cntry, d.df), <span class="dv">2</span>) * 
+    <span class="dv">100</span>)
+summaryPoverty &lt;- summaryPoverty[!<span class="kw">is.na</span>(summaryPoverty$Freq), ]
+
+summaryPovertyw &lt;- <span class="kw">dcast</span>(summaryPoverty, cntry ~ poverty, <span class="dt">value.var =</span> <span class="st">&quot;Freq&quot;</span>)
+<span class="kw">names</span>(summaryPovertyw) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;socialBlame&quot;</span>, <span class="st">&quot;individualBlame&quot;</span>, <span class="st">&quot;individualFate&quot;</span>, 
+    <span class="st">&quot;socialFate&quot;</span>)</code></pre>
+<h2 id="data-from-quality-of-government-institute">Data from Quality of Government institute</h2>
+<pre class="sourceCode r"><code class="sourceCode r">#######
+<span class="co"># Quality of governance</span>
+<span class="kw">library</span>(rustfare)
+datQog &lt;- <span class="kw">GetQog</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&#39;Armenia&#39;</span>,<span class="st">&#39;Azerbaijan&#39;</span>,<span class="st">&#39;Georgia&#39;</span>,<span class="st">&#39;Russia&#39;</span>,
+                   <span class="st">&#39;Ukraine&#39;</span>,<span class="st">&#39;Moldova&#39;</span>,<span class="st">&#39;Belarus&#39;</span>,<span class="st">&#39;Kyrgyzstan&#39;</span>,
+                   <span class="st">&#39;Kazakhstan&#39;</span>,<span class="st">&#39;Tajikistan&#39;</span>,
+                   <span class="st">&#39;Uzbekistan&#39;</span>,<span class="st">&#39;Estonia&#39;</span>,<span class="st">&#39;Latvia&#39;</span>,<span class="st">&#39;Lithuania&#39;</span>,
+                   <span class="st">&#39;Poland&#39;</span>,<span class="st">&#39;Czech Republic&#39;</span>,<span class="st">&#39;Slovakia&#39;</span>,<span class="st">&#39;Hungary&#39;</span>,
+                   <span class="st">&#39;Slovenia&#39;</span>,<span class="st">&#39;Romania&#39;</span>,<span class="st">&#39;Bulgaria&#39;</span>,
+                   <span class="st">&#39;Italy&#39;</span>,<span class="st">&#39;Germany&#39;</span>,<span class="st">&#39;United Kingdom&#39;</span>,
+                   <span class="st">&#39;Sweden&#39;</span>,<span class="st">&#39;France&#39;</span>), 
+       <span class="dt">indicator =</span> <span class="kw">c</span>(<span class="st">&quot;ffp_fsi&quot;</span>, <span class="co"># Failed States Index</span>
+                     <span class="st">&quot;wbgi_vae&quot;</span>, <span class="co"># World Bank - Voice and Accountability</span>
+                     <span class="st">&quot;undp_hdi&quot;</span>, <span class="co"># UNDP Human Development Index</span>
+                     <span class="st">&quot;fh_polity2&quot;</span>, <span class="co"># Democracy (Freedom House/Polity)</span>
+                     <span class="st">&quot;uw_gini&quot;</span>))
+<span class="co"># subset the latest value per cntry per indicator</span>
+<span class="kw">library</span>(plyr)
+datQogSum &lt;- <span class="kw">ddply</span>(datQog, <span class="kw">c</span>(<span class="st">&quot;cname&quot;</span>,<span class="st">&quot;indicator&quot;</span>), 
+                   subset, year == <span class="kw">max</span>(year))
+
+<span class="co"># library(ggplot2)</span>
+<span class="co"># ggplot(datQogSum, aes(x=year,y=value,color=cname)) + </span>
+<span class="co">#   geom_point(size=4) +</span>
+<span class="co">#   geom_text(data = datQogSum,</span>
+<span class="co">#             aes(x=year,y=value,</span>
+<span class="co">#                 color=cname,</span>
+<span class="co">#                 label=cname),</span>
+<span class="co">#             size=3.5) +</span>
+<span class="co">#   facet_wrap(~indicator, scales=&quot;free&quot;) +</span>
+<span class="co">#   theme(legend.position=&quot;none&quot;)</span>
+
+datQogSum.w &lt;- <span class="kw">dcast</span>(datQogSum, 
+                     cname ~ indicator, 
+                     <span class="dt">value.var=</span><span class="st">&quot;value&quot;</span>)
+
+datQogSum.w$cname &lt;-  <span class="kw">as.character</span>(datQogSum.w$cname)
+datQogSum.w$cname[datQogSum.w$cname %in% <span class="st">&quot;United Kingdom&quot;</span>] &lt;- <span class="st">&quot;Great Britain&quot;</span>
+
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Armenia&#39;</span>,<span class="st">&#39;Azerbaijan&#39;</span>,<span class="st">&#39;Georgia&#39;</span>)] &lt;- <span class="st">&#39;Caucasus&#39;</span>
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Russia&#39;</span>,<span class="st">&#39;Ukraine&#39;</span>,<span class="st">&#39;Moldova&#39;</span>,<span class="st">&#39;Belarus&#39;</span>)] &lt;- <span class="st">&#39;CIS North&#39;</span>
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Kyrgyzstan&#39;</span>,<span class="st">&#39;Kazakhstan&#39;</span>,<span class="st">&#39;Tajikistan&#39;</span>,<span class="st">&#39;Uzbekistan&#39;</span>)] &lt;- <span class="st">&#39;Central Asia&#39;</span>
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Estonia&#39;</span>,<span class="st">&#39;Latvia&#39;</span>,<span class="st">&#39;Lithuania&#39;</span>)] &lt;- <span class="st">&#39;Baltic States&#39;</span>
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Poland&#39;</span>,<span class="st">&#39;Czech Republic&#39;</span>,<span class="st">&#39;Slovakia&#39;</span>,<span class="st">&#39;Hungary&#39;</span>,
+                                                <span class="st">&#39;Slovenia&#39;</span>,<span class="st">&#39;Romania&#39;</span>,<span class="st">&#39;Bulgaria&#39;</span>)] &lt;- <span class="st">&#39;CEE EU&#39;</span>
+datQogSum.w$group_fine[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Italy&#39;</span>,<span class="st">&#39;Germany&#39;</span>,<span class="st">&#39;Great Britain&#39;</span>,<span class="st">&#39;Sweden&#39;</span>,<span class="st">&#39;France&#39;</span>)] &lt;- <span class="st">&#39;West Europe&#39;</span>
+
+datQogSum.w$group_fine &lt;- <span class="kw">factor</span>(datQogSum.w$group_fine)
+
+<span class="kw">summary</span>(<span class="kw">factor</span>(datQogSum.w$group_fine))</code></pre>
+<pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
+##             3             3             7             4             4 
+##   West Europe 
+##             5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+datQogSum.w$group_general[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;France&#39;</span>,<span class="st">&#39;Germany&#39;</span>,
+                                                   <span class="st">&#39;Great Britain&#39;</span>,<span class="st">&#39;Italy&#39;</span>,<span class="st">&#39;Sweden&#39;</span>)] &lt;- <span class="st">&#39;Western Europe&#39;</span>
+datQogSum.w$group_general[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Czech Republic&#39;</span>,<span class="st">&#39;Estonia&#39;</span>,
+                                                   <span class="st">&#39;Hungary&#39;</span>,<span class="st">&#39;Bulgaria&#39;</span>,
+                                                   <span class="st">&#39;Latvia&#39;</span>,<span class="st">&#39;Lithuania&#39;</span>,<span class="st">&#39;Poland&#39;</span>,
+                                                   <span class="st">&#39;Slovakia&#39;</span>,<span class="st">&#39;Slovenia&#39;</span>,<span class="st">&#39;Romania&#39;</span>)] &lt;- <span class="st">&#39;CEE&#39;</span>
+datQogSum.w$group_general[datQogSum.w$cname %in% <span class="kw">c</span>(<span class="st">&#39;Armenia&#39;</span>,<span class="st">&#39;Azerbaijan&#39;</span>,<span class="st">&#39;Belarus&#39;</span>,
+                                                   <span class="st">&#39;Georgia&#39;</span>,<span class="st">&#39;Kazakhstan&#39;</span>,
+                                                   <span class="st">&#39;Kyrgyzstan&#39;</span>,<span class="st">&#39;Moldova&#39;</span>,
+                                                   <span class="st">&#39;Tajikistan&#39;</span>,<span class="st">&#39;Ukraine&#39;</span>,
+                                                   <span class="st">&#39;Uzbekistan&#39;</span>,<span class="st">&#39;Russia&#39;</span>)] &lt;- <span class="st">&#39;CIS&#39;</span>
+
+datQogSum.w$group_general &lt;- <span class="kw">factor</span>(datQogSum.w$group_general, 
+                                    <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Western Europe&quot;</span>,
+                                             <span class="st">&quot;CEE&quot;</span>,
+                                             <span class="st">&quot;CIS&quot;</span>))
+
+df.qog &lt;- datQogSum.w
+<span class="co"># underschores into dots for latex...</span>
+<span class="co">#names &lt;- names(df.qog)</span>
+<span class="co">#library(stringr)</span>
+<span class="co">#names &lt;- str_replace_all(names, &quot;_&quot;,&quot;.&quot;)</span>
+<span class="co">#names(df.qog) &lt;- names</span>
+<span class="kw">names</span>(df.qog)[<span class="dv">1</span>] &lt;- <span class="st">&quot;cntry&quot;</span></code></pre>
+<h2 id="data-from-world-bank">Data from World Bank</h2>
+<pre class="sourceCode r"><code class="sourceCode r">## GDP change from WB We need iso2c countrycode
+<span class="kw">library</span>(countrycode)
+cntry &lt;- <span class="kw">levels</span>(df$cntry)  <span class="co"># countrynames</span>
+iso2c &lt;- <span class="kw">countrycode</span>(cntry, <span class="st">&quot;country.name&quot;</span>, <span class="st">&quot;iso2c&quot;</span>)
+iso2c  <span class="co"># copy paste into WDI search</span></code></pre>
+<pre><code>##  [1] &quot;AM&quot; &quot;AZ&quot; &quot;BY&quot; &quot;BG&quot; &quot;CZ&quot; &quot;EE&quot; &quot;FR&quot; &quot;GE&quot; &quot;DE&quot; &quot;GB&quot; &quot;HU&quot; &quot;IT&quot; &quot;KZ&quot; &quot;KG&quot;
+## [15] &quot;LV&quot; &quot;LT&quot; &quot;MD&quot; &quot;PL&quot; &quot;RO&quot; &quot;RU&quot; &quot;SK&quot; &quot;SI&quot; &quot;SE&quot; &quot;TJ&quot; &quot;UA&quot; &quot;UZ&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(WDI)
+<span class="co"># WDIsearch(string=&#39;gdp&#39;, field=&#39;name&#39;, cache=NULL)</span>
+wb &lt;- <span class="kw">WDI</span>(<span class="dt">indicator =</span> <span class="kw">c</span>(<span class="st">&quot;NY.GDP.MKTP.CD&quot;</span>), <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;AL&quot;</span>, <span class="st">&quot;AM&quot;</span>, <span class="st">&quot;AZ&quot;</span>, <span class="st">&quot;BY&quot;</span>, 
+    <span class="st">&quot;BA&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;HR&quot;</span>, <span class="st">&quot;CZ&quot;</span>, <span class="st">&quot;EE&quot;</span>, <span class="st">&quot;FR&quot;</span>, <span class="st">&quot;GE&quot;</span>, <span class="st">&quot;DE&quot;</span>, <span class="st">&quot;GB&quot;</span>, <span class="st">&quot;HU&quot;</span>, <span class="st">&quot;IT&quot;</span>, <span class="st">&quot;KZ&quot;</span>, 
+    <span class="st">&quot;KG&quot;</span>, <span class="st">&quot;LV&quot;</span>, <span class="st">&quot;LT&quot;</span>, <span class="st">&quot;MK&quot;</span>, <span class="st">&quot;MD&quot;</span>, <span class="st">&quot;MN&quot;</span>, <span class="st">&quot;ME&quot;</span>, <span class="st">&quot;PL&quot;</span>, <span class="st">&quot;RO&quot;</span>, <span class="st">&quot;RU&quot;</span>, <span class="st">&quot;RS&quot;</span>, <span class="st">&quot;SK&quot;</span>, 
+    <span class="st">&quot;SI&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;TJ&quot;</span>, <span class="st">&quot;TR&quot;</span>, <span class="st">&quot;UA&quot;</span>, <span class="st">&quot;UZ&quot;</span>), <span class="dt">start =</span> <span class="dv">2007</span>, <span class="dt">end =</span> <span class="dv">2010</span>)
+
+<span class="kw">library</span>(reshape2)
+<span class="kw">names</span>(wb) &lt;- <span class="kw">c</span>(<span class="st">&quot;iso2c&quot;</span>, <span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;year&quot;</span>)
+wb.w &lt;- <span class="kw">dcast</span>(wb, cntry ~ year, <span class="dt">value.var =</span> <span class="st">&quot;var&quot;</span>)
+
+<span class="kw">names</span>(wb.w) &lt;- <span class="kw">c</span>(<span class="st">&quot;cntry&quot;</span>, <span class="st">&quot;x2007&quot;</span>, <span class="st">&quot;x2008&quot;</span>, <span class="st">&quot;x2009&quot;</span>, <span class="st">&quot;x2010&quot;</span>)
+wb.w$gdpchange07<span class="fl">.10</span> &lt;- wb.w$x2010/wb.w$x2007 * <span class="dv">100</span> - <span class="dv">100</span>
+gdp &lt;- wb.w[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">6</span>)]
+
+gdp$cntry[gdp$cntry == <span class="st">&quot;Russian Federation&quot;</span>] &lt;- <span class="st">&quot;Russia&quot;</span>
+gdp$cntry[gdp$cntry == <span class="st">&quot;Kyrgyz Republic&quot;</span>] &lt;- <span class="st">&quot;Kyrgyzstan&quot;</span>
+gdp$cntry[gdp$cntry == <span class="st">&quot;United Kingdom&quot;</span>] &lt;- <span class="st">&quot;Great Britain&quot;</span>
+gdp$cntry[gdp$cntry == <span class="st">&quot;Slovak Republic&quot;</span>] &lt;- <span class="st">&quot;Slovakia&quot;</span></code></pre>
+<h2 id="merging-all-the-data-and-saving-for-the-analysis">Merging all the data and saving for the analysis</h2>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># yhdistetään nää aikaisempien datojen kanssa</span>
+macro &lt;- <span class="kw">merge</span>(summary309w, gdp, <span class="dt">by =</span> <span class="st">&quot;cntry&quot;</span>, <span class="dt">all.x =</span> <span class="ot">TRUE</span>)
+macro &lt;- <span class="kw">merge</span>(macro, df.qog, <span class="dt">by =</span> <span class="st">&quot;cntry&quot;</span>)
+
+df &lt;- <span class="kw">merge</span>(df, macro, <span class="dt">by =</span> <span class="st">&quot;cntry&quot;</span>)
+
+<span class="kw">rm</span>(lits2)
+<span class="kw">rm</span>(df.qog)
+<span class="kw">rm</span>(df.cross.postsoc)
+<span class="kw">rm</span>(gdp)
+<span class="kw">rm</span>(t3)
+<span class="kw">rm</span>(summary309)
+<span class="kw">rm</span>(summary309_rec)
+<span class="kw">rm</span>(d.df)
+<span class="kw">rm</span>(wb)
+<span class="kw">rm</span>(wb.w)
+<span class="kw">rm</span>(cntry)
+<span class="kw">rm</span>(iso2c)
+
+<span class="kw">save.image</span>(<span class="st">&quot;~/workspace/lits/attributions/data/lits.RData&quot;</span>)
+<span class="co"># load(&#39;~/workspace/lits/attributions/data/lits.RData&#39;)</span></code></pre>
+</body>
+</html>
