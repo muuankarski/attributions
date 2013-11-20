@@ -1,22 +1,12 @@
 # Regression modellining
 
-- [back to index](index.html)
-
-
-`generated at:`
-```{r, echo=FALSE}
-Sys.time()
-```
----
-
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
 
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
 library(knitr)
-knit("regressionModelling.Rmd")
-system("pandoc -s regressionModelling.md -o regressionModelling.html --toc --number-section")
+knit2html('regressionModelling.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
 
 ```
 
@@ -728,9 +718,6 @@ htmlreg(list(soc.4,ind.4,socVsInc),
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
 ```
-
-
-
 
 
 
