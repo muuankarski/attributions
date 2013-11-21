@@ -1,7 +1,5 @@
 # Loading and cleaning the data
 
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
-
 
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
@@ -278,11 +276,14 @@ tbl
 lits1$sex <- lits1$q102_1
 # $income
 library(plyr)
-medianData <- ddply(lits1,~cntry,summarise,incMedian=median(q211, na.rm=TRUE))
+lits1$q211_rec <- lits1$q211
+lits1$q211_rec[lits1$q211_rec >= 11] <- NA
+
+medianData <- ddply(lits1,~cntry,summarise,incMedian=median(q211_rec, na.rm=TRUE))
 lits1 <- merge(lits1,medianData,by="cntry",all.x=TRUE)
 
-lits1$income2[lits1$q211 < lits1$incMedian]  <- 'Low'
-lits1$income2[lits1$q211 >= lits1$incMedian]  <- 'High'
+lits1$income2[lits1$q211_rec < lits1$incMedian]  <- 'Low'
+lits1$income2[lits1$q211_rec >= lits1$incMedian]  <- 'High'
 
 lits1$income2 <- factor(lits1$income2, 
                        levels=c("Low",
@@ -294,14 +295,6 @@ summary(lits1$income2)
 # $sex
 lits2$sex <- lits2$q102_1
 # $income
-
-
-lits2$income2[lits2$q227 >= 1 & lits2$q227 <= 5]  <- 'Low'
-lits2$income2[lits2$q227 >= 6 & lits2$q227 <= 10]  <- 'High'
-
-lits2$income2 <- factor(lits2$income2, 
-                       levels=c("Low",
-                                "High"))
 
 lits2$q227_rec <- lits2$q227
 lits2$q227_rec[lits2$q227 <= 0] <- NA
@@ -317,30 +310,6 @@ lits2$income2 <- factor(lits2$income2,
                        levels=c("Low",
                                 "High"))
 
-### ------ BEGIN 2006 ---------- ####
-## perGini
-library(laeken)
-perGini2006 <- as.data.frame(gini(inc="q211",
-                      weights = "weight_1",
-                      data = lits1,
-                      na.rm = TRUE,
-                      breakdown="cntry")[2])
-
-names(perGini2006) <- c("cntry","perGini")
-perGini2006
-
-### ------ END 2006 ---------- ####
-
-library(laeken)
-perGini2010 <- as.data.frame(gini(inc="q227_rec",
-                      weights = "weight",
-                      data = lits2,
-                      na.rm = TRUE,
-                      breakdown="cntry")[2])
-
-names(perGini2010) <- c("cntry","perGini")
-perGini2010
-
 lits1$age <- lits1$age1
 lits2$age <- lits2$q104a_1
 
@@ -352,14 +321,12 @@ summary(factor(lits1$q210b))
 
 lits1$incsour3[lits1$q210b %in% c('state provided social benefits',
                                   'unemployment benefits',
-                                  'pensions',
                                   'community/privately provided social benefits',
                                   'help from charities and NGOs',
                                   'help from relatives/friend in the country',
                                   'help from relatives/friends abroad')] <- "dependent"
 lits1$incsour3[!(lits1$q210b %in% c('state provided social benefits',
                                   'unemployment benefits',
-                                  'pensions',
                                   'community/privately provided social benefits',
                                   'help from charities and NGOs',
                                   'help from relatives/friend in the country',
@@ -370,21 +337,6 @@ lits1$incsour3 <- factor(lits1$incsour3,
                                   "notDependent"))
 summary(lits1$incsour3)
 ###
-
-# $edu
-###
-
-lits1$edu2[lits1$q501 %in% c('compulsory school education',
-                         'no degree/education')] <- 'no or compulsory'
-lits1$edu2[!(lits1$q501 %in% c('compulsory school education',
-                         'no degree/education'))] <- 'higher'
-  
-lits1$edu2 <- factor(lits1$edu2,
-                     levels=c("no or compulsory",
-                              "higher"))
-
-summary(lits1$edu2)
-### ------ END 2006 ---------- ####
 
 # $incsour tulonlähde
 ###
@@ -397,15 +349,32 @@ lits2$incsour3 <- factor(lits2$incsour3,
                          levels=c("dependent",
                                   "notDependent"))
 summary(lits2$incsour3)
+
+# $edu
 ###
+summary(lits1$q501)
+
+lits1$edu2[lits1$q501 %in% c(#'compulsory school education',
+                         'no degree/education')] <- 'no or compulsory'
+lits1$edu2[!(lits1$q501 %in% c(#'compulsory school education',
+                         'no degree/education'))] <- 'higher'
+  
+lits1$edu2 <- factor(lits1$edu2,
+                     levels=c("no or compulsory",
+                              "higher"))
+
+summary(lits1$edu2)
+### ------ END 2006 ---------- ####
+
+
 
 # $edu
 ###
 
 summary(factor(lits2$q515))
 
-lits2$edu2[lits2$q515 == 1 | lits2$q515 == 2]  <- "no or compulsory"
-lits2$edu2[lits2$q515 >= 3]  <- "higher"
+lits2$edu2[lits2$q515 == 1]  <- "no or compulsory"
+lits2$edu2[lits2$q515 >= 2]  <- "higher"
   
 lits2$edu2 <- factor(lits2$edu2,
                      levels=c("no or compulsory",
@@ -460,18 +429,34 @@ summary(lits2$crise)
 
 ```{rLoadClean5, eval=TRUE}
 ## Data for the analysis
-df <- subset(lits2, select=c("SerialID","weight","cntry","country0","q309",
+
+df <- subset(lits2, select=c("SerialID","weight",
+                             "cntry","q309",
                              "sex","age",
-                             "future.diff","past.diff",
                              "pov.log.social",
                              "pov.log.individual",
                              "socialism","incsour3",
                              "edu2",
                              "group_analysis",
                              "income2",
-                             "crise",
-                             "poverty"
+                             "poverty",
+                             "future.diff","past.diff"
                              ))
+names(lits1)[2] <- "SerialID"
+names(lits1)[1165] <- "weight"
+
+df2 <- lits1[,c("SerialID","weight",
+                             "cntry","q309",
+                             "sex","age",
+                             "pov.log.social",
+                             "pov.log.individual",
+                             "socialism","incsour3",
+                             "edu2",
+                             "group_analysis",
+                             "income2",
+                             "poverty"
+                             )]
+
 # filter out not wanted countries
 df <- df[!is.na(df$group_analysis),] # valitaan vaan group1 -muuttujan maat
 df$cntry <- factor(df$cntry)
@@ -484,33 +469,67 @@ summary(df)
 ## Summarising micro data at the country level
 
 ```{rLoadClean6, eval=TRUE}
-###
-library(reshape2)
+### Dependent var country level values
+## 2010
 library(survey)
-d.df <- svydesign(id = ~SerialID, 
-                  weights = ~weight, 
-                  data = df)
-
-summary309 <- data.frame(prop.table(svytable(~q309 + 
-                                               cntry, d.df), 
-                                    2) * 100)
-
-summary309 <- summary309[!is.na(summary309$Freq), ]
-summary309w <- dcast(summary309, 
-                     cntry ~ q309, 
-                     value.var="Freq")
-names(summary309w) <- c("cntry","socialBlame",
+d.df <- svydesign(id = ~SerialID, weights = ~weight, data = df)
+q309_10 <- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
+q309_10 <- q309_10[!is.na(q309_10$Freq), ]
+q309_10w <- dcast(q309_10, cntry ~ q309, value.var="Freq")
+names(q309_10w) <- c("cntry","socialBlame",
                         "individualBlame","individualFate",
-                        "socialFate","not.stated","dont.know")
+                        "socialFate","notStated","dontKnow")
 
-summaryPoverty <- data.frame(prop.table(svytable(~poverty + 
-                                                   cntry, d.df), 
+poverty_10 <- data.frame(prop.table(svytable(~poverty + cntry, d.df), 
                                         2) * 100)
-summaryPoverty <- summaryPoverty[!is.na(summaryPoverty$Freq), ]
+poverty_10 <- poverty_10[!is.na(poverty_10$Freq), ]
+poverty_10w <- dcast(poverty_10, cntry ~ poverty, value.var="Freq")
+names(poverty_10w) <- c("cntry","socialBlameRec","individualBlameRec",
+                        "individualFateRec","socialFateRec")
+library(laeken)
+perGini2010 <- as.data.frame(gini(inc="q227_rec",
+                      weights = "weight",
+                      data = lits2,
+                      na.rm = TRUE,
+                      breakdown="cntry")[2])
+names(perGini2010) <- c("cntry","perGini")
 
-summaryPovertyw <- dcast(summaryPoverty, cntry ~ poverty, value.var="Freq")
-names(summaryPovertyw) <- c("cntry","socialBlame","individualBlame","individualFate","socialFate")
+macro2010 <- merge(q309_10w,poverty_10w,by="cntry",all.x=TRUE)
+macro2010 <- merge(macro2010,perGini2010,by="cntry",all.x=TRUE)
+macro2010$year <- 2010
+### ------ BEGIN 2006 ---------- ####
+library(survey)
+df2 <- df2[!is.na(df2$weight),]
+d.df <- svydesign(id = ~SerialID, weights = ~weight, data = df2)
+q309_06 <- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
+q309_06 <- q309_06[!is.na(q309_06$Freq), ]
+q309_06w <- dcast(q309_06, cntry ~ q309, value.var="Freq")
+names(q309_06w) <- c("cntry","socialBlame",
+                        "individualBlame","individualFate",
+                        "socialFate","notStated")
+q309_06w$dontKnow <- NA
 
+poverty_06 <- data.frame(prop.table(svytable(~poverty + cntry, d.df), 
+                                        2) * 100)
+poverty_06 <- poverty_06[!is.na(poverty_06$Freq), ]
+poverty_06w <- dcast(poverty_06, cntry ~ poverty, value.var="Freq")
+names(poverty_06w) <- c("cntry","socialBlameRec","individualBlameRec",
+                        "individualFateRec","socialFateRec")
+## perGini
+library(laeken)
+perGini2006 <- as.data.frame(gini(inc="q211_rec",
+                      weights = "weight_1",
+                      data = lits1,
+                      na.rm = TRUE,
+                      breakdown="cntry")[2])
+
+names(perGini2006) <- c("cntry","perGini")
+macro2006 <- merge(q309_06w,poverty_06w,by="cntry",all.x=TRUE)
+macro2006 <- merge(macro2006,perGini2006,by="cntry",all.x=TRUE)
+macro2006$year <- 2006
+
+#macro <- rbind(macro2006,macro2010)
+### ------ END 2006 ---------- ####
 ```
 
 ## Data from Quality of Government institute
@@ -527,19 +546,27 @@ datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
                    'Slovenia','Romania','Bulgaria',
                    'Italy','Germany','United Kingdom',
                    'Sweden','France'), 
-       indicator = c("ffp_fsi", # Failed States Index
-                     "wbgi_vae", # World Bank - Voice and Accountability
-                     "undp_hdi", # UNDP Human Development Index
-                     "fh_polity2", # Democracy (Freedom House/Polity)
-                     "uw_gini"))
-# subset the latest value per cntry per indicator
-library(plyr)
-datQogSum <- ddply(datQog, c("cname","indicator"), 
-                   subset, year == max(year))
+       indicator = c("wbgi_vae"#, # World Bank - Voice and Accountability
+                     #"uw_gini"
+                     ))
 
-datQogSum.w <- dcast(datQogSum, 
-                     cname ~ indicator, 
-                     value.var="value")
+# datQog <- datQog[datQog$year >= 2000, ]
+# table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
+
+# subset the latest value per cntry per indicator
+#library(plyr)
+#datQogSum <- ddply(datQog, c("cname","indicator"), 
+#                   subset, year == max(year))
+datQogSum <- datQog[datQog$year %in% c(2006,2009),]
+datQogSum$year[datQogSum$year == 2009] <- 2010
+names(datQogSum)[3] <- "wbgi_vae"
+datQogSum$indicator <- NULL
+
+# datQogSum.w <- dcast(datQogSum, 
+#                      cname+indicator ~ year, 
+#                      value.var="value")
+
+datQogSum.w <- datQogSum
 
 datQogSum.w$cname <-  as.character(datQogSum.w$cname)
 datQogSum.w$cname[datQogSum.w$cname %in% "United Kingdom"] <- "Great Britain"
@@ -572,10 +599,11 @@ datQogSum.w$group_general <- factor(datQogSum.w$group_general,
                                     levels=c("Western Europe",
                                              "CEE",
                                              "CIS"))
-
 df.qog <- datQogSum.w
-
 names(df.qog)[1] <- "cntry"
+
+macro2006 <- merge(macro2006,df.qog[df.qog$year == 2006,],by=c("cntry","year"))
+macro2010 <- merge(macro2010,df.qog[df.qog$year == 2010,],by=c("cntry","year"))
 
 ```
 
@@ -596,52 +624,41 @@ wb <- WDI(indicator = c("NY.GDP.MKTP.CD"),
                       "IT","KZ","KG","LV","LT","MK","MD",
                       "MN","ME","PL","RO","RU","RS","SK",
                       "SI","SE","TJ","TR","UA","UZ"), 
-           start = 2007, end = 2010)
-
+           start = 2003, end = 2010)
 library(reshape2)
 names(wb) <- c("iso2c","cntry","var","year")
+wb$year <- paste("x",wb$year,sep="")
 wb.w <- dcast(wb, 
               cntry ~ year, 
               value.var="var")
 
-names(wb.w) <- c("cntry","x2007","x2008","x2009","x2010")
 wb.w$gdpchange07.10 <- wb.w$x2010/wb.w$x2007 * 100 - 100
-gdp <- wb.w[,c(1,6)]
+wb.w$gdpchange03.06 <- wb.w$x2006/wb.w$x2003 * 100 - 100
 
-gdp$cntry[gdp$cntry == 'Russian Federation'] <- 'Russia'
-gdp$cntry[gdp$cntry == 'Kyrgyz Republic'] <- 'Kyrgyzstan'
-gdp$cntry[gdp$cntry == 'United Kingdom'] <- 'Great Britain'
-gdp$cntry[gdp$cntry == 'Slovak Republic'] <- 'Slovakia'
+wb.w$cntry[wb.w$cntry == 'Russian Federation'] <- 'Russia'
+wb.w$cntry[wb.w$cntry == 'Kyrgyz Republic'] <- 'Kyrgyzstan'
+wb.w$cntry[wb.w$cntry == 'United Kingdom'] <- 'Great Britain'
+wb.w$cntry[wb.w$cntry == 'Slovak Republic'] <- 'Slovakia'
 
+gdp10 <- wb.w[,c(1,10)]
+names(gdp10) <- c("cntry","gdpChange")
+gdp06 <- wb.w[,c(1,11)]
+names(gdp06) <- c("cntry","gdpChange")
+
+macro2006 <- merge(macro2006,gdp06,by="cntry")
+macro2010 <- merge(macro2010,gdp10,by="cntry")
 ```
 
 ## Merging all the data and saving for the analysis
 
 ```{rLoadClean9}
-
 # yhdistetään nää aikaisempien datojen kanssa
-macro <- merge(summary309w,gdp,by="cntry", all.x=TRUE)
-macro <- merge(macro,df.qog,by="cntry")
-macro <- merge(macro,perGini2010,by="cntry")
+macro <- rbind(macro2006,macro2010)
 
-df <- merge(df,macro,by="cntry")
+df <- merge(df,macro[macro$year == 2010,],by="cntry")
+df2 <- merge(df2,macro[macro$year == 2006,],by="cntry")
 
-rm(lits2)
-rm(df.qog)
-rm(df.cross.postsoc)
-rm(gdp)
-rm(t3)
-rm(summary309)
-rm(summary309_rec)
-rm(d.df)
-rm(wb)
-rm(wb.w)
-rm(cntry)
-rm(iso2c)
-rm(lits1)
-rm(medianData)
-rm(perGini2006)
-rm(perGini2010)
+rm(list=setdiff(ls(), c("macro","df","df2")))
 
 save.image("~/workspace/lits/attributions/data/lits.RData")
 #load("~/workspace/lits/attributions/data/lits.RData")

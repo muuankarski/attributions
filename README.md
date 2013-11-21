@@ -21,7 +21,7 @@ This site gathers together all the data analysis behind the actual paper. Data a
 | [Descriptive analysis](https://rawgithub.com/muuankarski/attributions/master/descriptive_analysis.html) | [source](https://rawgithub.com/muuankarski/attributions/master/descriptive_analysis.Rmd)
 | [Spatial visualization](https://rawgithub.com/muuankarski/attributions/master/mapPlots.html) | [source]((https://rawgithub.com/muuankarski/attributions/master/mapPlots.Rmd)
 | [Graphics in the paper](https://rawgithub.com/muuankarski/attributions/master/finalPlots.html) | [source](https://rawgithub.com/muuankarski/attributions/master/finalPlots.Rmd)
-
+| [Comparing waves 2006 and 2010](https://rawgithub.com/muuankarski/attributions/master/compareWaves.html) | [source](https://rawgithub.com/muuankarski/attributions/master/compareWaves.Rmd)
 
 
 ## Modelling the data
