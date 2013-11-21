@@ -22,7 +22,6 @@ load("~/workspace/lits/attributions/data/lits.RData")
 
 ## Original coding
 
-
 ### By country
 
 ```{rcompareDvCntryOrig, fig.height=16}
