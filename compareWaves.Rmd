@@ -1,0 +1,357 @@
+# Comparing waves 2006 and 2010 
+
+```{r, eval=FALSE, echo=FALSE}
+library(knitr)
+library(markdown)
+knit2html('compareWaves.Rmd', 
+          stylesheet="~/workspace/web/css/rmarkdown.css",
+          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+```
+
+
+```{roptsattrib, echo=FALSE}
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
+```
+
+
+```{rcompload}
+load("~/workspace/lits/attributions/data/lits.RData")
+```
+
+# Dependent variable
+
+## Original coding
+
+### By country
+
+```{rcompareDvCntryOrig, fig.height=16}
+dfPlot <- macro[,1:8]
+library(reshape2)
+dfPlotW <- melt(dfPlot,id.vars=c("cntry","year"))
+library(ggplot2)
+ggplot(dfPlotW, aes(x=cntry,y=value,fill=factor(year))) +
+    geom_bar(stat="identity",position="dodge") +
+    facet_wrap(~variable, ncol=1, scales="free_x") +
+    theme(legend.position="top") +
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+### By country group
+
+```{rcompareDvCgOrig, fig.height=16}
+dfPlot <- macro[,c(2:8,16)]
+library(reshape2)
+dfPlotW <- melt(dfPlot,id.vars=c("group_general","year"))
+library(ggplot2)
+ggplot(dfPlotW, aes(x=group_general,y=value,fill=factor(year))) +
+    geom_bar(stat="identity",position="dodge") +
+    facet_wrap(~variable, ncol=1, scales="free_x") +
+    theme(legend.position="top") +
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+## Only the four values
+
+### By country
+
+```{rcompareDvCntryRec, fig.height=16}
+dfPlot <- macro[,c(1:2,9:12)]
+library(reshape2)
+dfPlotW <- melt(dfPlot,id.vars=c("cntry","year"))
+library(ggplot2)
+ggplot(dfPlotW, aes(x=cntry,y=value,fill=factor(year))) +
+    geom_bar(stat="identity",position="dodge") +
+    facet_wrap(~variable, ncol=1, scales="free_x") +
+    theme(legend.position="top") +
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+### By country group
+
+```{rcompareDvCgRec, fig.height=16}
+dfPlot <- macro[,c(2,9:12,16)]
+library(reshape2)
+dfPlotW <- melt(dfPlot,id.vars=c("group_general","year"))
+library(ggplot2)
+ggplot(dfPlotW, aes(x=group_general,y=value,fill=factor(year))) +
+    geom_bar(stat="identity",position="dodge") +
+    facet_wrap(~variable, ncol=1, scales="free_x") +
+    theme(legend.position="top") +
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+
+# Independent variables
+
+## Individual level
+
+### Transfer dependency (share of dependent hh's)
+
+```{rcompareIvTransfer}
+library(survey)
+d.df10 <- svydesign(id = ~SerialID, weights = ~weight, data = df)
+d.df06 <- svydesign(id = ~SerialID, weights = ~weight, data = df2)
+
+dat10 <- data.frame(prop.table(svytable(~incsour3 + cntry, d.df10), 2) * 100)
+names(dat10) <- c("Var","cntry","Freq")
+dat10$year <- 2010
+dat06 <- data.frame(prop.table(svytable(~incsour3 + cntry, d.df06), 2) * 100)
+names(dat06) <- c("Var","cntry","Freq")
+dat06$year <- 2006
+datPlot <- rbind(dat06,dat10)
+
+datPlot2 <- datPlot[datPlot$Var == "dependent",]
+
+ggplot(datPlot2, aes(x=cntry,y=Freq,fill=factor(year))) +
+        geom_bar(stat="identity",position="dodge") +
+        theme(legend.position="top") +
+        theme(axis.text.x = element_text(angle = 90))
+    
+```
+
+### Education level (share of low education hh's)
+
+```{rcompareIvEdu}
+dat10 <- data.frame(prop.table(svytable(~edu2 + cntry, d.df10), 2) * 100)
+names(dat10) <- c("Var","cntry","Freq")
+dat10$year <- 2010
+dat06 <- data.frame(prop.table(svytable(~edu2 + cntry, d.df06), 2) * 100)
+names(dat06) <- c("Var","cntry","Freq")
+dat06$year <- 2006
+datPlot <- rbind(dat06,dat10)
+
+datPlot2 <- datPlot[datPlot$Var == "no or compulsory",]
+
+ggplot(datPlot2, aes(x=cntry,y=Freq,fill=factor(year))) +
+        geom_bar(stat="identity",position="dodge") +
+        theme(legend.position="top") +
+        theme(axis.text.x = element_text(angle = 90))
+    
+```
+
+### Income level (share of low income hh's)
+
+```{rcompareIvInc}
+dat10 <- data.frame(prop.table(svytable(~income2 + cntry, d.df10), 2) * 100)
+names(dat10) <- c("Var","cntry","Freq")
+dat10$year <- 2010
+dat06 <- data.frame(prop.table(svytable(~income2 + cntry, d.df06), 2) * 100)
+names(dat06) <- c("Var","cntry","Freq")
+dat06$year <- 2006
+datPlot <- rbind(dat06,dat10)
+
+datPlot2 <- datPlot[datPlot$Var == "Low",]
+
+ggplot(datPlot2, aes(x=cntry,y=Freq,fill=factor(year))) +
+        geom_bar(stat="identity",position="dodge") +
+        theme(legend.position="top") +
+        theme(axis.text.x = element_text(angle = 90))
+    
+```
+
+
+## Macro level
+
+```{rcompareIvMacro, fig.height=16}
+dfPlot <- macro[,c(1:2,13,14,17)]
+library(reshape2)
+dfPlotW <- melt(dfPlot,id.vars=c("cntry","year"),
+                value.vars=c("perGini",
+                             "wbgi_vae",
+                             "gdpChange"))
+library(ggplot2)
+ggplot(dfPlotW, aes(x=cntry,y=value,fill=factor(year))) +
+    geom_bar(stat="identity",position="dodge") +
+    facet_wrap(~variable, ncol=1, scales="free") +
+    theme(legend.position="top") +
+    theme(axis.text.x = element_text(angle = 90))
+
+```
+
+
+# Associations
+
+*Name is in the 2010 end of the line*
+
+## Good governanance
+
+### vs. Social blame
+
+```{rcompareAssoGoodSB}
+cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
+dfPlot <- macro[,c(1:4,13,14,16,17)]
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=wbgi_vae,y=socialBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=wbgi_vae,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=socialBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=wbgi_vae,y=socialBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=socialBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```
+
+
+
+### vs. Individual blame
+
+```{rcompareAssoGoodIB}
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=wbgi_vae,y=individualBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=wbgi_vae,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=individualBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=wbgi_vae,y=individualBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=wbgi_vae,y=individualBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```
+
+## Change in GDP
+
+### vs. Social blame
+
+```{rcompareAssoGdpSB}
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=gdpChange,y=socialBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=gdpChange,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=socialBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=gdpChange,y=socialBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=socialBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```
+
+
+
+### vs. Individual blame
+
+```{rcompareAssoGdbIB}
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=gdpChange,y=individualBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=gdpChange,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=individualBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=gdpChange,y=individualBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=gdpChange,y=individualBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```
+
+
+## Perceived Gini
+
+### vs. Social blame
+
+```{rcompareAssoPerginiSB}
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=perGini,y=socialBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=perGini,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=socialBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=socialBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=perGini,y=socialBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=socialBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```
+
+
+
+### vs. Individual blame
+
+```{rcompareAssoPerginiIB}
+library(ggplot2)
+ggplot(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=perGini,y=individualBlame,group=cntry,color=group_general)) +
+    geom_point() +
+    geom_text(data=dfPlot[dfPlot$year == 2006,], 
+       aes(x=perGini,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_point(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=individualBlame,group=cntry,color=group_general)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=individualBlame,group=cntry,label=year),
+               vjust=-1,size=4) +
+    geom_line(data=dfPlot,
+              aes(x=perGini,y=individualBlame,group=cntry)) +
+    geom_text(data=dfPlot[dfPlot$year == 2010,], 
+       aes(x=perGini,y=individualBlame,group=cntry,label=cntry),
+               vjust=1,size=4) +
+  scale_colour_manual(values=cbPalette) +
+   theme_minimal() +
+  theme(legend.title=element_blank()) +
+  theme(legend.text=element_text(size=12)) +
+  theme(legend.position="top")
+
+```

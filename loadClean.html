@@ -78,9 +78,8 @@ hljs.initHighlightingOnLoad();
 
 
 body {
-    margin-left: 160px;
-    max-width:900px;
- 
+    margin-left: 180px;
+    max-width:900px; 
     border: 0px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -91,9 +90,11 @@ body {
     left: 0px;
     height: 100%;
     position: fixed;
-    width: 150px;
+    width: 170px;
     padding-top: 20px;
     color: #0099FF;
+    border-right: 1px dashed #C1C1C1;
+    background-color: #E8E8E8;
 }
 
 #toc ul {
@@ -111,6 +112,16 @@ body {
     text-decoration: none;
     display: block;
 }
+
+#toc .toc_1 {
+    border-bottom: 1px dashed #C1C1C1;
+}
+
+h1:toc_1 {
+    border-bottom: 1px dashed #C1C1C1;
+}
+
+
 
 #toc .toc-h2 {
     padding-left: 10px;
@@ -405,8 +416,6 @@ th:last-child {
 
 
 <h1 id="toc_0">Loading and cleaning the data</h1>
-
-<p><link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> </p>
 
 <h1 id="toc_1">Loading the data from EBRD</h1>
 
@@ -1016,23 +1025,29 @@ tbl
 <h2 id="toc_5">Independent variables</h2>
 
 <pre><code class="r">
-### ------ BEGIN 2006 ---------- #### $sex
+### ------ BEGIN 2006 ---------- ####
+# $sex
 lits1$sex &lt;- lits1$q102_1
 # $income
 library(plyr)
-medianData &lt;- ddply(lits1, ~cntry, summarise, incMedian = median(q211, na.rm = TRUE))
-lits1 &lt;- merge(lits1, medianData, by = &quot;cntry&quot;, all.x = TRUE)
+lits1$q211_rec &lt;- lits1$q211
+lits1$q211_rec[lits1$q211_rec &gt;= 11] &lt;- NA
 
-lits1$income2[lits1$q211 &lt; lits1$incMedian] &lt;- &quot;Low&quot;
-lits1$income2[lits1$q211 &gt;= lits1$incMedian] &lt;- &quot;High&quot;
+medianData &lt;- ddply(lits1,~cntry,summarise,incMedian=median(q211_rec, na.rm=TRUE))
+lits1 &lt;- merge(lits1,medianData,by=&quot;cntry&quot;,all.x=TRUE)
 
-lits1$income2 &lt;- factor(lits1$income2, levels = c(&quot;Low&quot;, &quot;High&quot;))
+lits1$income2[lits1$q211_rec &lt; lits1$incMedian]  &lt;- &#39;Low&#39;
+lits1$income2[lits1$q211_rec &gt;= lits1$incMedian]  &lt;- &#39;High&#39;
+
+lits1$income2 &lt;- factor(lits1$income2, 
+                       levels=c(&quot;Low&quot;,
+                                &quot;High&quot;))
 
 summary(lits1$income2)
 </code></pre>
 
 <pre><code>##   Low  High  NA&#39;s 
-## 11888 17099    15
+## 11723 16928   351
 </code></pre>
 
 <pre><code class="r">### ------ END 2006 ---------- ####
@@ -1041,121 +1056,27 @@ summary(lits1$income2)
 lits2$sex &lt;- lits2$q102_1
 # $income
 
-
-lits2$income2[lits2$q227 &gt;= 1 &amp; lits2$q227 &lt;= 5] &lt;- &quot;Low&quot;
-lits2$income2[lits2$q227 &gt;= 6 &amp; lits2$q227 &lt;= 10] &lt;- &quot;High&quot;
-
-lits2$income2 &lt;- factor(lits2$income2, levels = c(&quot;Low&quot;, &quot;High&quot;))
-
 lits2$q227_rec &lt;- lits2$q227
 lits2$q227_rec[lits2$q227 &lt;= 0] &lt;- NA
 
 library(plyr)
-medianData &lt;- ddply(lits2, ~cntry, summarise, incMedian = median(q227_rec, na.rm = TRUE))
-lits2 &lt;- merge(lits2, medianData, by = &quot;cntry&quot;, all.x = TRUE)
+medianData &lt;- ddply(lits2,~cntry,summarise,incMedian=median(q227_rec, na.rm=TRUE))
+lits2 &lt;- merge(lits2,medianData,by=&quot;cntry&quot;,all.x=TRUE)
 
-lits2$income2[lits2$q227 &lt; lits2$incMedian] &lt;- &quot;Low&quot;
-lits2$income2[lits2$q227 &gt;= lits2$incMedian] &lt;- &quot;High&quot;
+lits2$income2[lits2$q227 &lt; lits2$incMedian]  &lt;- &#39;Low&#39;
+lits2$income2[lits2$q227 &gt;= lits2$incMedian]  &lt;- &#39;High&#39;
 
-lits2$income2 &lt;- factor(lits2$income2, levels = c(&quot;Low&quot;, &quot;High&quot;))
+lits2$income2 &lt;- factor(lits2$income2, 
+                       levels=c(&quot;Low&quot;,
+                                &quot;High&quot;))
 
-### ------ BEGIN 2006 ---------- #### perGini
-library(laeken)
-perGini2006 &lt;- as.data.frame(gini(inc = &quot;q211&quot;, weights = &quot;weight_1&quot;, data = lits1, 
-    na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
-
-names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
-perGini2006
-</code></pre>
-
-<pre><code>##             cntry perGini
-## 1         Albania   26.52
-## 2         Armenia   36.97
-## 3      Azerbaijan   29.85
-## 4         Belarus   44.37
-## 5          Bosnia   25.95
-## 6        Bulgaria   38.04
-## 7         Croatia   31.77
-## 8  Czech Republic   34.71
-## 9         Estonia   28.67
-## 10          Fyrom   40.36
-## 11        Georgia   34.04
-## 12        Hungary   26.21
-## 13     Kazakhstan      NA
-## 14     Kyrgyzstan   39.75
-## 15         Latvia   27.57
-## 16      Lithuania   24.81
-## 17        Moldova   34.97
-## 18       Mongolia   25.16
-## 19     Montenegro   28.86
-## 20         Poland   32.97
-## 21        Romania      NA
-## 22         Russia   44.49
-## 23         Serbia   29.88
-## 24       Slovakia   39.49
-## 25       Slovenia   43.52
-## 26     Tajikistan   37.81
-## 27         Turkey   33.29
-## 28        Ukraine   32.67
-## 29     Uzbekistan   21.95
-</code></pre>
-
-<pre><code class="r">
-### ------ END 2006 ---------- ####
-
-library(laeken)
-perGini2010 &lt;- as.data.frame(gini(inc = &quot;q227_rec&quot;, weights = &quot;weight&quot;, data = lits2, 
-    na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
-
-names(perGini2010) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
-perGini2010
-</code></pre>
-
-<pre><code>##             cntry perGini
-## 1         Albania   20.02
-## 2         Armenia   21.63
-## 3      Azerbaijan   25.28
-## 4         Belarus   18.16
-## 5          Bosnia   19.64
-## 6        Bulgaria   24.88
-## 7         Croatia   22.47
-## 8  Czech Republic   15.66
-## 9         Estonia   17.83
-## 10         France   18.98
-## 11        Georgia   24.90
-## 12        Germany   18.00
-## 13  Great Britain   21.20
-## 14        Hungary   21.46
-## 15          Italy   17.01
-## 16     Kazakhstan   19.23
-## 17         Kosovo   18.73
-## 18     Kyrgyzstan   14.66
-## 19         Latvia   23.56
-## 20      Lithuania   21.65
-## 21      Macedonia   22.12
-## 22        Moldova   21.77
-## 23       Mongolia   22.29
-## 24     Montenegro   17.19
-## 25         Poland   19.33
-## 26        Romania   23.66
-## 27         Russia   23.62
-## 28         Serbia   24.16
-## 29       Slovakia   15.42
-## 30       Slovenia   18.90
-## 31         Sweden   16.28
-## 32     Tajikistan   16.93
-## 33         Turkey   21.54
-## 34        Ukraine   22.15
-## 35     Uzbekistan   15.38
-</code></pre>
-
-<pre><code class="r">
 lits1$age &lt;- lits1$age1
 lits2$age &lt;- lits2$q104a_1
 
 ### ------ BEGIN 2006 ---------- ####
 
 # $incsour tulonlähde
+###
 summary(factor(lits1$q210b))
 </code></pre>
 
@@ -1192,40 +1113,33 @@ summary(factor(lits1$q210b))
 </code></pre>
 
 <pre><code class="r">
-lits1$incsour3[lits1$q210b %in% c(&quot;state provided social benefits&quot;, &quot;unemployment benefits&quot;, 
-    &quot;pensions&quot;, &quot;community/privately provided social benefits&quot;, &quot;help from charities and NGOs&quot;, 
-    &quot;help from relatives/friend in the country&quot;, &quot;help from relatives/friends abroad&quot;)] &lt;- &quot;dependent&quot;
-lits1$incsour3[!(lits1$q210b %in% c(&quot;state provided social benefits&quot;, &quot;unemployment benefits&quot;, 
-    &quot;pensions&quot;, &quot;community/privately provided social benefits&quot;, &quot;help from charities and NGOs&quot;, 
-    &quot;help from relatives/friend in the country&quot;, &quot;help from relatives/friends abroad&quot;))] &lt;- &quot;notDependent&quot;
+lits1$incsour3[lits1$q210b %in% c(&#39;state provided social benefits&#39;,
+                                  &#39;unemployment benefits&#39;,
+                                  &#39;community/privately provided social benefits&#39;,
+                                  &#39;help from charities and NGOs&#39;,
+                                  &#39;help from relatives/friend in the country&#39;,
+                                  &#39;help from relatives/friends abroad&#39;)] &lt;- &quot;dependent&quot;
+lits1$incsour3[!(lits1$q210b %in% c(&#39;state provided social benefits&#39;,
+                                  &#39;unemployment benefits&#39;,
+                                  &#39;community/privately provided social benefits&#39;,
+                                  &#39;help from charities and NGOs&#39;,
+                                  &#39;help from relatives/friend in the country&#39;,
+                                  &#39;help from relatives/friends abroad&#39;))] &lt;- &quot;notDependent&quot;
 
-lits1$incsour3 &lt;- factor(lits1$incsour3, levels = c(&quot;dependent&quot;, &quot;notDependent&quot;))
+lits1$incsour3 &lt;- factor(lits1$incsour3, 
+                         levels=c(&quot;dependent&quot;,
+                                  &quot;notDependent&quot;))
 summary(lits1$incsour3)
 </code></pre>
 
 <pre><code>##    dependent notDependent 
-##         9664        19338
+##         2078        26924
 </code></pre>
 
-<pre><code class="r">### 
-
-# $edu
-
-lits1$edu2[lits1$q501 %in% c(&quot;compulsory school education&quot;, &quot;no degree/education&quot;)] &lt;- &quot;no or compulsory&quot;
-lits1$edu2[!(lits1$q501 %in% c(&quot;compulsory school education&quot;, &quot;no degree/education&quot;))] &lt;- &quot;higher&quot;
-
-lits1$edu2 &lt;- factor(lits1$edu2, levels = c(&quot;no or compulsory&quot;, &quot;higher&quot;))
-
-summary(lits1$edu2)
-</code></pre>
-
-<pre><code>## no or compulsory           higher 
-##             6951            22051
-</code></pre>
-
-<pre><code class="r">### ------ END 2006 ---------- ####
+<pre><code class="r">###
 
 # $incsour tulonlähde
+###
 summary(factor(lits2$q226m))
 </code></pre>
 
@@ -1235,9 +1149,11 @@ summary(factor(lits2$q226m))
 
 <pre><code class="r">
 lits2$incsour3[lits2$q226m == 5 | lits2$q226m == 6] &lt;- &quot;dependent&quot;
-lits2$incsour3[lits2$q226m &gt; 0 &amp; lits2$q226m &lt; 5 | lits2$q226m &gt; 6] &lt;- &quot;notDependent&quot;
+lits2$incsour3[lits2$q226m &gt; 0 &amp; lits2$q226m &lt; 5 | lits2$q226m &gt; 6 ] &lt;- &quot;notDependent&quot;
 
-lits2$incsour3 &lt;- factor(lits2$incsour3, levels = c(&quot;dependent&quot;, &quot;notDependent&quot;))
+lits2$incsour3 &lt;- factor(lits2$incsour3, 
+                         levels=c(&quot;dependent&quot;,
+                                  &quot;notDependent&quot;))
 summary(lits2$incsour3)
 </code></pre>
 
@@ -1245,9 +1161,51 @@ summary(lits2$incsour3)
 ##         2345        36450           69
 </code></pre>
 
-<pre><code class="r">### 
+<pre><code class="r">
+# $edu
+###
+summary(lits1$q501)
+</code></pre>
+
+<pre><code>##                                                  
+##                                                7 
+##                      compulsory school education 
+##                                             5367 
+## higher professional degree (university, college) 
+##                                             5233 
+##                              no degree/education 
+##                                             1584 
+##                             post graduate degree 
+##                                              235 
+##         professional, vocational school/training 
+##                                             8633 
+##                              secondary education 
+##                                             7943
+</code></pre>
+
+<pre><code class="r">
+lits1$edu2[lits1$q501 %in% c(#&#39;compulsory school education&#39;,
+                         &#39;no degree/education&#39;)] &lt;- &#39;no or compulsory&#39;
+lits1$edu2[!(lits1$q501 %in% c(#&#39;compulsory school education&#39;,
+                         &#39;no degree/education&#39;))] &lt;- &#39;higher&#39;
+
+lits1$edu2 &lt;- factor(lits1$edu2,
+                     levels=c(&quot;no or compulsory&quot;,
+                              &quot;higher&quot;))
+
+summary(lits1$edu2)
+</code></pre>
+
+<pre><code>## no or compulsory           higher 
+##             1584            27418
+</code></pre>
+
+<pre><code class="r">### ------ END 2006 ---------- ####
+
+
 
 # $edu
+###
 
 summary(factor(lits2$q515))
 </code></pre>
@@ -1257,37 +1215,43 @@ summary(factor(lits2$q515))
 </code></pre>
 
 <pre><code class="r">
-lits2$edu2[lits2$q515 == 1 | lits2$q515 == 2] &lt;- &quot;no or compulsory&quot;
-lits2$edu2[lits2$q515 &gt;= 3] &lt;- &quot;higher&quot;
+lits2$edu2[lits2$q515 == 1]  &lt;- &quot;no or compulsory&quot;
+lits2$edu2[lits2$q515 &gt;= 2]  &lt;- &quot;higher&quot;
 
-lits2$edu2 &lt;- factor(lits2$edu2, levels = c(&quot;no or compulsory&quot;, &quot;higher&quot;))
+lits2$edu2 &lt;- factor(lits2$edu2,
+                     levels=c(&quot;no or compulsory&quot;,
+                              &quot;higher&quot;))
 
 summary(lits2$edu2)
 </code></pre>
 
 <pre><code>## no or compulsory           higher             NA&#39;s 
-##             5233            33621               10
+##             1282            37572               10
 </code></pre>
 
-<pre><code class="r">################# 
+<pre><code class="r">#################
 
 
 
 # $future
+###
 lits2$q229_rec &lt;- lits2$q229
 lits2$q229_rec[lits2$q229 &lt;= 0] &lt;- NA
 
-lits2$future.diff[lits2$q227_rec &gt; lits2$q229_rec] &lt;- &quot;worse&quot;
-lits2$future.diff[lits2$q227_rec &lt;= lits2$q229_rec] &lt;- &quot;same or better&quot;
-lits2$future.diff &lt;- factor(lits2$future.diff, levels = c(&quot;worse&quot;, &quot;same or better&quot;))
+lits2$future.diff[lits2$q227_rec &gt; lits2$q229_rec] &lt;- &#39;worse&#39;
+lits2$future.diff[lits2$q227_rec &lt;= lits2$q229_rec] &lt;- &#39;same or better&#39;
+lits2$future.diff &lt;- factor(lits2$future.diff, levels=c(&quot;worse&quot;,
+                                                        &quot;same or better&quot;))
 # $past
 lits2$q228_rec &lt;- lits2$q228
 lits2$q228_rec[lits2$q228 &lt;= 0] &lt;- NA
 
-lits2$past.diff[lits2$q227_rec &lt; lits2$q228_rec] &lt;- &quot;worse&quot;
-lits2$past.diff[lits2$q227_rec &gt;= lits2$q228_rec] &lt;- &quot;same or better&quot;
-lits2$past.diff &lt;- factor(lits2$past.diff, levels = c(&quot;worse&quot;, &quot;same or better&quot;))
+lits2$past.diff[lits2$q227_rec &lt; lits2$q228_rec] &lt;- &#39;worse&#39;
+lits2$past.diff[lits2$q227_rec &gt;= lits2$q228_rec] &lt;- &#39;same or better&#39;
+lits2$past.diff &lt;- factor(lits2$past.diff, levels=c(&quot;worse&quot;,
+                                                    &quot;same or better&quot;))
 # $crise - kriisikokemus
+#################
 library(stringr)
 lits2$q801 &lt;- as.factor(str_replace(lits2$q801, &quot;Don&#39;t know&quot;, &quot;DONT KNOW&quot;))
 
@@ -1301,13 +1265,19 @@ summary(lits2$q801)
 </code></pre>
 
 <pre><code class="r">
-lits2$q801 &lt;- factor(lits2$q801, levels = c(&quot;A GREAT DEAL&quot;, &quot;A FAIR AMOUNT&quot;, 
-    &quot;JUST A LITTLE&quot;, &quot;NOT AT ALL&quot;, &quot;DONT KNOW&quot;, &quot;Refused&quot;))
+lits2$q801 &lt;- factor(lits2$q801, 
+                     levels=c(&quot;A GREAT DEAL&quot;,
+                              &quot;A FAIR AMOUNT&quot;,
+                              &quot;JUST A LITTLE&quot;,
+                              &quot;NOT AT ALL&quot;,
+                              &quot;DONT KNOW&quot;,
+                              &quot;Refused&quot;))
 
-lits2$crise[lits2$q801 %in% c(&quot;A GREAT DEAL&quot;, &quot;A FAIR AMOUNT&quot;)] &lt;- &quot;Great or fair amount&quot;
-lits2$crise[lits2$q801 %in% c(&quot;NOT AT ALL&quot;, &quot;JUST A LITTLE&quot;)] &lt;- &quot;Little or not at all&quot;
+lits2$crise[lits2$q801 %in% c(&#39;A GREAT DEAL&#39;,&#39;A FAIR AMOUNT&#39;)] &lt;- &#39;Great or fair amount&#39;
+lits2$crise[lits2$q801 %in% c(&#39;NOT AT ALL&#39;,&#39;JUST A LITTLE&#39;)] &lt;- &#39;Little or not at all&#39;
 
-lits2$crise &lt;- factor(lits2$crise, levels = c(&quot;Great or fair amount&quot;, &quot;Little or not at all&quot;))
+lits2$crise &lt;- factor(lits2$crise, levels=c(&quot;Great or fair amount&quot;,
+                                            &quot;Little or not at all&quot;))
 summary(lits2$crise)
 </code></pre>
 
@@ -1318,9 +1288,17 @@ summary(lits2$crise)
 <h1 id="toc_6">Subsetting data for analysis</h1>
 
 <pre><code class="r">## Data for the analysis
-df &lt;- subset(lits2, select = c(&quot;SerialID&quot;, &quot;weight&quot;, &quot;cntry&quot;, &quot;country0&quot;, &quot;q309&quot;, 
-    &quot;sex&quot;, &quot;age&quot;, &quot;future.diff&quot;, &quot;past.diff&quot;, &quot;pov.log.social&quot;, &quot;pov.log.individual&quot;, 
-    &quot;socialism&quot;, &quot;incsour3&quot;, &quot;edu2&quot;, &quot;group_analysis&quot;, &quot;income2&quot;, &quot;crise&quot;, &quot;poverty&quot;))
+
+df &lt;- subset(lits2, select = c(&quot;SerialID&quot;, &quot;weight&quot;, &quot;cntry&quot;, &quot;q309&quot;, &quot;sex&quot;, 
+    &quot;age&quot;, &quot;pov.log.social&quot;, &quot;pov.log.individual&quot;, &quot;socialism&quot;, &quot;incsour3&quot;, 
+    &quot;edu2&quot;, &quot;group_analysis&quot;, &quot;income2&quot;, &quot;poverty&quot;, &quot;future.diff&quot;, &quot;past.diff&quot;))
+names(lits1)[2] &lt;- &quot;SerialID&quot;
+names(lits1)[1165] &lt;- &quot;weight&quot;
+
+df2 &lt;- lits1[, c(&quot;SerialID&quot;, &quot;weight&quot;, &quot;cntry&quot;, &quot;q309&quot;, &quot;sex&quot;, &quot;age&quot;, &quot;pov.log.social&quot;, 
+    &quot;pov.log.individual&quot;, &quot;socialism&quot;, &quot;incsour3&quot;, &quot;edu2&quot;, &quot;group_analysis&quot;, 
+    &quot;income2&quot;, &quot;poverty&quot;)]
+
 # filter out not wanted countries
 df &lt;- df[!is.na(df$group_analysis), ]  # valitaan vaan group1 -muuttujan maat
 df$cntry &lt;- factor(df$cntry)
@@ -1335,45 +1313,37 @@ summary(df)
 ##  3rd Qu.:1.41e+08   3rd Qu.:22320   Uzbekistan   : 1500  
 ##  Max.   :1.82e+08   Max.   :93430   Romania      : 1078  
 ##                                     (Other)      :20176  
-##                    country0                   q309           sex       
-##  Western Europe        : 5504   Social Blame    :11666   Male  :16428  
-##  Central/Eastern/Baltic: 8710   Individual Blame: 6681   Female:12589  
-##  Southern Europe       : 2092   Individual Fate : 2844                 
-##  CIS and Mongolia      :12711   Social Fate     : 5039                 
-##                                 Not stated      : 1049                 
-##                                 Dont know       : 1738                 
+##                q309           sex             age      pov.log.social 
+##  Social Blame    :11666   Male  :16428   Min.   : -1   Min.   :0.000  
+##  Individual Blame: 6681   Female:12589   1st Qu.: 39   1st Qu.:0.000  
+##  Individual Fate : 2844                  Median : 50   Median :0.000  
+##  Social Fate     : 5039                  Mean   : 51   Mean   :0.402  
+##  Not stated      : 1049                  3rd Qu.: 62   3rd Qu.:1.000  
+##  Dont know       : 1738                  Max.   :118   Max.   :1.000  
+##                                                                       
+##  pov.log.individual  socialism                 incsour3    
+##  Min.   :0.00       Length:29017       dependent   : 1679  
+##  1st Qu.:0.00       Class :character   notDependent:27269  
+##  Median :0.00       Mode  :character   NA&#39;s        :   69  
+##  Mean   :0.23                                              
+##  3rd Qu.:0.00                                              
+##  Max.   :1.00                                              
+##                                                            
+##                edu2              group_analysis  income2     
+##  no or compulsory:  649   Western Europe: 5504   Low :11916  
+##  higher          :28358   CEE           :10802   High:17101  
+##  NA&#39;s            :   10   CIS           :12711               
+##                                                              
+##                                                              
+##                                                              
+##                                                              
+##              poverty              future.diff             past.diff    
+##  Social Blame    :11666   worse         : 4733   worse         : 9845  
+##  Individual Blame: 6681   same or better:19007   same or better:18339  
+##  Individual Fate : 2844   NA&#39;s          : 5277   NA&#39;s          :  833  
+##  Social Fate     : 5039                                                
+##  NA&#39;s            : 2787                                                
 ##                                                                        
-##       age              future.diff             past.diff    
-##  Min.   : -1   worse         : 4733   worse         : 9845  
-##  1st Qu.: 39   same or better:19007   same or better:18339  
-##  Median : 50   NA&#39;s          : 5277   NA&#39;s          :  833  
-##  Mean   : 51                                                
-##  3rd Qu.: 62                                                
-##  Max.   :118                                                
-##                                                             
-##  pov.log.social  pov.log.individual  socialism        
-##  Min.   :0.000   Min.   :0.00       Length:29017      
-##  1st Qu.:0.000   1st Qu.:0.00       Class :character  
-##  Median :0.000   Median :0.00       Mode  :character  
-##  Mean   :0.402   Mean   :0.23                         
-##  3rd Qu.:1.000   3rd Qu.:0.00                         
-##  Max.   :1.000   Max.   :1.00                         
-##                                                       
-##          incsour3                   edu2              group_analysis 
-##  dependent   : 1679   no or compulsory: 2858   Western Europe: 5504  
-##  notDependent:27269   higher          :26149   CEE           :10802  
-##  NA&#39;s        :   69   NA&#39;s            :   10   CIS           :12711  
-##                                                                      
-##                                                                      
-##                                                                      
-##                                                                      
-##  income2                       crise                   poverty     
-##  Low :11916   Great or fair amount:11464   Social Blame    :11666  
-##  High:17101   Little or not at all:15558   Individual Blame: 6681  
-##               NA&#39;s                : 1995   Individual Fate : 2844  
-##                                            Social Fate     : 5039  
-##                                            NA&#39;s            : 2787  
-##                                                                    
 ## 
 </code></pre>
 
@@ -1381,25 +1351,70 @@ summary(df)
 
 <h2 id="toc_8">Summarising micro data at the country level</h2>
 
-<pre><code class="r">### 
-library(reshape2)
+<pre><code class="r">### Dependent var country level values 2010
 library(survey)
 d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df)
+q309_10 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
+q309_10 &lt;- q309_10[!is.na(q309_10$Freq), ]
+q309_10w &lt;- dcast(q309_10, cntry ~ q309, value.var = &quot;Freq&quot;)
+names(q309_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+    &quot;socialFate&quot;, &quot;notStated&quot;, &quot;dontKnow&quot;)
 
-summary309 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
+poverty_10 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
+poverty_10 &lt;- poverty_10[!is.na(poverty_10$Freq), ]
+poverty_10w &lt;- dcast(poverty_10, cntry ~ poverty, value.var = &quot;Freq&quot;)
+names(poverty_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+    &quot;socialFateRec&quot;)
+library(laeken)
+perGini2010 &lt;- as.data.frame(gini(inc = &quot;q227_rec&quot;, weights = &quot;weight&quot;, data = lits2, 
+    na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
+names(perGini2010) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 
-summary309 &lt;- summary309[!is.na(summary309$Freq), ]
-summary309w &lt;- dcast(summary309, cntry ~ q309, value.var = &quot;Freq&quot;)
-names(summary309w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
-    &quot;socialFate&quot;, &quot;not.stated&quot;, &quot;dont.know&quot;)
+macro2010 &lt;- merge(q309_10w, poverty_10w, by = &quot;cntry&quot;, all.x = TRUE)
+macro2010 &lt;- merge(macro2010, perGini2010, by = &quot;cntry&quot;, all.x = TRUE)
+macro2010$year &lt;- 2010
+### ------ BEGIN 2006 ---------- ####
+library(survey)
+df2 &lt;- df2[!is.na(df2$weight), ]
+d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df2)
+q309_06 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
+q309_06 &lt;- q309_06[!is.na(q309_06$Freq), ]
+q309_06w &lt;- dcast(q309_06, cntry ~ q309, value.var = &quot;Freq&quot;)
+names(q309_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+    &quot;socialFate&quot;, &quot;notStated&quot;)
+q309_06w$dontKnow &lt;- NA
 
-summaryPoverty &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 
-    100)
-summaryPoverty &lt;- summaryPoverty[!is.na(summaryPoverty$Freq), ]
+poverty_06 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
+poverty_06 &lt;- poverty_06[!is.na(poverty_06$Freq), ]
+poverty_06w &lt;- dcast(poverty_06, cntry ~ poverty, value.var = &quot;Freq&quot;)
+names(poverty_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+    &quot;socialFateRec&quot;)
+## perGini
+library(laeken)
+perGini2006 &lt;- as.data.frame(gini(inc = &quot;q211_rec&quot;, weights = &quot;weight_1&quot;, data = lits1, 
+    na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
+</code></pre>
 
-summaryPovertyw &lt;- dcast(summaryPoverty, cntry ~ poverty, value.var = &quot;Freq&quot;)
-names(summaryPovertyw) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
-    &quot;socialFate&quot;)
+<pre><code>## Error: undefined columns selected
+</code></pre>
+
+<pre><code class="r">
+names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;perGini2006&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2006 &lt;- merge(q309_06w, poverty_06w, by = &quot;cntry&quot;, all.x = TRUE)
+macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TRUE)
+</code></pre>
+
+<pre><code>## Error: error in evaluating the argument &#39;y&#39; in selecting a method for function &#39;merge&#39;: Error: object &#39;perGini2006&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2006$year &lt;- 2006
+
+# macro &lt;- rbind(macro2006,macro2010) ------ END 2006 ---------- ####
 </code></pre>
 
 <h2 id="toc_9">Data from Quality of Government institute</h2>
@@ -1415,19 +1430,27 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
                    &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;,
                    &#39;Italy&#39;,&#39;Germany&#39;,&#39;United Kingdom&#39;,
                    &#39;Sweden&#39;,&#39;France&#39;), 
-       indicator = c(&quot;ffp_fsi&quot;, # Failed States Index
-                     &quot;wbgi_vae&quot;, # World Bank - Voice and Accountability
-                     &quot;undp_hdi&quot;, # UNDP Human Development Index
-                     &quot;fh_polity2&quot;, # Democracy (Freedom House/Polity)
-                     &quot;uw_gini&quot;))
-# subset the latest value per cntry per indicator
-library(plyr)
-datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
-                   subset, year == max(year))
+       indicator = c(&quot;wbgi_vae&quot;#, # World Bank - Voice and Accountability
+                     #&quot;uw_gini&quot;
+                     ))
 
-datQogSum.w &lt;- dcast(datQogSum, 
-                     cname ~ indicator, 
-                     value.var=&quot;value&quot;)
+# datQog &lt;- datQog[datQog$year &gt;= 2000, ]
+# table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
+
+# subset the latest value per cntry per indicator
+#library(plyr)
+#datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
+#                   subset, year == max(year))
+datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
+datQogSum$year[datQogSum$year == 2009] &lt;- 2010
+names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
+datQogSum$indicator &lt;- NULL
+
+# datQogSum.w &lt;- dcast(datQogSum, 
+#                      cname+indicator ~ year, 
+#                      value.var=&quot;value&quot;)
+
+datQogSum.w &lt;- datQogSum
 
 datQogSum.w$cname &lt;-  as.character(datQogSum.w$cname)
 datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
@@ -1446,9 +1469,9 @@ summary(factor(datQogSum.w$group_fine))
 </code></pre>
 
 <pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
-##             3             3             7             4             4 
+##             6             6            14             8             8 
 ##   West Europe 
-##             5
+##            10
 </code></pre>
 
 <pre><code class="r">
@@ -1468,10 +1491,11 @@ datQogSum.w$group_general &lt;- factor(datQogSum.w$group_general,
                                     levels=c(&quot;Western Europe&quot;,
                                              &quot;CEE&quot;,
                                              &quot;CIS&quot;))
-
 df.qog &lt;- datQogSum.w
-
 names(df.qog)[1] &lt;- &quot;cntry&quot;
+
+macro2006 &lt;- merge(macro2006,df.qog[df.qog$year == 2006,],by=c(&quot;cntry&quot;,&quot;year&quot;))
+macro2010 &lt;- merge(macro2010,df.qog[df.qog$year == 2010,],by=c(&quot;cntry&quot;,&quot;year&quot;))
 </code></pre>
 
 <h2 id="toc_10">Data from World Bank</h2>
@@ -1492,48 +1516,43 @@ iso2c  # copy paste into WDI search
 wb &lt;- WDI(indicator = c(&quot;NY.GDP.MKTP.CD&quot;), country = c(&quot;AL&quot;, &quot;AM&quot;, &quot;AZ&quot;, &quot;BY&quot;, 
     &quot;BA&quot;, &quot;BG&quot;, &quot;HR&quot;, &quot;CZ&quot;, &quot;EE&quot;, &quot;FR&quot;, &quot;GE&quot;, &quot;DE&quot;, &quot;GB&quot;, &quot;HU&quot;, &quot;IT&quot;, &quot;KZ&quot;, 
     &quot;KG&quot;, &quot;LV&quot;, &quot;LT&quot;, &quot;MK&quot;, &quot;MD&quot;, &quot;MN&quot;, &quot;ME&quot;, &quot;PL&quot;, &quot;RO&quot;, &quot;RU&quot;, &quot;RS&quot;, &quot;SK&quot;, 
-    &quot;SI&quot;, &quot;SE&quot;, &quot;TJ&quot;, &quot;TR&quot;, &quot;UA&quot;, &quot;UZ&quot;), start = 2007, end = 2010)
-
+    &quot;SI&quot;, &quot;SE&quot;, &quot;TJ&quot;, &quot;TR&quot;, &quot;UA&quot;, &quot;UZ&quot;), start = 2003, end = 2010)
 library(reshape2)
 names(wb) &lt;- c(&quot;iso2c&quot;, &quot;cntry&quot;, &quot;var&quot;, &quot;year&quot;)
+wb$year &lt;- paste(&quot;x&quot;, wb$year, sep = &quot;&quot;)
 wb.w &lt;- dcast(wb, cntry ~ year, value.var = &quot;var&quot;)
 
-names(wb.w) &lt;- c(&quot;cntry&quot;, &quot;x2007&quot;, &quot;x2008&quot;, &quot;x2009&quot;, &quot;x2010&quot;)
 wb.w$gdpchange07.10 &lt;- wb.w$x2010/wb.w$x2007 * 100 - 100
-gdp &lt;- wb.w[, c(1, 6)]
+wb.w$gdpchange03.06 &lt;- wb.w$x2006/wb.w$x2003 * 100 - 100
 
-gdp$cntry[gdp$cntry == &quot;Russian Federation&quot;] &lt;- &quot;Russia&quot;
-gdp$cntry[gdp$cntry == &quot;Kyrgyz Republic&quot;] &lt;- &quot;Kyrgyzstan&quot;
-gdp$cntry[gdp$cntry == &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
-gdp$cntry[gdp$cntry == &quot;Slovak Republic&quot;] &lt;- &quot;Slovakia&quot;
+wb.w$cntry[wb.w$cntry == &quot;Russian Federation&quot;] &lt;- &quot;Russia&quot;
+wb.w$cntry[wb.w$cntry == &quot;Kyrgyz Republic&quot;] &lt;- &quot;Kyrgyzstan&quot;
+wb.w$cntry[wb.w$cntry == &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
+wb.w$cntry[wb.w$cntry == &quot;Slovak Republic&quot;] &lt;- &quot;Slovakia&quot;
+
+gdp10 &lt;- wb.w[, c(1, 10)]
+names(gdp10) &lt;- c(&quot;cntry&quot;, &quot;gdpChange&quot;)
+gdp06 &lt;- wb.w[, c(1, 11)]
+names(gdp06) &lt;- c(&quot;cntry&quot;, &quot;gdpChange&quot;)
+
+macro2006 &lt;- merge(macro2006, gdp06, by = &quot;cntry&quot;)
+macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
 </code></pre>
 
 <h2 id="toc_11">Merging all the data and saving for the analysis</h2>
 
+<pre><code class="r"># yhdistetään nää aikaisempien datojen kanssa
+macro &lt;- rbind(macro2006, macro2010)
+</code></pre>
+
+<pre><code>## Error: numbers of columns of arguments do not match
+</code></pre>
+
 <pre><code class="r">
-# yhdistetään nää aikaisempien datojen kanssa
-macro &lt;- merge(summary309w, gdp, by = &quot;cntry&quot;, all.x = TRUE)
-macro &lt;- merge(macro, df.qog, by = &quot;cntry&quot;)
-macro &lt;- merge(macro, perGini2010, by = &quot;cntry&quot;)
+df &lt;- merge(df, macro[macro$year == 2010, ], by = &quot;cntry&quot;)
+df2 &lt;- merge(df2, macro[macro$year == 2006, ], by = &quot;cntry&quot;)
 
-df &lt;- merge(df, macro, by = &quot;cntry&quot;)
-
-rm(lits2)
-rm(df.qog)
-rm(df.cross.postsoc)
-rm(gdp)
-rm(t3)
-rm(summary309)
-rm(summary309_rec)
-rm(d.df)
-rm(wb)
-rm(wb.w)
-rm(cntry)
-rm(iso2c)
-rm(lits1)
-rm(medianData)
-rm(perGini2006)
-rm(perGini2010)
+rm(list = setdiff(ls(), c(&quot;macro&quot;, &quot;df&quot;, &quot;df2&quot;)))
 
 save.image(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
 # load(&#39;~/workspace/lits/attributions/data/lits.RData&#39;)

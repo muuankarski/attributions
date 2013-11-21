@@ -1,7 +1,6 @@
 # Regression modellining
 
 
-
 ```{r, eval=FALSE, echo=FALSE}
 library(knitr)
 library(markdown)

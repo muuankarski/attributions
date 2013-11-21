@@ -1,6 +1,5 @@
 # Descriptive visualizations
 
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions")
@@ -9,8 +8,6 @@ library(markdown)
 knit2html('descriptive_analysis.Rmd', 
           stylesheet="~/workspace/web/css/rmarkdown.css",
           options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-
-
 ```
 
 
