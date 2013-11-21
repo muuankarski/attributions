@@ -49,129 +49,306 @@ hljs.initHighlightingOnLoad();
 
 
 <style type="text/css">
-body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 12px;
-   margin: 8px;
+.title /* Pandoc title header (h1.title) */
+    {
+    text-align: center;
+    border-width:0px;
+	font-size: 1.2em;
+	margin: 0 0 5px 0;
+	line-height: 1.3em;
+	letter-spacing: 0.06em;
+	word-spacing: .1em;
+    border-bottom: 0px;
+    }
+
+.author /* Pandoc author(s) header (h2.author) */
+    {
+    text-align: center;
+    font-size: 1.1em;
+	line-height: 1.2em;
+    }
+
+.date /* Pandoc date header (h3.date) */
+    {
+	font-family:  Verdana, Arial;
+    text-align: center;
+    font-size: 1.1em;
+	line-height: 1.2em;
+    }
+
+
+body {
+    margin-left: 160px;
+    max-width:900px;
+ 
+    border: 0px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+
+#toc {
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    position: fixed;
+    width: 150px;
+    padding-top: 20px;
+    color: #0099FF;
 }
 
-h1 { 
-   font-size:2.2em; 
+#toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-h2 { 
-   font-size:1.8em; 
+#toc li {
+    padding: 5px 10px;
 }
 
-h3 { 
-   font-size:1.4em; 
+#toc a {
+    color: #0099FF;
+    text-decoration: none;
+    display: block;
 }
 
-h4 { 
-   font-size:1.0em; 
+#toc .toc-h2 {
+    padding-left: 10px;
 }
 
-h5 { 
-   font-size:0.9em; 
+#toc .toc-h3 {
+    padding-left: 20px;
 }
 
-h6 { 
-   font-size:0.8em; 
+#toc .toc-active {
+    background: #336699;
+    box-shadow: inset -5px 0px 10px -5px #000;
 }
 
-a:visited {
-   color: rgb(50%, 0%, 50%);
+
+
+
+blockquote {
+	padding-left: .5em; 
+    border-left: 2px solid #C1C1C1;
+	font-style: italic;
 }
+
 
 pre {	
    margin-top: 0;
    max-width: 95%;
-   border: 1px solid #ccc;
+   border: 1px dashed #ccc;
    white-space: pre-wrap;
+   font-size:1.0em;
+    background: #FFFFFF;
 }
 
 pre code {
-   display: block; padding: 0.5em;
+   display: block; 
+   padding: 0.2em;
+   font-size:1.0em;
 }
 
 code.r, code.cpp {
-   background-color: #F8F8F8;
+   background-color: #ECEEF0;
 }
 
-table, td, th {
-  border: none;
+
+
+ul {
+	font-size: 100% !important;
+	font-family: Arial, Helvetica, sans-serif;
+}
+li {
+	font-family: Arial, Helvetica, sans-serif;
+ 	font-size: 1em;
+ 	line-height: 1.1em;
 }
 
-blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 1em;
+	line-height: 1.2em;
+}
+ol {
+	list-style: decimal outside;
+	list-style-type: decimal;
+	float: none;
+	margin: .5em 0 .5em 30px;
+	padding: 0;
+}
+ul {
+	margin: .2em 0 .2em 10px;
+	padding: 0;
+}
+UL li, ol li {
+	line-height: 1.1em;
+	padding: 2px;
+}
+a:link {
+	color: #6E2817;
+    text-decoration: none;
+}
+a:hover {
+	color: #6E2817;
+}
+a:visited {
+	color: #3E4E70;
+}
+a:focus {
+	color: #6E2817;
+}
+a:active {
+	color: #3E4E70;
 }
 
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
+h1 {
+	font-family:  Verdana, Arial;
+	font-size: 1.5em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.5em;
+	letter-spacing: 0.06em;
+	word-spacing: .1em;
+    border-bottom: 0.6px solid #555;
+}
+h2 {
+	font-family:  Verdana, Arial;
+	font-size: 1.3em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.3em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h3 {
+	font-family:  Verdana, Arial;
+	font-size: 1.1em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.1em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h4 {
+	font-family: Arial;
+	font-size: 1.0em;
+	padding: 2px;
+	line-height: 1.0em;
+	color: #555;
+	font-weight: italic;
+}
+h5 {
+	font-family: Arial;
+	font-size: 1.05em;
+	padding: 2px;
+	line-height: 1.15em;
+	color: #555;
+	font-weight: normal;
+}
+h6 {
+	font-family: Arial;
+	font-size: 1em;
+	padding: 2px;
+	line-height: 1.1em;
+	color: #555;
+	font-weight: normal;
+}
+p.caption, table caption, caption{
+    margin-top:0em;
+    padding:2px;
+    font-weight:bold;
+    font-size:1.0em;
+    text-align:left;
+    font-style: italic;
+    color: #555;
 }
 
-@media print {
-   * { 
-      background: transparent !important; 
-      color: black !important; 
-      filter:none !important; 
-      -ms-filter: none !important; 
-   }
+/* table styles */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+    line-height: 1.4em;
+	font-size: 1.1em;
+	font-family: monospace;
 
-   body { 
-      font-size:12pt; 
-      max-width:100%; 
-   }
-       
-   a, a:visited { 
-      text-decoration: underline; 
-   }
-
-   hr { 
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote { 
-      padding-right: 1em; 
-      page-break-inside: avoid; 
-   }
-
-   tr, img { 
-      page-break-inside: avoid; 
-   }
-
-   img { 
-      max-width: 100% !important; 
-   }
-
-   @page :left { 
-      margin: 15mm 20mm 15mm 10mm; 
-   }
-     
-   @page :right { 
-      margin: 15mm 10mm 15mm 20mm; 
-   }
-
-   p, h2, h3 { 
-      orphans: 3; widows: 3; 
-   }
-
-   h2, h3 { 
-      page-break-after: avoid; 
-   }
+}
+.views-table, table {
+	margin-left: 2px;
+	margin-bottom: 10px;
+	/*width: 1300px;*/
+}
+tr {
+	line-height: 1.2em;
+	border-bottom: #9e9e9e thin solid;
+}
+tr:last-child {
+	line-height: 1.2em;
+}
+th {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+	border-bottom: #9e9e9e thin solid;
+}
+th:last-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+}
+th:first-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border: #9e9e9e thin solid;
+}
+tbody tr {
+	line-height: 1.2em;
+	border-left: #9e9e9e thin solid;
+}
+tbody tr:nth-child(odd) {
+	line-height: 1.2em;
+	background-color: #efefef;
+}
+td {
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+}
+td:last-child {
+	padding: 0 5px 0 5px;
+}
+DL {
+	margin: .3em 0 .3em 0;
+}
+DT {
+	margin: .3em 0 .3em 0;
+}
+DD {
+	line-height: 1.5em;
+	list-style: none;
+	margin: .7em 0 .7em 2em;
+}
+td.active {
+	background-color: transparent!important;
+}
+tr:last-child {
+	border-bottom: #9e9e9e thin solid;
+}
+tr:first-child {
+	border-top: #9e9e9e thin solid;
+}
+th:last-child {
+	border-left: #9e9e9e thin solid;
+}
+th:last-child {
+	border-right: #9e9e9e thin solid;
 }
 </style>
 
@@ -1227,76 +1404,116 @@ names(summaryPovertyw) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot
 
 <h2 id="toc_9">Data from Quality of Government institute</h2>
 
-<pre><code class="r">####### Quality of governance library(rustfare) datQog &lt;- GetQog(country =
-####### c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
-####### &#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;,&#39;Kyrgyzstan&#39;, &#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,
-####### &#39;Uzbekistan&#39;,&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;, &#39;Poland&#39;,&#39;Czech
-####### Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;, &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;,
-####### &#39;Italy&#39;,&#39;Germany&#39;,&#39;United Kingdom&#39;, &#39;Sweden&#39;,&#39;France&#39;), indicator =
-####### c(&#39;ffp_fsi&#39;, # Failed States Index &#39;wbgi_vae&#39;, # World Bank - Voice and
-####### Accountability &#39;undp_hdi&#39;, # UNDP Human Development Index &#39;fh_polity2&#39;, #
-####### Democracy (Freedom House/Polity) &#39;uw_gini&#39;)) # subset the latest value per
-####### cntry per indicator library(plyr) datQogSum &lt;- ddply(datQog,
-####### c(&#39;cname&#39;,&#39;indicator&#39;), subset, year == max(year))
+<pre><code class="r">#######
+# Quality of governance
+library(rustfare)
+datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
+                   &#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;,&#39;Kyrgyzstan&#39;,
+                   &#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,
+                   &#39;Uzbekistan&#39;,&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;,
+                   &#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
+                   &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;,
+                   &#39;Italy&#39;,&#39;Germany&#39;,&#39;United Kingdom&#39;,
+                   &#39;Sweden&#39;,&#39;France&#39;), 
+       indicator = c(&quot;ffp_fsi&quot;, # Failed States Index
+                     &quot;wbgi_vae&quot;, # World Bank - Voice and Accountability
+                     &quot;undp_hdi&quot;, # UNDP Human Development Index
+                     &quot;fh_polity2&quot;, # Democracy (Freedom House/Polity)
+                     &quot;uw_gini&quot;))
+# subset the latest value per cntry per indicator
+library(plyr)
+datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
+                   subset, year == max(year))
 
-# datQogSum.w &lt;- dcast(datQogSum, cname ~ indicator, value.var=&#39;value&#39;)
-# datQogSum.w$cname &lt;- as.character(datQogSum.w$cname)
-# datQogSum.w$cname[datQogSum.w$cname %in% &#39;United Kingdom&#39;] &lt;- &#39;Great
-# Britain&#39; datQogSum.w$group_fine[datQogSum.w$cname %in%
-# c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;)] &lt;- &#39;Caucasus&#39;
-# datQogSum.w$group_fine[datQogSum.w$cname %in%
-# c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
-# datQogSum.w$group_fine[datQogSum.w$cname %in%
-# c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
-# datQogSum.w$group_fine[datQogSum.w$cname %in%
-# c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
-# datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech
-# Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;, &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;)] &lt;- &#39;CEE
-# EU&#39; datQogSum.w$group_fine[datQogSum.w$cname %in%
-# c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
-# datQogSum.w$group_fine &lt;- factor(datQogSum.w$group_fine)
-# summary(factor(datQogSum.w$group_fine))
-# datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;France&#39;,&#39;Germany&#39;,
-# &#39;Great Britain&#39;,&#39;Italy&#39;,&#39;Sweden&#39;)] &lt;- &#39;Western Europe&#39;
-# datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech
-# Republic&#39;,&#39;Estonia&#39;, &#39;Hungary&#39;,&#39;Bulgaria&#39;, &#39;Latvia&#39;,&#39;Lithuania&#39;,&#39;Poland&#39;,
-# &#39;Slovakia&#39;,&#39;Slovenia&#39;,&#39;Romania&#39;)] &lt;- &#39;CEE&#39;
-# datQogSum.w$group_general[datQogSum.w$cname %in%
-# c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;, &#39;Georgia&#39;,&#39;Kazakhstan&#39;,
-# &#39;Kyrgyzstan&#39;,&#39;Moldova&#39;, &#39;Tajikistan&#39;,&#39;Ukraine&#39;, &#39;Uzbekistan&#39;,&#39;Russia&#39;)] &lt;-
-# &#39;CIS&#39; datQogSum.w$group_general &lt;- factor(datQogSum.w$group_general,
-# levels=c(&#39;Western Europe&#39;, &#39;CEE&#39;, &#39;CIS&#39;)) df.qog &lt;- datQogSum.w
-# names(df.qog)[1] &lt;- &#39;cntry&#39;
+datQogSum.w &lt;- dcast(datQogSum, 
+                     cname ~ indicator, 
+                     value.var=&quot;value&quot;)
 
+datQogSum.w$cname &lt;-  as.character(datQogSum.w$cname)
+datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
+
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;)] &lt;- &#39;Caucasus&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
+                                                &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;)] &lt;- &#39;CEE EU&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
+
+datQogSum.w$group_fine &lt;- factor(datQogSum.w$group_fine)
+
+summary(factor(datQogSum.w$group_fine))
+</code></pre>
+
+<pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
+##             3             3             7             4             4 
+##   West Europe 
+##             5
+</code></pre>
+
+<pre><code class="r">
+datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;France&#39;,&#39;Germany&#39;,
+                                                   &#39;Great Britain&#39;,&#39;Italy&#39;,&#39;Sweden&#39;)] &lt;- &#39;Western Europe&#39;
+datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech Republic&#39;,&#39;Estonia&#39;,
+                                                   &#39;Hungary&#39;,&#39;Bulgaria&#39;,
+                                                   &#39;Latvia&#39;,&#39;Lithuania&#39;,&#39;Poland&#39;,
+                                                   &#39;Slovakia&#39;,&#39;Slovenia&#39;,&#39;Romania&#39;)] &lt;- &#39;CEE&#39;
+datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;,
+                                                   &#39;Georgia&#39;,&#39;Kazakhstan&#39;,
+                                                   &#39;Kyrgyzstan&#39;,&#39;Moldova&#39;,
+                                                   &#39;Tajikistan&#39;,&#39;Ukraine&#39;,
+                                                   &#39;Uzbekistan&#39;,&#39;Russia&#39;)] &lt;- &#39;CIS&#39;
+
+datQogSum.w$group_general &lt;- factor(datQogSum.w$group_general, 
+                                    levels=c(&quot;Western Europe&quot;,
+                                             &quot;CEE&quot;,
+                                             &quot;CIS&quot;))
+
+df.qog &lt;- datQogSum.w
+
+names(df.qog)[1] &lt;- &quot;cntry&quot;
 </code></pre>
 
 <h2 id="toc_10">Data from World Bank</h2>
 
-<pre><code class="r"># ## GDP change from WB ### We need iso2c countrycode library(countrycode)
-# cntry &lt;- levels(df$cntry) # countrynames iso2c &lt;- countrycode(cntry,
-# &#39;country.name&#39;, &#39;iso2c&#39;) iso2c # copy paste into WDI search library(WDI) #
-# WDIsearch(string=&#39;gdp&#39;, field=&#39;name&#39;, cache=NULL) wb &lt;- WDI(indicator =
-# c(&#39;NY.GDP.MKTP.CD&#39;), country = c(&#39;AL&#39;,&#39;AM&#39;,&#39;AZ&#39;,&#39;BY&#39;,&#39;BA&#39;,&#39;BG&#39;,&#39;HR&#39;,
-# &#39;CZ&#39;,&#39;EE&#39;,&#39;FR&#39;,&#39;GE&#39;,&#39;DE&#39;,&#39;GB&#39;,&#39;HU&#39;, &#39;IT&#39;,&#39;KZ&#39;,&#39;KG&#39;,&#39;LV&#39;,&#39;LT&#39;,&#39;MK&#39;,&#39;MD&#39;,
-# &#39;MN&#39;,&#39;ME&#39;,&#39;PL&#39;,&#39;RO&#39;,&#39;RU&#39;,&#39;RS&#39;,&#39;SK&#39;, &#39;SI&#39;,&#39;SE&#39;,&#39;TJ&#39;,&#39;TR&#39;,&#39;UA&#39;,&#39;UZ&#39;), start
-# = 2007, end = 2010) library(reshape2) names(wb) &lt;-
-# c(&#39;iso2c&#39;,&#39;cntry&#39;,&#39;var&#39;,&#39;year&#39;) wb.w &lt;- dcast(wb, cntry ~ year,
-# value.var=&#39;var&#39;) names(wb.w) &lt;- c(&#39;cntry&#39;,&#39;x2007&#39;,&#39;x2008&#39;,&#39;x2009&#39;,&#39;x2010&#39;)
-# wb.w$gdpchange07.10 &lt;- wb.w$x2010/wb.w$x2007 * 100 - 100 gdp &lt;-
-# wb.w[,c(1,6)] gdp$cntry[gdp$cntry == &#39;Russian Federation&#39;] &lt;- &#39;Russia&#39;
-# gdp$cntry[gdp$cntry == &#39;Kyrgyz Republic&#39;] &lt;- &#39;Kyrgyzstan&#39;
-# gdp$cntry[gdp$cntry == &#39;United Kingdom&#39;] &lt;- &#39;Great Britain&#39;
-# gdp$cntry[gdp$cntry == &#39;Slovak Republic&#39;] &lt;- &#39;Slovakia&#39;
+<pre><code class="r">## GDP change from WB We need iso2c countrycode
+library(countrycode)
+cntry &lt;- levels(df$cntry)  # countrynames
+iso2c &lt;- countrycode(cntry, &quot;country.name&quot;, &quot;iso2c&quot;)
+iso2c  # copy paste into WDI search
+</code></pre>
 
+<pre><code>##  [1] &quot;AM&quot; &quot;AZ&quot; &quot;BY&quot; &quot;BG&quot; &quot;CZ&quot; &quot;EE&quot; &quot;FR&quot; &quot;GE&quot; &quot;DE&quot; &quot;GB&quot; &quot;HU&quot; &quot;IT&quot; &quot;KZ&quot; &quot;KG&quot;
+## [15] &quot;LV&quot; &quot;LT&quot; &quot;MD&quot; &quot;PL&quot; &quot;RO&quot; &quot;RU&quot; &quot;SK&quot; &quot;SI&quot; &quot;SE&quot; &quot;TJ&quot; &quot;UA&quot; &quot;UZ&quot;
+</code></pre>
+
+<pre><code class="r">library(WDI)
+# WDIsearch(string=&#39;gdp&#39;, field=&#39;name&#39;, cache=NULL)
+wb &lt;- WDI(indicator = c(&quot;NY.GDP.MKTP.CD&quot;), country = c(&quot;AL&quot;, &quot;AM&quot;, &quot;AZ&quot;, &quot;BY&quot;, 
+    &quot;BA&quot;, &quot;BG&quot;, &quot;HR&quot;, &quot;CZ&quot;, &quot;EE&quot;, &quot;FR&quot;, &quot;GE&quot;, &quot;DE&quot;, &quot;GB&quot;, &quot;HU&quot;, &quot;IT&quot;, &quot;KZ&quot;, 
+    &quot;KG&quot;, &quot;LV&quot;, &quot;LT&quot;, &quot;MK&quot;, &quot;MD&quot;, &quot;MN&quot;, &quot;ME&quot;, &quot;PL&quot;, &quot;RO&quot;, &quot;RU&quot;, &quot;RS&quot;, &quot;SK&quot;, 
+    &quot;SI&quot;, &quot;SE&quot;, &quot;TJ&quot;, &quot;TR&quot;, &quot;UA&quot;, &quot;UZ&quot;), start = 2007, end = 2010)
+
+library(reshape2)
+names(wb) &lt;- c(&quot;iso2c&quot;, &quot;cntry&quot;, &quot;var&quot;, &quot;year&quot;)
+wb.w &lt;- dcast(wb, cntry ~ year, value.var = &quot;var&quot;)
+
+names(wb.w) &lt;- c(&quot;cntry&quot;, &quot;x2007&quot;, &quot;x2008&quot;, &quot;x2009&quot;, &quot;x2010&quot;)
+wb.w$gdpchange07.10 &lt;- wb.w$x2010/wb.w$x2007 * 100 - 100
+gdp &lt;- wb.w[, c(1, 6)]
+
+gdp$cntry[gdp$cntry == &quot;Russian Federation&quot;] &lt;- &quot;Russia&quot;
+gdp$cntry[gdp$cntry == &quot;Kyrgyz Republic&quot;] &lt;- &quot;Kyrgyzstan&quot;
+gdp$cntry[gdp$cntry == &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
+gdp$cntry[gdp$cntry == &quot;Slovak Republic&quot;] &lt;- &quot;Slovakia&quot;
 </code></pre>
 
 <h2 id="toc_11">Merging all the data and saving for the analysis</h2>
 
 <pre><code class="r">
-# yhdistetään nää aikaisempien datojen kanssa macro &lt;-
-# merge(summary309w,gdp,by=&#39;cntry&#39;, all.x=TRUE) macro &lt;-
-# merge(macro,df.qog,by=&#39;cntry&#39;) save(macro, file=&#39;data/macro.RData&#39;)
-load(&quot;data/macro.RData&quot;)
+# yhdistetään nää aikaisempien datojen kanssa
+macro &lt;- merge(summary309w, gdp, by = &quot;cntry&quot;, all.x = TRUE)
+macro &lt;- merge(macro, df.qog, by = &quot;cntry&quot;)
 macro &lt;- merge(macro, perGini2010, by = &quot;cntry&quot;)
 
 df &lt;- merge(df, macro, by = &quot;cntry&quot;)

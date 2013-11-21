@@ -1,11 +1,22 @@
-# Final graphics for the paper
+% Final graphics for the paper
+
+- [back to index](index.html)
+
+
+`generated at:`
+```{r, echo=FALSE}
+Sys.time()
+```
+---
 
 <link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
+
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
-library(knitr)
-knit2html('finalPlots.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+library(kaRski)
+knit("finalPlots.Rmd")
+system("pandoc -s finalPlots.md -o finalPlots.html --toc --number-section")
 
 ```
 

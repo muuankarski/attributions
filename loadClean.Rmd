@@ -6,7 +6,10 @@
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions/")
 library(knitr)
-knit2html('loadClean.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+library(markdown)
+knit2html('loadClean.Rmd', 
+          stylesheet="~/workspace/web/css/rmarkdown.css",
+          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
 
 ```
 

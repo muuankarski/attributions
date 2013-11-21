@@ -5,10 +5,12 @@
 ```{r, eval=FALSE, echo=FALSE}
 setwd("~/workspace/lits/attributions")
 library(knitr)
-knit2html('descriptive_analysis.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+library(markdown)
+knit2html('descriptive_analysis.Rmd', 
+          stylesheet="~/workspace/web/css/rmarkdown.css",
+          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
 
 
-knitpandoc("descriptive_analysis",toc)
 ```
 
 

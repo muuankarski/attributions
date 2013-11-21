@@ -1,12 +1,14 @@
 # Regression modellining
 
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
 
 
 ```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attributions/")
 library(knitr)
-knit2html('regressionModelling.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+library(markdown)
+knit2html('regressionModelling.Rmd', 
+          stylesheet="~/workspace/web/css/rmarkdown.css",
+          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
+
 ```
 
 
@@ -87,7 +89,7 @@ htmlreg(list(unbisoc.1,unbisoc.2,
              unbisoc.5,unbisoc.6),
         custom.model.names = model.names,
         custom.coef.names = coef.names,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -128,7 +130,7 @@ htmlreg(list(unbiind.1,unbiind.2,
              unbiind.5,unbiind.6),
         custom.model.names = model.names,
         custom.coef.names = coef.names,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -188,7 +190,7 @@ htmlreg(list(mulbisoc.1,mulbisoc.2,
              mulbisoc.3,mulbisoc.4,
              mulbisoc.5,mulbisoc.6),
         custom.coef.names = coef.names,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -249,7 +251,7 @@ htmlreg(list(mulbiind.1,mulbiind.2,
              mulbiind.3,mulbiind.4,
              mulbiind.5,mulbiind.6),
         custom.coef.names = coef.names,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -411,7 +413,7 @@ htmlreg(list(bisoc.1,bisoc.2,
              bisoc.13),
         custom.coef.names = coef.names.multi,
         naive = TRUE,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -471,7 +473,7 @@ htmlreg(list(biind.1,biind.2,
              biind.13),
         custom.coef.names = coef.names.multi,
         naive = TRUE,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -545,7 +547,7 @@ htmlreg(list(soc.0,
         custom.model.names = model.names.multi,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -604,7 +606,7 @@ htmlreg(list(ind.0,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
         ci.test = NULL,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -671,28 +673,12 @@ model.names.multi.A = c("SB empty",
                       "SB all",
                       "IB empty",
                       "IB individual",
-                        "IB all",
-                        "SB perGini",
-                        "IB perGini")
-
-SBperGini <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        perGini+gdpchange07.10+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-IBperGini <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        perGini+gdpchange07.10+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-
-
+                        "IB all")
 
 htmlreg(list(soc.0,soc.1,soc.4,
-            ind.0,ind.1,ind.4,
-             SBperGini,IBperGini),
+            ind.0,ind.1,ind.4),
         custom.model.names = model.names.multi.A,
-        #custom.coef.names = coef.names.multi,
+        custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = TRUE,
         doctype = FALSE,
@@ -724,7 +710,7 @@ htmlreg(list(soc.4,ind.4,socVsInc),
         naive = TRUE,
         custom.model.names = model.names.multi.2,
         custom.coef.names = coef.names.multi,
-        inline.css = TRUE,
+        inline.css = FALSE,
         doctype = FALSE,
         html.tag = FALSE,
         head.tag = FALSE,
@@ -733,6 +719,9 @@ htmlreg(list(soc.4,ind.4,socVsInc),
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
 ```
+
+
+
 
 
 
