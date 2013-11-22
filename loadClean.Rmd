@@ -439,6 +439,7 @@ df <- subset(lits2, select=c("SerialID","weight",
                              "group_analysis",
                              "income2",
                              "poverty",
+                             "crise",
                              "future.diff","past.diff"
                              ))
 names(lits1)[2] <- "SerialID"
@@ -526,9 +527,6 @@ names(perGini2006) <- c("cntry","perGini")
 macro2006 <- merge(q309_06w,poverty_06w,by="cntry",all.x=TRUE)
 macro2006 <- merge(macro2006,perGini2006,by="cntry",all.x=TRUE)
 macro2006$year <- 2006
-
-#macro <- rbind(macro2006,macro2010)
-### ------ END 2006 ---------- ####
 ```
 
 ## Data from Quality of Government institute

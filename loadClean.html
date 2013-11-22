@@ -78,7 +78,7 @@ hljs.initHighlightingOnLoad();
 
 
 body {
-    margin-left: 180px;
+    margin-left: 160px;
     max-width:900px; 
     border: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -86,11 +86,12 @@ body {
 
 
 #toc {
+    font-size:0.7em;
     top: 0px;
     left: 0px;
     height: 100%;
     position: fixed;
-    width: 170px;
+    width: 150px;
     padding-top: 20px;
     color: #0099FF;
     border-right: 1px dashed #C1C1C1;
@@ -104,7 +105,7 @@ body {
 }
 
 #toc li {
-    padding: 5px 10px;
+    padding: 2px 4px;
 }
 
 #toc a {
@@ -128,12 +129,12 @@ h1:toc_1 {
 }
 
 #toc .toc-h3 {
-    padding-left: 20px;
+    padding-left: 25px;
 }
 
 #toc .toc-active {
     background: #336699;
-    box-shadow: inset -5px 0px 10px -5px #000;
+    box-shadow: inset -5px 0px 10px -5px #000000;
 }
 
 
@@ -1291,7 +1292,8 @@ summary(lits2$crise)
 
 df &lt;- subset(lits2, select = c(&quot;SerialID&quot;, &quot;weight&quot;, &quot;cntry&quot;, &quot;q309&quot;, &quot;sex&quot;, 
     &quot;age&quot;, &quot;pov.log.social&quot;, &quot;pov.log.individual&quot;, &quot;socialism&quot;, &quot;incsour3&quot;, 
-    &quot;edu2&quot;, &quot;group_analysis&quot;, &quot;income2&quot;, &quot;poverty&quot;, &quot;future.diff&quot;, &quot;past.diff&quot;))
+    &quot;edu2&quot;, &quot;group_analysis&quot;, &quot;income2&quot;, &quot;poverty&quot;, &quot;crise&quot;, &quot;future.diff&quot;, 
+    &quot;past.diff&quot;))
 names(lits1)[2] &lt;- &quot;SerialID&quot;
 names(lits1)[1165] &lt;- &quot;weight&quot;
 
@@ -1337,13 +1339,21 @@ summary(df)
 ##                                                              
 ##                                                              
 ##                                                              
-##              poverty              future.diff             past.diff    
-##  Social Blame    :11666   worse         : 4733   worse         : 9845  
-##  Individual Blame: 6681   same or better:19007   same or better:18339  
-##  Individual Fate : 2844   NA&#39;s          : 5277   NA&#39;s          :  833  
-##  Social Fate     : 5039                                                
-##  NA&#39;s            : 2787                                                
-##                                                                        
+##              poverty                       crise      
+##  Social Blame    :11666   Great or fair amount:11464  
+##  Individual Blame: 6681   Little or not at all:15558  
+##  Individual Fate : 2844   NA&#39;s                : 1995  
+##  Social Fate     : 5039                               
+##  NA&#39;s            : 2787                               
+##                                                       
+##                                                       
+##          future.diff             past.diff    
+##  worse         : 4733   worse         : 9845  
+##  same or better:19007   same or better:18339  
+##  NA&#39;s          : 5277   NA&#39;s          :  833  
+##                                               
+##                                               
+##                                               
 ## 
 </code></pre>
 
@@ -1413,8 +1423,6 @@ macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TR
 </code></pre>
 
 <pre><code class="r">macro2006$year &lt;- 2006
-
-# macro &lt;- rbind(macro2006,macro2010) ------ END 2006 ---------- ####
 </code></pre>
 
 <h2 id="toc_9">Data from Quality of Government institute</h2>

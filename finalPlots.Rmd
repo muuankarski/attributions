@@ -11,6 +11,7 @@ knit2html('finalPlots.Rmd',
 ```
 
 
+
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=FALSE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
 ```

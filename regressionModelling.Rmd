@@ -28,15 +28,6 @@ df.model <- df[df$group_general != "Western Europe",]
 
 ```
 
-`log of changes`
-
-date      comment
---------  -------------------
-20131103  Non multi-level logistic regression done but not interpret yet. Bivariate multilevel models the same. Multivariate multilevel models running over night.
-20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
-20131106  Model names fixed. Multinomial models coming by midday
-
-
 # Description
 
 This page includes everything related to modelling of the data. [Click here for the final tables](finalTables.html). 
@@ -373,13 +364,13 @@ bisoc.4 <- glmer(pov.log.social ~ past.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
 bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
- bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
+bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
                          family = binomial(logit), data = df.model)
- bisoc.8 <- glmer(pov.log.social ~ uw_gini+(1|cntry),
+# bisoc.8 <- glmer(pov.log.social ~ perGini+(1|cntry),
+#                         family = binomial(logit), data = df.model)
+bisoc.9 <- glmer(pov.log.social ~ gdpChange+(1|cntry),
                          family = binomial(logit), data = df.model)
- bisoc.9 <- glmer(pov.log.social ~ gdpchange07.10+(1|cntry),
-                         family = binomial(logit), data = df.model)
- bisoc.10 <- glmer(pov.log.social ~ wbgi_vae+(1|cntry),
+bisoc.10 <- glmer(pov.log.social ~ wbgi_vae+(1|cntry),
                           family = binomial(logit), data = df.model)
 bisoc.11 <- glmer(pov.log.social ~ group_analysis+(1|cntry),
                           family = binomial(logit), data = df.model)
@@ -397,7 +388,7 @@ coef.names.multi = c("(intercept)",
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-                      "Gini coefficient",
+                      #"Gini coefficient",
                       "Change in GDP between 2007 to 2010",
                       "Good governance","Cgroup","CgroupMod",
                      "Perceived Gini")
@@ -406,11 +397,11 @@ library(texreg)
 htmlreg(list(bisoc.1,bisoc.2,
           bisoc.3,bisoc.4,
           bisoc.5,bisoc.6,
-          bisoc.8,
+          #bisoc.8,
           bisoc.9,bisoc.10,
-             bisoc.11,bisoc.12,
-             bisoc.13),
-        custom.coef.names = coef.names.multi,
+          bisoc.11,bisoc.12,
+          bisoc.13),
+        #custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = FALSE,
         doctype = FALSE,
@@ -443,18 +434,19 @@ biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
                         family = binomial(logit), data = df.model)
-biind.8 <- glmer(pov.log.individual ~ uw_gini+(1|cntry),
-                        family = binomial(logit), data = df.model)
-biind.9 <- glmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
+#biind.8 <- glmer(pov.log.individual ~ perGini+(1|cntry),
+#                        family = binomial(logit), data = df.model)
+biind.9 <- glmer(pov.log.individual ~ gdpChange+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.10 <- glmer(pov.log.individual ~ wbgi_vae+(1|cntry),
                          family = binomial(logit), data = df.model)
 biind.11 <- glmer(pov.log.individual ~ group_analysis+(1|cntry),
                           family = binomial(logit), data = df.model)
-bisoc.12 <- glmer(pov.log.individual ~ group_balinCis+(1|cntry),
+biind.12 <- glmer(pov.log.individual ~ group_balinCis+(1|cntry),
                           family = binomial(logit), data = df.model)
-bisoc.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
+biind.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
                           family = binomial(logit), data = df.model)
+
 
 
 ```
@@ -462,15 +454,16 @@ bisoc.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
 
 ```{rmultilevelBivarIndOuputNOCI, results='asis'}
 
+
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
           biind.5,biind.6,
-          biind.8,
+          #biind.8,
           biind.9,biind.10,
           biind.11,biind.12,
              biind.13),
-        custom.coef.names = coef.names.multi,
+        #custom.coef.names = coef.names.multi,
         naive = TRUE,
         inline.css = FALSE,
         doctype = FALSE,
@@ -504,19 +497,20 @@ soc.1 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                       data = df.model)
 soc.2 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+(1|cntry),
+                        perGini+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 soc.3 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+(1|cntry),
+                        perGini+gdpChange+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                        perGini+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
+
 
 ```
 
@@ -528,7 +522,7 @@ coef.names.multi = c("(intercept)",
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-                      "Gini coefficient",
+                      "Perceived Gini",
                       "Change in GDP between 2007 to 2010",
                       "Good governance")
 
@@ -555,6 +549,7 @@ htmlreg(list(soc.0,
         caption="Logistic multilevel random intercept model for social blame type of explanation", 
         caption.above=TRUE)
 
+
 ```
 
 
@@ -567,8 +562,6 @@ htmlreg(list(soc.0,
 
 
 ```{rmultilevelMultiInd}
-
-
 ind.0 <- glmer(pov.log.individual ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -578,17 +571,17 @@ ind.1 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                        data = df.model)
 ind.2 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+(1|cntry),
+                        perGini+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 ind.3 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+(1|cntry),
+                        perGini+gdpChange+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                        perGini+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 
@@ -613,7 +606,6 @@ htmlreg(list(ind.0,
         include.pvalues=TRUE,
         caption="Logistic multilevel random intercept model for individual blame type of explanation", 
         caption.above=TRUE)
-
 ```
 
 ### Comparison of full models with our last model 
@@ -622,13 +614,13 @@ htmlreg(list(ind.0,
 
 soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                        perGini+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 
 ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                        perGini+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 
@@ -637,13 +629,14 @@ df.model$pov.log.socVsInc[df.model$poverty == "Individual Blame"] <- 0
 
 socVsInc <- glmer(pov.log.socVsInc ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                        perGini+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 
 save(ind.0,ind.1,ind.2,ind.3,ind.4,
      soc.0,soc.1,soc.2,soc.3,soc.4,
      socVsInc, file="data/finalModels.RData")
+
 
 ```
 
@@ -687,6 +680,7 @@ htmlreg(list(soc.0,soc.1,soc.4,
         include.pvalues=TRUE,
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
+
 ```
 
 ## Comparison of full models
@@ -717,6 +711,7 @@ htmlreg(list(soc.4,ind.4,socVsInc),
         include.pvalues=TRUE,
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
+
 ```
 
 
