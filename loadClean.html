@@ -1367,39 +1367,99 @@ d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df)
 q309_10 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
 q309_10 &lt;- q309_10[!is.na(q309_10$Freq), ]
 q309_10w &lt;- dcast(q309_10, cntry ~ q309, value.var = &quot;Freq&quot;)
-names(q309_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
-    &quot;socialFate&quot;, &quot;notStated&quot;, &quot;dontKnow&quot;)
+</code></pre>
 
+<pre><code>## Error: could not find function &quot;dcast&quot;
+</code></pre>
+
+<pre><code class="r">names(q309_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+    &quot;socialFate&quot;, &quot;notStated&quot;, &quot;dontKnow&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;q309_10w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 poverty_10 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
 poverty_10 &lt;- poverty_10[!is.na(poverty_10$Freq), ]
 poverty_10w &lt;- dcast(poverty_10, cntry ~ poverty, value.var = &quot;Freq&quot;)
-names(poverty_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;dcast&quot;
+</code></pre>
+
+<pre><code class="r">names(poverty_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
     &quot;socialFateRec&quot;)
-library(laeken)
+</code></pre>
+
+<pre><code>## Error: object &#39;poverty_10w&#39; not found
+</code></pre>
+
+<pre><code class="r">library(laeken)
 perGini2010 &lt;- as.data.frame(gini(inc = &quot;q227_rec&quot;, weights = &quot;weight&quot;, data = lits2, 
     na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
 names(perGini2010) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 
 macro2010 &lt;- merge(q309_10w, poverty_10w, by = &quot;cntry&quot;, all.x = TRUE)
-macro2010 &lt;- merge(macro2010, perGini2010, by = &quot;cntry&quot;, all.x = TRUE)
-macro2010$year &lt;- 2010
-### ------ BEGIN 2006 ---------- ####
+</code></pre>
+
+<pre><code>## Error: object &#39;q309_10w&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2010 &lt;- merge(macro2010, perGini2010, by = &quot;cntry&quot;, all.x = TRUE)
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2010&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2010$year &lt;- 2010
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2010&#39; not found
+</code></pre>
+
+<pre><code class="r">### ------ BEGIN 2006 ---------- ####
 library(survey)
 df2 &lt;- df2[!is.na(df2$weight), ]
 d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df2)
 q309_06 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
 q309_06 &lt;- q309_06[!is.na(q309_06$Freq), ]
 q309_06w &lt;- dcast(q309_06, cntry ~ q309, value.var = &quot;Freq&quot;)
-names(q309_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
-    &quot;socialFate&quot;, &quot;notStated&quot;)
-q309_06w$dontKnow &lt;- NA
+</code></pre>
 
+<pre><code>## Error: could not find function &quot;dcast&quot;
+</code></pre>
+
+<pre><code class="r">names(q309_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+    &quot;socialFate&quot;, &quot;notStated&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;q309_06w&#39; not found
+</code></pre>
+
+<pre><code class="r">q309_06w$dontKnow &lt;- NA
+</code></pre>
+
+<pre><code>## Error: object &#39;q309_06w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 poverty_06 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
 poverty_06 &lt;- poverty_06[!is.na(poverty_06$Freq), ]
 poverty_06w &lt;- dcast(poverty_06, cntry ~ poverty, value.var = &quot;Freq&quot;)
-names(poverty_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;dcast&quot;
+</code></pre>
+
+<pre><code class="r">names(poverty_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
     &quot;socialFateRec&quot;)
-## perGini
+</code></pre>
+
+<pre><code>## Error: object &#39;poverty_06w&#39; not found
+</code></pre>
+
+<pre><code class="r">## perGini
 library(laeken)
 perGini2006 &lt;- as.data.frame(gini(inc = &quot;q211_rec&quot;, weights = &quot;weight_1&quot;, data = lits1, 
     na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
@@ -1416,13 +1476,21 @@ names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 </code></pre>
 
 <pre><code class="r">macro2006 &lt;- merge(q309_06w, poverty_06w, by = &quot;cntry&quot;, all.x = TRUE)
-macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TRUE)
 </code></pre>
 
-<pre><code>## Error: error in evaluating the argument &#39;y&#39; in selecting a method for function &#39;merge&#39;: Error: object &#39;perGini2006&#39; not found
+<pre><code>## Error: object &#39;q309_06w&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TRUE)
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2006&#39; not found
 </code></pre>
 
 <pre><code class="r">macro2006$year &lt;- 2006
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2006&#39; not found
 </code></pre>
 
 <h2 id="toc_9">Data from Quality of Government institute</h2>
@@ -1503,7 +1571,15 @@ df.qog &lt;- datQogSum.w
 names(df.qog)[1] &lt;- &quot;cntry&quot;
 
 macro2006 &lt;- merge(macro2006,df.qog[df.qog$year == 2006,],by=c(&quot;cntry&quot;,&quot;year&quot;))
-macro2010 &lt;- merge(macro2010,df.qog[df.qog$year == 2010,],by=c(&quot;cntry&quot;,&quot;year&quot;))
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2006&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2010 &lt;- merge(macro2010,df.qog[df.qog$year == 2010,],by=c(&quot;cntry&quot;,&quot;year&quot;))
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2010&#39; not found
 </code></pre>
 
 <h2 id="toc_10">Data from World Bank</h2>
@@ -1544,7 +1620,15 @@ gdp06 &lt;- wb.w[, c(1, 11)]
 names(gdp06) &lt;- c(&quot;cntry&quot;, &quot;gdpChange&quot;)
 
 macro2006 &lt;- merge(macro2006, gdp06, by = &quot;cntry&quot;)
-macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2006&#39; not found
+</code></pre>
+
+<pre><code class="r">macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;macro2010&#39; not found
 </code></pre>
 
 <h2 id="toc_11">Merging all the data and saving for the analysis</h2>
@@ -1553,13 +1637,23 @@ macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
 macro &lt;- rbind(macro2006, macro2010)
 </code></pre>
 
-<pre><code>## Error: numbers of columns of arguments do not match
+<pre><code>## Error: object &#39;macro2006&#39; not found
 </code></pre>
 
 <pre><code class="r">
 df &lt;- merge(df, macro[macro$year == 2010, ], by = &quot;cntry&quot;)
-df2 &lt;- merge(df2, macro[macro$year == 2006, ], by = &quot;cntry&quot;)
+</code></pre>
 
+<pre><code>## Error: object &#39;macro&#39; not found
+</code></pre>
+
+<pre><code class="r">df2 &lt;- merge(df2, macro[macro$year == 2006, ], by = &quot;cntry&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;macro&#39; not found
+</code></pre>
+
+<pre><code class="r">
 rm(list = setdiff(ls(), c(&quot;macro&quot;, &quot;df&quot;, &quot;df2&quot;)))
 
 save.image(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
