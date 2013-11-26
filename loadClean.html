@@ -1498,7 +1498,12 @@ names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 <pre><code class="r">#######
 # Quality of governance
 library(rustfare)
-datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
+</code></pre>
+
+<pre><code>## Error: there is no package called &#39;rustfare&#39;
+</code></pre>
+
+<pre><code class="r">datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
                    &#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;,&#39;Kyrgyzstan&#39;,
                    &#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,
                    &#39;Uzbekistan&#39;,&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;,
@@ -1509,7 +1514,12 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
        indicator = c(&quot;wbgi_vae&quot;#, # World Bank - Voice and Accountability
                      #&quot;uw_gini&quot;
                      ))
+</code></pre>
 
+<pre><code>## Error: could not find function &quot;GetQog&quot;
+</code></pre>
+
+<pre><code class="r">
 # datQog &lt;- datQog[datQog$year &gt;= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
 
@@ -1518,58 +1528,155 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
 #datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
 #                   subset, year == max(year))
 datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
-datQogSum$year[datQogSum$year == 2009] &lt;- 2010
-names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
-datQogSum$indicator &lt;- NULL
+</code></pre>
 
+<pre><code>## Error: object &#39;datQog&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum$year[datQogSum$year == 2009] &lt;- 2010
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum&#39; not found
+</code></pre>
+
+<pre><code class="r">names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum$indicator &lt;- NULL
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum&#39; not found
+</code></pre>
+
+<pre><code class="r">
 # datQogSum.w &lt;- dcast(datQogSum, 
 #                      cname+indicator ~ year, 
 #                      value.var=&quot;value&quot;)
 
 datQogSum.w &lt;- datQogSum
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum&#39; not found
+</code></pre>
+
+<pre><code class="r">
 datQogSum.w$cname &lt;-  as.character(datQogSum.w$cname)
-datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;)] &lt;- &#39;Caucasus&#39;
-datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
-datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
-datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
-datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
                                                 &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;)] &lt;- &#39;CEE EU&#39;
-datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 datQogSum.w$group_fine &lt;- factor(datQogSum.w$group_fine)
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 summary(factor(datQogSum.w$group_fine))
 </code></pre>
 
-<pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
-##             6             6            14             8             8 
-##   West Europe 
-##            10
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
 </code></pre>
 
 <pre><code class="r">
 datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;France&#39;,&#39;Germany&#39;,
                                                    &#39;Great Britain&#39;,&#39;Italy&#39;,&#39;Sweden&#39;)] &lt;- &#39;Western Europe&#39;
-datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech Republic&#39;,&#39;Estonia&#39;,
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech Republic&#39;,&#39;Estonia&#39;,
                                                    &#39;Hungary&#39;,&#39;Bulgaria&#39;,
                                                    &#39;Latvia&#39;,&#39;Lithuania&#39;,&#39;Poland&#39;,
                                                    &#39;Slovakia&#39;,&#39;Slovenia&#39;,&#39;Romania&#39;)] &lt;- &#39;CEE&#39;
-datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;,
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;,
                                                    &#39;Georgia&#39;,&#39;Kazakhstan&#39;,
                                                    &#39;Kyrgyzstan&#39;,&#39;Moldova&#39;,
                                                    &#39;Tajikistan&#39;,&#39;Ukraine&#39;,
                                                    &#39;Uzbekistan&#39;,&#39;Russia&#39;)] &lt;- &#39;CIS&#39;
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">
 datQogSum.w$group_general &lt;- factor(datQogSum.w$group_general, 
                                     levels=c(&quot;Western Europe&quot;,
                                              &quot;CEE&quot;,
                                              &quot;CIS&quot;))
-df.qog &lt;- datQogSum.w
-names(df.qog)[1] &lt;- &quot;cntry&quot;
+</code></pre>
 
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">df.qog &lt;- datQogSum.w
+</code></pre>
+
+<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+</code></pre>
+
+<pre><code class="r">names(df.qog)[1] &lt;- &quot;cntry&quot;
+</code></pre>
+
+<pre><code>## Error: object &#39;df.qog&#39; not found
+</code></pre>
+
+<pre><code class="r">
 macro2006 &lt;- merge(macro2006,df.qog[df.qog$year == 2006,],by=c(&quot;cntry&quot;,&quot;year&quot;))
 </code></pre>
 
@@ -1586,13 +1693,22 @@ macro2006 &lt;- merge(macro2006,df.qog[df.qog$year == 2006,],by=c(&quot;cntry&qu
 
 <pre><code class="r">## GDP change from WB We need iso2c countrycode
 library(countrycode)
-cntry &lt;- levels(df$cntry)  # countrynames
-iso2c &lt;- countrycode(cntry, &quot;country.name&quot;, &quot;iso2c&quot;)
-iso2c  # copy paste into WDI search
 </code></pre>
 
-<pre><code>##  [1] &quot;AM&quot; &quot;AZ&quot; &quot;BY&quot; &quot;BG&quot; &quot;CZ&quot; &quot;EE&quot; &quot;FR&quot; &quot;GE&quot; &quot;DE&quot; &quot;GB&quot; &quot;HU&quot; &quot;IT&quot; &quot;KZ&quot; &quot;KG&quot;
-## [15] &quot;LV&quot; &quot;LT&quot; &quot;MD&quot; &quot;PL&quot; &quot;RO&quot; &quot;RU&quot; &quot;SK&quot; &quot;SI&quot; &quot;SE&quot; &quot;TJ&quot; &quot;UA&quot; &quot;UZ&quot;
+<pre><code>## Error: there is no package called &#39;countrycode&#39;
+</code></pre>
+
+<pre><code class="r">cntry &lt;- levels(df$cntry)  # countrynames
+iso2c &lt;- countrycode(cntry, &quot;country.name&quot;, &quot;iso2c&quot;)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;countrycode&quot;
+</code></pre>
+
+<pre><code class="r">iso2c  # copy paste into WDI search
+</code></pre>
+
+<pre><code>## Error: object &#39;iso2c&#39; not found
 </code></pre>
 
 <pre><code class="r">library(WDI)
