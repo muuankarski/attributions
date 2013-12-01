@@ -17,43 +17,35 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 ## Cleaning the data & variable summaries
 
--------------------
-html-ouput                                          source code
-------------                                        --------------
-[loading, cleaning and summarizing](loadClean.html) [source](loadClean.Rmd)
--------------------
+| html-ouput | source code |
+| ------------ | -------------- |
+| [loading, cleaning and summarizing](loadClean.html) | [source](loadClean.Rmd) |
+
 
 ## Descriptive analysis
 
--------------------
-html-ouput                                        source code
-------------                                      --------------
-[Descriptive analysis](descriptive_analysis.html) [source](descriptive_analysis.Rmd)
 
-[Spatial visualization](mapPlots.html)            [source]((mapPlots.Rmd))
-
-
-[Graphics in the paper](finalPlots.html)          [source](finalPlots.Rmd)
--------------------
+| html-ouput | source code |
+| ------------ | -------------- |
+| [Descriptive analysis](descriptive_analysis.html) | [source](descriptive_analysis.Rmd) |
+| [Spatial visualization](mapPlots.html) | [source](mapPlots.Rmd) |
+| [Graphics in the paper](finalPlots.html) | [source](finalPlots.Rmd) |
 
 
 ## Modelling the data
 
--------------------
-html-ouput                                                source code
-------------                                              --------------
-[Regression analysis](regressionModelling.html)           [source](regressionModelling.Rmd)
+| html-ouput | source code |
+| ------------ | -------------- |
+| [Regression analysis](regressionModelling.html) | [source](regressionModelling.Rmd) |
 
--------------------
+
 
 # Article draft
 
--------------------
-pdf-output                                                source code
-------------                                              --------------
-[Article draft in .pdf](article2013.pdf)                  [source](article2013.Rmd)
--------------------
 
+| pdf-ouput | source code |
+| ------------ | -------------- |
+| [Article draft in .pdf](article2013.pdf) | [source](article2013.Rmd) |
 
 
 # Presentation slides
