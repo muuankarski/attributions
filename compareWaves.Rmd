@@ -1,12 +1,5 @@
 # Comparing waves 2006 and 2010 
 
-```{r, eval=FALSE, echo=FALSE}
-library(knitr)
-library(markdown)
-knit2html('compareWaves.Rmd', 
-          stylesheet="~/workspace/web/css/rmarkdown.css",
-          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-```
 
 
 ```{roptsattrib, echo=FALSE}

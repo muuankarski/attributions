@@ -1,15 +1,6 @@
 # Regression modellining
 
 
-```{r, eval=FALSE, echo=FALSE}
-library(knitr)
-library(markdown)
-knit2html('regressionModelling.Rmd', 
-          stylesheet="~/workspace/web/css/rmarkdown.css",
-          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-
-```
-
 
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)

@@ -1,47 +1,10 @@
-% Attributions for Poverty in Post-Socialist Countries
-% Markus Kainu & Mikko Niemelä
-% Nov 2013
+# Attributions for Poverty in Post-Socialist Countries - Markus Kainu & Mikko Niemelä
 
-`generated at:`
-```{r, echo=FALSE}
-Sys.time()
-```
----
-
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-
-```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attrib/attrib_year2013")
-library(kaRski)
-knitpandoc("index")
-
-cd ~/workspace/lits/attrib/attrib_year2013/
-lftp -u np16003 -e "mput *.html *.Rmd *.pdf;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/
-
-cd ~/workspace/lits/attrib/attrib_year2013/figure
-lftp -u np16003 -e "mirror -R;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/figure
-
-cd ~/workspace/lits/attrib/attrib_year2013/moscow2013
-lftp -u np16003 -e "mput *.html;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/moscow2013
-
-cd ~/workspace/lits/attrib/attrib_year2013/turku2013
-lftp -u np16003 -e "mput *.html;quit" ftp://np16003@www.muuankarski.org/domains/muuankarski.org/public_html/research/attributions/turku2013
-```
+****
 
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
 ```
-
-
-`log of changes`
-
-date      comment
---------  -------------------
-20131103  Regression modelling in process. Final models will be published on Tuesday afternoon
-20131105  Regression modelling almost finished. Bug in a software caused a delay. Will be fixed by Wed morning. Now the tables are there, but coef and model names are not customized.
-20131106  Regression modelling somewhat done for Turku seminar.
-20131109  Corrections from Turku and the text restuctured. Methods needs to be opened
-20131111  Presentation for HSE conference and improving the text a bit
 
 
 # Introduction

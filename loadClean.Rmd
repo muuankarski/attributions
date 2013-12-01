@@ -1,18 +1,8 @@
 # Loading and cleaning the data
 
-```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attributions/")
-library(knitr)
-library(markdown)
-knit2html('loadClean.Rmd', 
-          stylesheet="~/workspace/web/css/rmarkdown.css",
-          options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-
-```
-
 
 ```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=FALSE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
+opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
 ```
 
 # Loading the data from EBRD
@@ -471,6 +461,7 @@ summary(df)
 ```{rLoadClean6, eval=TRUE}
 ### Dependent var country level values
 ## 2010
+library(reshape2)
 library(survey)
 d.df <- svydesign(id = ~SerialID, weights = ~weight, data = df)
 q309_10 <- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
@@ -518,7 +509,7 @@ names(poverty_06w) <- c("cntry","socialBlameRec","individualBlameRec",
 ## perGini
 library(laeken)
 perGini2006 <- as.data.frame(gini(inc="q211_rec",
-                      weights = "weight_1",
+                      weights = "weight",
                       data = lits1,
                       na.rm = TRUE,
                       breakdown="cntry")[2])

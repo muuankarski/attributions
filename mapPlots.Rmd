@@ -1,15 +1,5 @@
 # Spatial visualization
 
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
-
-
-```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attributions/")
-library(knitr)
-knit2html('mapPlots.Rmd', options = c('toc', markdown::markdownHTMLOptions(TRUE)))
-
-```
-
 
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)

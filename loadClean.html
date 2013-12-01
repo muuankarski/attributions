@@ -78,7 +78,7 @@ hljs.initHighlightingOnLoad();
 
 
 body {
-    margin-left: 160px;
+    margin-left: 190px;
     max-width:900px; 
     border: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -86,57 +86,35 @@ body {
 
 
 #toc {
-    font-size:0.7em;
-    top: 0px;
-    left: 0px;
+    font-size:0.9em;
     height: 100%;
-    position: fixed;
-    width: 150px;
+    position: fixed; 
+    width: 180px;
+    left: 5px;
     padding-top: 20px;
     color: #0099FF;
     border-right: 1px dashed #C1C1C1;
-    background-color: #E8E8E8;
 }
 
-#toc ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+#toc_header {
+    font-size: 1em;
+    font-weight: bold;    
+    border-bottom: 1px dashed #C1C1C1;
+    color: black;
 }
+
+
 
 #toc li {
     padding: 2px 4px;
+    margin-left: 2px;
 }
+
 
 #toc a {
     color: #0099FF;
-    text-decoration: none;
     display: block;
 }
-
-#toc .toc_1 {
-    border-bottom: 1px dashed #C1C1C1;
-}
-
-h1:toc_1 {
-    border-bottom: 1px dashed #C1C1C1;
-}
-
-
-
-#toc .toc-h2 {
-    padding-left: 10px;
-}
-
-#toc .toc-h3 {
-    padding-left: 25px;
-}
-
-#toc .toc-active {
-    background: #336699;
-    box-shadow: inset -5px 0px 10px -5px #000000;
-}
-
 
 
 
@@ -1362,135 +1340,53 @@ summary(df)
 <h2 id="toc_8">Summarising micro data at the country level</h2>
 
 <pre><code class="r">### Dependent var country level values 2010
+library(reshape2)
 library(survey)
 d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df)
 q309_10 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
 q309_10 &lt;- q309_10[!is.na(q309_10$Freq), ]
 q309_10w &lt;- dcast(q309_10, cntry ~ q309, value.var = &quot;Freq&quot;)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;dcast&quot;
-</code></pre>
-
-<pre><code class="r">names(q309_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+names(q309_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
     &quot;socialFate&quot;, &quot;notStated&quot;, &quot;dontKnow&quot;)
-</code></pre>
 
-<pre><code>## Error: object &#39;q309_10w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 poverty_10 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
 poverty_10 &lt;- poverty_10[!is.na(poverty_10$Freq), ]
 poverty_10w &lt;- dcast(poverty_10, cntry ~ poverty, value.var = &quot;Freq&quot;)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;dcast&quot;
-</code></pre>
-
-<pre><code class="r">names(poverty_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+names(poverty_10w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
     &quot;socialFateRec&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;poverty_10w&#39; not found
-</code></pre>
-
-<pre><code class="r">library(laeken)
+library(laeken)
 perGini2010 &lt;- as.data.frame(gini(inc = &quot;q227_rec&quot;, weights = &quot;weight&quot;, data = lits2, 
     na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
 names(perGini2010) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 
 macro2010 &lt;- merge(q309_10w, poverty_10w, by = &quot;cntry&quot;, all.x = TRUE)
-</code></pre>
-
-<pre><code>## Error: object &#39;q309_10w&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2010 &lt;- merge(macro2010, perGini2010, by = &quot;cntry&quot;, all.x = TRUE)
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2010&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2010$year &lt;- 2010
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2010&#39; not found
-</code></pre>
-
-<pre><code class="r">### ------ BEGIN 2006 ---------- ####
+macro2010 &lt;- merge(macro2010, perGini2010, by = &quot;cntry&quot;, all.x = TRUE)
+macro2010$year &lt;- 2010
+### ------ BEGIN 2006 ---------- ####
 library(survey)
 df2 &lt;- df2[!is.na(df2$weight), ]
 d.df &lt;- svydesign(id = ~SerialID, weights = ~weight, data = df2)
 q309_06 &lt;- data.frame(prop.table(svytable(~q309 + cntry, d.df), 2) * 100)
 q309_06 &lt;- q309_06[!is.na(q309_06$Freq), ]
 q309_06w &lt;- dcast(q309_06, cntry ~ q309, value.var = &quot;Freq&quot;)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;dcast&quot;
-</code></pre>
-
-<pre><code class="r">names(q309_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
+names(q309_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlame&quot;, &quot;individualBlame&quot;, &quot;individualFate&quot;, 
     &quot;socialFate&quot;, &quot;notStated&quot;)
-</code></pre>
+q309_06w$dontKnow &lt;- NA
 
-<pre><code>## Error: object &#39;q309_06w&#39; not found
-</code></pre>
-
-<pre><code class="r">q309_06w$dontKnow &lt;- NA
-</code></pre>
-
-<pre><code>## Error: object &#39;q309_06w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 poverty_06 &lt;- data.frame(prop.table(svytable(~poverty + cntry, d.df), 2) * 100)
 poverty_06 &lt;- poverty_06[!is.na(poverty_06$Freq), ]
 poverty_06w &lt;- dcast(poverty_06, cntry ~ poverty, value.var = &quot;Freq&quot;)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;dcast&quot;
-</code></pre>
-
-<pre><code class="r">names(poverty_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
+names(poverty_06w) &lt;- c(&quot;cntry&quot;, &quot;socialBlameRec&quot;, &quot;individualBlameRec&quot;, &quot;individualFateRec&quot;, 
     &quot;socialFateRec&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;poverty_06w&#39; not found
-</code></pre>
-
-<pre><code class="r">## perGini
+## perGini
 library(laeken)
-perGini2006 &lt;- as.data.frame(gini(inc = &quot;q211_rec&quot;, weights = &quot;weight_1&quot;, data = lits1, 
+perGini2006 &lt;- as.data.frame(gini(inc = &quot;q211_rec&quot;, weights = &quot;weight&quot;, data = lits1, 
     na.rm = TRUE, breakdown = &quot;cntry&quot;)[2])
-</code></pre>
 
-<pre><code>## Error: undefined columns selected
-</code></pre>
-
-<pre><code class="r">
 names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;perGini2006&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2006 &lt;- merge(q309_06w, poverty_06w, by = &quot;cntry&quot;, all.x = TRUE)
-</code></pre>
-
-<pre><code>## Error: object &#39;q309_06w&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TRUE)
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2006&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2006$year &lt;- 2006
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2006&#39; not found
+macro2006 &lt;- merge(q309_06w, poverty_06w, by = &quot;cntry&quot;, all.x = TRUE)
+macro2006 &lt;- merge(macro2006, perGini2006, by = &quot;cntry&quot;, all.x = TRUE)
+macro2006$year &lt;- 2006
 </code></pre>
 
 <h2 id="toc_9">Data from Quality of Government institute</h2>
@@ -1498,12 +1394,7 @@ names(perGini2006) &lt;- c(&quot;cntry&quot;, &quot;perGini&quot;)
 <pre><code class="r">#######
 # Quality of governance
 library(rustfare)
-</code></pre>
-
-<pre><code>## Error: there is no package called &#39;rustfare&#39;
-</code></pre>
-
-<pre><code class="r">datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
+datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
                    &#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;,&#39;Kyrgyzstan&#39;,
                    &#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,
                    &#39;Uzbekistan&#39;,&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;,
@@ -1514,12 +1405,7 @@ library(rustfare)
        indicator = c(&quot;wbgi_vae&quot;#, # World Bank - Voice and Accountability
                      #&quot;uw_gini&quot;
                      ))
-</code></pre>
 
-<pre><code>## Error: could not find function &quot;GetQog&quot;
-</code></pre>
-
-<pre><code class="r">
 # datQog &lt;- datQog[datQog$year &gt;= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
 
@@ -1528,187 +1414,73 @@ library(rustfare)
 #datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
 #                   subset, year == max(year))
 datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
-</code></pre>
+datQogSum$year[datQogSum$year == 2009] &lt;- 2010
+names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
+datQogSum$indicator &lt;- NULL
 
-<pre><code>## Error: object &#39;datQog&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum$year[datQogSum$year == 2009] &lt;- 2010
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum&#39; not found
-</code></pre>
-
-<pre><code class="r">names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum$indicator &lt;- NULL
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum&#39; not found
-</code></pre>
-
-<pre><code class="r">
 # datQogSum.w &lt;- dcast(datQogSum, 
 #                      cname+indicator ~ year, 
 #                      value.var=&quot;value&quot;)
 
 datQogSum.w &lt;- datQogSum
-</code></pre>
 
-<pre><code>## Error: object &#39;datQogSum&#39; not found
-</code></pre>
-
-<pre><code class="r">
 datQogSum.w$cname &lt;-  as.character(datQogSum.w$cname)
-</code></pre>
+datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;)] &lt;- &#39;Caucasus&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Russia&#39;,&#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;)] &lt;- &#39;CIS North&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Kyrgyzstan&#39;,&#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,&#39;Uzbekistan&#39;)] &lt;- &#39;Central Asia&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;)] &lt;- &#39;Baltic States&#39;
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Poland&#39;,&#39;Czech Republic&#39;,&#39;Slovakia&#39;,&#39;Hungary&#39;,
                                                 &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;)] &lt;- &#39;CEE EU&#39;
-</code></pre>
+datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_fine[datQogSum.w$cname %in% c(&#39;Italy&#39;,&#39;Germany&#39;,&#39;Great Britain&#39;,&#39;Sweden&#39;,&#39;France&#39;)] &lt;- &#39;West Europe&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 datQogSum.w$group_fine &lt;- factor(datQogSum.w$group_fine)
-</code></pre>
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 summary(factor(datQogSum.w$group_fine))
 </code></pre>
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
+<pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
+##             6             6            14             8             8 
+##   West Europe 
+##            10
 </code></pre>
 
 <pre><code class="r">
 datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;France&#39;,&#39;Germany&#39;,
                                                    &#39;Great Britain&#39;,&#39;Italy&#39;,&#39;Sweden&#39;)] &lt;- &#39;Western Europe&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech Republic&#39;,&#39;Estonia&#39;,
+datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Czech Republic&#39;,&#39;Estonia&#39;,
                                                    &#39;Hungary&#39;,&#39;Bulgaria&#39;,
                                                    &#39;Latvia&#39;,&#39;Lithuania&#39;,&#39;Poland&#39;,
                                                    &#39;Slovakia&#39;,&#39;Slovenia&#39;,&#39;Romania&#39;)] &lt;- &#39;CEE&#39;
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;,
+datQogSum.w$group_general[datQogSum.w$cname %in% c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Belarus&#39;,
                                                    &#39;Georgia&#39;,&#39;Kazakhstan&#39;,
                                                    &#39;Kyrgyzstan&#39;,&#39;Moldova&#39;,
                                                    &#39;Tajikistan&#39;,&#39;Ukraine&#39;,
                                                    &#39;Uzbekistan&#39;,&#39;Russia&#39;)] &lt;- &#39;CIS&#39;
-</code></pre>
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">
 datQogSum.w$group_general &lt;- factor(datQogSum.w$group_general, 
                                     levels=c(&quot;Western Europe&quot;,
                                              &quot;CEE&quot;,
                                              &quot;CIS&quot;))
-</code></pre>
+df.qog &lt;- datQogSum.w
+names(df.qog)[1] &lt;- &quot;cntry&quot;
 
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">df.qog &lt;- datQogSum.w
-</code></pre>
-
-<pre><code>## Error: object &#39;datQogSum.w&#39; not found
-</code></pre>
-
-<pre><code class="r">names(df.qog)[1] &lt;- &quot;cntry&quot;
-</code></pre>
-
-<pre><code>## Error: object &#39;df.qog&#39; not found
-</code></pre>
-
-<pre><code class="r">
 macro2006 &lt;- merge(macro2006,df.qog[df.qog$year == 2006,],by=c(&quot;cntry&quot;,&quot;year&quot;))
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2006&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2010 &lt;- merge(macro2010,df.qog[df.qog$year == 2010,],by=c(&quot;cntry&quot;,&quot;year&quot;))
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2010&#39; not found
+macro2010 &lt;- merge(macro2010,df.qog[df.qog$year == 2010,],by=c(&quot;cntry&quot;,&quot;year&quot;))
 </code></pre>
 
 <h2 id="toc_10">Data from World Bank</h2>
 
 <pre><code class="r">## GDP change from WB We need iso2c countrycode
 library(countrycode)
-</code></pre>
-
-<pre><code>## Error: there is no package called &#39;countrycode&#39;
-</code></pre>
-
-<pre><code class="r">cntry &lt;- levels(df$cntry)  # countrynames
+cntry &lt;- levels(df$cntry)  # countrynames
 iso2c &lt;- countrycode(cntry, &quot;country.name&quot;, &quot;iso2c&quot;)
+iso2c  # copy paste into WDI search
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;countrycode&quot;
-</code></pre>
-
-<pre><code class="r">iso2c  # copy paste into WDI search
-</code></pre>
-
-<pre><code>## Error: object &#39;iso2c&#39; not found
+<pre><code>##  [1] &quot;AM&quot; &quot;AZ&quot; &quot;BY&quot; &quot;BG&quot; &quot;CZ&quot; &quot;EE&quot; &quot;FR&quot; &quot;GE&quot; &quot;DE&quot; &quot;GB&quot; &quot;HU&quot; &quot;IT&quot; &quot;KZ&quot; &quot;KG&quot;
+## [15] &quot;LV&quot; &quot;LT&quot; &quot;MD&quot; &quot;PL&quot; &quot;RO&quot; &quot;RU&quot; &quot;SK&quot; &quot;SI&quot; &quot;SE&quot; &quot;TJ&quot; &quot;UA&quot; &quot;UZ&quot;
 </code></pre>
 
 <pre><code class="r">library(WDI)
@@ -1736,40 +1508,17 @@ gdp06 &lt;- wb.w[, c(1, 11)]
 names(gdp06) &lt;- c(&quot;cntry&quot;, &quot;gdpChange&quot;)
 
 macro2006 &lt;- merge(macro2006, gdp06, by = &quot;cntry&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2006&#39; not found
-</code></pre>
-
-<pre><code class="r">macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;macro2010&#39; not found
+macro2010 &lt;- merge(macro2010, gdp10, by = &quot;cntry&quot;)
 </code></pre>
 
 <h2 id="toc_11">Merging all the data and saving for the analysis</h2>
 
 <pre><code class="r"># yhdistetään nää aikaisempien datojen kanssa
 macro &lt;- rbind(macro2006, macro2010)
-</code></pre>
 
-<pre><code>## Error: object &#39;macro2006&#39; not found
-</code></pre>
-
-<pre><code class="r">
 df &lt;- merge(df, macro[macro$year == 2010, ], by = &quot;cntry&quot;)
-</code></pre>
+df2 &lt;- merge(df2, macro[macro$year == 2006, ], by = &quot;cntry&quot;)
 
-<pre><code>## Error: object &#39;macro&#39; not found
-</code></pre>
-
-<pre><code class="r">df2 &lt;- merge(df2, macro[macro$year == 2006, ], by = &quot;cntry&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;macro&#39; not found
-</code></pre>
-
-<pre><code class="r">
 rm(list = setdiff(ls(), c(&quot;macro&quot;, &quot;df&quot;, &quot;df2&quot;)))
 
 save.image(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
