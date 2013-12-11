@@ -40,26 +40,26 @@ west <- subset(macro, group_fine == 'West Europe')
 t3$group1 <- "group1"
 func <- function(t3)
 {
-  return(data.frame(COR = cor(t3$socialBlame, t3$gdpchange07.10)))
+  return(data.frame(COR = cor(t3$socialBlame, t3$gdpChange)))
 }
 df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(socialBlame, gdpchange07.10) ~ COR, data=t4, mean),2)
+cnames <- round(stats:::aggregate.formula(cbind(socialBlame, gdpChange) ~ COR, data=t4, mean),2)
   
-plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame, 
+plot1 <- ggplot(t4, aes(x=gdpChange, y=socialBlame, 
                         label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
-  geom_text(data=cnames, aes(gdpchange07.10,socialBlame, label = COR, group=COR), 
+  geom_text(data=cnames, aes(gdpChange,socialBlame, label = COR, group=COR), 
             size=2.5, color="black") +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
   geom_point(size=1.5) +
-  geom_point(data=t4, aes(x=gdpchange07.10, 
+  geom_point(data=t4, aes(x=gdpChange, 
                           y=socialBlame, color=group_general)) +
   # west reference
-  geom_point(data=west, aes(x=gdpchange07.10, 
+  geom_point(data=west, aes(x=gdpChange, 
                           y=socialBlame, 
                             color=group_general), alpha=.5) +
-  geom_text(data=west, aes(x=gdpchange07.10, 
+  geom_text(data=west, aes(x=gdpChange, 
                            y=socialBlame, label=cntry),
              alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
@@ -81,25 +81,25 @@ plot1 <- ggplot(t4, aes(x=gdpchange07.10, y=socialBlame,
 
 func <- function(t3)
 {
-  return(data.frame(COR = cor(t3$individualBlame, t3$gdpchange07.10)))
+  return(data.frame(COR = cor(t3$individualBlame, t3$gdpChange)))
 }
 df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(individualBlame, gdpchange07.10) ~ COR, data=t4, mean),2)
-plot2 <- ggplot(t4, aes(x=gdpchange07.10, 
+cnames <- round(stats:::aggregate.formula(cbind(individualBlame, gdpChange) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=gdpChange, 
                         y=individualBlame, label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5, color="black") +
-  geom_text(data=cnames, aes(gdpchange07.10,individualBlame, label = COR, group=COR), 
+  geom_text(data=cnames, aes(gdpChange,individualBlame, label = COR, group=COR), 
             size=2.5, color="black") +
   geom_point(size=1.5) +
-  geom_point(data=t4, aes(x=gdpchange07.10, 
+  geom_point(data=t4, aes(x=gdpChange, 
              y=individualBlame, color=group_general)) +
   # west reference
-  geom_point(data=west, aes(x=gdpchange07.10, 
+  geom_point(data=west, aes(x=gdpChange, 
                             y=individualBlame, 
                             color=group_general), alpha=.5) +
-  geom_text(data=west, aes(x=gdpchange07.10, 
+  geom_text(data=west, aes(x=gdpChange, 
                            y=individualBlame, label=cntry),
              alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
@@ -352,19 +352,19 @@ dev.off()
 
 # Perceived inequality from data
 
-func <- function(t3)
-{
-  return(data.frame(COR = cor(t3$socialBlame, t3$perGini)))
-}
-df.cor <- ddply(t3, .(group1), func)
-t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(socialBlame, perGini) ~ COR, data=t4, mean),2)
+# func <- function(t3)
+# {
+#   return(data.frame(COR = cor(t3$socialBlame, t3$perGini)))
+# }
+# df.cor <- ddply(t3, .(group1), func)
+# t4 <- join(t3,df.cor,by="group1")
+# cnames <- round(stats:::aggregate.formula(cbind(socialBlame, perGini) ~ COR, data=t4, mean),2)
 plot1 <- ggplot(t4, aes(x=perGini, y=socialBlame, 
                         label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
-  geom_text(data=cnames, aes(perGini,socialBlame, label = COR, group=COR), 
-            size=2.5, color="black") +
+#   geom_text(data=cnames, aes(perGini,socialBlame, label = COR, group=COR), 
+#             size=2.5, color="black") +
   labs(x = "Perceived inequality from data", 
        y = "Support for social blame type of explanation (%)") +
   geom_point(size=1.5) +
@@ -391,19 +391,19 @@ plot1 <- ggplot(t4, aes(x=perGini, y=socialBlame,
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-func <- function(t3)
-{
-  return(data.frame(COR = cor(t3$individualBlame, t3$perGini)))
-}
-df.cor <- ddply(t3, .(group1), func)
-t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(individualBlame, perGini) ~ COR, data=t4, mean),2)
+# func <- function(t3)
+# {
+#   return(data.frame(COR = cor(t3$individualBlame, t3$perGini)))
+# }
+# df.cor <- ddply(t3, .(group1), func)
+# t4 <- join(t3,df.cor,by="group1")
+# cnames <- round(stats:::aggregate.formula(cbind(individualBlame, perGini) ~ COR, data=t4, mean),2)
 plot2 <- ggplot(t4, aes(x=perGini, 
                         y=individualBlame, label=cntry)) +
 geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
-  geom_text(data=cnames, aes(perGini,individualBlame, label = COR, group=COR), 
-            size=2.5, color="black") +
+#   geom_text(data=cnames, aes(perGini,individualBlame, label = COR, group=COR), 
+#             size=2.5, color="black") +
   labs(x ="Perceived inequality from data", 
        y = "Support for individual blame type of explanation (%)") +
   geom_point(size=1.5) +
@@ -458,6 +458,7 @@ library(RColorBrewer)
 library(mapproj)
 library(maptools)
 library(rgdal)
+library(grid)
 map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
                                 layer="lits_all_simple"))
 

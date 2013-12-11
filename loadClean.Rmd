@@ -534,8 +534,8 @@ datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
                    'Slovenia','Romania','Bulgaria',
                    'Italy','Germany','United Kingdom',
                    'Sweden','France'), 
-       indicator = c("wbgi_vae"#, # World Bank - Voice and Accountability
-                     #"uw_gini"
+       indicator = c("wbgi_vae", # World Bank - Voice and Accountability
+                     "uw_gini"
                      ))
 
 # datQog <- datQog[datQog$year >= 2000, ]
@@ -547,12 +547,12 @@ datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
 #                   subset, year == max(year))
 datQogSum <- datQog[datQog$year %in% c(2006,2009),]
 datQogSum$year[datQogSum$year == 2009] <- 2010
-names(datQogSum)[3] <- "wbgi_vae"
-datQogSum$indicator <- NULL
+#names(datQogSum)[3] <- "wbgi_vae"
+#datQogSum$indicator <- NULL
 
-# datQogSum.w <- dcast(datQogSum, 
-#                      cname+indicator ~ year, 
-#                      value.var="value")
+datQogSum.w <- dcast(datQogSum, 
+                   cname+year ~ indicator, 
+                       value.var="value")
 
 datQogSum.w <- datQogSum
 

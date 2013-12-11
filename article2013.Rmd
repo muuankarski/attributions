@@ -1,16 +1,13 @@
 % Attributions for Poverty in Post-Socialist Countries[^*]
 % Markus Kainu[^**];Mikko Niemelä[^***]
-% November 19, 2013
+% December 11, 2013
 
 
-[^*]:*Work in progress. See the computation analysis at [research.muuankarski.org/attributions/](http://research.muuankarski.org/attributions/)
+[^*]:*Work in progress. See the analysis outputs at [http://muuankarski.github.io/attributions/](http://muuankarski.github.io/attributions/)
 
 [^**]:PhD Student. Aleksanteri institute, University of Helsinki & Department of Social Research, University of Turku <a href="mailto:markuskainu@gmail.com">markuskainu@gmail.com</a>
 
 [^***]:Senior Researcher. Social Insurance Institution of Finland, KELA a<a href="mailto:mikko.niemela@kela.fi">mikko.niemela@kela.fi</a>
-
-<link href="http://markuskainu.fi/material/css/rmarkdown.css" rel="stylesheet" type="text/css" title="compact"></link> 
-
 
 ```{roptsattribArticle, echo=FALSE}
 opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
@@ -66,12 +63,7 @@ Based on qualitative poverty studies in Central Asia, Caucasus and Ukraine and M
 
 There are also considerable differences in other aspects of socio-political context between examined countries. One of these aspects is the extent of income inequality which varies extensively between examined countries. Thus, this study examines the role of income inequality as a contextual-level explanatory factor of public perceptions of the causes of poverty. The link between inequality and attributions for poverty is not that easy to predict. One the one hand, the public in countries with greater inequality is more inclined to mistrust “others” (e.g. Uslander, 2002). Therefore, the uneven distribution of wealth should mean stronger support for the individualistic explanation for poverty. On the other hand, cross-national studies on attributions for poverty have shown that the support for the individual blame is lower in countries with lower level of income inequality (e.g. Gallie and Paugam, 2002; Kallio and Niemelä, 2013).
 
-
 >From the perspective of value structure, the role of "socialist or soviet legacy" in poverty attributions is worth of considering. Murthi and Tiongson (2008) reviewed large body of literature on East-West differences in preferences for redistribution of which vast majority supported the "socialist legacy". By socialist legacy they meant that "owing to the legacy of the past there is a strong preference for income equality and redistributive state spending in post-socialist countries". While testing the findings of previous studies on East-West differences, this study explores the effect of country groups with different socialist and post-socialist past. In order to explore the differences between market economies and post-socialist countries, but also within the "ex-soviet bloc", the study divides post-socialist countries into two groups: Central Eastern Europe (CEE) and Commonwealth of Independent States (CIS) countries. In order to examine the distinctiveness of post-socialist perceptions descriptive analyses include also a selection of Western European countries.
-
-DO YOU REALLY THINK SO??! 
-
-YES DEFINATELY!!! 
 
 Besides the so called regime-effect, national-level economic conditions have been proved to be associated with welfare attitudes. This is particularly interesting in these times when the Western world is meeting the increasing economic turbulence. In regard to East-West differences as well as variation within post-socialist countries, countries examined in this study have faced global economic crises in distinct ways. While many Western and Eastern European countries have witnessed economic decline, the economic performance in Western Asia has been strong. Hence, by analyzing the role of changes in economic performance during the period of global financial crises, the research design of this article provides empirical evidence on the effects of crises to public perceptions of the causes of poverty. Prior studies have shown that increased financial strain is associated with stronger support for state responsibility for economic provision (Blekesaune, 2007). In regard to explanations of poverty, Gallie and Paugam (2002:21-24) found that in the majority of European countries, there was a marked decline of support for the individual blame explanation between 1989 and 1993 as economic conditions deteriorated, followed  by an increase between 1993 and 2001 when economic conditions improved. This result is confirmed by Kallio and Niemelä (2013). They found that the larger the economic growth in a country is, more likely people are to blame the poor themselves. Thus, we can assume that changes in country’s economic performance are associated with attributions for poverty regardless of country grouping.
 
@@ -200,9 +192,18 @@ The results above indicate that there are cross-national differences between cou
 
 Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
+<!--
+
 ![Gini coefficient and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gini.pdf)
 
-There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
+-->
+
+![**Perceived inequality from data** and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_perGini.pdf)
+
+
+>There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
+
+
 
 ![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
@@ -288,14 +289,9 @@ texreg(list(soc.4,ind.4,socVsInc),float.pos="H",
  
 ```
 
-Table 4 and 5 present figures for multilevel logistic analysis. Calculating R² or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
-
-Between-country variances are on the first rows in random effects, meaning the variance in dependent variable that is explained by country differences. Variance in empty models is .29 in social blame and .12 in individual blame indicating that there are differences between countries, and that differences are greater in respect to support for social blame type of explanation. Inclusion of individual level predictors decreases the variance in both models, but only moderately.
-
-
 <!-- As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level. -->
 
-Table 4 and 5 present figures for multilevel logistic analysis. Calculating R² or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
+Table 4 and 5 present figures for multilevel logistic analysis. Calculating R squared or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
 
 Between-country variances are on the first rows in random effects, meaning the variance in dependent variable that is explained by country differences. Variance in empty models is .29 in social blame and .12 in individual blame indicating that there are differences between countries, and that differences are greater in respect to support for social blame type of explanation. Inclusion of individual level predictors decreases the variance in both models, but only moderately.
 
