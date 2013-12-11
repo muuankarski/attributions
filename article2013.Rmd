@@ -1,6 +1,6 @@
 % Attributions for Poverty in Post-Socialist Countries[^*]
 % Markus Kainu[^**];Mikko Niemelä[^***]
-% December 11, 2013
+% December 12, 2013
 
 
 [^*]:*Work in progress. See the analysis outputs at [http://muuankarski.github.io/attributions/](http://muuankarski.github.io/attributions/)
