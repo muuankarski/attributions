@@ -140,39 +140,39 @@ dev.off()
 ![](figure/scatter_gdp.png)
 
 
-## UNU-Wider Gini
+## UNDP HDI
 
 
-```{rattribFinalPlotsGini, eval=FALSE}
+```{rattribFinalPlotsHDI, eval=FALSE}
 # UNU-Wider Gini
 
 func <- function(t3)
 {
-  return(data.frame(COR = cor(t3$socialBlame, t3$uw_gini)))
+  return(data.frame(COR = cor(t3$socialBlame, t3$undp_hdi)))
 }
 df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(socialBlame, uw_gini) ~ COR, data=t4, mean),2)
-plot1 <- ggplot(t4, aes(x=uw_gini, y=socialBlame, label=cntry)) +
+cnames <- round(stats:::aggregate.formula(cbind(socialBlame, undp_hdi) ~ COR, data=t4, mean),2)
+plot1 <- ggplot(t4, aes(x=undp_hdi, y=socialBlame, label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
-  geom_text(data=cnames, aes(uw_gini,socialBlame, label = COR, group=COR), 
+  geom_text(data=cnames, aes(undp_hdi,socialBlame, label = COR, group=COR), 
             size=2.5, color="black") +
-  labs(x = "Gini coefficient", 
+  labs(x = "Human Development Index", 
        y = "Support for social blame type of explanation (%)") +
   geom_point(size=1.5) +
-  geom_point(data=t4, aes(x=uw_gini, 
+  geom_point(data=t4, aes(x=undp_hdi, 
                           y=socialBlame, color=group_general)) +
   # west reference
-  geom_point(data=west, aes(x=uw_gini, 
+  geom_point(data=west, aes(x=undp_hdi, 
                             y=socialBlame, 
                             color=group_general), alpha=.5) +
-  geom_text(data=west, aes(x=uw_gini, 
+  geom_text(data=west, aes(x=undp_hdi, 
                            y=socialBlame, label=cntry),
              alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
-  coord_cartesian(xlim=c(20,60)) +
+  #coord_cartesian(xlim=c(20,60)) +
   theme_minimal() +
   theme(legend.title=element_blank()) +
   theme(legend.text=element_text(size=6)) +
@@ -186,31 +186,31 @@ plot1 <- ggplot(t4, aes(x=uw_gini, y=socialBlame, label=cntry)) +
 
 func <- function(t3)
 {
-  return(data.frame(COR = cor(t3$individualBlame, t3$uw_gini)))
+  return(data.frame(COR = cor(t3$individualBlame, t3$undp_hdi)))
 }
 df.cor <- ddply(t3, .(group1), func)
 t4 <- join(t3,df.cor,by="group1")
-cnames <- round(stats:::aggregate.formula(cbind(individualBlame, uw_gini) ~ COR, data=t4, mean),2)
-plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
+cnames <- round(stats:::aggregate.formula(cbind(individualBlame, undp_hdi) ~ COR, data=t4, mean),2)
+plot2 <- ggplot(t4, aes(x=undp_hdi, y=individualBlame, label=cntry)) +
   geom_smooth(method=lm, se=FALSE,  alpha=.5, linetype="dashed", size=0.5) +  
   geom_text(size=2, vjust=-0.8, hjust=0.5) +
-  geom_text(data=cnames, aes(uw_gini,individualBlame, label = COR, group=COR), 
+  geom_text(data=cnames, aes(undp_hdi,individualBlame, label = COR, group=COR), 
             size=2.5, color="black") +
-  labs(x = "Gini coefficient", 
+  labs(x = "Human Development Index", 
        y = "Support for individual blame type of explanation (%)") +
   geom_point(size=1.5) +  
-  geom_point(data=t4, aes(x=uw_gini, 
+  geom_point(data=t4, aes(x=undp_hdi, 
                           y=individualBlame, color=group_general)) +
   # west reference
-  geom_point(data=west, aes(x=uw_gini, 
+  geom_point(data=west, aes(x=undp_hdi, 
                             y=individualBlame, 
                             color=group_general), alpha=.5) +
-  geom_text(data=west, aes(x=uw_gini, 
+  geom_text(data=west, aes(x=undp_hdi, 
                            y=individualBlame, label=cntry),
              alpha=.5, size=2, vjust=-0.8, hjust=0.5) +
   # west reference
   scale_colour_manual(values=cbPalette) +
-  coord_cartesian(xlim=c(20,60)) +
+  #coord_cartesian(xlim=c(20,60)) +
   theme_minimal() +
   theme(legend.title=element_blank()) +
   theme(legend.text=element_text(size=6)) +
@@ -222,24 +222,24 @@ plot2 <- ggplot(t4, aes(x=uw_gini, y=individualBlame, label=cntry)) +
   #guides(color = guide_legend(nrow = 2)) +
   theme(legend.key.size = unit(3, "mm"))
 
-pdf("figure/scatter_gini.pdf", width=12/2.54, height=18/2.54)
+pdf("figure/scatter_hdi.pdf", width=12/2.54, height=18/2.54)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
 ppi <- 300
-png("figure/scatter_gini.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
+png("figure/scatter_hdi.png", width=12/2.54*ppi, height=18/2.54*ppi, res=ppi)
 grid.arrange(plot1,plot2, ncol=1)
 dev.off()
 
-png("figure/scatter_giniSB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+png("figure/scatter_hdiSB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
 plot1
 dev.off()
-png("figure/scatter_giniIB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
+png("figure/scatter_hdiIB.png", width=12/2.54*ppi, height=8/2.54*ppi, res=ppi)
 plot2
 dev.off()
 ```
 
-![](figure/scatter_gini.png)
+![](figure/scatter_hdi.png)
 
 ## World Bank - Voice and Accountability
 

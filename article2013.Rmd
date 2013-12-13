@@ -23,6 +23,8 @@ knit("article2013.Rmd")
 sed -i 's/begin{figure}\[htbp\]/begin{figure}\[H\]/g' article2013.tex
 xelatex article2013.tex
 
+knitpandoc_pdf("article2013")
+
 system("~/.cabal/bin/pandoc -s article2013.md --toc --number-sections -o article2013.html")
 system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.docx --standalone --toc --number-sections")
 system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --toc --number-sections")
@@ -194,13 +196,18 @@ Analyses regarding the determinants of poverty explanations starts by bivariate 
 
 ![Gini coefficient and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gini.pdf)
 
--->
+
 
 ![**Perceived inequality from data** and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_perGini.pdf)
 
+-->
+
+![Human Development Index and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_hdi.pdf)
+
+
+AND SOMETHING ABOUT THE NEW FIGURE ON HUMAN DEVELPMENT INDEX AND LIVING CONDITIONS OF THE PEOPLE AND SKIPPING THE NEXT PARAGRAPH ON INEQUALITY
 
 >There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
-
 
 
 ![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
@@ -221,30 +228,32 @@ coef.names.multi = c("(intercept)",
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-                      "Gini coefficient",
+                      "Human Deveplopment Index",
                       "Change in GDP between 2007 to 2010",
-                      "Good governance")
+                      "Voice and Accountability")
 
 model.names.multi = c("Empty",
                       "Only individual",
-                      "Gini added",
+                      "HDI added",
                       "GDP change added",
-                      "Good governance added")
+                      "Voice and Accountability added")
 
 model.names.multi.A = c("SB empty",
                       "SB individual",
+                      "SB contextual",
                       "SB all",
                       "IB empty",
                       "IB individual",
-                        "IB all")
+                      "IB contextual",
+                      "IB all")
 
-texreg(list(soc.0,soc.1,soc.4,
-            ind.0,ind.1,ind.4),
+texreg(list(soc.0,soc.1,soc.Cont,soc.4,
+            ind.0,ind.1,ind.Cont,ind.4),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
         use.packages=TRUE,
-        #sideways=TRUE,
+        sideways=TRUE,
         scriptsize=TRUE,
         include.pvalues=TRUE,
         caption="Logistic multilevel random intercept model for social blame type of explanation", 
@@ -262,12 +271,15 @@ model.names.multi.2 = c("SB vs. not",
                         "SB vs. IB")
 
 coef.names.multi = c("(intercept)",
-                     "Dependent","Low education",
-                     "Low income","Income has worsened",
-                     "Income will worsen","Has affected great or fair amount",
-                     "Gini coefficient",
+                     "Dependent",
+                     "Low education",
+                     "Low income",
+                     "Income has worsened",
+                     "Income will worsen",
+                     "Has affected great or fair amount",
+                     "Human Developmet Index",
                      "Change in GDP between 2007 to 2010",
-                     "Good governance")
+                     "Voice and Accountability")
 
 
 library(texreg)

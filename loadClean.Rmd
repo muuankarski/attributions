@@ -525,8 +525,41 @@ macro2006$year <- 2006
 ```{rLoadClean7, eval=TRUE}
 #######
 # Quality of governance
-library(rustfare)
-datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
+
+getQog <- function(data = "basic",
+                   country = "all", 
+                   indicator = "undp_hdi",
+                   year = "all") {
+# URL's for different data's
+  basicURL <- "http://www.qogdata.pol.gu.se/data/qog_bas_ts_30aug13.csv"
+  standardURL <- "http://www.qogdata.pol.gu.se/data/qog_std_ts_15may13.csv"
+  socialPolicyURL <- "http://www.qogdata.pol.gu.se/data/qog_soc_tsl_4apr12.csv"
+  
+  
+# Select the data to download
+  if (data == "basic")         dat <- read.csv(basicURL,  sep = ";")
+  if (data == "standard")      dat <- read.csv(standardURL,  sep = ";")
+  if (data == "socialPolicy")  dat <- read.csv(socialPolicyURL,  sep = ";")
+# subset the countries
+  if (country != "all") df <- dat[dat$cname %in% c(country), ]
+  if (country == "all") df <- dat
+# subset the variables
+  indicatorx <- c("cname","year",indicator)
+  df <- df[, c(indicatorx)]
+# reshape the data into long format  
+  library(reshape2)
+  df.l <- melt(df, id.vars=c("cname","year"))
+  df.l <- df.l[!is.na(df.l$value), ]
+  df.l$indicator <- df.l$variable
+  df.l$variable <- NULL
+# subset the years
+  if (year != "all") df.l <- df.l[df.l$year == year,]
+  if (year == "all") df.l <- df.l
+  df.l
+}
+
+datQog <- getQog(data="basic",
+                 country = c('Armenia','Azerbaijan','Georgia','Russia',
                    'Ukraine','Moldova','Belarus','Kyrgyzstan',
                    'Kazakhstan','Tajikistan',
                    'Uzbekistan','Estonia','Latvia','Lithuania',
@@ -535,8 +568,9 @@ datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
                    'Italy','Germany','United Kingdom',
                    'Sweden','France'), 
        indicator = c("wbgi_vae", # World Bank - Voice and Accountability
-                     "uw_gini"
-                     ))
+                     "undp_hdi"))
+
+datQogSum <- datQog[datQog$year %in% c(2006,2010),]
 
 # datQog <- datQog[datQog$year >= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
@@ -544,9 +578,9 @@ datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
 # subset the latest value per cntry per indicator
 #library(plyr)
 #datQogSum <- ddply(datQog, c("cname","indicator"), 
-#                   subset, year == max(year))
-datQogSum <- datQog[datQog$year %in% c(2006,2009),]
-datQogSum$year[datQogSum$year == 2009] <- 2010
+#                   subset, year == 2010)
+#datQogSum <- datQog[datQog$year %in% c(2006,2009),]
+#datQog$year[datQog$year == 2009] <- 2010
 #names(datQogSum)[3] <- "wbgi_vae"
 #datQogSum$indicator <- NULL
 
