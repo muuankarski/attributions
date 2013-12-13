@@ -554,7 +554,7 @@ datQogSum.w <- dcast(datQogSum,
                    cname+year ~ indicator, 
                        value.var="value")
 
-datQogSum.w <- datQogSum
+#datQogSum.w <- datQogSum
 
 datQogSum.w$cname <-  as.character(datQogSum.w$cname)
 datQogSum.w$cname[datQogSum.w$cname %in% "United Kingdom"] <- "Great Britain"

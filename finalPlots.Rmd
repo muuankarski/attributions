@@ -33,8 +33,8 @@ load("~/workspace/lits/attributions/data/lits.RData")
 
 
 # valitaan vaan kohdemaat #
-t3 <- subset(macro, group_fine != 'West Europe')
-west <- subset(macro, group_fine == 'West Europe')
+t3 <- subset(macro, group_fine != 'West Europe' & year == 2010)
+west <- subset(macro, group_fine == 'West Europe' & year == 2010)
 #t3 <- macro
 #########################################
 t3$group1 <- "group1"
@@ -143,7 +143,7 @@ dev.off()
 ## UNU-Wider Gini
 
 
-```{rattribFinalPlotsGini}
+```{rattribFinalPlotsGini, eval=FALSE}
 # UNU-Wider Gini
 
 func <- function(t3)

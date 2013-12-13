@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Regressioautomaation tuloksia 13.12.2013</title>
+
+
+
+
+
+<style type="text/css">
+.title /* Pandoc title header (h1.title) */
+    {
+    	text-align: center;
+	border-width:0px;
+	font-size: 1.5em;
+	margin: 0 0 5px 0;
+	word-spacing: .1em;
+	border-bottom: 0px;
+    }
+
+.author /* Pandoc author(s) header (h2.author) */
+    {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.2em;
+    }
+
+.date /* Pandoc date header (h3.date) */
+    {
+	font-family:  Verdana, Arial;
+	text-align: center;
+	font-size: 1.1em;
+	line-height: 1.2em;
+    }
+
+
+body {
+    margin-left: 190px;
+    max-width:900px; 
+    border: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#toc {
+    font-size:0.9em;
+    height: 100%;
+    position: fixed; 
+    width: 180px;
+    left: 5px;
+    padding-top: 20px;
+    color: #0099FF;
+    border-right: 1px dashed #C1C1C1;
+}
+
+#toc_header {
+    font-size: 1em;
+    font-weight: bold;    
+    border-bottom: 1px dashed #C1C1C1;
+    color: black;
+}
+
+
+
+#toc li {
+    padding: 2px 4px;
+    margin-left: 2px;
+}
+
+
+#toc a {
+    color: #0099FF;
+    display: block;
+}
+
+
+
+blockquote {
+	padding-left: .5em; 
+    border-left: 2px solid #C1C1C1;
+	font-style: italic;
+}
+
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px dashed #ccc;
+   white-space: pre-wrap;
+   font-size:1.0em;
+    background: #FFFFFF;
+}
+
+pre code {
+   display: block; 
+   padding: 0.2em;
+   font-size:1.0em;
+}
+
+code.r, code.cpp {
+   background-color: #ECEEF0;
+}
+
+
+
+ul {
+	font-size: 100% !important;
+	font-family: Arial, Helvetica, sans-serif;
+}
+li {
+	font-family: Arial, Helvetica, sans-serif;
+ 	font-size: 1em;
+ 	line-height: 1.1em;
+}
+
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 1em;
+	line-height: 1.2em;
+}
+ol {
+	list-style: decimal outside;
+	list-style-type: decimal;
+	float: none;
+	margin: .5em 0 .5em 30px;
+	padding: 0;
+}
+ul {
+	margin: .2em 0 .2em 10px;
+	padding: 0;
+}
+UL li, ol li {
+	line-height: 1.1em;
+	padding: 2px;
+}
+a:link {
+	color: #6E2817;
+    text-decoration: none;
+}
+a:hover {
+	color: #6E2817;
+}
+a:visited {
+	color: #3E4E70;
+}
+a:focus {
+	color: #6E2817;
+}
+a:active {
+	color: #3E4E70;
+}
+
+h1 {
+	font-family:  Verdana, Arial;
+	font-size: 1.5em;
+	padding: 2px;
+	line-height: 1.5em;
+	/*letter-spacing: 0.06em;
+	word-spacing: .1em;*/
+    border-bottom: 0.5px dashed #555;
+}
+h2 {
+	font-family:  Verdana, Arial;
+	font-size: 1.3em;
+	padding: 2px;
+	line-height: 1.3em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h3 {
+	font-family:  Verdana, Arial;
+	font-size: 1.1em;
+	padding: 2px;
+	line-height: 1.1em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h4 {
+	font-family: Arial;
+	font-size: 1.0em;
+	padding: 2px;
+	line-height: 1.0em;
+	color: #555;
+	font-weight: italic;
+}
+h5 {
+	font-family: Arial;
+	font-size: 1.05em;
+	padding: 2px;
+	line-height: 1.15em;
+	color: #555;
+	font-weight: normal;
+}
+h6 {
+	font-family: Arial;
+	font-size: 1em;
+	padding: 2px;
+	line-height: 1.1em;
+	color: #555;
+	font-weight: normal;
+}
+p.caption, table caption, caption{
+    margin-top:0em;
+    padding:2px;
+    font-weight:bold;
+    font-size:1.0em;
+    text-align:left;
+    font-style: italic;
+    color: #555;
+}
+
+/* table styles */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+    line-height: 1.4em;
+	font-size: 1.1em;
+	font-family: monospace;
+
+}
+.views-table, table {
+	margin-left: 2px;
+	margin-bottom: 10px;
+	/*width: 1300px;*/
+}
+tr {
+	line-height: 1.2em;
+	border-bottom: #9e9e9e thin solid;
+}
+tr:last-child {
+	line-height: 1.2em;
+}
+th {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+	border-bottom: #9e9e9e thin solid;
+}
+th:last-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+}
+th:first-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border: #9e9e9e thin solid;
+}
+tbody tr {
+	line-height: 1.2em;
+	border-left: #9e9e9e thin solid;
+}
+tbody tr:nth-child(odd) {
+	line-height: 1.2em;
+	background-color: #efefef;
+}
+td {
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+}
+td:last-child {
+	padding: 0 5px 0 5px;
+}
+DL {
+	margin: .3em 0 .3em 0;
+}
+DT {
+	margin: .3em 0 .3em 0;
+}
+DD {
+	line-height: 1.5em;
+	list-style: none;
+	margin: .7em 0 .7em 2em;
+}
+td.active {
+	background-color: transparent!important;
+}
+tr:last-child {
+	border-bottom: #9e9e9e thin solid;
+}
+tr:first-child {
+	border-top: #9e9e9e thin solid;
+}
+th:last-child {
+	border-left: #9e9e9e thin solid;
+}
+th:last-child {
+	border-right: #9e9e9e thin solid;
+}
+</style>
+
+
+
+</head>
+
+<body>
+<div id="toc">
+<div id="toc_header">Table of Contents</div>
+<ul>
+<li>
+<a href="#toc_0">Cingranelli &amp; Richards - Human Rights Dataset</a>
+<ul>
+<li>
+<a href="#toc_1">ciri_empinx_new</a>
+</li>
+<li>
+<a href="#toc_2">ciri_assn </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">Freedom House</a>
+<ul>
+<li>
+<a href="#toc_4">fh_pair</a>
+</li>
+<li>
+<a href="#toc_5">fh_polity2</a>
+</li>
+<li>
+<a href="#toc_6">fh_aor</a>
+</li>
+<li>
+<a href="#toc_7">fh_cl</a>
+</li>
+<li>
+<a href="#toc_8">fh_rol</a>
+</li>
+<li>
+<a href="#toc_9">fh_fog</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_10">Polity IV Polity IV Project Data Set</a>
+<ul>
+<li>
+<a href="#toc_11">p_polity2</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_12">Transparency International</a>
+<ul>
+<li>
+<a href="#toc_13">ti_cpi_sd</a>
+</li>
+<li>
+<a href="#toc_14">ti_cpi</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_15">World Development Indicators - World Bank</a>
+<ul>
+<li>
+<a href="#toc_16">wdi_wip</a>
+</li>
+<li>
+<a href="#toc_17">wdi_gdpgr</a>
+</li>
+<li>
+<a href="#toc_18">wdi_gnipc</a>
+</li>
+<li>
+<a href="#toc_19">wdi_gdpcgr</a>
+</li>
+<li>
+<a href="#toc_20">wdi_gdpc</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_21">Tällä hetkellä paperissa olevat</a>
+<ul>
+<li>
+<a href="#toc_22">wbgi_vae</a>
+</li>
+<li>
+<a href="#toc_23">gdpChange</a>
+</li>
+<li>
+<a href="#toc_24">perGini</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<h1 class="title">Regressioautomaation tuloksia 13.12.2013</h1>
+
+<h1 id="toc_0">Cingranelli &amp; Richards - Human Rights Dataset</h1>
+
+<p><a href="http://www.humanrightsdata.org/">http://www.humanrightsdata.org/</a> (2013-01-22) (Cingranelli &amp; Richards 2010)</p>
+
+<p>The Cingranelli-Richards (CIRI) Human Rights Dataset contains standards-based quantitative
+information on government respect for 15 internationally recognized human rights for 195 countries,
+annually from 1981-2010. It is designed for use by scholars and students who seek to test theories
+about the causes and consequences of human rights violations, as well as policy makers and analysts
+who seek to estimate the human rights effects of a wide variety of institutional changes and public
+policies including democratization, economic aid, military aid, structural adjustment, and humanitarian
+intervention.</p>
+
+<h2 id="toc_1">ciri_empinx_new</h2>
+
+<p>.32/-.45</p>
+
+<p>Empowerment Rights Index (new)</p>
+
+<p>This is an additive index constructed from the Foreign Movement, Domestic Movement, Freedom of Speech, Freedom of Assembly &amp; Association, Workers’ Rights, Electoral Self-Determination, and Freedom of Religion indicators. It ranges from 0 (no government respect for these seven rights) to 14 (full government respect for these seven rights).</p>
+
+<h2 id="toc_2">ciri_assn </h2>
+
+<p>.22/-.30</p>
+
+<p>It is an internationally recognized right of citizens to assemble freely and to associate with other persons in political parties, trade unions, cultural organizations, or other special-interest groups. This
+variable indicates the extent to which the freedoms of assembly and association are subject to actual governmental limitations or restrictions (as opposed to strictly legal protections).</p>
+
+<p>(0) Citizens’ rights to freedom of assembly or association were severely restricted or denied completely to all citizens.
+(1) These rights were limited for all citizens or severely restricted or denied for select groups.
+(2) These rights were virtually unrestricted and freely enjoyed by practically all citizens.</p>
+
+<h1 id="toc_3">Freedom House</h1>
+
+<p><a href="http://www.freedomhouse.org/report/freedom-world-aggregate-and-subcategory-scores">http://www.freedomhouse.org/report/freedom-world-aggregate-and-subcategory-scores</a> (Freedom House 2013) (2013-02-01)</p>
+
+<h2 id="toc_4">fh_pair</h2>
+
+<p>.46/-.53</p>
+
+<p>Personal Autonomy and Individual Rights</p>
+
+<p>The variable evaluates the extent of state control over travel, choice of residence, employment or institution of higher education; the right of citizens to own property and establish private businesses; the private business’ freedom from unduly influence by government officials, security forces, political parties or organized crime; gender equality, freedom of choice of marriage partners and size of family; equality of opportunity and absence of economic exploitation. Countries are graded between 0 (worst) and 16 (best).</p>
+
+<h2 id="toc_5">fh_polity2</h2>
+
+<p>.45/-.48</p>
+
+<p>Democracy (Freedom House/Polity)</p>
+
+<p>Scale ranges from 0-10 where 0 is least democratic and 10 most democratic. Average of Freedom House (fh_pr and fh_cl) is transformed to a scale 0-10 and Polity (p_polity2) is transformed to a scale 0-10. These variables are averaged into fh_polity2.</p>
+
+<h2 id="toc_6">fh_aor</h2>
+
+<p>.42/-.48</p>
+
+<p>Associational and Organizational Rights</p>
+
+<p>The variable evaluates the freedom of assembly, demonstrations and open public discussion; the freedom for nongovernmental organization; and the freedom for trade unions, peasant organizations and other professional and private organizations. Countries are graded between 0 (worst) and 12 (best).</p>
+
+<h2 id="toc_7">fh_cl</h2>
+
+<p>.41/.50</p>
+
+<p>Civil Liberties</p>
+
+<p>Civil liberties allow for the freedoms of expression and belief, associational and organizational rights, rule of law, and personal autonomy without interference from the state. The more specific list of rights considered vary over the years. Countries are graded between 1 (most free) and 7 (least free).</p>
+
+<h2 id="toc_8">fh_rol</h2>
+
+<p>.39/-.48</p>
+
+<p>Rule of Law</p>
+
+<p>The variable measures the independence of the judiciary; the extent to which rule of law prevails in civil and criminal matters; the existence of direct civil control over the police; the protection from political terror, unjustified imprisonment, exile and torture; absence of war and insurgencies; and the extent to which laws, policies and practices guarantee equal treatment of various segments of the population. Countries are graded between 0 (worst) and 16 (best).</p>
+
+<h2 id="toc_9">fh_fog</h2>
+
+<p>.31/-.42</p>
+
+<p>Functioning of Government</p>
+
+<p>The variable examines in what extent the freely elected head of government and a national legislative representative determine the policies of the government; if the government is free from pervasive corruption; and if the government is accountable to the electorate between elections and operates with openness and transparency. Countries are graded between 0 (worst) and 12 (best).</p>
+
+<h1 id="toc_10">Polity IV Polity IV Project Data Set</h1>
+
+<p><a href="http://www.systemicpeace.org/polity/polity4.htm">http://www.systemicpeace.org/polity/polity4.htm</a> (Marshall &amp; Jaggers 2011) (2013-02-29)</p>
+
+<p>The Polity project is one of the most widely used data resource for studying regime change and the
+effects of regime authority.</p>
+
+<h2 id="toc_11">p_polity2</h2>
+
+<p>.51/-.51</p>
+
+<p>Revised Combined Polity Score</p>
+
+<p>The polity score is computed by subtracting the p_autoc score from the p_democ score; the resulting unified polity scale ranges from +10 (strongly democratic) to -10 (strongly autocratic). The revised version of the polity variable is designed to facilitate the use of the polity regime measure in time-series analyses. It modifies the combined annual polity score by applying a simple treatment, or ““fix,” to convert instances of “standardized authority scores” (i.e. -66, -77, and -88) to conventional polity scores (i.e. within the range, -10 to +10). The values have been converted according to the following rule set:</p>
+
+<table><thead>
+<tr>
+<th>code</th>
+<th>desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>(-66)</td>
+<td>Cases of foreign “interruption” are treated as “system missing”.</td>
+</tr>
+<tr>
+<td>(-77)</td>
+<td>Cases of “interregnum,” or anarchy, are converted to a “neutral” Polity score of “0”.</td>
+</tr>
+<tr>
+<td>(-88)</td>
+<td> Cases of “transition” are prorated across the span of the transition.</td>
+</tr>
+</tbody></table>
+
+<p>For example, country X has a p_polity score of -7 in 1957, followed by three years of -88 and, finally, a score of +5 in 1961. The change (+12) would be prorated over the intervening three years at a rate of per year, so that the converted scores would be as follow: 1957 -7; 1958 -4; 1959 -1; 1960 +2; and
+1961 +5.</p>
+
+<p>Note: Ongoing (-88) transitions in the most recent year are converted to “system missing” values. Transitions (-88) following a year of independence, interruption (-66), or interregnum (-77) are prorated from the value “0”.</p>
+
+<h1 id="toc_12">Transparency International</h1>
+
+<p><a href="http://www.transparency.org/">http://www.transparency.org/</a> (Transparency International 2012)
+(2013-01-29) </p>
+
+<h2 id="toc_13">ti_cpi_sd</h2>
+
+<p>.14/-.41</p>
+
+<p>Corruption Perceptions Index – Standard Deviation</p>
+
+<p>This is the standard deviation in the values of the sources underlying the CPI: the greater the standard deviation, the greater the differences of perceptions of a country among the sources.</p>
+
+<h2 id="toc_14">ti_cpi</h2>
+
+<p>.24/-.41</p>
+
+<p>Corruption Perceptions Index</p>
+
+<p>The CPI focuses on corruption in the public sector and defines corruption as the abuse of public office for private gain. The surveys used in compiling the CPI tend to ask questions in line with the misuse of public power for private benefit, with a focus, for example, on bribe-taking by public officials in public procurement. The sources do not distinguish between administrative and political corruption. The CPI Score relates to perceptions of the degree of corruption as seen by business people, risk analysts and the general public and ranges between 10 (highly clean) and 0 (highly corrupt).</p>
+
+<p>Note: The time-series information in the CPI scores can only be used if interpreted with caution. Year-to-year shifts in a country’s score can result not only from a changing perception of a country&#39;s performance but also from a changing sample and methodology. That is, with differing respondents and slightly differing methodologies, a change in a country&#39;s score may also relate to the fact that different viewpoints have been collected and different questions have been asked. Moreover, each country’s CPI score is composed as a 3-year moving average, implying that if changes occur they only gradually affect a country’s score. For a more detailed discussion of comparability over time in the CPI, see Lambsdorff 2005.</p>
+
+<p>Note: In 2012 TI changed to a scale ranging from 0-100 only assigning whole numbers. We have decided to divide the values for 2</p>
+
+<h1 id="toc_15">World Development Indicators - World Bank</h1>
+
+<h2 id="toc_16">wdi_wip</h2>
+
+<p>-.50/.59</p>
+
+<p>Women in Parliament (%)</p>
+
+<p>Women in parliaments are the percentage of parliamentary seats in a single or lower chamber held by women.</p>
+
+<h2 id="toc_17">wdi_gdpgr</h2>
+
+<p>-.56/.43</p>
+
+<p>GDP Growth (%)</p>
+
+<p>Annual percentage growth rate of GDP at market prices based on constant local currency. Aggregates are based on constant 2000 U.S. dollars. GDP is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It is calculated without making deductions for depreciation of fabricated assets or for depletion and degradation of natural resources.</p>
+
+<h2 id="toc_18">wdi_gnipc</h2>
+
+<p>.30/-.41</p>
+
+<p>GNI per Capita, Atlas method (current US$)</p>
+
+<p>GNI per capita (formerly GNP per capita) is the gross national income, converted to U.S. dollars using the World Bank Atlas method, divided by the midyear population. GNI is the sum of value added by all resident producers plus any product taxes (less subsidies) not included in the valuation of output plus net receipts of primary income (compensation of employees and property income) from abroad. GNI, calculated in national currency, is usually converted to U.S. dollars at official exchange rates for comparisons across economies, although an alternative rate is used when the official exchange rate is judged to diverge by an exceptionally large margin from the rate actually applied in international transactions. To smooth fluctuations in prices and exchange rates, a special Atlas method of conversion is used by the World Bank. This applies a conversion factor that averages the exchange rate for a given year and the two preceding years, adjusted for differences in rates of inflation between the country, and through 2000, the G-5 countries (France, Germany, Japan, the United Kingdom, and the United States). From 2001, these countries include the Euro area, Japan, the United Kingdom, and the United States.</p>
+
+<h2 id="toc_19">wdi_gdpcgr</h2>
+
+<p>-.39/-30</p>
+
+<p>GDP per Capita Growth (%)</p>
+
+<p>Annual percentage growth rate of GDP per capita based on constant local currency. GDP per capita is gross domestic product divided by midyear population. GDP at purchaser&#39;s prices is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It is calculated without making deductions for depreciation of fabricated assets or for depletion and degradation of natural resources.</p>
+
+<h2 id="toc_20">wdi_gdpc</h2>
+
+<p>.26/-.35</p>
+
+<p>GDP per capita, PPP (constant international $)</p>
+
+<p>GDP per capita based on purchasing power parity (PPP). PPP GDP is gross domestic product converted to international dollars using  purchasing power parity rates. An international dollar has the same purchasing power over GDP as the U.S. dollar has in the United States. GDP at purchaser&#39;s prices is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It is calculated without making deductions for depreciation of fabricated assets or for depletion and degradation of natural resources. Data are in constant 2005 international dollars.</p>
+
+<h1 id="toc_21">Tällä hetkellä paperissa olevat</h1>
+
+<h2 id="toc_22">wbgi_vae</h2>
+
+<p>.40/-.47</p>
+
+<p>Voice and Accountability (Estimate)</p>
+
+<p>“Voice and Accountability” includes a number of indicators measuring various aspects of the political
+process, civil liberties and political rights. These indicators measure the extent to which citizens of a
+country are able to participate in the selection of governments. This category also includes indicators
+measuring the independence of the media, which serves an important role in monitoring those in
+authority and holding them accountable for their actions.</p>
+
+<h2 id="toc_23">gdpChange</h2>
+
+<p>-.61/.70</p>
+
+<p>Bkt:n muutos aikana 2007-2010</p>
+
+<h2 id="toc_24">perGini</h2>
+
+<p>.48/-.47</p>
+
+<p>Koettu eriarvoisuus laskettuna datan koetun tulotason (10-portainen asteikko) perusteella.</p>
+
+</body>
+
+</html>
