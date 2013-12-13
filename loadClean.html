@@ -51,28 +51,26 @@ hljs.initHighlightingOnLoad();
 <style type="text/css">
 .title /* Pandoc title header (h1.title) */
     {
-    text-align: center;
-    border-width:0px;
-	font-size: 1.2em;
+    	text-align: center;
+	border-width:0px;
+	font-size: 1.5em;
 	margin: 0 0 5px 0;
-	line-height: 1.3em;
-	letter-spacing: 0.06em;
 	word-spacing: .1em;
-    border-bottom: 0px;
+	border-bottom: 0px;
     }
 
 .author /* Pandoc author(s) header (h2.author) */
     {
     text-align: center;
     font-size: 1.1em;
-	line-height: 1.2em;
+    line-height: 1.2em;
     }
 
 .date /* Pandoc date header (h3.date) */
     {
 	font-family:  Verdana, Arial;
-    text-align: center;
-    font-size: 1.1em;
+	text-align: center;
+	font-size: 1.1em;
 	line-height: 1.2em;
     }
 
@@ -199,17 +197,15 @@ a:active {
 h1 {
 	font-family:  Verdana, Arial;
 	font-size: 1.5em;
-	font-style: bold;
 	padding: 2px;
 	line-height: 1.5em;
-	letter-spacing: 0.06em;
-	word-spacing: .1em;
-    border-bottom: 0.6px solid #555;
+	/*letter-spacing: 0.06em;
+	word-spacing: .1em;*/
+    border-bottom: 0.5px dashed #555;
 }
 h2 {
 	font-family:  Verdana, Arial;
 	font-size: 1.3em;
-	font-style: bold;
 	padding: 2px;
 	line-height: 1.3em;
 	letter-spacing: 0.05em;
@@ -219,7 +215,6 @@ h2 {
 h3 {
 	font-family:  Verdana, Arial;
 	font-size: 1.1em;
-	font-style: bold;
 	padding: 2px;
 	line-height: 1.1em;
 	letter-spacing: 0.05em;
@@ -1402,8 +1397,8 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
                    &#39;Slovenia&#39;,&#39;Romania&#39;,&#39;Bulgaria&#39;,
                    &#39;Italy&#39;,&#39;Germany&#39;,&#39;United Kingdom&#39;,
                    &#39;Sweden&#39;,&#39;France&#39;), 
-       indicator = c(&quot;wbgi_vae&quot;#, # World Bank - Voice and Accountability
-                     #&quot;uw_gini&quot;
+       indicator = c(&quot;wbgi_vae&quot;, # World Bank - Voice and Accountability
+                     &quot;uw_gini&quot;
                      ))
 
 # datQog &lt;- datQog[datQog$year &gt;= 2000, ]
@@ -1415,14 +1410,14 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
 #                   subset, year == max(year))
 datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
 datQogSum$year[datQogSum$year == 2009] &lt;- 2010
-names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
-datQogSum$indicator &lt;- NULL
+#names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
+#datQogSum$indicator &lt;- NULL
 
-# datQogSum.w &lt;- dcast(datQogSum, 
-#                      cname+indicator ~ year, 
-#                      value.var=&quot;value&quot;)
+datQogSum.w &lt;- dcast(datQogSum, 
+                   cname+year ~ indicator, 
+                       value.var=&quot;value&quot;)
 
-datQogSum.w &lt;- datQogSum
+#datQogSum.w &lt;- datQogSum
 
 datQogSum.w$cname &lt;-  as.character(datQogSum.w$cname)
 datQogSum.w$cname[datQogSum.w$cname %in% &quot;United Kingdom&quot;] &lt;- &quot;Great Britain&quot;
