@@ -1,0 +1,180 @@
+% Multilevel modelling
+
+
+```{r, eval=FALSE, echo=FALSE}
+setwd("~/workspace/lits/attrib/attrib_year2013/code/")
+library(knitr)
+knit("multilevel_models.Rmd")
+system("~/.cabal/bin/pandoc multilevel_models.md --number-sections --template=../tex_templates/dcolumn.latex -o multilevel_models.pdf")
+
+system("~/.cabal/bin/pandoc -s multilevel_models.md -o multilevel_models.html")
+
+#system("perl -pi -e 's/footnotesize/tiny/g' multilevel_models.tex")
+```
+
+
+<link href="http://markuskainu.fi/material/css/article_wide.css" rel="stylesheet" type="text/css" title="compact"></link>
+
+# Final tables
+
+```{rmultilevel_analysis, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, results='hide'}
+library(lme4)
+#########################################
+#########################################
+setwd("~/workspace/lits/attrib/attrib_year2013/code")
+
+#########################################
+load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+
+
+
+summary(biind.1 <- glmer(pov.log.individual ~ incsour3+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.2 <- glmer(pov.log.individual ~ edu2+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.3 <- glmer(pov.log.individual ~ income2+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.4 <- glmer(pov.log.individual ~ past.diff+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.7 <- glmer(pov.log.individual ~ group1+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.8 <- glmer(pov.log.individual ~ uw.gini+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.9 <- glmer(pov.log.individual ~ gdpchange07.10+(1|cntry),
+                        family = binomial(logit), data=df))
+summary(biind.10 <- glmer(pov.log.individual ~ wbgi.vae+(1|cntry),
+                         family = binomial(logit), data=df))
+
+
+
+summary(soc.0 <- glmer(pov.log.social ~ (1|cntry),
+                      family = binomial(logit)(logit),
+                       data=df.multi))
+summary(soc.1 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                         past.diff+future.diff+crise+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+summary(soc.2 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+summary(soc.3 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+summary(soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+
+
+summary(ind.0 <- glmer(pov.log.individual ~ (1|cntry),
+                      family = binomial(logit),
+                       data=df.multi))
+summary(ind.1 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+(1|cntry),
+                      family = binomial(logit),
+                       data=df.multi))
+summary(ind.2 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+summary(ind.3 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+summary(ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw_gini+gdpchange07.10+wbgi_vae+(1|cntry),
+                       family = binomial(logit),
+                       data=df.multi))
+```
+
+\newpage 
+
+
+
+```{rmultilevel_social, results='asis', echo=FALSE, eval=FALSE, cache=TRUE}
+library(stargazer)
+stargazer("Empty model"=soc.0,
+          "Model sb1"=soc.1,
+          "Model sb2"=soc.2,
+          "Model sb3"=soc.3,
+          "Model sb4"=soc.4,
+          title="Logistic multilevel random intercept model for social blame type of explanation (Using stargazer-package (missing country level random effects)).")
+```
+
+```{rmultilevel_individual2_texreg, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+htmlreg(list(ind.0,
+          ind.1,
+          ind.2,
+          ind.3,
+          ind.4),
+       use.packages=FALSE,
+       include.pvalues=TRUE,
+       caption="Logistic multilevel random intercept model for individual blame type of explanation (Using texreg-package (p-value stars missing)).", 
+       caption.above=TRUE)
+```
+
+
+
+```{rmultilevel_individual, results='asis', echo=FALSE, eval=FALSE, cache=TRUE}
+stargazer("Empty model"=ind.0,
+          "Model ib1"=ind.1,
+          "Model ib2"=ind.2,
+          "Model ib3"=ind.3,
+          "Model ib4"=ind.4,
+          title="Logistic multilevel random intercept model for individual blame type of explanation. (Using stargazer-package (missing country level random effects))")
+```
+
+
+```{rmultilevel_social_texreg, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+htmlreg(list(soc.0,
+       soc.1,
+       soc.2,
+       soc.3,
+       soc.4),
+       use.package=FALSE,
+       include.pvalues=TRUE,
+          caption="Logistic multilevel random intercept model for social blame type of explanation( Using texreg-package (p-value stars missing)).", caption.above=TRUE)
+```
+
+
+
+```{rbivariate_social, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+library(texreg)
+htmlreg(list(bisoc.1,bisoc.2,
+          bisoc.3,bisoc.4,
+          bisoc.5,bisoc.6,
+          bisoc.7,bisoc.8,
+          bisoc.9,bisoc.10),
+       use.packages=FALSE,
+       sideways=TRUE,
+       scriptsize=TRUE,
+       include.pvalues=TRUE,
+       caption="bivatiate social blame", caption.above=TRUE)
+```
+
+
+```{rbivariate_individual, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+library(texreg)
+htmlreg(list(biind.1,biind.2,
+          biind.3,biind.4,
+          biind.5,biind.6,
+          biind.7,biind.8,
+          biind.9,biind.10),
+       use.packages=FALSE,
+       sideways=TRUE,
+       scriptsize=TRUE,
+       caption="bivatiate individual blame", caption.above=TRUE)
+```
+

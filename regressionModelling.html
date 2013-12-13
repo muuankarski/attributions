@@ -1,0 +1,3642 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Regression modellining</title>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+.title /* Pandoc title header (h1.title) */
+    {
+    text-align: center;
+    border-width:0px;
+	font-size: 1.2em;
+	margin: 0 0 5px 0;
+	line-height: 1.3em;
+	letter-spacing: 0.06em;
+	word-spacing: .1em;
+    border-bottom: 0px;
+    }
+
+.author /* Pandoc author(s) header (h2.author) */
+    {
+    text-align: center;
+    font-size: 1.1em;
+	line-height: 1.2em;
+    }
+
+.date /* Pandoc date header (h3.date) */
+    {
+	font-family:  Verdana, Arial;
+    text-align: center;
+    font-size: 1.1em;
+	line-height: 1.2em;
+    }
+
+
+body {
+    margin-left: 190px;
+    max-width:900px; 
+    border: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#toc {
+    font-size:0.9em;
+    height: 100%;
+    position: fixed; 
+    width: 180px;
+    left: 5px;
+    padding-top: 20px;
+    color: #0099FF;
+    border-right: 1px dashed #C1C1C1;
+}
+
+#toc_header {
+    font-size: 1em;
+    font-weight: bold;    
+    border-bottom: 1px dashed #C1C1C1;
+    color: black;
+}
+
+
+
+#toc li {
+    padding: 2px 4px;
+    margin-left: 2px;
+}
+
+
+#toc a {
+    color: #0099FF;
+    display: block;
+}
+
+
+
+blockquote {
+	padding-left: .5em; 
+    border-left: 2px solid #C1C1C1;
+	font-style: italic;
+}
+
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px dashed #ccc;
+   white-space: pre-wrap;
+   font-size:1.0em;
+    background: #FFFFFF;
+}
+
+pre code {
+   display: block; 
+   padding: 0.2em;
+   font-size:1.0em;
+}
+
+code.r, code.cpp {
+   background-color: #ECEEF0;
+}
+
+
+
+ul {
+	font-size: 100% !important;
+	font-family: Arial, Helvetica, sans-serif;
+}
+li {
+	font-family: Arial, Helvetica, sans-serif;
+ 	font-size: 1em;
+ 	line-height: 1.1em;
+}
+
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 1em;
+	line-height: 1.2em;
+}
+ol {
+	list-style: decimal outside;
+	list-style-type: decimal;
+	float: none;
+	margin: .5em 0 .5em 30px;
+	padding: 0;
+}
+ul {
+	margin: .2em 0 .2em 10px;
+	padding: 0;
+}
+UL li, ol li {
+	line-height: 1.1em;
+	padding: 2px;
+}
+a:link {
+	color: #6E2817;
+    text-decoration: none;
+}
+a:hover {
+	color: #6E2817;
+}
+a:visited {
+	color: #3E4E70;
+}
+a:focus {
+	color: #6E2817;
+}
+a:active {
+	color: #3E4E70;
+}
+
+h1 {
+	font-family:  Verdana, Arial;
+	font-size: 1.5em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.5em;
+	letter-spacing: 0.06em;
+	word-spacing: .1em;
+    border-bottom: 0.6px solid #555;
+}
+h2 {
+	font-family:  Verdana, Arial;
+	font-size: 1.3em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.3em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h3 {
+	font-family:  Verdana, Arial;
+	font-size: 1.1em;
+	font-style: bold;
+	padding: 2px;
+	line-height: 1.1em;
+	letter-spacing: 0.05em;
+	word-spacing: .1em;
+
+}
+h4 {
+	font-family: Arial;
+	font-size: 1.0em;
+	padding: 2px;
+	line-height: 1.0em;
+	color: #555;
+	font-weight: italic;
+}
+h5 {
+	font-family: Arial;
+	font-size: 1.05em;
+	padding: 2px;
+	line-height: 1.15em;
+	color: #555;
+	font-weight: normal;
+}
+h6 {
+	font-family: Arial;
+	font-size: 1em;
+	padding: 2px;
+	line-height: 1.1em;
+	color: #555;
+	font-weight: normal;
+}
+p.caption, table caption, caption{
+    margin-top:0em;
+    padding:2px;
+    font-weight:bold;
+    font-size:1.0em;
+    text-align:left;
+    font-style: italic;
+    color: #555;
+}
+
+/* table styles */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+    line-height: 1.4em;
+	font-size: 1.1em;
+	font-family: monospace;
+
+}
+.views-table, table {
+	margin-left: 2px;
+	margin-bottom: 10px;
+	/*width: 1300px;*/
+}
+tr {
+	line-height: 1.2em;
+	border-bottom: #9e9e9e thin solid;
+}
+tr:last-child {
+	line-height: 1.2em;
+}
+th {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+	border-bottom: #9e9e9e thin solid;
+}
+th:last-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+	text-align: left;
+}
+th:first-child {
+	margin: 5px 0 5px 0;
+	padding: 0 5px 0 5px;
+	border: #9e9e9e thin solid;
+}
+tbody tr {
+	line-height: 1.2em;
+	border-left: #9e9e9e thin solid;
+}
+tbody tr:nth-child(odd) {
+	line-height: 1.2em;
+	background-color: #efefef;
+}
+td {
+	padding: 0 5px 0 5px;
+	border-right: #9e9e9e thin solid;
+}
+td:last-child {
+	padding: 0 5px 0 5px;
+}
+DL {
+	margin: .3em 0 .3em 0;
+}
+DT {
+	margin: .3em 0 .3em 0;
+}
+DD {
+	line-height: 1.5em;
+	list-style: none;
+	margin: .7em 0 .7em 2em;
+}
+td.active {
+	background-color: transparent!important;
+}
+tr:last-child {
+	border-bottom: #9e9e9e thin solid;
+}
+tr:first-child {
+	border-top: #9e9e9e thin solid;
+}
+th:last-child {
+	border-left: #9e9e9e thin solid;
+}
+th:last-child {
+	border-right: #9e9e9e thin solid;
+}
+</style>
+
+
+
+</head>
+
+<body>
+<div id="toc">
+<div id="toc_header">Table of Contents</div>
+<ul>
+<li>
+<a href="#toc_0">Regression modellining</a>
+</li>
+<li>
+<a href="#toc_1">Description</a>
+</li>
+<li>
+<a href="#toc_2">Unilevel regression analysis</a>
+<ul>
+<li>
+<a href="#toc_3">Bivariate logistic regression</a>
+<ul>
+<li>
+<a href="#toc_4">Explaining social blame</a>
+<ul>
+<li>
+<a href="#toc_5">Interpretation</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_6">Explaining individual blame</a>
+<ul>
+<li>
+<a href="#toc_7">Interpretation</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_8">Multivariate logistic regression</a>
+<ul>
+<li>
+<a href="#toc_9">Social blame</a>
+<ul>
+<li>
+<a href="#toc_10">Interpretation</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_11">Individual blame</a>
+<ul>
+<li>
+<a href="#toc_12">Interpretation</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_13">Multinomial logistic regression</a>
+<ul>
+<li>
+<a href="#toc_14">Simple multinomial logistic regression</a>
+<ul>
+<li>
+<a href="#toc_15">using nnet-package</a>
+</li>
+<li>
+<a href="#toc_16">using mlogit-package</a>
+</li>
+<li>
+<a href="#toc_17">Interpretation</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_18">Multilevel multinomial logistic regression</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_19">Multilevel regression</a>
+<ul>
+<li>
+<a href="#toc_20">Bivariate analysis</a>
+<ul>
+<li>
+<a href="#toc_21">Social blame explained</a>
+<ul>
+<li>
+<a href="#toc_22">Interpretation</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_23">Individual blame explained</a>
+<ul>
+<li>
+<a href="#toc_24">Interpretation</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_25">Multivariate multilevel regressions</a>
+<ul>
+<li>
+<a href="#toc_26">Social blame type of explanation</a>
+<ul>
+<li>
+<a href="#toc_27">Interpretation</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_28">Individual blame type of explanation</a>
+</li>
+<li>
+<a href="#toc_29">Comparison of full models with our last model</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_30">Tables for presentation</a>
+<ul>
+<li>
+<a href="#toc_31">Partial</a>
+</li>
+<li>
+<a href="#toc_32">Comparison of full models</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<h1 id="toc_0">Regression modellining</h1>
+
+<pre><code class="r">######################################### 
+setwd(&quot;~/workspace/lits/attributions/&quot;)
+
+######################################### 
+load(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
+df.model &lt;- df[df$group_general != &quot;Western Europe&quot;, ]
+
+</code></pre>
+
+<h1 id="toc_1">Description</h1>
+
+<p>This page includes everything related to modelling of the data. <a href="finalTables.html">Click here for the final tables</a>. </p>
+
+<p>In this paper we have two depentend variables (DV) that are both binomial</p>
+
+<ol>
+<li>support for social blame type of explanation</li>
+<li>support for individual blame type of explanation</li>
+</ol>
+
+<h1 id="toc_2">Unilevel regression analysis</h1>
+
+<p>Unilevel is used here for making distinction between multilevel analysis later. <em>In the analysis of this chapter **no</em>* contextual level variables are used*.</p>
+
+<p>I&#39;m using the University of California&#39;s resource <a href="http://www.ats.ucla.edu/stat/r/dae/logit.htm">R Data Analysis Examples: Logit Regression</a> as a reference here.</p>
+
+<h2 id="toc_3">Bivariate logistic regression</h2>
+
+<h3 id="toc_4">Explaining social blame</h3>
+
+<pre><code class="r">unbisoc.1 &lt;- glm(pov.log.social ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+unbisoc.2 &lt;- glm(pov.log.social ~ edu2, data = df.model, family = &quot;binomial&quot;)
+unbisoc.3 &lt;- glm(pov.log.social ~ income2, data = df.model, family = &quot;binomial&quot;)
+unbisoc.4 &lt;- glm(pov.log.social ~ past.diff, data = df.model, family = &quot;binomial&quot;)
+unbisoc.5 &lt;- glm(pov.log.social ~ future.diff, data = df.model, family = &quot;binomial&quot;)
+unbisoc.6 &lt;- glm(pov.log.social ~ crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+
+model.names = c(&quot;Transfer Dependency&quot;, &quot;Education level&quot;, &quot;Perceived income&quot;, 
+    &quot;Income compared to past&quot;, &quot;Income compared to future&quot;, &quot;Effect of financial crises&quot;)
+
+coef.names = c(&quot;(intercept)&quot;, &quot;Dependent vs. non-dependent&quot;, &quot;Low education vs. non-low education&quot;, 
+    &quot;Low income vs. high income&quot;, &quot;Income has worsened vs. has not&quot;, &quot;Income will worsen vs. will not&quot;, 
+    &quot;Has affected great or fair amount vs. has not&quot;)
+
+htmlreg(list(unbisoc.1, unbisoc.2, unbisoc.3, unbisoc.4, unbisoc.5, unbisoc.6), 
+    custom.model.names = model.names, custom.coef.names = coef.names, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, caption = &quot;Simple logistic regression on social blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on social blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Transfer Dependency</b></th>
+    <th><b>Education level</b></th>
+    <th><b>Perceived income</b></th>
+    <th><b>Income compared to past</b></th>
+    <th><b>Income compared to future</b></th>
+    <th><b>Effect of financial crises</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-0.20<sup>***</sup></td>
+    <td>-0.53<sup>***</sup></td>
+    <td>-0.12<sup>***</sup></td>
+    <td>-0.11<sup>***</sup></td>
+    <td>0.02</td>
+    <td>-0.07<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.06)</td>
+    <td>(0.12)</td>
+    <td>(0.02)</td>
+    <td>(0.02)</td>
+    <td>(0.03)</td>
+    <td>(0.02)</td>
+  </tr>
+  <tr>
+    <td>Dependent vs. non-dependent</td>
+    <td>-0.16<sup>**</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.06)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Low education vs. non-low education</td>
+    <td></td>
+    <td>0.17</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.12)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Low income vs. high income</td>
+    <td></td>
+    <td></td>
+    <td>-0.41<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Income has worsened vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.39<sup>***</sup></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Income will worsen vs. will not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.49<sup>***</sup></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.46<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">31792.27</td>
+    <td class="midRule">31857.28</td>
+    <td class="midRule">31633.41</td>
+    <td class="midRule">30682.55</td>
+    <td class="midRule">24863.69</td>
+    <td class="midRule">29145.44</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>31808.40</td>
+    <td>31873.41</td>
+    <td>31649.54</td>
+    <td>30698.61</td>
+    <td>24879.34</td>
+    <td>29161.41</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-15894.14</td>
+    <td>-15926.64</td>
+    <td>-15814.71</td>
+    <td>-15339.27</td>
+    <td>-12429.84</td>
+    <td>-14570.72</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>31788.27</td>
+    <td>31853.28</td>
+    <td>31629.41</td>
+    <td>30678.55</td>
+    <td>24859.69</td>
+    <td>29141.44</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23504</td>
+    <td class="bottomRule">23513</td>
+    <td class="bottomRule">22777</td>
+    <td class="bottomRule">18526</td>
+    <td class="bottomRule">21614</td>
+  </tr>
+  <tr>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<pre><code class="r">
+</code></pre>
+
+<h4 id="toc_5">Interpretation</h4>
+
+<ul>
+<li>all the predictors are statistically significant which means that the <em>null hypothesis</em> of 
+
+<ul>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.16</code> if we compare individual who is dependent on tranfers with individual who is not dependent</li>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.08</code> if we compare individual with low education with individual with no-low education</li>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.59</code> if we compare individual with low perceived income with individual with high perceived income</li>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.39</code> if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened</li>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.49</code> if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase</li>
+<li>The probability of supporting the social blame type of explanation decreases by <code>-0.46</code> if we compare individual who has suffered <em>Great or fair amount</em> from the financial crisis with individual who has suffered <em>Little or not at all</em></li>
+</ul></li>
+<li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
+</ul>
+
+<h3 id="toc_6">Explaining individual blame</h3>
+
+<pre><code class="r">unbiind.1 &lt;- glm(pov.log.individual ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+unbiind.2 &lt;- glm(pov.log.individual ~ edu2, data = df.model, family = &quot;binomial&quot;)
+unbiind.3 &lt;- glm(pov.log.individual ~ income2, data = df.model, family = &quot;binomial&quot;)
+unbiind.4 &lt;- glm(pov.log.individual ~ past.diff, data = df.model, family = &quot;binomial&quot;)
+unbiind.5 &lt;- glm(pov.log.individual ~ future.diff, data = df.model, family = &quot;binomial&quot;)
+unbiind.6 &lt;- glm(pov.log.individual ~ crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(unbiind.1, unbiind.2, unbiind.3, unbiind.4, unbiind.5, unbiind.6), 
+    custom.model.names = model.names, custom.coef.names = coef.names, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, caption = &quot;Simple logistic regression on individual blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Simple logistic regression on individual blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Transfer Dependency</b></th>
+    <th><b>Education level</b></th>
+    <th><b>Perceived income</b></th>
+    <th><b>Income compared to past</b></th>
+    <th><b>Income compared to future</b></th>
+    <th><b>Effect of financial crises</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-1.67<sup>***</sup></td>
+    <td>-1.20<sup>***</sup></td>
+    <td>-1.41<sup>***</sup></td>
+    <td>-1.41<sup>***</sup></td>
+    <td>-1.48<sup>***</sup></td>
+    <td>-1.52<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td>(0.14)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td>Dependent vs. non-dependent</td>
+    <td>0.49<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Low education vs. non-low education</td>
+    <td></td>
+    <td>0.00</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.14)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Low income vs. high income</td>
+    <td></td>
+    <td></td>
+    <td>0.35<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Income has worsened vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.32<sup>***</sup></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Income will worsen vs. will not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.40<sup>***</sup></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.05)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.53<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">25314.01</td>
+    <td class="midRule">25393.10</td>
+    <td class="midRule">25281.83</td>
+    <td class="midRule">24576.83</td>
+    <td class="midRule">20388.41</td>
+    <td class="midRule">23070.37</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>25330.13</td>
+    <td>25409.23</td>
+    <td>25297.96</td>
+    <td>24592.90</td>
+    <td>20404.06</td>
+    <td>23086.33</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-12655.00</td>
+    <td>-12694.55</td>
+    <td>-12638.92</td>
+    <td>-12286.42</td>
+    <td>-10192.20</td>
+    <td>-11533.19</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>25310.01</td>
+    <td>25389.10</td>
+    <td>25277.83</td>
+    <td>24572.83</td>
+    <td>20384.41</td>
+    <td>23066.37</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23504</td>
+    <td class="bottomRule">23513</td>
+    <td class="bottomRule">22777</td>
+    <td class="bottomRule">18526</td>
+    <td class="bottomRule">21614</td>
+  </tr>
+  <tr>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<h4 id="toc_7">Interpretation</h4>
+
+<ul>
+<li>all the predictors, but <em>education level</em> are statistically significant
+
+<ul>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.49</code> if we compare individual who is dependent on tranfers to individual who is not dependent</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.03</code> if we compare individual with low education with individual with no-low education. <em>This is not statistically significant</em></li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.38</code> if we compare individual with low perceived income with individual with high perceived income</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.32</code> if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.40</code> if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>-0.53</code> if we compare individual who has suffered <em>Great or fair amount</em> from the financial crisis with individual who has suffered <em>Little or not at all</em></li>
+</ul></li>
+<li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
+</ul>
+
+<h2 id="toc_8">Multivariate logistic regression</h2>
+
+<h3 id="toc_9">Social blame</h3>
+
+<pre><code class="r">mulbisoc.1 &lt;- glm(pov.log.social ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+mulbisoc.2 &lt;- glm(pov.log.social ~ incsour3 + edu2, data = df.model, family = &quot;binomial&quot;)
+mulbisoc.3 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.4 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.4 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbisoc.5 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbisoc.6 &lt;- glm(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(mulbisoc.1, mulbisoc.2, mulbisoc.3, mulbisoc.4, mulbisoc.5, mulbisoc.6), 
+    custom.coef.names = coef.names, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, 
+    head.tag = FALSE, body.tag = FALSE, caption = &quot;Multiple logistic regression on social blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on social blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-0.20<sup>***</sup></td>
+    <td>-0.38<sup>**</sup></td>
+    <td>-0.28<sup>*</sup></td>
+    <td>-0.04</td>
+    <td>0.42<sup>**</sup></td>
+    <td>0.50<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.06)</td>
+    <td>(0.13)</td>
+    <td>(0.13)</td>
+    <td>(0.14)</td>
+    <td>(0.16)</td>
+    <td>(0.17)</td>
+  </tr>
+  <tr>
+    <td>Dependent vs. non-dependent</td>
+    <td>-0.16<sup>**</sup></td>
+    <td>-0.16<sup>**</sup></td>
+    <td>-0.13<sup>*</sup></td>
+    <td>-0.11</td>
+    <td>-0.17<sup>*</sup></td>
+    <td>-0.14</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.06)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+  </tr>
+  <tr>
+    <td>Low education vs. non-low education</td>
+    <td></td>
+    <td>0.18</td>
+    <td>0.29<sup>*</sup></td>
+    <td>0.23</td>
+    <td>0.12</td>
+    <td>0.12</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.14)</td>
+    <td>(0.15)</td>
+  </tr>
+  <tr>
+    <td>Low income vs. high income</td>
+    <td></td>
+    <td></td>
+    <td>-0.42<sup>***</sup></td>
+    <td>-0.39<sup>***</sup></td>
+    <td>-0.40<sup>***</sup></td>
+    <td>-0.37<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td>Income has worsened vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.25<sup>***</sup></td>
+    <td>-0.17<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td>Income will worsen vs. will not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.44<sup>***</sup></td>
+    <td>-0.40<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.36<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">31792.27</td>
+    <td class="midRule">31779.53</td>
+    <td class="midRule">31542.26</td>
+    <td class="midRule">30413.96</td>
+    <td class="midRule">24393.11</td>
+    <td class="midRule">22663.10</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>31808.40</td>
+    <td>31803.72</td>
+    <td>31574.51</td>
+    <td>30454.12</td>
+    <td>24440.02</td>
+    <td>22717.32</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-15894.14</td>
+    <td>-15886.76</td>
+    <td>-15767.13</td>
+    <td>-15201.98</td>
+    <td>-12190.55</td>
+    <td>-11324.55</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>31788.27</td>
+    <td>31773.53</td>
+    <td>31534.26</td>
+    <td>30403.96</td>
+    <td>24381.11</td>
+    <td>22649.10</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">22721</td>
+    <td class="bottomRule">18374</td>
+    <td class="bottomRule">17089</td>
+  </tr>
+  <tr>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<h4 id="toc_10">Interpretation</h4>
+
+<ul>
+<li>all the predictors, but <em>education level</em> are statistically significant
+
+<ul>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.49</code> if we compare individual who is dependent on tranfers to individual who is not dependent</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.03</code> if we compare individual with low education with individual with no-low education. <em>This is not statistically significant</em></li>
+<li>The probability of supporting the individual blame type of explanation increases by XXX if we compare individual with low perceived income with individual with high perceived income</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.32</code> if we compare individual whose income has worsened during the financial crisis with individual whose income has not worsened</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>0.40</code> if we compare individual who is expecting his income to worsen during the next four years with individual expects his income to remain at the same level or to increase</li>
+<li>The probability of supporting the individual blame type of explanation increases by <code>-XXX</code> if we compare individual who has suffered <em>Great or fair amount</em> from the financial crisis with individual who has suffered <em>Little or not at all</em></li>
+</ul></li>
+<li>As you would expect the model fit is the best in the case of <em>expected change in income</em></li>
+</ul>
+
+<h3 id="toc_11">Individual blame</h3>
+
+<pre><code class="r">mulbiind.1 &lt;- glm(pov.log.individual ~ incsour3, data = df.model, family = &quot;binomial&quot;)
+mulbiind.2 &lt;- glm(pov.log.individual ~ incsour3 + edu2, data = df.model, family = &quot;binomial&quot;)
+mulbiind.3 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2, data = df.model, 
+    family = &quot;binomial&quot;)
+mulbiind.4 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbiind.4 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff, 
+    data = df.model, family = &quot;binomial&quot;)
+mulbiind.5 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff, data = df.model, family = &quot;binomial&quot;)
+mulbiind.6 &lt;- glm(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise, data = df.model, family = &quot;binomial&quot;)
+</code></pre>
+
+<pre><code class="r">library(texreg)
+htmlreg(list(mulbiind.1, mulbiind.2, mulbiind.3, mulbiind.4, mulbiind.5, mulbiind.6), 
+    custom.coef.names = coef.names, inline.css = FALSE, doctype = FALSE, html.tag = FALSE, 
+    head.tag = FALSE, body.tag = FALSE, caption = &quot;Multiple logistic regression on individual blame&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Multiple logistic regression on individual blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-1.67<sup>***</sup></td>
+    <td>-1.66<sup>***</sup></td>
+    <td>-1.76<sup>***</sup></td>
+    <td>-1.93<sup>***</sup></td>
+    <td>-2.06<sup>***</sup></td>
+    <td>-2.21<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td>(0.16)</td>
+    <td>(0.16)</td>
+    <td>(0.16)</td>
+    <td>(0.19)</td>
+    <td>(0.20)</td>
+  </tr>
+  <tr>
+    <td>Dependent vs. non-dependent</td>
+    <td>0.49<sup>***</sup></td>
+    <td>0.49<sup>***</sup></td>
+    <td>0.46<sup>***</sup></td>
+    <td>0.45<sup>***</sup></td>
+    <td>0.39<sup>***</sup></td>
+    <td>0.33<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+  </tr>
+  <tr>
+    <td>Low education vs. non-low education</td>
+    <td></td>
+    <td>0.00</td>
+    <td>-0.09</td>
+    <td>-0.06</td>
+    <td>-0.08</td>
+    <td>-0.05</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.14)</td>
+    <td>(0.14)</td>
+    <td>(0.14)</td>
+    <td>(0.16)</td>
+    <td>(0.18)</td>
+  </tr>
+  <tr>
+    <td>Low income vs. high income</td>
+    <td></td>
+    <td></td>
+    <td>0.34<sup>***</sup></td>
+    <td>0.30<sup>***</sup></td>
+    <td>0.29<sup>***</sup></td>
+    <td>0.26<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income has worsened vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.27<sup>***</sup></td>
+    <td>0.21<sup>***</sup></td>
+    <td>0.14<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income will worsen vs. will not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.36<sup>***</sup></td>
+    <td>0.33<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount vs. has not</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.44<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">25314.01</td>
+    <td class="midRule">25308.83</td>
+    <td class="midRule">25198.07</td>
+    <td class="midRule">24417.39</td>
+    <td class="midRule">20104.00</td>
+    <td class="midRule">18521.25</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>25330.13</td>
+    <td>25333.01</td>
+    <td>25230.32</td>
+    <td>24457.54</td>
+    <td>20150.91</td>
+    <td>18575.47</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-12655.00</td>
+    <td>-12651.41</td>
+    <td>-12595.03</td>
+    <td>-12203.69</td>
+    <td>-10046.00</td>
+    <td>-9253.62</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>25310.01</td>
+    <td>25302.83</td>
+    <td>25190.07</td>
+    <td>24407.39</td>
+    <td>20092.00</td>
+    <td>18507.25</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Num. obs.</td>
+    <td class="bottomRule">23461</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">23452</td>
+    <td class="bottomRule">22721</td>
+    <td class="bottomRule">18374</td>
+    <td class="bottomRule">17089</td>
+  </tr>
+  <tr>
+    <td colspan="7"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<h4 id="toc_12">Interpretation</h4>
+
+<h1 id="toc_13">Multinomial logistic regression</h1>
+
+<p>In multinomial setting we use variable <code>poverty</code>as DV. <code>Dont know</code> and <code>not stated</code> values are exluded from the analysis and we are left with following four values:</p>
+
+<ul>
+<li>Social Blame </li>
+<li>Individual Blame</li>
+<li>Individual Fate</li>
+<li>Social Fate</li>
+</ul>
+
+<p>Of the DV values we use <code>Social Blame</code> as a reference category as it is distinctive category and allows me to make clear interpretations of the significance of the predictors. (<a href="http://stats.stackexchange.com/questions/34574/is-there-any-criterion-about-choosing-reference-factor-in-multinomial-logistic-r">source</a>)</p>
+
+<h2 id="toc_14">Simple multinomial logistic regression</h2>
+
+<!--
+
+### using nnet-package
+
+This model follows tutorial by UCLA [Multinomial regression](http://www.ats.ucla.edu/stat/r/dae/mlogit.htm) and it uses [nnet](http://cran.r-project.org/web/packages/nnet/index.html)-package.
+
+-->
+
+<h3 id="toc_15">using mlogit-package</h3>
+
+<p>This follows the example from <a href="http://www.utstat.toronto.edu/%7Ebrunner/oldclass/312f12/lectures/MultinomialLogitWithR.pdf">University of Toronto</a> and <a href="http://facweb.knowlton.ohio-state.edu/pviton/courses2/crp5700/5700-mlogit.pdf">Discrete-Choice Logit Models with R by Philip A. Viton (October 26, 2013)</a></p>
+
+<pre><code class="r">library(mlogit)
+dat.mlogit &lt;- df.model[, c(&quot;poverty&quot;, &quot;edu2&quot;, &quot;incsour3&quot;, &quot;income2&quot;, &quot;past.diff&quot;, 
+    &quot;future.diff&quot;, &quot;crise&quot;)]
+dat.mlogit &lt;- mlogit.data(dat.mlogit, shape = &quot;wide&quot;, choice = &quot;poverty&quot;)
+# ------- #
+model.mlogit5 &lt;- mlogit(poverty ~ 0 | incsour3 + edu2 + past.diff + future.diff + 
+    crise, data = dat.mlogit, reflevel = &quot;Social Blame&quot;)
+
+summary(model.mlogit5)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## mlogit(formula = poverty ~ 0 | incsour3 + edu2 + past.diff + 
+##     future.diff + crise, data = dat.mlogit, reflevel = &quot;Social Blame&quot;, 
+##     method = &quot;nr&quot;, print.level = 0)
+## 
+## Frequencies of alternatives:
+##     Social Blame Individual Blame  Individual Fate      Social Fate 
+##            0.450            0.262            0.110            0.178 
+## 
+## nr method
+## 5 iterations, 0h:0m:5s 
+## g&#39;(-H)^-1g = 3.84E-05 
+## successive function values within tolerance limits 
+## 
+## Coefficients :
+##                                             Estimate Std. Error t-value
+## Individual Blame:(intercept)               -1.777836   0.220002   -8.08
+## Individual Fate:(intercept)                -1.946130   0.265878   -7.32
+## Social Fate:(intercept)                    -1.764688   0.269663   -6.54
+## Individual Blame:incsour3notDependent       0.372283   0.099007    3.76
+## Individual Fate:incsour3notDependent        0.011231   0.120737    0.09
+## Social Fate:incsour3notDependent            0.027272   0.099785    0.27
+## Individual Blame:edu2higher                 0.000904   0.193010    0.00
+## Individual Fate:edu2higher                 -0.349059   0.230661   -1.51
+## Social Fate:edu2higher                      0.365868   0.248106    1.47
+## Individual Blame:past.diffsame or better    0.270862   0.043845    6.18
+## Individual Fate:past.diffsame or better     0.228006   0.059970    3.80
+## Social Fate:past.diffsame or better         0.159721   0.048618    3.29
+## Individual Blame:future.diffsame or better  0.450845   0.053514    8.42
+## Individual Fate:future.diffsame or better   0.524579   0.076319    6.87
+## Social Fate:future.diffsame or better       0.269378   0.057731    4.67
+## Individual Blame:criseLittle or not at all  0.587613   0.041704   14.09
+## Individual Fate:criseLittle or not at all   0.518815   0.057026    9.10
+## Social Fate:criseLittle or not at all       0.258517   0.046222    5.59
+##                                            Pr(&gt;|t|)    
+## Individual Blame:(intercept)                6.7e-16 ***
+## Individual Fate:(intercept)                 2.5e-13 ***
+## Social Fate:(intercept)                     6.0e-11 ***
+## Individual Blame:incsour3notDependent       0.00017 ***
+## Individual Fate:incsour3notDependent        0.92588    
+## Social Fate:incsour3notDependent            0.78462    
+## Individual Blame:edu2higher                 0.99626    
+## Individual Fate:edu2higher                  0.13020    
+## Social Fate:edu2higher                      0.14031    
+## Individual Blame:past.diffsame or better    6.5e-10 ***
+## Individual Fate:past.diffsame or better     0.00014 ***
+## Social Fate:past.diffsame or better         0.00102 ** 
+## Individual Blame:future.diffsame or better  &lt; 2e-16 ***
+## Individual Fate:future.diffsame or better   6.3e-12 ***
+## Social Fate:future.diffsame or better       3.1e-06 ***
+## Individual Blame:criseLittle or not at all  &lt; 2e-16 ***
+## Individual Fate:criseLittle or not at all   &lt; 2e-16 ***
+## Social Fate:criseLittle or not at all       2.2e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Log-Likelihood: -19500
+## McFadden R^2:  0.0137 
+## Likelihood ratio test : chisq = 543 (p.value = &lt;2e-16)
+</code></pre>
+
+<h3 id="toc_16">Interpretation</h3>
+
+<h2 id="toc_17">Multilevel multinomial logistic regression</h2>
+
+<p>Can be modelled in R in Bayesian manner using either <a href="http://cran.r-project.org/web/packages/ChoiceModelR/index.html">ChoiceModelR</a> and  <a href="http://cran.r-project.org/web/packages/Zelig/">Zelig</a>.</p>
+
+<p>Marco Steenbergen discusses the stat theory and imlementation in Stata in this video</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/q_t9VerQ2ko" frameborder="0" allowfullscreen></iframe>
+
+<h1 id="toc_18">Multilevel regression</h1>
+
+<h2 id="toc_19">Bivariate analysis</h2>
+
+<h3 id="toc_20">Social blame explained</h3>
+
+<pre><code class="r">library(lme4)
+df.model$group_balinCis[df.model$cntry %in% c(&quot;Czech Republic&quot;, &quot;Hungary&quot;, &quot;Bulgaria&quot;, 
+    &quot;Poland&quot;, &quot;Slovakia&quot;, &quot;Slovenia&quot;, &quot;Romania&quot;)] &lt;- &quot;CEE&quot;
+
+df.model$group_balinCis[df.model$cntry %in% c(&quot;Armenia&quot;, &quot;Azerbaijan&quot;, &quot;Belarus&quot;, 
+    &quot;Georgia&quot;, &quot;Kazakhstan&quot;, &quot;Kyrgyzstan&quot;, &quot;Moldova&quot;, &quot;Tajikistan&quot;, &quot;Ukraine&quot;, 
+    &quot;Uzbekistan&quot;, &quot;Russia&quot;, &quot;Estonia&quot;, &quot;Latvia&quot;, &quot;Lithuania&quot;)] &lt;- &quot;CIS&quot;
+df.model$group_balinCis &lt;- factor(df.model$group_balinCis, levels = c(&quot;CEE&quot;, 
+    &quot;CIS&quot;))
+
+
+bisoc.1 &lt;- glmer(pov.log.social ~ incsour3 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.2 &lt;- glmer(pov.log.social ~ edu2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.3 &lt;- glmer(pov.log.social ~ income2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.4 &lt;- glmer(pov.log.social ~ past.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.5 &lt;- glmer(pov.log.social ~ future.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.6 &lt;- glmer(pov.log.social ~ crise + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+# bisoc.8 &lt;- glmer(pov.log.social ~ perGini+(1|cntry), family =
+# binomial(logit), data = df.model)
+bisoc.9 &lt;- glmer(pov.log.social ~ gdpChange + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.10 &lt;- glmer(pov.log.social ~ wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.11 &lt;- glmer(pov.log.social ~ group_analysis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.12 &lt;- glmer(pov.log.social ~ group_balinCis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+bisoc.13 &lt;- glmer(pov.log.social ~ perGini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+</code></pre>
+
+<pre><code class="r">
+coef.names.multi = c(&quot;(intercept)&quot;, 
+                      &quot;Dependent&quot;,&quot;Low education&quot;,
+                      &quot;Low income&quot;,&quot;Income has worsened&quot;,
+                      &quot;Income will worsen&quot;,&quot;Has affected great or fair amount&quot;,
+                      #&quot;Gini coefficient&quot;,
+                      &quot;Change in GDP between 2007 to 2010&quot;,
+                      &quot;Good governance&quot;,&quot;Cgroup&quot;,&quot;CgroupMod&quot;,
+                     &quot;Perceived Gini&quot;)
+
+library(texreg)
+htmlreg(list(bisoc.1,bisoc.2,
+          bisoc.3,bisoc.4,
+          bisoc.5,bisoc.6,
+          #bisoc.8,
+          bisoc.9,bisoc.10,
+          bisoc.11,bisoc.12,
+          bisoc.13),
+        #custom.coef.names = coef.names.multi,
+        naive = TRUE,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        include.pvalues=TRUE,
+        caption=&quot;Bivariate social blame&quot;, caption.above=TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Bivariate social blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
+    <th><b>Model 7</b></th>
+    <th><b>Model 8</b></th>
+    <th><b>Model 9</b></th>
+    <th><b>Model 10</b></th>
+    <th><b>Model 11</b></th>
+  </tr>
+  <tr>
+    <td>(Intercept)</td>
+    <td>-0.19</td>
+    <td>-0.55<sup>**</sup></td>
+    <td>-0.16</td>
+    <td>-0.23</td>
+    <td>-0.12</td>
+    <td>-0.14</td>
+    <td>-0.16</td>
+    <td>-0.37<sup>***</sup></td>
+    <td>-0.26</td>
+    <td>-0.34</td>
+    <td>-2.01<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.13)</td>
+    <td>(0.17)</td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.12)</td>
+    <td>(0.11)</td>
+    <td>(0.11)</td>
+    <td>(0.11)</td>
+    <td>(0.17)</td>
+    <td>(0.20)</td>
+    <td>(0.63)</td>
+  </tr>
+  <tr>
+    <td>incsour3notDependent</td>
+    <td>-0.21<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.06)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>edu2higher</td>
+    <td></td>
+    <td>0.16</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.12)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>income2High</td>
+    <td></td>
+    <td></td>
+    <td>-0.39<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>past.diffsame or better</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.25<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>future.diffsame or better</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.37<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>criseLittle or not at all</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.42<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>gdpChange</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.01<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.00)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>wbgi_vae</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.24<sup>*</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.11)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>group_analysisCIS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.24</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.23)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>group_balinCisCIS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.07</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.25)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>perGini</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.08<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">30262.21</td>
+    <td class="midRule">30331.32</td>
+    <td class="midRule">30147.92</td>
+    <td class="midRule">29305.05</td>
+    <td class="midRule">23667.34</td>
+    <td class="midRule">27981.03</td>
+    <td class="midRule">30334.53</td>
+    <td class="midRule">30341.00</td>
+    <td class="midRule">30344.31</td>
+    <td class="midRule">30345.33</td>
+    <td class="midRule">30339.48</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>30286.40</td>
+    <td>30355.52</td>
+    <td>30172.11</td>
+    <td>29329.15</td>
+    <td>23690.82</td>
+    <td>28004.97</td>
+    <td>30358.73</td>
+    <td>30365.19</td>
+    <td>30368.50</td>
+    <td>30369.52</td>
+    <td>30363.68</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-15128.11</td>
+    <td>-15162.66</td>
+    <td>-15070.96</td>
+    <td>-14649.53</td>
+    <td>-11830.67</td>
+    <td>-13987.51</td>
+    <td>-15164.27</td>
+    <td>-15167.50</td>
+    <td>-15169.15</td>
+    <td>-15169.66</td>
+    <td>-15166.74</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>30256.21</td>
+    <td>30325.32</td>
+    <td>30141.92</td>
+    <td>29299.05</td>
+    <td>23661.34</td>
+    <td>27975.03</td>
+    <td>30328.53</td>
+    <td>30335.00</td>
+    <td>30338.31</td>
+    <td>30339.33</td>
+    <td>30333.48</td>
+  </tr>
+  <tr>
+    <td>Num. obs.</td>
+    <td>23461</td>
+    <td>23504</td>
+    <td>23513</td>
+    <td>22777</td>
+    <td>18526</td>
+    <td>21614</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+  </tr>
+  <tr>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.29</td>
+    <td>0.29</td>
+    <td>0.29</td>
+    <td>0.28</td>
+    <td>0.29</td>
+    <td>0.26</td>
+    <td>0.17</td>
+    <td>0.23</td>
+    <td>0.27</td>
+    <td>0.29</td>
+    <td>0.22</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+  </tr>
+  <tr>
+    <td colspan="12"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<pre><code class="r">
+</code></pre>
+
+<h4 id="toc_21">Interpretation</h4>
+
+<h3 id="toc_22">Individual blame explained</h3>
+
+<pre><code class="r">biind.1 &lt;- glmer(pov.log.individual ~ incsour3 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.2 &lt;- glmer(pov.log.individual ~ edu2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.3 &lt;- glmer(pov.log.individual ~ income2 + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.4 &lt;- glmer(pov.log.individual ~ past.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.5 &lt;- glmer(pov.log.individual ~ future.diff + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.6 &lt;- glmer(pov.log.individual ~ crise + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+# biind.8 &lt;- glmer(pov.log.individual ~ perGini+(1|cntry), family =
+# binomial(logit), data = df.model)
+biind.9 &lt;- glmer(pov.log.individual ~ gdpChange + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.10 &lt;- glmer(pov.log.individual ~ wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.11 &lt;- glmer(pov.log.individual ~ group_analysis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.12 &lt;- glmer(pov.log.individual ~ group_balinCis + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+biind.13 &lt;- glmer(pov.log.individual ~ perGini + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+</code></pre>
+
+<pre><code class="r">
+
+library(texreg)
+htmlreg(list(biind.1,biind.2,
+          biind.3,biind.4,
+          biind.5,biind.6,
+          #biind.8,
+          biind.9,biind.10,
+          biind.11,biind.12,
+             biind.13),
+        #custom.coef.names = coef.names.multi,
+        naive = TRUE,
+        inline.css = FALSE,
+        doctype = FALSE,
+        html.tag = FALSE,
+        head.tag = FALSE,
+        body.tag = FALSE,
+        use.packages=FALSE,
+        include.pvalues=TRUE,
+        caption=&quot;Bivariate individual blame&quot;, 
+        caption.above=TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Bivariate individual blame</caption>
+  <tr>
+    <th></th>
+    <th><b>Model 1</b></th>
+    <th><b>Model 2</b></th>
+    <th><b>Model 3</b></th>
+    <th><b>Model 4</b></th>
+    <th><b>Model 5</b></th>
+    <th><b>Model 6</b></th>
+    <th><b>Model 7</b></th>
+    <th><b>Model 8</b></th>
+    <th><b>Model 9</b></th>
+    <th><b>Model 10</b></th>
+    <th><b>Model 11</b></th>
+  </tr>
+  <tr>
+    <td>(Intercept)</td>
+    <td>-1.72<sup>***</sup></td>
+    <td>-1.23<sup>***</sup></td>
+    <td>-1.47<sup>***</sup></td>
+    <td>-1.40<sup>***</sup></td>
+    <td>-1.44<sup>***</sup></td>
+    <td>-1.52<sup>***</sup></td>
+    <td>-1.40<sup>***</sup></td>
+    <td>-1.26<sup>***</sup></td>
+    <td>-1.33<sup>***</sup></td>
+    <td>-1.28<sup>***</sup></td>
+    <td>-0.42</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.11)</td>
+    <td>(0.16)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.08)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.11)</td>
+    <td>(0.13)</td>
+    <td>(0.43)</td>
+  </tr>
+  <tr>
+    <td>incsour3notDependent</td>
+    <td>0.49<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>edu2higher</td>
+    <td></td>
+    <td>-0.02</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.14)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>income2High</td>
+    <td></td>
+    <td></td>
+    <td>0.36<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>past.diffsame or better</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.24<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>future.diffsame or better</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.31<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.05)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>criseLittle or not at all</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.50<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>gdpChange</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.01<sup>***</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.00)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>wbgi_vae</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.16<sup>*</sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.07)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>group_analysisCIS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.16</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.15)</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>group_balinCisCIS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.04</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.16)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>perGini</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.04<sup>*</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.02)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">24816.34</td>
+    <td class="midRule">24895.46</td>
+    <td class="midRule">24777.07</td>
+    <td class="midRule">24131.55</td>
+    <td class="midRule">20052.68</td>
+    <td class="midRule">22693.65</td>
+    <td class="midRule">24888.73</td>
+    <td class="midRule">24896.91</td>
+    <td class="midRule">24900.86</td>
+    <td class="midRule">24901.94</td>
+    <td class="midRule">24898.49</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>24840.53</td>
+    <td>24919.65</td>
+    <td>24801.27</td>
+    <td>24155.66</td>
+    <td>20076.16</td>
+    <td>22717.59</td>
+    <td>24912.93</td>
+    <td>24921.10</td>
+    <td>24925.06</td>
+    <td>24926.14</td>
+    <td>24922.68</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-12405.17</td>
+    <td>-12444.73</td>
+    <td>-12385.54</td>
+    <td>-12062.78</td>
+    <td>-10023.34</td>
+    <td>-11343.82</td>
+    <td>-12441.37</td>
+    <td>-12445.45</td>
+    <td>-12447.43</td>
+    <td>-12447.97</td>
+    <td>-12446.24</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>24810.34</td>
+    <td>24889.46</td>
+    <td>24771.07</td>
+    <td>24125.55</td>
+    <td>20046.68</td>
+    <td>22687.65</td>
+    <td>24882.73</td>
+    <td>24890.91</td>
+    <td>24894.86</td>
+    <td>24895.94</td>
+    <td>24892.49</td>
+  </tr>
+  <tr>
+    <td>Num. obs.</td>
+    <td>23461</td>
+    <td>23504</td>
+    <td>23513</td>
+    <td>22777</td>
+    <td>18526</td>
+    <td>21614</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+    <td>23513</td>
+  </tr>
+  <tr>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.12</td>
+    <td>0.12</td>
+    <td>0.12</td>
+    <td>0.11</td>
+    <td>0.10</td>
+    <td>0.11</td>
+    <td>0.06</td>
+    <td>0.09</td>
+    <td>0.11</td>
+    <td>0.12</td>
+    <td>0.10</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+  </tr>
+  <tr>
+    <td colspan="12"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<pre><code class="r">
+</code></pre>
+
+<h4 id="toc_23">Interpretation</h4>
+
+<h2 id="toc_24">Multivariate multilevel regressions</h2>
+
+<h3 id="toc_25">Social blame type of explanation</h3>
+
+<pre><code class="r">library(lme4)
+
+soc.0 &lt;- glmer(pov.log.social ~ (1 | cntry), family = binomial(logit), data = df.model)
+soc.1 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + (1 | cntry), family = binomial(logit), data = df.model)
+soc.2 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + perGini + (1 | cntry), family = binomial(logit), data = df.model)
+soc.3 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + perGini + gdpChange + (1 | cntry), family = binomial(logit), data = df.model)
+soc.4 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + perGini + gdpChange + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+</code></pre>
+
+<pre><code class="r">coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Perceived Gini&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
+
+model.names.multi = c(&quot;Empty&quot;, &quot;Only individual&quot;, &quot;Gini added&quot;, &quot;GDP change added&quot;, 
+    &quot;Good governance added&quot;)
+
+htmlreg(list(soc.0, soc.1, soc.2, soc.3, soc.4), custom.model.names = model.names.multi, 
+    custom.coef.names = coef.names.multi, naive = TRUE, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social blame type of explanation</caption>
+  <tr>
+    <th></th>
+    <th><b>Empty</b></th>
+    <th><b>Only individual</b></th>
+    <th><b>Gini added</b></th>
+    <th><b>GDP change added</b></th>
+    <th><b>Good governance added</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-0.39<sup>**</sup></td>
+    <td>0.36</td>
+    <td>-0.92</td>
+    <td>-0.39</td>
+    <td>-0.32</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.12)</td>
+    <td>(0.21)</td>
+    <td>(0.65)</td>
+    <td>(0.56)</td>
+    <td>(0.57)</td>
+  </tr>
+  <tr>
+    <td>Dependent</td>
+    <td></td>
+    <td>-0.20<sup>**</sup></td>
+    <td>-0.20<sup>**</sup></td>
+    <td>-0.20<sup>**</sup></td>
+    <td>-0.20<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+    <td>(0.07)</td>
+  </tr>
+  <tr>
+    <td>Low education</td>
+    <td></td>
+    <td>0.11</td>
+    <td>0.11</td>
+    <td>0.11</td>
+    <td>0.11</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.16)</td>
+    <td>(0.16)</td>
+    <td>(0.16)</td>
+    <td>(0.16)</td>
+  </tr>
+  <tr>
+    <td>Low income</td>
+    <td></td>
+    <td>-0.36<sup>***</sup></td>
+    <td>-0.37<sup>***</sup></td>
+    <td>-0.37<sup>***</sup></td>
+    <td>-0.37<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td>Income has worsened</td>
+    <td></td>
+    <td>-0.06</td>
+    <td>-0.06</td>
+    <td>-0.06</td>
+    <td>-0.06</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income will worsen</td>
+    <td></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.32<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount</td>
+    <td></td>
+    <td>-0.32<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
+    <td>-0.31<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Perceived Gini</td>
+    <td></td>
+    <td></td>
+    <td>0.06<sup>*</sup></td>
+    <td>0.05</td>
+    <td>0.04</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+    <td>(0.03)</td>
+  </tr>
+  <tr>
+    <td>Change in GDP between 2007 to 2010</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.01<sup>**</sup></td>
+    <td>-0.01<sup>*</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.00)</td>
+    <td>(0.01)</td>
+  </tr>
+  <tr>
+    <td>Good governance</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>-0.07</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.14)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">30343.40</td>
+    <td class="midRule">21780.91</td>
+    <td class="midRule">21778.95</td>
+    <td class="midRule">21772.21</td>
+    <td class="midRule">21773.96</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>30359.53</td>
+    <td>21842.88</td>
+    <td>21848.67</td>
+    <td>21849.67</td>
+    <td>21859.17</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-15169.70</td>
+    <td>-10882.45</td>
+    <td>-10880.47</td>
+    <td>-10876.11</td>
+    <td>-10875.98</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>30339.40</td>
+    <td>21764.91</td>
+    <td>21760.95</td>
+    <td>21752.21</td>
+    <td>21751.96</td>
+  </tr>
+  <tr>
+    <td>Num. obs.</td>
+    <td>23513</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+  </tr>
+  <tr>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.29</td>
+    <td>0.26</td>
+    <td>0.21</td>
+    <td>0.14</td>
+    <td>0.13</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+  </tr>
+  <tr>
+    <td colspan="6"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<pre><code class="r">
+</code></pre>
+
+<h4 id="toc_26">Interpretation</h4>
+
+<h3 id="toc_27">Individual blame type of explanation</h3>
+
+<pre><code class="r">ind.0 &lt;- glmer(pov.log.individual ~ (1 | cntry), family = binomial(logit), data = df.model)
+ind.1 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + (1 | cntry), family = binomial(logit), data = df.model)
+ind.2 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + perGini + (1 | cntry), family = binomial(logit), data = df.model)
+ind.3 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + perGini + gdpChange + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+ind.4 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + perGini + gdpChange + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+</code></pre>
+
+<pre><code class="r">htmlreg(list(ind.0, ind.1, ind.2, ind.3, ind.4), custom.model.names = model.names.multi, 
+    custom.coef.names = coef.names.multi, naive = TRUE, ci.test = NULL, inline.css = FALSE, 
+    doctype = FALSE, html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for individual blame type of explanation</caption>
+  <tr>
+    <th></th>
+    <th><b>Empty</b></th>
+    <th><b>Only individual</b></th>
+    <th><b>Gini added</b></th>
+    <th><b>GDP change added</b></th>
+    <th><b>Good governance added</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-1.25<sup>***</sup></td>
+    <td>-2.19<sup>***</sup></td>
+    <td>-1.90<sup>***</sup></td>
+    <td>-2.35<sup>***</sup></td>
+    <td>-2.39<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.08)</td>
+    <td>(0.22)</td>
+    <td>(0.49)</td>
+    <td>(0.40)</td>
+    <td>(0.40)</td>
+  </tr>
+  <tr>
+    <td>Dependent</td>
+    <td></td>
+    <td>0.37<sup>***</sup></td>
+    <td>0.37<sup>***</sup></td>
+    <td>0.37<sup>***</sup></td>
+    <td>0.37<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+    <td>(0.09)</td>
+  </tr>
+  <tr>
+    <td>Low education</td>
+    <td></td>
+    <td>-0.04</td>
+    <td>-0.04</td>
+    <td>-0.05</td>
+    <td>-0.04</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.18)</td>
+    <td>(0.18)</td>
+    <td>(0.18)</td>
+    <td>(0.18)</td>
+  </tr>
+  <tr>
+    <td>Low income</td>
+    <td></td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income has worsened</td>
+    <td></td>
+    <td>0.08</td>
+    <td>0.08</td>
+    <td>0.07</td>
+    <td>0.07</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income will worsen</td>
+    <td></td>
+    <td>0.27<sup>***</sup></td>
+    <td>0.27<sup>***</sup></td>
+    <td>0.26<sup>***</sup></td>
+    <td>0.26<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+    <td>(0.05)</td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount</td>
+    <td></td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Perceived Gini</td>
+    <td></td>
+    <td></td>
+    <td>-0.01</td>
+    <td>0.00</td>
+    <td>0.00</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.02)</td>
+    <td>(0.02)</td>
+    <td>(0.02)</td>
+  </tr>
+  <tr>
+    <td>Change in GDP between 2007 to 2010</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.01<sup>***</sup></td>
+    <td>0.01<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.00)</td>
+    <td>(0.00)</td>
+  </tr>
+  <tr>
+    <td>Good governance</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0.05</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(0.09)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">24900.01</td>
+    <td class="midRule">18249.54</td>
+    <td class="midRule">18251.11</td>
+    <td class="midRule">18239.99</td>
+    <td class="midRule">18241.69</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>24916.15</td>
+    <td>18311.51</td>
+    <td>18320.82</td>
+    <td>18317.45</td>
+    <td>18326.90</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-12448.01</td>
+    <td>-9116.77</td>
+    <td>-9116.55</td>
+    <td>-9110.00</td>
+    <td>-9109.84</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>24896.01</td>
+    <td>18233.54</td>
+    <td>18233.11</td>
+    <td>18219.99</td>
+    <td>18219.69</td>
+  </tr>
+  <tr>
+    <td>Num. obs.</td>
+    <td>23513</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>17089</td>
+  </tr>
+  <tr>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.12</td>
+    <td>0.10</td>
+    <td>0.10</td>
+    <td>0.05</td>
+    <td>0.05</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+  </tr>
+  <tr>
+    <td colspan="6"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<h3 id="toc_28">Comparison of full models with our last model</h3>
+
+<pre><code class="r">
+soc.4 &lt;- glmer(pov.log.social ~ incsour3 + edu2 + income2 + past.diff + future.diff + 
+    crise + perGini + gdpChange + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+ind.4 &lt;- glmer(pov.log.individual ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + perGini + gdpChange + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+df.model$pov.log.socVsInc[df.model$poverty == &quot;Social Blame&quot;] &lt;- 1
+df.model$pov.log.socVsInc[df.model$poverty == &quot;Individual Blame&quot;] &lt;- 0
+
+socVsInc &lt;- glmer(pov.log.socVsInc ~ incsour3 + edu2 + income2 + past.diff + 
+    future.diff + crise + perGini + gdpChange + wbgi_vae + (1 | cntry), family = binomial(logit), 
+    data = df.model)
+
+save(ind.0, ind.1, ind.2, ind.3, ind.4, soc.0, soc.1, soc.2, soc.3, soc.4, socVsInc, 
+    file = &quot;data/finalModels.RData&quot;)
+
+</code></pre>
+
+<h1 id="toc_29">Tables for presentation</h1>
+
+<h2 id="toc_30">Partial</h2>
+
+<pre><code class="r">library(texreg)
+coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
+
+model.names.multi = c(&quot;Empty&quot;, &quot;Only individual&quot;, &quot;Gini added&quot;, &quot;GDP change added&quot;, 
+    &quot;Good governance added&quot;)
+
+model.names.multi.A = c(&quot;SB empty&quot;, &quot;SB individual&quot;, &quot;SB all&quot;, &quot;IB empty&quot;, &quot;IB individual&quot;, 
+    &quot;IB all&quot;)
+
+htmlreg(list(soc.0, soc.1, soc.4, ind.0, ind.1, ind.4), custom.model.names = model.names.multi.A, 
+    custom.coef.names = coef.names.multi, naive = TRUE, inline.css = TRUE, doctype = FALSE, 
+    html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center" style="border: none;">
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
+  <tr>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB empty</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB individual</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>SB all</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB empty</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB individual</b></th>
+    <th style="text-align: left; border-top: 2px solid black; border-bottom: 1px solid black; padding-right: 12px;"><b>IB all</b></th>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">(intercept)</td>
+    <td style="padding-right: 12px; border: none;">-0.39<sup style="vertical-align: 4px;">**</sup></td>
+    <td style="padding-right: 12px; border: none;">0.36</td>
+    <td style="padding-right: 12px; border: none;">-0.32</td>
+    <td style="padding-right: 12px; border: none;">-1.25<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-2.19<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-2.39<sup style="vertical-align: 4px;">***</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.12)</td>
+    <td style="padding-right: 12px; border: none;">(0.21)</td>
+    <td style="padding-right: 12px; border: none;">(0.57)</td>
+    <td style="padding-right: 12px; border: none;">(0.08)</td>
+    <td style="padding-right: 12px; border: none;">(0.22)</td>
+    <td style="padding-right: 12px; border: none;">(0.40)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Dependent</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.20<sup style="vertical-align: 4px;">**</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.20<sup style="vertical-align: 4px;">**</sup></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.37<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.37<sup style="vertical-align: 4px;">***</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
+    <td style="padding-right: 12px; border: none;">(0.07)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.09)</td>
+    <td style="padding-right: 12px; border: none;">(0.09)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Low education</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.11</td>
+    <td style="padding-right: 12px; border: none;">0.11</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.04</td>
+    <td style="padding-right: 12px; border: none;">-0.04</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.16)</td>
+    <td style="padding-right: 12px; border: none;">(0.16)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.18)</td>
+    <td style="padding-right: 12px; border: none;">(0.18)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Low income</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.36<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.37<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.28<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.28<sup style="vertical-align: 4px;">***</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.03)</td>
+    <td style="padding-right: 12px; border: none;">(0.03)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Income has worsened</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.06</td>
+    <td style="padding-right: 12px; border: none;">-0.06</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.08</td>
+    <td style="padding-right: 12px; border: none;">0.07</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Income will worsen</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.32<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.32<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.27<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.26<sup style="vertical-align: 4px;">***</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.05)</td>
+    <td style="padding-right: 12px; border: none;">(0.05)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Has affected great or fair amount</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.32<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">-0.31<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.44<sup style="vertical-align: 4px;">***</sup></td>
+    <td style="padding-right: 12px; border: none;">0.44<sup style="vertical-align: 4px;">***</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+    <td style="padding-right: 12px; border: none;">(0.04)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Gini coefficient</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.04</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.00</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.03)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.02)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Change in GDP between 2007 to 2010</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.01<sup style="vertical-align: 4px;">*</sup></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.01<sup style="vertical-align: 4px;">**</sup></td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.01)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.00)</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Good governance</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">-0.07</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">0.05</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.14)</td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;"></td>
+    <td style="padding-right: 12px; border: none;">(0.09)</td>
+  </tr>
+  <tr>
+    <td style="border-top: 1px solid black;">AIC</td>
+    <td style="border-top: 1px solid black;">30343.40</td>
+    <td style="border-top: 1px solid black;">21780.91</td>
+    <td style="border-top: 1px solid black;">21773.96</td>
+    <td style="border-top: 1px solid black;">24900.01</td>
+    <td style="border-top: 1px solid black;">18249.54</td>
+    <td style="border-top: 1px solid black;">18241.69</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">BIC</td>
+    <td style="padding-right: 12px; border: none;">30359.53</td>
+    <td style="padding-right: 12px; border: none;">21842.88</td>
+    <td style="padding-right: 12px; border: none;">21859.17</td>
+    <td style="padding-right: 12px; border: none;">24916.15</td>
+    <td style="padding-right: 12px; border: none;">18311.51</td>
+    <td style="padding-right: 12px; border: none;">18326.90</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Log Likelihood</td>
+    <td style="padding-right: 12px; border: none;">-15169.70</td>
+    <td style="padding-right: 12px; border: none;">-10882.45</td>
+    <td style="padding-right: 12px; border: none;">-10875.98</td>
+    <td style="padding-right: 12px; border: none;">-12448.01</td>
+    <td style="padding-right: 12px; border: none;">-9116.77</td>
+    <td style="padding-right: 12px; border: none;">-9109.84</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Deviance</td>
+    <td style="padding-right: 12px; border: none;">30339.40</td>
+    <td style="padding-right: 12px; border: none;">21764.91</td>
+    <td style="padding-right: 12px; border: none;">21751.96</td>
+    <td style="padding-right: 12px; border: none;">24896.01</td>
+    <td style="padding-right: 12px; border: none;">18233.54</td>
+    <td style="padding-right: 12px; border: none;">18219.69</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Num. obs.</td>
+    <td style="padding-right: 12px; border: none;">23513</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">23513</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+    <td style="padding-right: 12px; border: none;">17089</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Num. groups: cntry</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+    <td style="padding-right: 12px; border: none;">21</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;">Variance: cntry.(Intercept)</td>
+    <td style="padding-right: 12px; border: none;">0.29</td>
+    <td style="padding-right: 12px; border: none;">0.26</td>
+    <td style="padding-right: 12px; border: none;">0.13</td>
+    <td style="padding-right: 12px; border: none;">0.12</td>
+    <td style="padding-right: 12px; border: none;">0.10</td>
+    <td style="padding-right: 12px; border: none;">0.05</td>
+  </tr>
+  <tr>
+    <td style="border-bottom: 2px solid black;">Variance: Residual</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+    <td style="border-bottom: 2px solid black;">1.00</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 12px; border: none;" colspan="7"><span style="font-size:0.8em"><sup style="vertical-align: 4px;">***</sup>p &lt; 0.001, <sup style="vertical-align: 4px;">**</sup>p &lt; 0.01, <sup style="vertical-align: 4px;">*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+<h2 id="toc_31">Comparison of full models</h2>
+
+<pre><code class="r">coef.names.multi = c(&quot;(intercept)&quot;, &quot;Dependent&quot;, &quot;Low education&quot;, &quot;Low income&quot;, 
+    &quot;Income has worsened&quot;, &quot;Income will worsen&quot;, &quot;Has affected great or fair amount&quot;, 
+    &quot;Gini coefficient&quot;, &quot;Change in GDP between 2007 to 2010&quot;, &quot;Good governance&quot;)
+
+model.names.multi.2 = c(&quot;Social blame vs. not&quot;, &quot;Individual blame vs. not&quot;, 
+    &quot;Social blame vs. Individual blame&quot;)
+
+library(texreg)
+htmlreg(list(soc.4, ind.4, socVsInc), naive = TRUE, custom.model.names = model.names.multi.2, 
+    custom.coef.names = coef.names.multi, inline.css = FALSE, doctype = FALSE, 
+    html.tag = FALSE, head.tag = FALSE, body.tag = FALSE, include.pvalues = TRUE, 
+    caption = &quot;Logistic multilevel random intercept model for social and individual blame type of explanation&quot;, 
+    caption.above = TRUE)
+</code></pre>
+
+<table cellspacing="0" align="center">
+  <caption align="top" style="margin-bottom:0.3em;">Logistic multilevel random intercept model for social and individual blame type of explanation</caption>
+  <tr>
+    <th></th>
+    <th><b>Social blame vs. not</b></th>
+    <th><b>Individual blame vs. not</b></th>
+    <th><b>Social blame vs. Individual blame</b></th>
+  </tr>
+  <tr>
+    <td>(intercept)</td>
+    <td>-0.32</td>
+    <td>-2.39<sup>***</sup></td>
+    <td>1.60<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.57)</td>
+    <td>(0.40)</td>
+    <td>(0.56)</td>
+  </tr>
+  <tr>
+    <td>Dependent</td>
+    <td>-0.20<sup>**</sup></td>
+    <td>0.37<sup>***</sup></td>
+    <td>-0.42<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.07)</td>
+    <td>(0.09)</td>
+    <td>(0.10)</td>
+  </tr>
+  <tr>
+    <td>Low education</td>
+    <td>0.11</td>
+    <td>-0.04</td>
+    <td>-0.01</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.16)</td>
+    <td>(0.18)</td>
+    <td>(0.20)</td>
+  </tr>
+  <tr>
+    <td>Low income</td>
+    <td>-0.37<sup>***</sup></td>
+    <td>0.28<sup>***</sup></td>
+    <td>-0.44<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+  </tr>
+  <tr>
+    <td>Income has worsened</td>
+    <td>-0.06</td>
+    <td>0.07</td>
+    <td>-0.10<sup>*</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
+  </tr>
+  <tr>
+    <td>Income will worsen</td>
+    <td>-0.32<sup>***</sup></td>
+    <td>0.26<sup>***</sup></td>
+    <td>-0.41<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
+    <td>(0.06)</td>
+  </tr>
+  <tr>
+    <td>Has affected great or fair amount</td>
+    <td>-0.31<sup>***</sup></td>
+    <td>0.44<sup>***</sup></td>
+    <td>-0.52<sup>***</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.04)</td>
+    <td>(0.04)</td>
+    <td>(0.05)</td>
+  </tr>
+  <tr>
+    <td>Gini coefficient</td>
+    <td>0.04</td>
+    <td>0.00</td>
+    <td>0.03</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.03)</td>
+    <td>(0.02)</td>
+    <td>(0.02)</td>
+  </tr>
+  <tr>
+    <td>Change in GDP between 2007 to 2010</td>
+    <td>-0.01<sup>*</sup></td>
+    <td>0.01<sup>**</sup></td>
+    <td>-0.02<sup>**</sup></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.01)</td>
+    <td>(0.00)</td>
+    <td>(0.01)</td>
+  </tr>
+  <tr>
+    <td>Good governance</td>
+    <td>-0.07</td>
+    <td>0.05</td>
+    <td>-0.08</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(0.14)</td>
+    <td>(0.09)</td>
+    <td>(0.13)</td>
+  </tr>
+  <tr>
+    <td class="midRule">AIC</td>
+    <td class="midRule">21773.96</td>
+    <td class="midRule">18241.69</td>
+    <td class="midRule">13564.57</td>
+  </tr>
+  <tr>
+    <td>BIC</td>
+    <td>21859.17</td>
+    <td>18326.90</td>
+    <td>13645.10</td>
+  </tr>
+  <tr>
+    <td>Log Likelihood</td>
+    <td>-10875.98</td>
+    <td>-9109.84</td>
+    <td>-6771.29</td>
+  </tr>
+  <tr>
+    <td>Deviance</td>
+    <td>21751.96</td>
+    <td>18219.69</td>
+    <td>13542.57</td>
+  </tr>
+  <tr>
+    <td>Num. obs.</td>
+    <td>17089</td>
+    <td>17089</td>
+    <td>11169</td>
+  </tr>
+  <tr>
+    <td>Num. groups: cntry</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>Variance: cntry.(Intercept)</td>
+    <td>0.13</td>
+    <td>0.05</td>
+    <td>0.11</td>
+  </tr>
+  <tr>
+    <td class="bottomRule">Variance: Residual</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+    <td class="bottomRule">1.00</td>
+  </tr>
+  <tr>
+    <td colspan="4"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.001, <sup>**</sup>p &lt; 0.01, <sup>*</sup>p &lt; 0.05</span></td>
+  </tr>
+</table>
+
+</body>
+
+</html>

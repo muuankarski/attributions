@@ -1,0 +1,61 @@
+% Multilevel modelling
+
+```{r, eval=FALSE, echo=FALSE}
+setwd("~/workspace/lits/attrib/attrib_year2013/code/")
+library(knitr)
+knit("multilevel_models_test.Rmd")
+system("~/.cabal/bin/pandoc multilevel_models_test.md --number-sections --template=../tex_templates/dcolumn.latex -o multilevel_models_test.tex")
+#system("perl -pi -e 's/footnotesize/tiny/g' multilevel_models_test.tex")
+system("pdflatex multilevel_models_test.tex")
+```
+
+
+
+```{rmultilevel_analysis, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, results='hide', eval=TRUE}
+library(lme4.0)
+#########################################
+load("~/workspace/lits/attrib/attrib_year2013/data/lits.RData")
+
+
+
+library(lme4)
+summary(soc.0 <- lmer(pov.log.social ~ (1|cntry),
+                      family = binomial, data=df))
+summary(soc.1 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+(1|cntry),
+                      family = binomial, data=df))
+summary(soc.2 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw.gini+(1|cntry),family = binomial, data=df))
+summary(soc.3 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw.gini+gdpchange07.10+(1|cntry),family = binomial, data=df))
+summary(soc.4 <- lmer(pov.log.social ~ incsour3+edu2+income2+
+                        past.diff+future.diff+crise+
+                        uw.gini+gdpchange07.10+wbgi.vae+(1|cntry),family = binomial, data=df))
+```
+
+
+```{rstargazer, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+library(stargazer)
+stargazer(soc.1,soc.2,soc.3,soc.4,
+          title="testailua", ord.intercepts = TRUE)
+```
+
+```{rmemisc, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+library(memisc)
+toLatex(mtable(soc.1,soc.2,soc.3,soc.4))
+```
+
+
+
+```{rtexreg, results='asis', echo=FALSE, eval=TRUE, cache=TRUE}
+library(texreg)
+texreg(list(soc.1,soc.2,soc.3,soc.4), use.packages=FALSE, bold=0.5)
+#extract.mer(soc.1, include.pvalues=TRUE)
+#summary(soc.1)
+```
+
+
+
+
