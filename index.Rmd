@@ -32,6 +32,14 @@ This site gathers together all the data analysis behind the actual paper. Data a
 | [Spatial visualization](mapPlots.html) | [source](mapPlots.Rmd) |
 | [Graphics in the paper](finalPlots.html) | [source](finalPlots.Rmd) |
 
+### Misc analysis
+
+| html-ouput | source code |
+| ------------ | -------------- |
+| [Comparing waves 2006 and 2011](compareWaves.html) | [source](compareWaves.Rmd) |
+| [Exploring the macro level correlations](correlations.html) | [source](correlations.md) |
+
+
 
 ## Modelling the data
 
