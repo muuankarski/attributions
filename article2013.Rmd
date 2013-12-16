@@ -245,10 +245,11 @@ model.names.multi.A = c("SB empty",
                       "IB empty",
                       "IB individual",
                       "IB contextual",
-                      "IB all")
+                      "IB all",
+                      "SB vs. IB")
 
 texreg(list(soc.0,soc.1,soc.Cont,soc.4,
-            ind.0,ind.1,ind.Cont,ind.4),
+            ind.0,ind.1,ind.Cont,ind.4,socVsInc),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
@@ -263,7 +264,7 @@ texreg(list(soc.0,soc.1,soc.Cont,soc.4,
 
 
 
-```{rarticleModelsFull, results='asis', eval=TRUE}
+```{rarticleModelsFull, results='asis', eval=FALSE}
 load("data/finalModels.RData")
 
 model.names.multi.2 = c("SB vs. not",
