@@ -3,7 +3,7 @@
 
 
 ```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=FALSE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
+opts_chunk$set(echo=FALSE,eval=FALSE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
 ```
 
 
@@ -329,7 +329,7 @@ Marco Steenbergen discusses the stat theory and imlementation in Stata in this v
 ### Social blame explained
 
 
-```{rmultilevelBivarSoc, eval=TRUE}
+```{rmultilevelBivarSoc}
 library(lme4)
 df.model$group_balinCis[df.model$cntry %in% c('Czech Republic',
                                         'Hungary','Bulgaria',
@@ -373,7 +373,7 @@ bisoc.13 <- glmer(pov.log.social ~ perGini+(1|cntry),
 ```
 
 
-```{rmultilevelBivarSocOutputNOCI, results='asis', eval=TRUE}
+```{rmultilevelBivarSocOutputNOCI, results='asis'}
 
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
@@ -412,7 +412,7 @@ htmlreg(list(bisoc.1,bisoc.2,
 
 ### Individual blame explained
 
-```{rmultilevelBivarInd, eval=TRUE}
+```{rmultilevelBivarInd}
 biind.1 <- glmer(pov.log.individual ~ incsour3+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.2 <- glmer(pov.log.individual ~ edu2+(1|cntry),
@@ -440,7 +440,7 @@ biind.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
 ```
 
 
-```{rmultilevelBivarIndOuputNOCI, results='asis', eval=TRUE}
+```{rmultilevelBivarIndOuputNOCI, results='asis'}
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
@@ -473,7 +473,7 @@ htmlreg(list(biind.1,biind.2,
 
 ### Social blame type of explanation
 
-```{rmultilevelMultiSoc, eval=TRUE}
+```{rmultilevelMultiSoc, eval=TRUE, echo=TRUE}
 library(lme4)
 soc.0 <- glmer(pov.log.social ~ (1|cntry),
                       family = binomial(logit),
@@ -507,7 +507,7 @@ soc.Cont <- glmer(pov.log.social ~ undp_hdi+gdpChange+
 
 
 
-```{rmultilevelMultiSocOutputNOCI, results='asis', eval=TRUE}
+```{rmultilevelMultiSocOutputNOCI, results='asis', eval=FALSE}
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
@@ -552,7 +552,7 @@ htmlreg(list(soc.0,
 ### Individual blame type of explanation
 
 
-```{rmultilevelMultiInd, eval=TRUE}
+```{rmultilevelMultiInd, eval=TRUE, echo=TRUE}
 ind.0 <- glmer(pov.log.individual ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -583,7 +583,7 @@ ind.Cont <- glmer(pov.log.individual ~ undp_hdi+gdpChange+
 ```
 
 
-```{rmultilevelMultiIndOutputNOCI, results='asis', eval=TRUE}
+```{rmultilevelMultiIndOutputNOCI, results='asis', eval=FALSE}
 htmlreg(list(ind.0,
        ind.1,
        ind.2,
@@ -605,19 +605,8 @@ htmlreg(list(ind.0,
 
 ### Comparison of full models with our last model 
 
-```{rmultilevelMultivarFull, eval=TRUE}
+```{rmultilevelMultivarFull, eval=TRUE, echo=TRUE}
 
-soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        undp_hdi+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-
-ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        undp_hdi+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
 
 df.model$pov.log.socVsInc[df.model$poverty == "Social Blame"] <- 1
 df.model$pov.log.socVsInc[df.model$poverty == "Individual Blame"] <- 0
@@ -635,38 +624,43 @@ save(ind.0,ind.1,ind.2,ind.3,ind.4,ind.Cont,
 
 ```
 
-# Tables for presentation
+# FINAL TABLES SAME AS IN PAPER
 
-## Partial
 
-```{rmultilevelMultivarSlideOutput, results='asis', eval=TRUE, eval=TRUE}
+```{rmultilevelMultivarSlideOutput, results='asis', eval=TRUE, echo=TRUE}
 library(texreg)
+
+#load("data/finalModels.RData")
+
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-                      "Human Development Index",
+                      "Human Deveplopment Index",
                       "Change in GDP between 2007 to 2010",
-                      "Good governance")
+                      "Voice and Accountability")
 
 model.names.multi = c("Empty",
                       "Only individual",
                       "HDI added",
                       "GDP change added",
-                      "Good governance added")
+                      "Voice and Accountability added")
 
 model.names.multi.A = c("SB empty",
                       "SB individual",
+                      "SB contextual",
                       "SB all",
                       "IB empty",
                       "IB individual",
-                        "IB all")
+                      "IB contextual",
+                      "IB all",
+                      "SB vs. IB")
 
-htmlreg(list(soc.0,soc.1,soc.4,
-            ind.0,ind.1,ind.4),
+htmlreg(list(soc.0,soc.1,soc.Cont,soc.4,
+            ind.0,ind.1,ind.Cont,ind.4,socVsInc),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
-        naive = TRUE,
+        naive=TRUE,
         inline.css = TRUE,
         doctype = FALSE,
         html.tag = FALSE,
@@ -676,11 +670,15 @@ htmlreg(list(soc.0,soc.1,soc.4,
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
 
+
+```
+
+
 ```
 
 ## Comparison of full models
 
-```{rrmultilevelMultivarFullOutput, results='asis', eval=TRUE}
+```{rrmultilevelMultivarFullOutput, results='asis', eval=FALSE}
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",

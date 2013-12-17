@@ -245,11 +245,10 @@ model.names.multi.A = c("SB empty",
                       "IB empty",
                       "IB individual",
                       "IB contextual",
-                      "IB all",
-                      "SB vs. IB")
+                      "IB all")
 
 texreg(list(soc.0,soc.1,soc.Cont,soc.4,
-            ind.0,ind.1,ind.Cont,ind.4,socVsInc),
+            ind.0,ind.1,ind.Cont,ind.4),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
@@ -264,7 +263,7 @@ texreg(list(soc.0,soc.1,soc.Cont,soc.4,
 
 
 
-```{rarticleModelsFull, results='asis', eval=FALSE}
+```{rarticleModelsFull, results='asis', eval=TRUE}
 load("data/finalModels.RData")
 
 model.names.multi.2 = c("SB vs. not",
@@ -408,36 +407,4 @@ Kumlin, Staffan (2007) Overload or Undermined? European Welfare States in the Fa
 
 Lepianka, Dorota (2007) Are the Poor to be Blamed or Pitied? A Comparative Study of Popular Attributions in Europe. Tilburg: Tilburg University.
 
-Lepianka, Dorota and Gelissen, John and van Oorschot, Wim (2010) Popular Explanations of Poverty in Europe. Effects of Contextual and Individual Characteristics across 28 European Countries. Acta Sociologica 53 (1), 53–72.
-
-Morçöl, Göktuğ (1997) Lay Explanations for Poverty in Turkey and Their Determinants. Journal of Social Psychology 137 (6) 728–738.
-
-Murthi, M., & Tiongson, E. R. (2008). Attitudes to Equality: The Socialist Legacy Revisited. SSRN eLibrary. Retrieved from http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1098627
-
-Nasser, Ramzi and Abouchedid, Kamal and Khashan, Hilal (2002) Perceptions of the Causes of Poverty Comparing Three National Groups: Lebanon, Portugal, and South Africa. Current Research in Social Psychology 8 (7), 101–119.
-
-Niemelä, Mikko (2008) Perceptions of the Causes of Poverty in Finland. Acta Sociologica, 51 (1), 23–40.
-
-Nilson, Lina B. (1981) Reconsidering Ideological Lines: Beliefs about Poverty in America. The Sociological Quarterly 22 (4), 531-548.
-
-Ragin, Charles C. (1987) The Comparative Method. Moving Beyond Qualitative and Quantitative Strategies. Berkeley: University of California Press.
-
-Rothstein, Bo (2000) Trust, Social Dilemmas and Collective Memories. Journal of Theoretical Politics, 12 (4), 477–501.
-
-Rothstein, Bo and Stolle, Dietlind (2008) The State and Social Capital: An Institutional Theory of Generalized Trust. Comparative Politics 40 (4), 441-459.
-
-Saunders, Peter (2002) The Ends and Means of Welfare. Coping with Economic and Social Change in Australia. Cambridge: Cambridge University Press.
-
-Schumpeter, Joseph A. (1942) Capitalism, Socialism & Democracy. New York: Harper & Brothers.
-
-Szikra, D., & Tomka, B. (2009). Social Policy in East Central Europe: Major Trends in the Twentieht Century. In Post-communist Welfare Pathways (Vol. 2009).
-
-Stephenson, Svetlana (2000) Public Beliefs in the Causes of Wealth and Poverty and Legitimization of Inequalities in Russia and Estonia. Social Justice Research 13 (2), 83–100.
-
-Svallfors, Stefan (1997) Worlds of Welfare and Attitudes to Redistribution: A Comparison of Eight Western Nations. European Sociological Review 13 (3), 283–304.
-
-Tomka, B. (2006). East Central Europe and the European Social Policy Model: A Long-Term View. East European Quarterly, 40(2), 135.
-
-van Oorschot, Wim and Halman, Loek (2000) Blame or Fate, Individual or Social? An International Comparison of Popular Explanations of Poverty. European Societies 2 (1), 1–28.
-
-Wilson, George (1996) Toward a Revised Framework for Examining Beliefs about the Causes of Poverty. The Sociological Quarterly 37 (3), 413–428.
+Lepianka, Dorota and Gelissen, John and van Oorschot, Wim (2010) Popular Explanations of Poverty in Europe. E
