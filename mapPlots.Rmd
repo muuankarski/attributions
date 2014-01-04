@@ -2,7 +2,7 @@
 
 
 ```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
+opts_chunk$set(echo=FALSE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
 ```
 
 # Country grouping
@@ -61,6 +61,7 @@ ggplot(map.df, aes(long,lat,group=group)) +
   geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
   coord_map(project="orthographic") +
   theme(legend.position="top")
+
 ```
 
 
@@ -85,6 +86,7 @@ ggplot(plotMap, aes(long,lat,group=group)) +
   scale_fill_gradient2(low="white", high=muted("blue")) +
   theme(legend.position="top") +
   theme(legend.text = element_text(size=14))
+
 ```
 
 ## Individual blame
