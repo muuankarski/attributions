@@ -64,11 +64,12 @@ hljs.initHighlightingOnLoad();
     text-align: center;
     font-size: 1.1em;
     line-height: 1.2em;
+    border-bottom: 0px;
     }
 
 .date /* Pandoc date header (h3.date) */
     {
-	font-family:  Verdana, Arial;
+	font-family:  Avant Garde, Arial;
 	text-align: center;
 	font-size: 1.1em;
 	line-height: 1.2em;
@@ -76,10 +77,10 @@ hljs.initHighlightingOnLoad();
 
 
 body {
-    margin-left: 190px;
-    max-width:900px; 
+    margin-left: 240px;
+    max-width:600px; 
     border: 0px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Palatino, Helvetica, sans-serif;
 }
 
 
@@ -87,10 +88,10 @@ body {
     font-size:0.9em;
     height: 100%;
     position: fixed; 
-    width: 180px;
+    width: 220px;
     left: 5px;
     padding-top: 20px;
-    color: #0099FF;
+    color: #003333;
     border-right: 1px dashed #C1C1C1;
 }
 
@@ -110,7 +111,7 @@ body {
 
 
 #toc a {
-    color: #0099FF;
+    color: #003333;
     display: block;
 }
 
@@ -146,19 +147,19 @@ code.r, code.cpp {
 
 ul {
 	font-size: 100% !important;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Palatino, Helvetica, sans-serif;
 }
 li {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Palatino, Helvetica, sans-serif;
  	font-size: 1em;
  	line-height: 1.1em;
 }
 
 
 p {
-	font-family: Arial, Helvetica, sans-serif;
-    padding-top: 5px;
-	padding-bottom: 5px;
+	font-family: Palatino, Helvetica, sans-serif;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	font-size: 1em;
 	line-height: 1.2em;
 }
@@ -178,42 +179,45 @@ UL li, ol li {
 	padding: 2px;
 }
 a:link {
-	color: #6E2817;
-    text-decoration: none;
+	color: #003333;
+   /* text-decoration: none; */
 }
 a:hover {
-	color: #6E2817;
+	color: #003333;
 }
 a:visited {
-	color: #3E4E70;
+	color: #003333;
 }
 a:focus {
-	color: #6E2817;
+	color: #003333;
 }
 a:active {
-	color: #3E4E70;
+	color: #003333;
 }
 
 h1 {
-	font-family:  Verdana, Arial;
+	font-family:  Avant Garde, Arial;
 	font-size: 1.5em;
 	padding: 2px;
 	line-height: 1.5em;
 	/*letter-spacing: 0.06em;
 	word-spacing: .1em;*/
-    border-bottom: 0.5px dashed #555;
+        border-bottom: 0.5px solid #555;
+	text-transform:uppercase;
 }
 h2 {
-	font-family:  Verdana, Arial;
+	font-family:  Avant Garde, Arial;
 	font-size: 1.3em;
 	padding: 2px;
 	line-height: 1.3em;
 	letter-spacing: 0.05em;
 	word-spacing: .1em;
+	border-bottom: 0.5px dashed #555;
+/*	text-transform:capitalize;*/
 
 }
 h3 {
-	font-family:  Verdana, Arial;
+	font-family:  Avant Garde, Arial;
 	font-size: 1.1em;
 	padding: 2px;
 	line-height: 1.1em;
@@ -222,7 +226,7 @@ h3 {
 
 }
 h4 {
-	font-family: Arial;
+	font-family: Avant Garde;
 	font-size: 1.0em;
 	padding: 2px;
 	line-height: 1.0em;
@@ -230,7 +234,7 @@ h4 {
 	font-weight: italic;
 }
 h5 {
-	font-family: Arial;
+	font-family: Avant Garde;
 	font-size: 1.05em;
 	padding: 2px;
 	line-height: 1.15em;
@@ -238,7 +242,7 @@ h5 {
 	font-weight: normal;
 }
 h6 {
-	font-family: Arial;
+	font-family: Avant Garde;
 	font-size: 1em;
 	padding: 2px;
 	line-height: 1.1em;
@@ -1388,8 +1392,41 @@ macro2006$year &lt;- 2006
 
 <pre><code class="r">#######
 # Quality of governance
-library(rustfare)
-datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
+
+getQog &lt;- function(data = &quot;basic&quot;,
+                   country = &quot;all&quot;, 
+                   indicator = &quot;undp_hdi&quot;,
+                   year = &quot;all&quot;) {
+# URL&#39;s for different data&#39;s
+  basicURL &lt;- &quot;http://www.qogdata.pol.gu.se/data/qog_bas_ts_30aug13.csv&quot;
+  standardURL &lt;- &quot;http://www.qogdata.pol.gu.se/data/qog_std_ts_15may13.csv&quot;
+  socialPolicyURL &lt;- &quot;http://www.qogdata.pol.gu.se/data/qog_soc_tsl_4apr12.csv&quot;
+
+
+# Select the data to download
+  if (data == &quot;basic&quot;)         dat &lt;- read.csv(basicURL,  sep = &quot;;&quot;)
+  if (data == &quot;standard&quot;)      dat &lt;- read.csv(standardURL,  sep = &quot;;&quot;)
+  if (data == &quot;socialPolicy&quot;)  dat &lt;- read.csv(socialPolicyURL,  sep = &quot;;&quot;)
+# subset the countries
+  if (country != &quot;all&quot;) df &lt;- dat[dat$cname %in% c(country), ]
+  if (country == &quot;all&quot;) df &lt;- dat
+# subset the variables
+  indicatorx &lt;- c(&quot;cname&quot;,&quot;year&quot;,indicator)
+  df &lt;- df[, c(indicatorx)]
+# reshape the data into long format  
+  library(reshape2)
+  df.l &lt;- melt(df, id.vars=c(&quot;cname&quot;,&quot;year&quot;))
+  df.l &lt;- df.l[!is.na(df.l$value), ]
+  df.l$indicator &lt;- df.l$variable
+  df.l$variable &lt;- NULL
+# subset the years
+  if (year != &quot;all&quot;) df.l &lt;- df.l[df.l$year == year,]
+  if (year == &quot;all&quot;) df.l &lt;- df.l
+  df.l
+}
+
+datQog &lt;- getQog(data=&quot;basic&quot;,
+                 country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Georgia&#39;,&#39;Russia&#39;,
                    &#39;Ukraine&#39;,&#39;Moldova&#39;,&#39;Belarus&#39;,&#39;Kyrgyzstan&#39;,
                    &#39;Kazakhstan&#39;,&#39;Tajikistan&#39;,
                    &#39;Uzbekistan&#39;,&#39;Estonia&#39;,&#39;Latvia&#39;,&#39;Lithuania&#39;,
@@ -1398,8 +1435,9 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
                    &#39;Italy&#39;,&#39;Germany&#39;,&#39;United Kingdom&#39;,
                    &#39;Sweden&#39;,&#39;France&#39;), 
        indicator = c(&quot;wbgi_vae&quot;, # World Bank - Voice and Accountability
-                     &quot;uw_gini&quot;
-                     ))
+                     &quot;undp_hdi&quot;))
+
+datQogSum &lt;- datQog[datQog$year %in% c(2006,2010),]
 
 # datQog &lt;- datQog[datQog$year &gt;= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
@@ -1407,9 +1445,9 @@ datQog &lt;- GetQog(country = c(&#39;Armenia&#39;,&#39;Azerbaijan&#39;,&#39;Geor
 # subset the latest value per cntry per indicator
 #library(plyr)
 #datQogSum &lt;- ddply(datQog, c(&quot;cname&quot;,&quot;indicator&quot;), 
-#                   subset, year == max(year))
-datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
-datQogSum$year[datQogSum$year == 2009] &lt;- 2010
+#                   subset, year == 2010)
+#datQogSum &lt;- datQog[datQog$year %in% c(2006,2009),]
+#datQog$year[datQog$year == 2009] &lt;- 2010
 #names(datQogSum)[3] &lt;- &quot;wbgi_vae&quot;
 #datQogSum$indicator &lt;- NULL
 
@@ -1438,7 +1476,7 @@ summary(factor(datQogSum.w$group_fine))
 <pre><code>## Baltic States      Caucasus        CEE EU  Central Asia     CIS North 
 ##             6             6            14             8             8 
 ##   West Europe 
-##            10
+##             8
 </code></pre>
 
 <pre><code class="r">
