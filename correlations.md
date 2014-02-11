@@ -1,7 +1,14 @@
-<h1 class="title">Regressioautomaation tuloksia 13.12.2013</h1>
+---
+title: Regressioautomaation tuloksia 13.12.2013
+output:
+  html_document:
+    toc: true
+    theme: flatly
+---
 
-<<<<<<< HEAD
-=======
+
+
+
 Dreher KOF Index of Globalization
 ==============================
 
@@ -108,8 +115,6 @@ Index of Democratization
 
 This index combines two basic dimensions of democracy – competition and participation – measured as the percentage of votes not cast for the largest party (Competition) times the percentage of the population who actually voted in the election (Participation). This product is di-vided by 100 to form an index that in principle could vary from 0 (no democracy) to 100 (full democracy). (Empirically, however, the largest value is 49).
 
-
->>>>>>> gh-pages
 
 Cingranelli & Richards - Human Rights Dataset
 =========================================

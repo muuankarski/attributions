@@ -1,9 +1,14 @@
+---
+title: Descriptive visualizations
+output:
+  html_document:
+    toc: true
+    theme: flatly
+---
+
+
 # Loading and cleaning the data
 
-
-```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
-```
 
 # Loading the data from EBRD
 
@@ -525,11 +530,6 @@ macro2006$year <- 2006
 ```{rLoadClean7, eval=TRUE}
 #######
 # Quality of governance
-<<<<<<< HEAD
-library(rustfare)
-datQog <- GetQog(country = c('Armenia','Azerbaijan','Georgia','Russia',
-=======
-
 getQog <- function(data = "basic",
                    country = "all", 
                    indicator = "undp_hdi",
@@ -564,7 +564,6 @@ getQog <- function(data = "basic",
 
 datQog <- getQog(data="basic",
                  country = c('Armenia','Azerbaijan','Georgia','Russia',
->>>>>>> gh-pages
                    'Ukraine','Moldova','Belarus','Kyrgyzstan',
                    'Kazakhstan','Tajikistan',
                    'Uzbekistan','Estonia','Latvia','Lithuania',
@@ -573,14 +572,9 @@ datQog <- getQog(data="basic",
                    'Italy','Germany','United Kingdom',
                    'Sweden','France'), 
        indicator = c("wbgi_vae", # World Bank - Voice and Accountability
-<<<<<<< HEAD
-                     "uw_gini"
-                     ))
-=======
                      "undp_hdi"))
 
 datQogSum <- datQog[datQog$year %in% c(2006,2010),]
->>>>>>> gh-pages
 
 # datQog <- datQog[datQog$year >= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
@@ -588,15 +582,9 @@ datQogSum <- datQog[datQog$year %in% c(2006,2010),]
 # subset the latest value per cntry per indicator
 #library(plyr)
 #datQogSum <- ddply(datQog, c("cname","indicator"), 
-<<<<<<< HEAD
-#                   subset, year == max(year))
-datQogSum <- datQog[datQog$year %in% c(2006,2009),]
-datQogSum$year[datQogSum$year == 2009] <- 2010
-=======
 #                   subset, year == 2010)
 #datQogSum <- datQog[datQog$year %in% c(2006,2009),]
 #datQog$year[datQog$year == 2009] <- 2010
->>>>>>> gh-pages
 #names(datQogSum)[3] <- "wbgi_vae"
 #datQogSum$indicator <- NULL
 
