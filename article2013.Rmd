@@ -1,41 +1,20 @@
-% Attributions for Poverty in Post-Socialist Countries[^*]
-% Markus Kainu[^**];Mikko Niemelä[^***]
-% December 12, 2013
+---
+title: "Attributions for Poverty in Post-Socialist Countries"
+author: [Markus Kainu & Mikko Niemelä]
+date: February 11, 2014
+abstract: Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
+keywords: poverty
+output:
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  html_document:
+    toc: true
+    theme: flatly
+---
 
-
-[^*]:*Work in progress. See the analysis outputs at [http://muuankarski.github.io/attributions/](http://muuankarski.github.io/attributions/)
-
-[^**]:PhD Student. Aleksanteri institute, University of Helsinki & Department of Social Research, University of Turku <a href="mailto:markuskainu@gmail.com">markuskainu@gmail.com</a>
-
-[^***]:Senior Researcher. Social Insurance Institution of Finland, KELA a<a href="mailto:mikko.niemela@kela.fi">mikko.niemela@kela.fi</a>
-
-```{roptsattribArticle, echo=FALSE}
-opts_chunk$set(echo=FALSE,eval=TRUE,cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
-```
-
-
-```{r, eval=FALSE, echo=FALSE}
-setwd("~/workspace/lits/attributions/")
-library(knitr)
-knit("article2013.Rmd")
-
-~/.cabal/bin/pandoc article2013.md --template=../../template/pandoc_article/tex_templates/pandoc.latex.template --number-sections --toc --latex-engine=xelatex -V lang=english -V papersize:a4paper -V documentclass=scrartcl -o article2013.tex
-sed -i 's/begin{figure}\[htbp\]/begin{figure}\[H\]/g' article2013.tex
-xelatex article2013.tex
-
-knitpandoc_pdf("article2013")
-
-system("~/.cabal/bin/pandoc -s article2013.md --toc --number-sections -o article2013.html")
-system("~/.cabal/bin/pandoc -f markdown -t docx article2013.md -o article2013.docx --standalone --toc --number-sections")
-system("~/.cabal/bin/pandoc article2013.md -o article2013.epub --standalone --toc --number-sections")
-
-```
 
 \newpage
-
-\begin{abstract}
-Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
-\end{abstract}
 
 # Introduction
 
@@ -104,7 +83,10 @@ Thus, the question is a standard forced-choice question which is used also in ot
 
 As country-level determinants of perceptions, we will analyze, whether this variation can be explained by different regimes within post-socialist countries and the post-socialist legacy. The study divides post-socialist countries into two groups: Central Eastern Europe (CEE) and Commonwealth of Independent States (CIS). CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. The survey data enables us also to compare post-socialist countries to a selection of Western European nations (France, Germany, Italy and Sweden). Thus, in order to examine the distinctiveness of post-socialist perception, Western European countries are included in the descriptive analyses. (See Figure 1.)
 
+<!--
 ![Countries used in the analysis](figure/mapplot.pdf)
+-->
+
 
 [^****]:Georgia withdrawn its membership from CIS in 2008
 
@@ -117,9 +99,9 @@ As an individual-level determinants for the perceptions article test to what ext
 Table: Description of independent variables in the analyses. 
 
 
---------------------------------------------------------------------------------------------
+----------------------------
 Variable                          Description                                                                                                   Source
-------------------------          ------------------------                                                                                      -----------
+---------                         ------------                                                                                                  -----------
 **Individual-level**
 
 Transfer dependency               Social or private transfers as main source of income                                                          lits
@@ -141,7 +123,7 @@ Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010           
 Gini coefficient                  Measures the distribution of income or consumption expenditure among individuals or households                World Bank
 
 Voice and Accountability          Indicators measuring the political process, civil liberties and political rights.                             World Bank
---------------------------------------------------------------------------------------------
+----------------------------
 
 
 An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of four variables: 1) change in total GDP in 2007 - 2010, 2) gini coefficient of economic inequality, 3) 2011 democracy index and 4) country grouping. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), gini coefficients from [UNU-WIDER World Income Inequality Database](http://www.wider.unu.edu/research/Database/en_GB/database/) and Democracy Index from the [Economist Intelligence Unit](http://www.eiu.com/Default.aspx). Gini coefficient for each country is the latest available varying from 2002 to 2006. (see Appendix A)
@@ -164,17 +146,16 @@ Table 3 shows the proportion of the total number of respondents in a country whi
 
 \newpage
 
-```{rattribArticleDescTbl1, results='asis'}
+```{rattribArticleDescTbl1, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
 source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5,digits=1,
-                    caption="Weighted population shares of dependent variable by country",),table.placement="H",
+                    caption="Weighted population shares of dependent variable by country",), #table.placement="H",
              type="latex",
              comment=FALSE, 
              include.rownames=FALSE,
              caption.placement="top",
              size="scriptsize")
-
 ```
 
 
@@ -221,9 +202,9 @@ In regard to the level of democracy we can see great differences between and wit
 *As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.*
 
 
-```{rarticleModelsSoc, results='asis', eval=TRUE}
+```{rarticleModelsSoc, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
 load("data/finalModels.RData")
-
+library(texreg)
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
@@ -241,29 +222,59 @@ model.names.multi = c("Empty",
 model.names.multi.A = c("SB empty",
                       "SB individual",
                       "SB contextual",
-                      "SB all",
-                      "IB empty",
-                      "IB individual",
-                      "IB contextual",
-                      "IB all")
+                      "SB all")
 
-texreg(list(soc.0,soc.1,soc.Cont,soc.4,
-            ind.0,ind.1,ind.Cont,ind.4),
+texreg(list(soc.0,soc.1,soc.Cont,soc.4),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive = TRUE,
-        use.packages=TRUE,
-        sideways=TRUE,
+        #use.packages=TRUE,
+        #sideways=TRUE,
         scriptsize=TRUE,
         include.pvalues=TRUE,
         caption="Logistic multilevel random intercept model for social blame type of explanation", 
         caption.above=TRUE)
+```
 
+
+```{rarticleModelsInd, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
+load("data/finalModels.RData")
+library(texreg)
+coef.names.multi = c("(intercept)", 
+                      "Dependent","Low education",
+                      "Low income","Income has worsened",
+                      "Income will worsen","Has affected great or fair amount",
+                      "Human Deveplopment Index",
+                      "Change in GDP between 2007 to 2010",
+                      "Voice and Accountability")
+
+model.names.multi = c("Empty",
+                      "Only individual",
+                      "HDI added",
+                      "GDP change added",
+                      "Voice and Accountability added")
+
+model.names.multi.A = c("IB empty",
+                      "IB individual",
+                      "IB contextual",
+                      "IB all")
+
+texreg(list(ind.0,ind.1,ind.Cont,ind.4),
+        custom.model.names = model.names.multi.A,
+        custom.coef.names = coef.names.multi,
+        naive = TRUE,
+        #use.packages=TRUE,
+        #sideways=TRUE,
+        scriptsize=TRUE,
+        include.pvalues=TRUE,
+        caption="Logistic multilevel random intercept model for social blame type of explanation", 
+        caption.above=TRUE)
 ```
 
 
 
-```{rarticleModelsFull, results='asis', eval=TRUE}
+
+```{rarticleModelsFull, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
 load("data/finalModels.RData")
 
 model.names.multi.2 = c("SB vs. not",
@@ -283,8 +294,9 @@ coef.names.multi = c("(intercept)",
 
 
 library(texreg)
-texreg(list(soc.4,ind.4,socVsInc),float.pos="H",
-       use.packages=TRUE,
+texreg(list(soc.4,ind.4,socVsInc),
+       #float.pos="H",
+       #use.packages=TRUE,
        #booktabs=TRUE,
        #dcolumn=TRUE,
        scriptsize=TRUE,
