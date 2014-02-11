@@ -1,5 +1,115 @@
 <h1 class="title">Regressioautomaation tuloksia 13.12.2013</h1>
 
+<<<<<<< HEAD
+=======
+Dreher KOF Index of Globalization
+==============================
+
+http://globalization.kof.ethz.ch/ (2013-03-07) (Dreher 2006; Dreher et al 2008)
+
+All indexes below range between 0 and 100, where higher values indicate a higher degree of
+globalization.
+
+dr_ig
+----------------------------
+.43/-.41
+
+Social Globalization
+
+Social globalization is measured by three categories of indicators. The first is personal contacts, such
+as telephone traffic and tourism. The second is information flows, e.g. number of Internet users. The
+third is cultural proximity, e.g. trade in books and number of Ikea warehouses per capita.
+
+
+Fund for Peace
+=============================
+
+http://ffp.statesindex.org/ (2013-04-22)
+
+ffp_fsi
+------------------------
+-.37/.42
+
+Failed States Index
+
+The FSI focuses on the indicators of risk and is based on thousands of articles and reports that are processed by our CAST Software from electronically available sources.
+
+
+Henisz The Political Constraints Data
+===============================
+http://mgmt5.wharton.upenn.edu/henisz/POLCON/ContactInfo.html (Henisz 2000) (2013-04-09)
+
+Measures political risk focusing on political constraints.
+
+h_polcon3
+---------------------
+.39/-.45
+
+
+Political Constraints Index III
+
+This index measures the feasibility of policy change, i.e. the extent to which a change in the preferences of any one political actor may lead to a change in government policy. The index is composed from the following information: the number of independent branches of government with veto power over policy change, counting the executive and the presence of an effective lower and upper house in the legislature (more branches leading to more constraint); the extent of party alignment across branches of government, measured as the extent to which the same party or coalition of parties control each branch (decreasing the level of constraint); and the extent of preference heterogeneity within each legislative branch, measured as legislative fractionalization in the relevant house (increasing constraint for aligned executives, decreasing it for opposed executives). The index scores are derived from a simple spatial model and theoretically ranges from 0 to 1, with higher scores indicating more political constraint and thus less feasibility of policy change. Note that the coding reflects information as of January 1 in any given year. Henisz (2002) uses this index to demonstrate that political environments that limit the feasibility of policy change are an important determinant of investment in infrastructure.
+
+
+Inter-Parliamentary Union
+===========================
+
+ipu_w_lower
+---------------------------
+-.50/.59
+
+Women in national parliament (lower house) Percentage women in single house or lower house.
+
+
+Penn World Table
+======================
+
+In Penn World Table the users are offered two different series of data for China. “China Version 1” uses the official growth rates for the whole period. “China Version 2” uses the recent modifications of official Chinese growth rates. We have chosen to include China Version 1.
+
+pwt_gsg
+--------------------------------
+.57/-.45
+
+Government Share of GDP (%)
+
+The share of government spending as a percentage of GDP.
+
+
+UNDP Human Development Report
+========================
+
+http://hdrstats.undp.org/en/tables/ (2013-02-18) (UNDP 2013)
+
+undp_hdi
+----------------------------
+0.34/-.48
+
+Human Development Index
+
+The Human Development Index (HDI) is a composite index that measures the average achievements in a country in three basic dimensions of human development: a long and healthy life, as measured by life expectancy at birth; knowledge, as measured by the adult literacy rate and the combined gross enrolment ratio for primary, secondary and tertiary schools; and a decent standard of living, as measured by GDP per capita in purchasing power parity (PPP) US dollars.
+
+
+Vanhanen - Index of Democratization
+===================================
+
+http://www.fsd.uta.fi/en/data/catalogue/FSD1289/index.html (Vanhanen 2011) (2013-01-30)
+
+Three different variables, created by Tatu Vanhanen in his long-term research, for each year from 1946 to 2010. The variables in question are political competition, political participation and the index of
+democratization.
+
+Note: The original source provide values from 1810.
+
+
+van_index
+---------------------------
+.45/-.40
+
+Index of Democratization
+
+This index combines two basic dimensions of democracy – competition and participation – measured as the percentage of votes not cast for the largest party (Competition) times the percentage of the population who actually voted in the election (Participation). This product is di-vided by 100 to form an index that in principle could vary from 0 (no democracy) to 100 (full democracy). (Empirically, however, the largest value is 49).
+
+
+>>>>>>> gh-pages
 
 Cingranelli & Richards - Human Rights Dataset
 =========================================

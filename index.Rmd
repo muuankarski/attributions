@@ -2,6 +2,10 @@
 
 ****
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 ```{roptsattrib, echo=FALSE}
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=12)
 ```

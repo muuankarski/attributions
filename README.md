@@ -6,6 +6,10 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 # Introduction
 
 This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the [micro data](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml) and [macro data](http://www.qog.pol.gu.se/data/) are available as open data, anyone can rerun these analysis.

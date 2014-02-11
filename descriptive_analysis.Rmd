@@ -5,6 +5,10 @@
 opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 # Visualizing the predictors
 
 ## Perceived income

@@ -69,3 +69,6 @@ slidearchive
 attributions.Rproj
 compareWaves.md
 knitfiles.R
+article_cache/
+article2013_cache/
+.gitignore.SyncOld
