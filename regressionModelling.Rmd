@@ -1,23 +1,14 @@
-# Regression modellining
+---
+title: Regression modellining
+output:
+  html_document:
+    toc: true
+    theme: flatly
+---
 
-
-
-<<<<<<< HEAD
-```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
-```
-
-
-```{rmultilevelLoadData}
-=======
-
-```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=FALSE,eval=FALSE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=12,fig.height=10)
-```
 
 
 ```{rmultilevelLoadData, eval=TRUE}
->>>>>>> gh-pages
 #########################################
 #########################################
 setwd("~/workspace/lits/attributions/")
@@ -367,13 +358,8 @@ bisoc.5 <- glmer(pov.log.social ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
 bisoc.6 <- glmer(pov.log.social ~ crise+(1|cntry),
                          family = binomial(logit), data = df.model)
-<<<<<<< HEAD
-# bisoc.8 <- glmer(pov.log.social ~ perGini+(1|cntry),
-#                         family = binomial(logit), data = df.model)
-=======
 bisoc.8 <- glmer(pov.log.social ~ undp_hdi+(1|cntry),
                          family = binomial(logit), data = df.model)
->>>>>>> gh-pages
 bisoc.9 <- glmer(pov.log.social ~ gdpChange+(1|cntry),
                          family = binomial(logit), data = df.model)
 bisoc.10 <- glmer(pov.log.social ~ wbgi_vae+(1|cntry),
@@ -394,11 +380,7 @@ coef.names.multi = c("(intercept)",
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-<<<<<<< HEAD
-                      #"Gini coefficient",
-=======
                       "Human Development Index",
->>>>>>> gh-pages
                       "Change in GDP between 2007 to 2010",
                       "Good governance","Cgroup","CgroupMod",
                      "Perceived Gini")
@@ -407,11 +389,7 @@ library(texreg)
 htmlreg(list(bisoc.1,bisoc.2,
           bisoc.3,bisoc.4,
           bisoc.5,bisoc.6,
-<<<<<<< HEAD
-          #bisoc.8,
-=======
           bisoc.8,
->>>>>>> gh-pages
           bisoc.9,bisoc.10,
           bisoc.11,bisoc.12,
           bisoc.13),
@@ -448,13 +426,8 @@ biind.5 <- glmer(pov.log.individual ~ future.diff+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.6 <- glmer(pov.log.individual ~ crise+(1|cntry),
                         family = binomial(logit), data = df.model)
-<<<<<<< HEAD
-#biind.8 <- glmer(pov.log.individual ~ perGini+(1|cntry),
-#                        family = binomial(logit), data = df.model)
-=======
 biind.8 <- glmer(pov.log.individual ~ undp_hdi+(1|cntry),
                         family = binomial(logit), data = df.model)
->>>>>>> gh-pages
 biind.9 <- glmer(pov.log.individual ~ gdpChange+(1|cntry),
                         family = binomial(logit), data = df.model)
 biind.10 <- glmer(pov.log.individual ~ wbgi_vae+(1|cntry),
@@ -465,30 +438,15 @@ biind.12 <- glmer(pov.log.individual ~ group_balinCis+(1|cntry),
                           family = binomial(logit), data = df.model)
 biind.13 <- glmer(pov.log.individual ~ perGini+(1|cntry),
                           family = binomial(logit), data = df.model)
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> gh-pages
 ```
 
 
 ```{rmultilevelBivarIndOuputNOCI, results='asis'}
-<<<<<<< HEAD
-
-
-=======
->>>>>>> gh-pages
 library(texreg)
 htmlreg(list(biind.1,biind.2,
           biind.3,biind.4,
           biind.5,biind.6,
-<<<<<<< HEAD
-          #biind.8,
-=======
           biind.8,
->>>>>>> gh-pages
           biind.9,biind.10,
           biind.11,biind.12,
              biind.13),
@@ -503,12 +461,6 @@ htmlreg(list(biind.1,biind.2,
         include.pvalues=TRUE,
         caption="Bivariate individual blame", 
         caption.above=TRUE)
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> gh-pages
 ```
 
 #### Interpretation
@@ -519,14 +471,8 @@ htmlreg(list(biind.1,biind.2,
 
 ### Social blame type of explanation
 
-<<<<<<< HEAD
-```{rmultilevelMultiSoc}
-library(lme4)
-
-=======
 ```{rmultilevelMultiSoc, eval=TRUE, echo=TRUE}
 library(lme4)
->>>>>>> gh-pages
 soc.0 <- glmer(pov.log.social ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -536,30 +482,16 @@ soc.1 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                       data = df.model)
 soc.2 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+(1|cntry),
-=======
                         undp_hdi+(1|cntry),
->>>>>>> gh-pages
                        family = binomial(logit),
                        data = df.model)
 soc.3 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+gdpChange+(1|cntry),
-=======
                         undp_hdi+gdpChange+(1|cntry),
->>>>>>> gh-pages
                        family = binomial(logit),
                        data = df.model)
 soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-
-=======
                         undp_hdi+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
@@ -567,31 +499,16 @@ soc.Cont <- glmer(pov.log.social ~ undp_hdi+gdpChange+
                       wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
->>>>>>> gh-pages
 
 ```
 
 
 
-
-<<<<<<< HEAD
-```{rmultilevelMultiSocOutputNOCI, results='asis'}
-=======
 ```{rmultilevelMultiSocOutputNOCI, results='asis', eval=FALSE}
->>>>>>> gh-pages
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-<<<<<<< HEAD
-                      "Perceived Gini",
-                      "Change in GDP between 2007 to 2010",
-                      "Good governance")
-
-model.names.multi = c("Empty",
-                      "Only individual",
-                      "Gini added",
-=======
                       "Human Deveplopment Index",
                       "Change in GDP between 2007 to 2010",
                       "Good governance")
@@ -600,7 +517,6 @@ model.names.multi = c("Empty",
 model.names.multi = c("Empty",
                       "Only individual",
                       "HDI added",
->>>>>>> gh-pages
                       "GDP change added",
                       "Good governance added")
 
@@ -633,11 +549,7 @@ htmlreg(list(soc.0,
 ### Individual blame type of explanation
 
 
-<<<<<<< HEAD
-```{rmultilevelMultiInd}
-=======
 ```{rmultilevelMultiInd, eval=TRUE, echo=TRUE}
->>>>>>> gh-pages
 ind.0 <- glmer(pov.log.individual ~ (1|cntry),
                       family = binomial(logit),
                        data = df.model)
@@ -647,44 +559,28 @@ ind.1 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                        data = df.model)
 ind.2 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+(1|cntry),
-=======
                         undp_hdi+(1|cntry),
->>>>>>> gh-pages
                        family = binomial(logit),
                        data = df.model)
 ind.3 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+gdpChange+(1|cntry),
-=======
                         undp_hdi+gdpChange+(1|cntry),
->>>>>>> gh-pages
                        family = binomial(logit),
                        data = df.model)
 ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+gdpChange+wbgi_vae+(1|cntry),
-=======
                         undp_hdi+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 ind.Cont <- glmer(pov.log.individual ~ undp_hdi+gdpChange+
                       wbgi_vae+(1|cntry),
->>>>>>> gh-pages
                        family = binomial(logit),
                        data = df.model)
 
 ```
 
 
-<<<<<<< HEAD
-```{rmultilevelMultiIndOutputNOCI, results='asis'}
-=======
 ```{rmultilevelMultiIndOutputNOCI, results='asis', eval=FALSE}
->>>>>>> gh-pages
 htmlreg(list(ind.0,
        ind.1,
        ind.2,
@@ -706,58 +602,29 @@ htmlreg(list(ind.0,
 
 ### Comparison of full models with our last model 
 
-<<<<<<< HEAD
-```{rmultilevelMultivarFull}
-
-soc.4 <- glmer(pov.log.social ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        perGini+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-
-ind.4 <- glmer(pov.log.individual ~ incsour3+edu2+income2+
-                        past.diff+future.diff+crise+
-                        perGini+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-=======
 ```{rmultilevelMultivarFull, eval=TRUE, echo=TRUE}
 
->>>>>>> gh-pages
 
 df.model$pov.log.socVsInc[df.model$poverty == "Social Blame"] <- 1
 df.model$pov.log.socVsInc[df.model$poverty == "Individual Blame"] <- 0
 
 socVsInc <- glmer(pov.log.socVsInc ~ incsour3+edu2+income2+
                         past.diff+future.diff+crise+
-<<<<<<< HEAD
-                        perGini+gdpChange+wbgi_vae+(1|cntry),
-                       family = binomial(logit),
-                       data = df.model)
-
-save(ind.0,ind.1,ind.2,ind.3,ind.4,
-     soc.0,soc.1,soc.2,soc.3,soc.4,
-=======
                         undp_hdi+gdpChange+wbgi_vae+(1|cntry),
                        family = binomial(logit),
                        data = df.model)
 
 save(ind.0,ind.1,ind.2,ind.3,ind.4,ind.Cont,
      soc.0,soc.1,soc.2,soc.3,soc.4,soc.Cont,
->>>>>>> gh-pages
      socVsInc, file="data/finalModels.RData")
 
 
 ```
 
-<<<<<<< HEAD
 # Tables for presentation
 
 ## Partial
 
-```{rmultilevelMultivarSlideOutput, results='asis', eval=TRUE}
-library(texreg)
-=======
 # FINAL TABLES SAME AS IN PAPER
 
 
@@ -766,35 +633,10 @@ library(texreg)
 
 #load("data/finalModels.RData")
 
->>>>>>> gh-pages
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-<<<<<<< HEAD
-                      "Gini coefficient",
-                      "Change in GDP between 2007 to 2010",
-                      "Good governance")
-
-model.names.multi = c("Empty",
-                      "Only individual",
-                      "Gini added",
-                      "GDP change added",
-                      "Good governance added")
-
-model.names.multi.A = c("SB empty",
-                      "SB individual",
-                      "SB all",
-                      "IB empty",
-                      "IB individual",
-                        "IB all")
-
-htmlreg(list(soc.0,soc.1,soc.4,
-            ind.0,ind.1,ind.4),
-        custom.model.names = model.names.multi.A,
-        custom.coef.names = coef.names.multi,
-        naive = TRUE,
-=======
                       "Human Deveplopment Index",
                       "Change in GDP between 2007 to 2010",
                       "Voice and Accountability")
@@ -820,7 +662,6 @@ htmlreg(list(soc.0,soc.1,soc.Cont,soc.4,
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
         naive=TRUE,
->>>>>>> gh-pages
         inline.css = TRUE,
         doctype = FALSE,
         html.tag = FALSE,
@@ -830,31 +671,18 @@ htmlreg(list(soc.0,soc.1,soc.Cont,soc.4,
         caption="Logistic multilevel random intercept model for social and individual blame type of explanation", 
         caption.above=TRUE)
 
-<<<<<<< HEAD
-=======
-
 ```
 
 
->>>>>>> gh-pages
-```
 
 ## Comparison of full models
 
-<<<<<<< HEAD
-```{rrmultilevelMultivarFullOutput, results='asis', eval=TRUE}
-=======
 ```{rrmultilevelMultivarFullOutput, results='asis', eval=FALSE}
->>>>>>> gh-pages
 coef.names.multi = c("(intercept)", 
                       "Dependent","Low education",
                       "Low income","Income has worsened",
                       "Income will worsen","Has affected great or fair amount",
-<<<<<<< HEAD
-                      "Gini coefficient",
-=======
                       "Human Development Index",
->>>>>>> gh-pages
                       "Change in GDP between 2007 to 2010",
                       "Good governance")
 

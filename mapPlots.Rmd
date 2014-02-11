@@ -1,12 +1,16 @@
-# Spatial visualization
+---
+title: Spatial visualization
+output:
+  html_document:
+    toc: true
+    theme: flatly
+---
+
+
 
 
 ```{roptsattrib, echo=FALSE}
-<<<<<<< HEAD
-opts_chunk$set(echo=TRUE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
-=======
 opts_chunk$set(echo=FALSE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
->>>>>>> gh-pages
 ```
 
 # Country grouping
@@ -65,10 +69,7 @@ ggplot(map.df, aes(long,lat,group=group)) +
   geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
   coord_map(project="orthographic") +
   theme(legend.position="top")
-<<<<<<< HEAD
-=======
 
->>>>>>> gh-pages
 ```
 
 
@@ -93,10 +94,7 @@ ggplot(plotMap, aes(long,lat,group=group)) +
   scale_fill_gradient2(low="white", high=muted("blue")) +
   theme(legend.position="top") +
   theme(legend.text = element_text(size=14))
-<<<<<<< HEAD
-=======
 
->>>>>>> gh-pages
 ```
 
 ## Individual blame
@@ -147,7 +145,7 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 ```{rmapPlotsDV5}
 ggplot(plotMap, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
-  geom_polygon(aes(fill = not.stated)) +
+  geom_polygon(aes(fill = notStated)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
@@ -161,7 +159,7 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 ```{rmapPlotsDV6}
 ggplot(plotMap, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
-  geom_polygon(aes(fill = dont.know)) +
+  geom_polygon(aes(fill = dontKnow)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
@@ -185,7 +183,7 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 ```{rmapPlotsIvMacro1}
 ggplot(plotMap, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
-  geom_polygon(aes(fill = gdpchange07.10)) +
+  geom_polygon(aes(fill = gdpChange)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
@@ -194,12 +192,12 @@ ggplot(plotMap, aes(long,lat,group=group)) +
   theme(legend.text = element_text(size=14))
 ```
 
-### Gini coefficient
+### Perceived Gini coefficient
 
 ```{rmapPlotsIvMacro2}
 ggplot(plotMap, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
-  geom_polygon(aes(fill = uw_gini)) +
+  geom_polygon(aes(fill = perGini)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
