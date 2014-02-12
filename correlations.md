@@ -230,7 +230,7 @@ The polity score is computed by subtracting the p_autoc score from the p_democ s
 | ----- | --------| 
 | (-66) | Cases of foreign “interruption” are treated as “system missing”. |
 | (-77) | Cases of “interregnum,” or anarchy, are converted to a “neutral” Polity score of “0”. |
-| (-88) | Cases of “transition” are prorated across the span of the transition. |
+| (-88) | Cases of “transition” are prorated across the span of the transition. |
 
 
 For example, country X has a p_polity score of -7 in 1957, followed by three years of -88 and, finally, a score of +5 in 1961. The change (+12) would be prorated over the intervening three years at a rate of per year, so that the converted scores would be as follow: 1957 -7; 1958 -4; 1959 -1; 1960 +2; and
