@@ -2,13 +2,6 @@
 
 ****
 
-<<<<<<< HEAD
-=======
-
->>>>>>> gh-pages
-
-
-
 
 # Introduction
 
@@ -62,9 +55,7 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 # Presentation slides
 
-- [HSE Moscow - November 12, 2013](moscow2013/lcsr20131112.html)
-- [Jatkokoulutusseminaari Turku November 7, 2013](turku2013/slidesTkuJatko20131107.html)
-- [ESA Torino - August 29, 2013](torino2013/TorinoSlides2013_final.html)
+- [slides](attrib_slides.html)
 
 # Misc links
 
