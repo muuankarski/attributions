@@ -46,11 +46,23 @@ Based on qualitative poverty studies in Central Asia, Caucasus and Ukraine and M
 
 ----
 
-*Eriarvoisuus lähti tästä*
+**Suora lainausta**: *Lepianka, D.A., J.P.T.M. Gelissen, and W.J.H. van Oorschot. “Popular Explanations of Poverty in Europe: Effects of Contextual and Individual Characteristics across 28 European Countries,” 2010.*
 
-*Maaryhmittely on tästä pois*
+**Theory s. 57**
 
-**Tähän tulisi HDI:n/elinolojen perustelut**
+>Socio-economic structure may determine the salience of poverty and inequality and thus influence poverty attributions. In general, higher unemployment rates and economic decline decrease respondents’ inclination to attribute poverty to individual failings and increase the likelihood of viewing material destitution as caused externally (Gallie and Paugam, 2002). We therefore hypothesize that the better the economic performance of a country, the greater the inclination of its inhabitants to view poverty as self-inflicted.
+
+**2. Independent variables s.60**
+
+>Direct measurements of national poverty levels for all 28 countries and relevant years were not readily found, and therefore we used the Human Development Index (HDI) as a proximal indicator. The HDI seeks to rank countries in terms of their level of development and combines normalized measures of life expectancy, educational attainment and GDP per capita for countries worldwide. There is evidence that the HDI is very strongly correlated to the more recently developed Human Poverty Index, and thus, to a large extent, measures the same construct (cf. Sahay et al., 2003: 90). Here, we use the average HDI score per country for the period 1994–1999. Data come from the World Bank’s World Development Reports 1994–1999; see www.worldbank.org.
+
+**Findings s. 65**
+
+>On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.
+
+**Conclusions s. 86**
+
+>In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.
 
 ----
 
