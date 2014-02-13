@@ -966,8 +966,10 @@ poverty_10 &lt;- poverty_10[!is.na(poverty_10$Freq), ]
 poverty_10w &lt;- dcast(poverty_10, cntry ~ poverty, value.var=&quot;Freq&quot;)
 names(poverty_10w) &lt;- c(&quot;cntry&quot;,&quot;socialBlameRec&quot;,&quot;individualBlameRec&quot;,
                         &quot;individualFateRec&quot;,&quot;socialFateRec&quot;)
-library(laeken)
-perGini2010 &lt;- as.data.frame(gini(inc=&quot;q227_rec&quot;,
+library(laeken)</code></pre>
+<pre><code>## Loading required package: boot
+## Loading required package: MASS</code></pre>
+<pre class="r"><code>perGini2010 &lt;- as.data.frame(gini(inc=&quot;q227_rec&quot;,
                       weights = &quot;weight&quot;,
                       data = lits2,
                       na.rm = TRUE,
@@ -1125,8 +1127,9 @@ iso2c &lt;- countrycode(cntry, &quot;country.name&quot;, &quot;iso2c&quot;)
 iso2c # copy paste into WDI search</code></pre>
 <pre><code>##  [1] &quot;AM&quot; &quot;AZ&quot; &quot;BY&quot; &quot;BG&quot; &quot;CZ&quot; &quot;EE&quot; &quot;FR&quot; &quot;GE&quot; &quot;DE&quot; &quot;GB&quot; &quot;HU&quot; &quot;IT&quot; &quot;KZ&quot; &quot;KG&quot;
 ## [15] &quot;LV&quot; &quot;LT&quot; &quot;MD&quot; &quot;PL&quot; &quot;RO&quot; &quot;RU&quot; &quot;SK&quot; &quot;SI&quot; &quot;SE&quot; &quot;TJ&quot; &quot;UA&quot; &quot;UZ&quot;</code></pre>
-<pre class="r"><code>library(WDI)
-# WDIsearch(string='gdp', field='name', cache=NULL)
+<pre class="r"><code>library(WDI)</code></pre>
+<pre><code>## Loading required package: RJSONIO</code></pre>
+<pre class="r"><code># WDIsearch(string='gdp', field='name', cache=NULL)
 wb &lt;- WDI(indicator = c(&quot;NY.GDP.MKTP.CD&quot;), 
           country = c(&quot;AL&quot;,&quot;AM&quot;,&quot;AZ&quot;,&quot;BY&quot;,&quot;BA&quot;,&quot;BG&quot;,&quot;HR&quot;,
                       &quot;CZ&quot;,&quot;EE&quot;,&quot;FR&quot;,&quot;GE&quot;,&quot;DE&quot;,&quot;GB&quot;,&quot;HU&quot;,
@@ -1178,11 +1181,4 @@ save.image(&quot;~/workspace/lits/attributions/data/lits.RData&quot;)
 <script>
   (function () {
     var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-
-</body>
-</html>
+    script.type = "text/javas

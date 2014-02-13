@@ -46,30 +46,11 @@ National case studies from Estonia and Russia have given support to findings of 
 
 Based on qualitative poverty studies in Central Asia, Caucasus and Ukraine and Moldova Dudwick et al. (2003: 23) states that, generally, people blamed their own poverty on the failure of the Soviet state and the corruption, indifference, and incompetence of their new leaders. At the same time, however, they often attributed the poverty of others to individual failure, such as laziness, alcoholism, having too many children to support, or having too few children to provide for their old age. Emphazising the positive association between horizontal and vertical trust (see e.g. Rothstein, 2000), they also reported that many of the respondents had become very distrustful of government officials and many suspected that government officials of exploiting the political and economic turmoil for their own gain, at the expense of ordinary citizens. With extensive country selection, the data utilized in this study provides a marvellous possibility to examine the association between attributions for poverty and the context regarding political process, civil liberties and political rights. We can assume that in those countries where the state of democracy is low, citizens blame more likely society for poverty than in those countries where citizens have political freedom and power to influence socio-political issues.
 
-----
+Besides the so called good government, national-level economic conditions have been proved to be associated with welfare attitudes. This is particularly interesting in these times when the Western world is meeting the increasing economic turbulence. In regard to East-West differences as well as variation within post-socialist countries, countries examined in this study have faced global economic crises in distinct ways. While many Western and Eastern European countries have witnessed economic decline, the economic performance in Western Asia has been strong. Hence, by analyzing the role of changes in economic performance during the period of global financial crises, the research design of this article provides empirical evidence on the effects of crises to public perceptions of the causes of poverty. Prior studies have shown that increased financial strain is associated with stronger support for state responsibility for economic provision (Blekesaune, 2007). In regard to explanations of poverty, Gallie and Paugam (2002:21-24) found that in the majority of European countries, there was a marked decline of support for the individual blame explanation between 1989 and 1993 as economic conditions deteriorated, followed  by an increase between 1993 and 2001 when economic conditions improved. This result is confirmed by Kallio and Niemelä (2013). They found that the larger the economic growth in a country is, more likely people are to blame the poor themselves. Thus, we can assume that changes in country’s economic performance are associated with attributions for poverty regardless of country grouping.
 
-**Suora lainausta**: *Lepianka, D.A., J.P.T.M. Gelissen, and W.J.H. van Oorschot. “Popular Explanations of Poverty in Europe: Effects of Contextual and Individual Characteristics across 28 European Countries,” 2010.*
+In addition to macro level economic performance, the level overall of well-being and living conditions are found to be linked with poverty attributions. Lepianka et al. (2010:65,86) found out that people living in more developed countries they tend to attribute living in destitution rather to individual unluckiness than to modern progress, but they found no link between development and either type of blame explanations. In contrast to previous studies, variation in human development within our selection of countries if far greater. Therefore we are able to poor countries of Central Asia with well-off Slovenia and Czech Republic. Given the great differences in living conditions within the post-socialist space, we assume that in countries of low human development and fewer welfare institutions people tend to attribute poverty more with individual reasons than social. At the same time people experience of transition with welfare state retrenchment and increasing social and health problems may well have produced support for structural explanations, too.
 
-**Theory s. 57**
-
->Socio-economic structure may determine the salience of poverty and inequality and thus influence poverty attributions. In general, higher unemployment rates and economic decline decrease respondents’ inclination to attribute poverty to individual failings and increase the likelihood of viewing material destitution as caused externally (Gallie and Paugam, 2002). We therefore hypothesize that the better the economic performance of a country, the greater the inclination of its inhabitants to view poverty as self-inflicted.
-
-**2. Independent variables s.60**
-
->Direct measurements of national poverty levels for all 28 countries and relevant years were not readily found, and therefore we used the Human Development Index (HDI) as a proximal indicator. The HDI seeks to rank countries in terms of their level of development and combines normalized measures of life expectancy, educational attainment and GDP per capita for countries worldwide. There is evidence that the HDI is very strongly correlated to the more recently developed Human Poverty Index, and thus, to a large extent, measures the same construct (cf. Sahay et al., 2003: 90). Here, we use the average HDI score per country for the period 1994–1999. Data come from the World Bank’s World Development Reports 1994–1999; see www.worldbank.org.
-
-**Findings s. 65**
-
->On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.
-
-**Conclusions s. 86**
-
->In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.
-
-----
-
-Besides the so called regime-effect, national-level economic conditions have been proved to be associated with welfare attitudes. This is particularly interesting in these times when the Western world is meeting the increasing economic turbulence. In regard to East-West differences as well as variation within post-socialist countries, countries examined in this study have faced global economic crises in distinct ways. While many Western and Eastern European countries have witnessed economic decline, the economic performance in Western Asia has been strong. Hence, by analyzing the role of changes in economic performance during the period of global financial crises, the research design of this article provides empirical evidence on the effects of crises to public perceptions of the causes of poverty. Prior studies have shown that increased financial strain is associated with stronger support for state responsibility for economic provision (Blekesaune, 2007). In regard to explanations of poverty, Gallie and Paugam (2002:21-24) found that in the majority of European countries, there was a marked decline of support for the individual blame explanation between 1989 and 1993 as economic conditions deteriorated, followed  by an increase between 1993 and 2001 when economic conditions improved. This result is confirmed by Kallio and Niemelä (2013). They found that the larger the economic growth in a country is, more likely people are to blame the poor themselves. Thus, we can assume that changes in country’s economic performance are associated with attributions for poverty regardless of country grouping.
-
+`Joku toinen lähde olisi paikallaan tähän liittyen. Ja tuo ristiriitaisen hypoteesin voisi oikoa..`
 
 
 Risks factors as an individual-level determinants of perceptions
@@ -89,7 +70,7 @@ In addition to economic situation, other indicators which measure a greater than
 
 Low education refers to the lack of capabilities of an individual. Prior findings do not reveal consistent patterns regarding the effects of education. On the one hand, some studies have found the so-called inverted U-relationship which means that people with a middle level of education support the individualistic explanation, whereas people with a low or a high level of education are more likely to endorse structural explanations emphazising social inequalities and the flaws of the economic system of a given country (Feagin, 1972; cf. Furnham, 1982). On the other hand, there are studies which suggest that people with a lower level of education are more likely to favour individualistic explanations. Moreover, when the educational level increases, the likelihood of perceiving causes of poverty in individualistic terms decreases (Niemelä, 2008). It is therefore difficult to form any solid hypotheses as to whether low education as a social risk is associated with perceptions of the causes of poverty in a similar vein than other risk factors discussed above.
 
-
+\newpage
 
 Research design
 ==============================================
@@ -148,27 +129,31 @@ Effect of financial crises        Whether respondents perceives that their house
 
 Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010                                                                             World Bank
 
-Human Development Index           Measures life expectancy, education, and income indices as a composite statistic
-UNDP
+Human Development Index           Measures life expectancy, education, and income indices as a composite statistics                             UNDP
 
-Voice and Accountability          Indicators measuring the political process, civil liberties and political rights                             World Bank
+Voice and Accountability          Indicators measuring the political process, civil liberties and political rights                              World Bank
 ----------------------------
 
 
 An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of four variables: 1) change in total GDP in 2007 - 2010, 2) gini coefficient of economic inequality, 3) 2011 democracy index and 4) country grouping. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), gini coefficients from [UNU-WIDER World Income Inequality Database](http://www.wider.unu.edu/research/Database/en_GB/database/) and Democracy Index from the [Economist Intelligence Unit](http://www.eiu.com/Default.aspx). Gini coefficient for each country is the latest available varying from 2002 to 2006. (see Appendix A)
 
+`Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.pdf) - *leikkasin tulos-luvusta tän kappaleen*`
+
+`From Lepianka 2010  Independent variables s.60`
+
+`Direct measurements of national poverty levels for all 28 countries and relevant years were not readily found, and therefore we used the Human Development Index (HDI) as a proximal indicator. The HDI seeks to rank countries in terms of their level of development and combines normalized measures of life expectancy, educational attainment and GDP per capita for countries worldwide. There is evidence that the HDI is very strongly correlated to the more recently developed Human Poverty Index, and thus, to a large extent, measures the same construct (cf. Sahay et al., 2003: 90). Here, we use the average HDI score per country for the period 1994–1999. Data come from the World Bank’s World Development Reports 1994–1999; see www.worldbank.org.`
+
+
+
+
 The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors, it is recommended to use multilevel regression analysis for this task (Snijders \& Bosker, 2011).  Multilevel analysis requires hierarchical dataset and allows the estimation of country-level effects on individual level outcomes. The analysis is performed using lmer-function from lme4 package in R. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
 
 Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. 
 
---------
-
-*A more throughout description of modelling will be added as the final details in modelling will be decided*
 
 Results
 ==============================================
 
-*Results and conclusions are not yet reshaped to match the recent changes in the analysis...*
 
 Descriptive statistics
 ----------------------------------------------
@@ -213,11 +198,15 @@ Analyses regarding the determinants of poverty explanations starts by bivariate 
 
 ![Human Development Index and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_hdi.pdf)
 
-HERE WE NEED AN INTREPETATIIONS OF HDI-FIGURE. BUT THE RESOURCES FIRST
+
+`On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.`
+
+`From Lepianka 2010 Conclusions s. 86`
+
+`In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.`
+
 
 ![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
-
->Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.pdf)
 
 In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 

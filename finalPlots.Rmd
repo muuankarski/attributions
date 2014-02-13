@@ -501,7 +501,8 @@ mapplot <- ggplot(map.df, aes(long,lat,group=group)) +
   scale_fill_manual(values=cbPalette) +
   geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white", size=.3) +
   geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
-  coord_map(project="orthographic") +
+  coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,60)) +
   theme_minimal() + 
   theme(legend.position="top") +
   theme(legend.title=element_blank()) +
@@ -512,10 +513,11 @@ mapplot <- ggplot(map.df, aes(long,lat,group=group)) +
   theme(axis.ticks.x = element_blank(),
         axis.ticks.y = element_blank()) +
   theme(legend.key.size = unit(3, "mm"))
+    
   
   
 
-pdf("figure/mapplot.pdf", width=14/2.54, height=12/2.54)
+pdf("figure/mapplot.pdf", width=12/2.54, height=7/2.54)
 mapplot
 dev.off()
 
