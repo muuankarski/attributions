@@ -159,15 +159,15 @@ Results
 Descriptive statistics
 ----------------------------------------------
 
-Table 3 shows the proportion of the total number of respondents in a country which chose a particular explanation of poverty. We assumed that citizens in post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. As expected results show relatively large variation within country groups. For the most of the post-socialist countries, social and individual blame types of explanation, i.e. injustice in a society and laziness of the poor, are the most popular poverty attributions. The highest support for social blame is found in Ukraine, Latvia, Lithuania, Hungary, Russia, Slovenia, Armenia, Moldova and Azerbaijan. In these countries majority of population blames the injustice in a society for poverty. Totally, in 19 of 21 examined post-socialist countries injustice in a society receives the highest support.
+Table 2 shows the proportion of the total number of respondents in a country which chose a particular explanation of poverty. We assumed that citizens in post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. As expected results show relatively large variation within country groups. For the most of the post-socialist countries, social and individual blame types of explanation, i.e. injustice in a society and laziness of the poor, are the most popular poverty attributions. The highest support for social blame is found in Ukraine, Lithuania, Slovenia, Hungary,  Russia and Latvia. In these countries majority of population blames the injustice in a society for poverty. Totally, in 18 of 21 examined post-socialist countries injustice in a society receives the highest support.
 
-\newpage
 
 ```{rattribArticleDescTbl1, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
 source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5,digits=1,
-                    caption="Weighted population shares of dependent variable by country",), #table.placement="H",
+                    caption="Weighted population shares of dependent variable by country",), 
+             #table.placement="H",
              type="latex",
              comment=FALSE, 
              include.rownames=FALSE,
@@ -176,15 +176,12 @@ print.xtable(xtable(tbl5,digits=1,
 
 ```
 
-
-Also, in most post-socialist countries the individual blame is the second most popular explanation of poverty. Exceptions here are Slovenia, Estonia and Georgia where citizens endorse societal explanations more likely than individual explanations. In Czech Republic social explanations as well as individual blame explanation receive public support quite evenly. Finally, the clearest exception in post-socialist regime is Uzbekistan where poverty is attributed strongly with internal terms.
+Also, in most post-socialist countries the individual blame is the second most popular explanation of poverty. Exceptions here are Ukraine, Slovenia, Estonia and Georgia where citizens endorse societal explanations more likely than individual explanations. In Armenia and Czech Republic social explanations as well as individual blame explanation receive public support quite evenly. Finally, the clearest exception in post-socialist regime is Uzbekistan where poverty is attributed strongly with internal terms.
 
 In regard to differences between the East and the West of Europe, results show that there are some differences. Yet there are also substantial variation within Western Europe, which correspond earlier findings on cross-national differences in Western Europe (Lepianka et al., 2010; Kallio and Niemelä, 2010). Clearest differences between the West and the East is the stronger support for social fate in Western Europe. In Germany and Sweden external reasons for poverty receive the majority of support. On the other hand, attributions for poverty in France and Italy seems to be quite similar with post-socialist countries - blame types of explanations are endorsed more likely than fate types of explanations. Finally, the figures of Great Britain are the example of selective welfare policy dominated liberal regime in which the individual blame type of explanations is strongly supported (see also Albrekt Larsen, 2006).
 
 Hence, the results are in line with our assumptions and prior research (Lepianka et al., 2010) regarding the general support for different explanations of poverty. Overall, the results indicate that for the most of the post-socialist countries two most popular explanations are individual and social blame types of explanations.Yet, the differences between social fate and individual blame types of explanations are in some countries very small. In general, Western Europeans (except Britons) do not support individual blame type of explanation as much as citizens in the East. Instead they emphasise more social reasons for poverty. Results also clearly emphasise that the idea that poverty is caused by just individual bad luck is the least popular perception of the reason for poverty.
 
-
-\newpage
 
 
 Determinants of perceptions
@@ -194,22 +191,18 @@ The results above indicate that there are cross-national differences between cou
 
 ![Change in total GDP in 2007 - 2010 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gdp.pdf)
 
-Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
+Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 3, 4 and 5). Correlation coefficients within the post-socialist countries are shown on top of each regression line. Figure 3 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The trend is very clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.62) and more to individual blame (.71). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
 
 ![Human Development Index and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_hdi.pdf)
 
 
-`On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.`
-
-`From Lepianka 2010 Conclusions s. 86`
-
-`In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.`
+There is also a substantial variation in the level of human development among post-socialist countries. Figure 4 shows that the higher of human development is associated with higher level of social blame (.34). Association holds also in the case of individual blame meaning that the higher the human deveploment is the lower support for support for individual blame explanation (-.48). In this comparison Western countries are better-off in terms of human development and due to substantial variation in dependent variables it is harder to confirm our hypothesis than in the case of post-socialist countries.
 
 
 ![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
-In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
+In regard to the level of goodness of government we can see major differences are great as expected. Overall association is substantial (.41 for social blame and -.47 for individual blame), and pointing that higher level of democracy is indicating higher support for social blame, whereas lower support for individual blame type of explanation is linked with low figure in good governance indicator. As expected , the variation in the goodness of government in Western Europe is much smaller than in post-socialist countries. In these countries the support for blame types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 
 
 \newpage
@@ -219,6 +212,11 @@ Multilevel analysis
 
 As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
 
+`On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.`
+
+`From Lepianka 2010 Conclusions s. 86`
+
+`In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.`
 
 ```{rarticleModelsSoc, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
 load("data/finalModels.RData")
@@ -245,7 +243,7 @@ model.names.multi.A = c("SB empty",
 texreg(list(soc.0,soc.1,soc.Cont,soc.4),
         custom.model.names = model.names.multi.A,
         custom.coef.names = coef.names.multi,
-        naive = TRUE,
+        #naive = TRUE,
         #use.packages=TRUE,
         #sideways=TRUE,
         scriptsize=TRUE,
@@ -471,4 +469,4 @@ Tomka, B. (2006). East Central Europe and the European Social Policy Model: A Lo
 
 van Oorschot, Wim and Halman, Loek (2000) Blame or Fate, Individual or Social? An International Comparison of Popular Explanations of Poverty. European Societies 2 (1), 1–28.
 
-Wilson, George (1996) Toward a Revised Framework for Examining Beliefs about the Causes of Poverty. The Sociological Quarterly 37 (3), 413–428.
+Wilson, George (1996) Toward a Revised Framework for Examining Beliefs about the Causes of Poverty. The Sociological Quarterl

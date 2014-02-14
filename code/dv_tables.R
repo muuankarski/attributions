@@ -42,7 +42,7 @@ t2 <- t2[order(-t2$socialBlame),]
 ########
 y <- data.frame(prop.table(svytable(~group_general+q309, d.df), 1)*100)
 y$Freq <- round(y$Freq, 2)
-y$country <- c("CEE Total","CIS Total","Western Europe Total")
+y$country <- c("CEE mean","CIS mean","Western Europe mean")
 y2 <-  dcast(y, group_general+country ~ q309, value.var="Freq")
 names(y2) <-  c("group_general","country","socialBlame","individualBlame",
                 "individualFate","socialFate","notStated","dontKnow")
