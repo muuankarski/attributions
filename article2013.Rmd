@@ -1,7 +1,7 @@
 ---
 title: Attributions for Poverty in Post-Socialist Countries
 author: [Markus Kainu & Mikko Niemelä]
-date: February 14, 2014
+date: February 15, 2014
 abstract: Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
 keywords: poverty
 output:
@@ -16,8 +16,6 @@ output:
 
 Introduction
 ==============================================
-
-This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the micro data and macro data are available as open data, anyone can rerun these analysis.
 
 As Joseph Schumpeter (1942: 12) once argued, "attitudes are coins that do not readily melt". This means that normative expectations, justice beliefs or welfare perceptions are very hard to change. In this way, welfare attitudes can be associated with policy changes by highlighting public sentiments, which are normative background assumptions or ideas that constrain decision-making and institutional change by limiting the range of programme that decision-making elites are likely to perceive as acceptable and legitimate to both their constituents and themselves (Campbell, 2004: 96-100). On the other hand, "the worlds on welfare" literature on welfare attitudes has in turn emphasized that type of welfare policy affects public attitudes (Andress and Heien, 2001; Arts and Gelissen, 2001; Jaeger, 2006; Svallfors, 1997). In regard to public perceptions of the causes of poverty, in the marginal welfare-policy dominated liberal regime, the poor will be asked to fulfil much harder deservingness criteria than in a universal social democratic regime (van Oorschot 2006). In countries, in which welfare programmes are more marginal and less generous, explanations of poverty are more often based on individual morality, reflecting the strength of the dominant individualistic ideology, than they are in the Continental and Nordic welfare states – where external and structural explanations prevail (Albrekt Larsen, 2006: 47-56; Alesina and Gleaser, 2004).   
 
