@@ -1,23 +1,26 @@
----
-title: Attributions for Poverty in Post-Socialist Countries
-author: [Markus Kainu & Mikko Niemelä]
-date: February 14, 2014
-abstract: Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
-keywords: poverty
-output:
-  pdf_document:
-    toc: true
-    number_section: true
----
+% Attributions for Poverty in Post-Socialist Countries[^*]
+% Markus Kainu[^**];Mikko Niemelä[^***]
+% February 10, 2014
+
+
+
+[^*]:*Work in progress. See the analysis outputs at [http://muuankarski.github.io/attributions/](http://muuankarski.github.io/attributions/)
+
+[^**]:PhD Student. Aleksanteri institute, University of Helsinki & Department of Social Research, University of Turku <a href="mailto:markuskainu@gmail.com">markuskainu@gmail.com</a>
+
+[^***]:Senior Researcher. Social Insurance Institution of Finland, KELA a<a href="mailto:mikko.niemela@kela.fi">mikko.niemela@kela.fi</a>
+
+
+
 
 
 \newpage
 
+\begin{abstract}
+Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
+\end{abstract}
 
-Introduction
-==============================================
-
-This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the micro data and macro data are available as open data, anyone can rerun these analysis.
+# Introduction
 
 As Joseph Schumpeter (1942: 12) once argued, "attitudes are coins that do not readily melt". This means that normative expectations, justice beliefs or welfare perceptions are very hard to change. In this way, welfare attitudes can be associated with policy changes by highlighting public sentiments, which are normative background assumptions or ideas that constrain decision-making and institutional change by limiting the range of programme that decision-making elites are likely to perceive as acceptable and legitimate to both their constituents and themselves (Campbell, 2004: 96-100). On the other hand, "the worlds on welfare" literature on welfare attitudes has in turn emphasized that type of welfare policy affects public attitudes (Andress and Heien, 2001; Arts and Gelissen, 2001; Jaeger, 2006; Svallfors, 1997). In regard to public perceptions of the causes of poverty, in the marginal welfare-policy dominated liberal regime, the poor will be asked to fulfil much harder deservingness criteria than in a universal social democratic regime (van Oorschot 2006). In countries, in which welfare programmes are more marginal and less generous, explanations of poverty are more often based on individual morality, reflecting the strength of the dominant individualistic ideology, than they are in the Continental and Nordic welfare states – where external and structural explanations prevail (Albrekt Larsen, 2006: 47-56; Alesina and Gleaser, 2004).   
 
@@ -29,10 +32,7 @@ The novelty of this study is that it covers wide range of countries from Europe 
 
 The article is structured as follows: A brief overview of theoretical discourse on explanations of poverty and prior findings on cross-national differences in and contextual level determinants of attributions for poverty is presented in Section 2. Section 3 focuses on the self-interest approach as an individual level explanatory factor of the perceptions with particular interest of risk factors related to individual’s financial situation.  Research design, survey data and methods are described in detail in Section 4. The results of the study are presented in Section 5. Finally, the main conclusions, implications and limitations of the study are discussed in Section 6.
 
-
-
-Prior findings on cross-national differences
-==============================================
+# Prior findings on cross-national differences
 
 Pioneering empirical studies on lay explanations of poverty emerged at the early 1970s when Joe R. Feagin (1972; 1975) examined Americans' perceptions of the causes of poverty. He categorized reasons for poverty into three basic categories: individualistic, structural and fatalistic. Later, many factor analytic studies have given empirical support to Feagin’s categorization (e.g. Feather, 1974; Furnham, 1982; Hunt, 1996; Morçöl, 1997; Nasser et al., 2002; Niemelä, 2008). Yet some studies have expanded our understanding by incorporating more contemporary beliefs into the attributional scales. These works emphasize especially the relevance of cultural attributions for poverty (Bullock et al., 2003; Cozzarelli et al., 2001).
 
@@ -46,15 +46,11 @@ National case studies from Estonia and Russia have given support to findings of 
 
 Based on qualitative poverty studies in Central Asia, Caucasus and Ukraine and Moldova Dudwick et al. (2003: 23) states that, generally, people blamed their own poverty on the failure of the Soviet state and the corruption, indifference, and incompetence of their new leaders. At the same time, however, they often attributed the poverty of others to individual failure, such as laziness, alcoholism, having too many children to support, or having too few children to provide for their old age. Emphazising the positive association between horizontal and vertical trust (see e.g. Rothstein, 2000), they also reported that many of the respondents had become very distrustful of government officials and many suspected that government officials of exploiting the political and economic turmoil for their own gain, at the expense of ordinary citizens. With extensive country selection, the data utilized in this study provides a marvellous possibility to examine the association between attributions for poverty and the context regarding political process, civil liberties and political rights. We can assume that in those countries where the state of democracy is low, citizens blame more likely society for poverty than in those countries where citizens have political freedom and power to influence socio-political issues.
 
-Besides the so called good government, national-level economic conditions have been proved to be associated with welfare attitudes. This is particularly interesting in these times when the Western world is meeting the increasing economic turbulence. In regard to East-West differences as well as variation within post-socialist countries, countries examined in this study have faced global economic crises in distinct ways. While many Western and Eastern European countries have witnessed economic decline, the economic performance in Western Asia has been strong. Hence, by analyzing the role of changes in economic performance during the period of global financial crises, the research design of this article provides empirical evidence on the effects of crises to public perceptions of the causes of poverty. Prior studies have shown that increased financial strain is associated with stronger support for state responsibility for economic provision (Blekesaune, 2007). In regard to explanations of poverty, Gallie and Paugam (2002:21-24) found that in the majority of European countries, there was a marked decline of support for the individual blame explanation between 1989 and 1993 as economic conditions deteriorated, followed  by an increase between 1993 and 2001 when economic conditions improved. This result is confirmed by Kallio and Niemelä (2013). They found that the larger the economic growth in a country is, more likely people are to blame the poor themselves. Thus, we can assume that changes in country’s economic performance are associated with attributions for poverty regardless of country grouping.
+There are also considerable differences in other aspects of socio-political context between examined countries. One of these aspects is the extent of income inequality which varies extensively between examined countries. Thus, this study examines the role of income inequality as a contextual-level explanatory factor of public perceptions of the causes of poverty. The link between inequality and attributions for poverty is not that easy to predict. One the one hand, the public in countries with greater inequality is more inclined to mistrust “others” (e.g. Uslander, 2002). Therefore, the uneven distribution of wealth should mean stronger support for the individualistic explanation for poverty. On the other hand, cross-national studies on attributions for poverty have shown that the support for the individual blame is lower in countries with lower level of income inequality (e.g. Gallie and Paugam, 2002; Kallio and Niemelä, 2013).
 
-In addition to macro level economic performance, the level overall of well-being and living conditions are found to be linked with poverty attributions. Lepianka et al. (2010:65,86) found out that people living in more developed countries they tend to attribute living in destitution rather to individual unluckiness than to modern progress, but they found no link between development and either type of blame explanations. In contrast to previous studies, variation in human development within our selection of countries if far greater. Therefore we are able to poor countries of Central Asia with well-off Slovenia and Czech Republic. Given the great differences in living conditions within the post-socialist space, we assume that in countries of low human development and fewer welfare institutions people tend to attribute poverty more with individual reasons than social. At the same time people experience of transition with welfare state retrenchment and increasing social and health problems may well have produced support for structural explanations, too.
+Besides the so called regime-effect, national-level economic conditions have been proved to be associated with welfare attitudes. This is particularly interesting in these times when the Western world is meeting the increasing economic turbulence. In regard to East-West differences as well as variation within post-socialist countries, countries examined in this study have faced global economic crises in distinct ways. While many Western and Eastern European countries have witnessed economic decline, the economic performance in Western Asia has been strong. Hence, by analyzing the role of changes in economic performance during the period of global financial crises, the research design of this article provides empirical evidence on the effects of crises to public perceptions of the causes of poverty. Prior studies have shown that increased financial strain is associated with stronger support for state responsibility for economic provision (Blekesaune, 2007). In regard to explanations of poverty, Gallie and Paugam (2002:21-24) found that in the majority of European countries, there was a marked decline of support for the individual blame explanation between 1989 and 1993 as economic conditions deteriorated, followed  by an increase between 1993 and 2001 when economic conditions improved. This result is confirmed by Kallio and Niemelä (2013). They found that the larger the economic growth in a country is, more likely people are to blame the poor themselves. Thus, we can assume that changes in country’s economic performance are associated with attributions for poverty regardless of country grouping.
 
-`Joku toinen lähde olisi paikallaan tähän liittyen. Ja tuo ristiriitaisen hypoteesin voisi oikoa..`
-
-
-Risks factors as an individual-level determinants of perceptions
-==============================================
+# Risks factors as an individual-level determinants of perceptions
 
 In regard to individual-level determinants, popular attitudes toward the welfare state have traditionally been assumed to be dependent on long-term class-related interest, short-term self-interest and the values and norms that have been internalized by the individuals in the society in question (Taylor-Gooby, 1985; Svallfors, 1995). More recent directions of comparative literature on welfare attitudes tend to also focus on the distribution of marketable capacities such as skill specificity (Iversen and Soskice, 2001) and resource/class-based risks (Cusack et al. 2006; Blomberg et al. 2012; Finseraas and Ringdal, 2012) as key to welfare attitudes. Thus, studies have assumed – and to some extent proved – that groups that have a greater risk of facing social problems or being dependent on welfare state benefits might perceive the government’s role in welfare issues in a distinct way compared to those who are not exposed to these risks.
 
@@ -70,13 +66,9 @@ In addition to economic situation, other indicators which measure a greater than
 
 Low education refers to the lack of capabilities of an individual. Prior findings do not reveal consistent patterns regarding the effects of education. On the one hand, some studies have found the so-called inverted U-relationship which means that people with a middle level of education support the individualistic explanation, whereas people with a low or a high level of education are more likely to endorse structural explanations emphazising social inequalities and the flaws of the economic system of a given country (Feagin, 1972; cf. Furnham, 1982). On the other hand, there are studies which suggest that people with a lower level of education are more likely to favour individualistic explanations. Moreover, when the educational level increases, the likelihood of perceiving causes of poverty in individualistic terms decreases (Niemelä, 2008). It is therefore difficult to form any solid hypotheses as to whether low education as a social risk is associated with perceptions of the causes of poverty in a similar vein than other risk factors discussed above.
 
+# Research design
 
-\newpage
-
-Research design
-==============================================
-
-Earlier studies have shown that attributions for poverty differ in general between the West and the East of Europe but the variation between East Central European countries is relatively large. There is, however, a shortage of comparative studies which have focused particularly on differences within post-socialist countries. In addition, most of the prior research is based on attitude surveys from the 1990s and most of them have restricted country selection. Therefore, as previous studies have suggested (Kallio and Niemelä, 2013; Lepianka et al., 2010), there is a need for detailed and more up-to-date analysis which would focus on the attributions for poverty within the post-socialist space. Hence, the general purpose of the study is to analyze public perceptions of the causes of poverty in Europe and Central Asia with special emphasis on post-socialist countries. 
+Earlier studies have shown that attributions for poverty differ in general between the West and the East of Europe but the variation between East Central European countries is relatively large. There is, however, a shortage of comparative studies which have focused particularly on differences within post-socialist countries. In addition, most of the prior research is based on attitude surveys from the 1990s and most of them have restricted country selection. Therefore, as previous studies have suggested (Kallio and Niemelä, 2013; Lepianka et al., 2010), there is a need for detailed and more up-to-date analysis which would focus on the attributions for poverty within the post-socialist space. Hence, the general purpose of the study is to analyze public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. 
 
 The study utilizes the data from the second wave of Life in Transition Survey[^***2] (LiTS2), conducted by European Bank of Development and Reconstruction (EBRD) and  World Bank (WB) in 2010. The analyses cover 22 post-socialist countries and 4 Western European countries. The survey was collected using a two-stage clustered stratified sampling procedure to select the households that were included in the sample (for more detailed description of sampling and data collection, see ERBD, 2011). The survey had a special focus on how people’s lives were affected by the global economic crises and its aftermath.
 
@@ -93,13 +85,13 @@ The respondents were asked the following question which measures public percepti
 
 Thus, the question is a standard forced-choice question which is used also in other comparative surveys such as in World Values Survey and in Eurobarometer. According to van Oorschot and Halman (2000) different statements represent a four-tier typology of poverty explanations as follows: While the unlucky refers to individual fate, the laziness and lack of willpower represents individual blame. In addition, injustice in a society indicates social blame, whereas the view that poverty is simply part of modern life refers to social fate (see Table 1). Based on the findings of previous studies, we assume that in general post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. However, we hypothesize also that findings indicate relatively large variation between countries.
 
-We target our analyses at 22 post-socialist countries and use five Western European countries as references in descriptive analyses (see figure 1.). Our selection on 22 post-socialist countries includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania from Central Eastern Europe (CEE), and Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia from Commonwealth of Independent States (CIS)[^***]. Of Western European countries we have included France, Germany, Italy, United Kingdom and Sweden as references.
+As country-level determinants of perceptions, we will analyze, whether this variation can be explained by different regimes within post-socialist countries and the post-socialist legacy. The study divides post-socialist countries into two groups: Central Eastern Europe (CEE) and Commonwealth of Independent States (CIS). CEE includes Czech Republic, Estonia, Hungary, Bulgaria, Latvia, Lithuania, Poland, Slovakia, Slovenia, Romania; and CIS[^****] Armenia, Azerbaijan, Belarus, Georgia, Kazakhstan, Kyrgyzstan, Moldova, Tajikistan, Ukraine, Uzbekistan and Russia. The survey data enables us also to compare post-socialist countries to a selection of Western European nations (France, Germany, Italy and Sweden). Thus, in order to examine the distinctiveness of post-socialist perception, Western European countries are included in the descriptive analyses. (See Figure 1.)
 
 ![Countries used in the analysis](figure/mapplot.pdf)
 
-[^***]:Georgia withdrawn its membership from CIS in 2008
+[^****]:Georgia withdrawn its membership from CIS in 2008
 
-As contextual level predictors we use country’s economic performance during the period of global financial crises, living conditions and the state of democracy. As described in previous sections, we assume that in those countries where the economic crises has meant declining economic conditions, public are more likely to endorse social explanations for poverty than in countries where national economy has continued to grow despite the global economic turbulence. Based on the theoretical discussion on civil liberties, political rights and institutional trust, we assume that the public support to social blame type of explanation is high in those countries where the state of democracy is low. The case with human deveplopment in less clear, but we assume, against the hypothesis by Lepianka et al. (2010), that lower level of human development and lack of welfare institutions may well be connected with higher support for individual blame type of explanation.
+Besides the country groups we will also analyze the role of changes in country’s economic performance during the period of global financial crises, income inequality and the state of democracy. As described in previous sections, we assume that in those countries where the economic crises has meant declining economic conditions, public are more likely to endorse social explanations for poverty than in countries where national economy has continued to grow despite the global economic turbulence. Based on the theoretical discussion on civil liberties, political rights and institutional trust, we assume that the public support to social blame type of explanation is high in those countries where the state of democracy is low. Due to contradictory findings on the direction of the effect of income inequality, it is more difficult to provide any straightforward hypothesis on the importance of income inequality.
 
 As an individual-level determinants for the perceptions article test to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty, and whether these factors are associated with perceptions similar way regardless of the  groups of countries studied. Hereby, the research design aims at contributing to the theoretical reasoning regarding the importance of self-interest for attributions for poverty which assumes that those who have financial difficulties or those who have a greater risk to be poor perceive the causes of poverty differently than those who are not exposed to these poverty-related risks. Analyses include six individual-level predictors, namely transfer dependency, low education, perceived low income level, income-level compared to the past and expected change in income in the future as well as perceived effect of the financial crises. Variables are recoded as binomial where value 1 is coded for risk and 0 for absence of risk. Both contextual and individual-level variables are described in the Table 2.
 
@@ -108,9 +100,9 @@ As an individual-level determinants for the perceptions article test to what ext
 Table: Description of independent variables in the analyses. 
 
 
-----------------------------
+--------------------------------------------------------------------------------------------
 Variable                          Description                                                                                                   Source
----------                         ------------                                                                                                  -----------
+------------------------          ------------------------                                                                                      -----------
 **Individual-level**
 
 Transfer dependency               Social or private transfers as main source of income                                                          lits
@@ -123,209 +115,229 @@ Income compared to past           Perceived change in income compared to situati
 
 Income compared to future         Expected change in income over the next four years                                                            lits
 
-Effect of financial crises        Whether respondents perceives that their household has suffered the financial crisis great or fair amount     lits
+Effect of financial crises        Whether respondents perceives that their household has suffered the financial crisis great or fair amount     list
 
 **Country-level**
 
 Ghange in total GDP 2007 – 2010   Relative change from 2007 to 2010                                                                             World Bank
 
-Human Development Index           Measures life expectancy, education, and income indices as a composite statistics                             UNDP
+Gini coefficient                  Measures the distribution of income or consumption expenditure among individuals or households                World Bank
 
-Voice and Accountability          Indicators measuring the political process, civil liberties and political rights                              World Bank
-----------------------------
-
-
-An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of three variables: 1) change in total GDP in 2007 - 2010, 2) Human Deveplopment Index in 2010 and 3) Voice and accountability variable. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), Human Development Index from [United NAtions Development Programme](http://hdr.undp.org/en/data) and Voice and Accountability from the World Bank's [Worldwide Governance Indicators](http://info.worldbank.org/governance/wgi/index.aspx#home). All macro level indicators are obtained from [Quality of Government Institutes](http://www.qog.pol.gu.se/) data using [rQog](http://markuskainu.fi/rqog/)-package (Kainu 2014).
-
-<!-- seuraava kappale piilossa
-
-`From Lepianka 2010  Independent variables s.60`
-
-`Direct measurements of national poverty levels for all 28 countries and relevant years were not readily found, and therefore we used the Human Development Index (HDI) as a proximal indicator. The HDI seeks to rank countries in terms of their level of development and combines normalized measures of life expectancy, educational attainment and GDP per capita for countries worldwide. There is evidence that the HDI is very strongly correlated to the more recently developed Human Poverty Index, and thus, to a large extent, measures the same construct (cf. Sahay et al., 2003: 90). Here, we use the average HDI score per country for the period 1994–1999. Data come from the World Bank’s World Development Reports 1994–1999; see www.worldbank.org.`
-
--->
-
-The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors and we have a hierarchical two level dataset, it is recommended to use multilevel regression analysis for this task (Snijders & Bosker, 2011) as multilevel regression analysis allows the estimation of country-level effects on individual level outcomes. The analysis is performed using glmer-function from lme4 package in R. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
-
-We are modelling the date in stepwise manner first running the empty models for both social blame (table 3) and individual blame (table 4) type of explanation. At second stage we include all individual level predictors and in third stage we include only the macro level predictors. In final models we include both the individual and macro level variables. We assume that our dependent variables are independent, but to confirm this we run a further model where we predict support for social blame against the support for individual blame using both the individual and macro level variables. This model is compared with full models from tables 3 and 4 in table 5.
-
-`Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups.`
+Voice and Accountability          Indicators measuring the political process, civil liberties and political rights.                             World Bank
+--------------------------------------------------------------------------------------------
 
 
-Results
-==============================================
+An additional dataset of selected macro indicators were added to the LiTS2-dataset consisting of four variables: 1) change in total GDP in 2007 - 2010, 2) gini coefficient of economic inequality, 3) 2011 democracy index and 4) country grouping. Data for change in GDP is from World Bank's [World Development Indicators](http://data.worldbank.org/data-catalog/world-development-indicators), gini coefficients from [UNU-WIDER World Income Inequality Database](http://www.wider.unu.edu/research/Database/en_GB/database/) and Democracy Index from the [Economist Intelligence Unit](http://www.eiu.com/Default.aspx). Gini coefficient for each country is the latest available varying from 2002 to 2006. (see Appendix A)
+
+The empirical section starts by presenting the results of descriptive analyses. As we assume that individual level perceptions are dependent both on individual and country-level contextual factors, it is recommended to use multilevel regression analysis for this task (Snijders \& Bosker, 2011).  Multilevel analysis requires hierarchical dataset and allows the estimation of country-level effects on individual level outcomes. The analysis is performed using lmer-function from lme4 package in R. All of the models employed are so called multilevel logistic random intercept models at the level of individuals and countries.
+
+Our multilevel modelling focuses first in bivariate connections between two dependent variables and both individual and country level independent variables(See Appendix B). At the second step we include all individual level variables to a single model (models sb1 and ib1). Then we add each of the four country level variables one at the time (models sb2/ib2 - sb5/ib5). With limited number of countries we are obliged to use only few contextual variables. Tables will include both a fixed effects and a random effects part. The fixed effects part will include odds ratios and statistical significances of independent variables, while the random effects part will indicate the country-level variance and standard deviation, deviance and number of cases and groups. 
+
+--------
+
+*A more throughout description of modelling will be added as the final details in modelling will be decided*
+
+# Results
+
+*Results and conclusions are not yet reshaped to match the recent changes in the analysis...*
+
+## Descriptive statistics
+
+Table 3 shows the proportion of the total number of respondents in a country which chose a particular explanation of poverty. We assumed that citizens in post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. As expected results show relatively large variation within country groups. For the most of the post-socialist countries, social and individual blame types of explanation, i.e. injustice in a society and laziness of the poor, are the most popular poverty attributions. The highest support for social blame is found in Ukraine, Latvia, Lithuania, Hungary, Russia, Slovenia, Armenia, Moldova and Azerbaijan. In these countries majority of population blames the injustice in a society for poverty. Totally, in 19 of 21 examined post-socialist countries injustice in a society receives the highest support.
+
+\newpage
+
+\begin{table}[H]
+\centering
+\caption{Weighted population shares of dependent variable by country} 
+{\scriptsize
+\begin{tabular}{lrrrrrr}
+  \hline
+country & socialBlame & individualBlame & socialFate & individualFate & notStated & dontKnow \\ 
+  \hline
+Ukraine & 62.8 & 13.5 & 14.2 & 5.0 & 0.9 & 3.6 \\ 
+  Lithuania & 55.5 & 20.3 & 12.0 & 3.9 & 5.6 & 2.8 \\ 
+  Slovenia & 55.4 & 14.3 & 17.0 & 9.2 & 1.1 & 3.0 \\ 
+  Hungary & 54.2 & 19.2 & 13.0 & 4.1 & 3.8 & 5.8 \\ 
+  Russia & 53.6 & 19.9 & 14.8 & 4.2 & 1.9 & 5.5 \\ 
+  Latvia & 52.3 & 16.2 & 13.2 & 3.7 & 12.0 & 2.5 \\ 
+  Armenia & 46.7 & 16.5 & 16.1 & 3.9 & 5.5 & 11.4 \\ 
+  Italy & 46.1 & 18.8 & 18.1 & 11.8 & 1.3 & 3.9 \\ 
+  Azerbaijan & 45.6 & 23.3 & 10.4 & 10.4 & 6.3 & 4.0 \\ 
+  Moldova & 43.2 & 29.1 & 6.4 & 5.6 & 3.6 & 12.0 \\ 
+  Romania & 43.1 & 23.6 & 12.6 & 9.9 & 5.0 & 5.7 \\ 
+  Kyrgyzstan & 41.7 & 28.0 & 18.5 & 7.5 & 0.8 & 3.5 \\ 
+  Slovakia & 38.1 & 20.2 & 12.3 & 20.3 & 3.1 & 6.0 \\ 
+  Estonia & 37.7 & 20.1 & 24.8 & 10.2 & 4.0 & 3.1 \\ 
+  Kazakhstan & 37.6 & 24.2 & 19.7 & 12.2 & 1.1 & 5.1 \\ 
+  Bulgaria & 36.5 & 27.5 & 19.4 & 9.1 & 2.4 & 5.1 \\ 
+  Germany & 36.4 & 22.2 & 24.9 & 9.4 & 4.6 & 2.4 \\ 
+  Czech Republic & 32.6 & 23.3 & 23.7 & 12.9 & 1.9 & 5.6 \\ 
+  Sweden & 32.5 & 11.7 & 31.7 & 10.5 & 8.5 & 5.1 \\ 
+  Poland & 32.1 & 27.8 & 17.0 & 14.6 & 1.7 & 6.8 \\ 
+  Georgia & 31.6 & 18.0 & 20.4 & 12.2 & 5.6 & 12.2 \\ 
+  Belarus & 27.7 & 28.5 & 23.2 & 9.4 &  & 11.2 \\ 
+  Tajikistan & 23.5 & 23.3 & 15.0 & 15.2 & 6.2 & 16.7 \\ 
+  Great Britain & 20.1 & 36.3 & 27.6 & 9.8 & 1.8 & 4.4 \\ 
+  Uzbekistan & 13.8 & 41.4 & 14.0 & 18.3 & 5.6 & 6.9 \\ 
+  CEE Total & 34.2 & 24.8 & 24.1 & 10.2 & 3.1 & 3.5 \\ 
+  CIS Total & 39.0 & 24.3 & 16.2 & 11.6 & 3.1 & 5.8 \\ 
+  Western Europe Total & 48.8 & 21.4 & 15.1 & 6.7 & 2.2 & 5.9 \\ 
+  CV CEE & 22.1 & 20.6 & 29.0 & 53.7 & 77.5 & 34.6 \\ 
+  CV CIS & 36.1 & 31.7 & 30.1 & 50.1 &  & 53.6 \\ 
+  CV Western Europe & 31.9 & 46.5 & 22.3 & 10.2 & 81.6 & 29.0 \\ 
+   \hline
+\end{tabular}
+}
+\end{table}
 
 
-Descriptive statistics
-----------------------------------------------
 
-Table 2 shows the proportion of the total number of respondents in a country which chose a particular explanation of poverty. We assumed that citizens in post-socialist countries endorse more likely individual blame and social blame types of explanations than individual and social fate types of explanations. As expected results show relatively large variation within country groups. For the most of the post-socialist countries, social and individual blame types of explanation, i.e. injustice in a society and laziness of the poor, are the most popular poverty attributions. The highest support for social blame is found in Ukraine, Lithuania, Slovenia, Hungary,  Russia and Latvia. In these countries majority of population blames the injustice in a society for poverty. Totally, in 18 of 21 examined post-socialist countries injustice in a society receives the highest support.
-
-
-```{rattribArticleDescTbl1, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
-source("code/dv_tables.R")
-library(xtable)
-print.xtable(xtable(tbl5,digits=1,
-                    caption="Weighted population shares of dependent variable by country",), 
-             #table.placement="H",
-             type="latex",
-             comment=FALSE, 
-             include.rownames=FALSE,
-             caption.placement="top",
-             size="scriptsize")
-
-```
-
-Also, in most post-socialist countries the individual blame is the second most popular explanation of poverty. Exceptions here are Ukraine, Slovenia, Estonia and Georgia where citizens endorse societal explanations more likely than individual explanations. In Armenia and Czech Republic social explanations as well as individual blame explanation receive public support quite evenly. Finally, the clearest exception in post-socialist regime is Uzbekistan where poverty is attributed strongly with internal terms.
+Also, in most post-socialist countries the individual blame is the second most popular explanation of poverty. Exceptions here are Slovenia, Estonia and Georgia where citizens endorse societal explanations more likely than individual explanations. In Czech Republic social explanations as well as individual blame explanation receive public support quite evenly. Finally, the clearest exception in post-socialist regime is Uzbekistan where poverty is attributed strongly with internal terms.
 
 In regard to differences between the East and the West of Europe, results show that there are some differences. Yet there are also substantial variation within Western Europe, which correspond earlier findings on cross-national differences in Western Europe (Lepianka et al., 2010; Kallio and Niemelä, 2010). Clearest differences between the West and the East is the stronger support for social fate in Western Europe. In Germany and Sweden external reasons for poverty receive the majority of support. On the other hand, attributions for poverty in France and Italy seems to be quite similar with post-socialist countries - blame types of explanations are endorsed more likely than fate types of explanations. Finally, the figures of Great Britain are the example of selective welfare policy dominated liberal regime in which the individual blame type of explanations is strongly supported (see also Albrekt Larsen, 2006).
 
 Hence, the results are in line with our assumptions and prior research (Lepianka et al., 2010) regarding the general support for different explanations of poverty. Overall, the results indicate that for the most of the post-socialist countries two most popular explanations are individual and social blame types of explanations.Yet, the differences between social fate and individual blame types of explanations are in some countries very small. In general, Western Europeans (except Britons) do not support individual blame type of explanation as much as citizens in the East. Instead they emphasise more social reasons for poverty. Results also clearly emphasise that the idea that poverty is caused by just individual bad luck is the least popular perception of the reason for poverty.
 
-
-
-Determinants of perceptions
-----------------------------------------------
+## Determinants of perceptions
 
 The results above indicate that there are cross-national differences between countries and within country groups which means that there are also some other contextual and individual-level factors which should explain the cross-national differences. Therefore, we will also analyse the importance of country-level economic, social and political conditions and individual-level risk factors related to financial hardship as determinants for attributions for poverty. Because the descriptive results showed that the majority of citizens in the post-socialist countries endorsed social and individual blame types of explanations, the subsequent analyses will focus only on these two explanations.
 
 ![Change in total GDP in 2007 - 2010 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gdp.pdf)
 
-Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 3, 4 and 5). Correlation coefficients within the post-socialist countries are shown on top of each regression line. Figure 3 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The trend is very clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.62) and more to individual blame (.71). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
+Analyses regarding the determinants of poverty explanations starts by bivariate associations between the dependent variables and three contextual variables (Figures 2, 3 and 4). Correlation coefficients at country group1 level are shown on top of each regression line.Figure 2 shows the association between attributions for poverty and the change in the size of economy during the period of global financial crises (2007-2010). In regard to post-socialist countries there is substantial variation between countries in economic change. The general trend is quite clear: the less country has suffered from the financial crises the less there is support to social blame type of explanation (-.35) and more to individual blame (.48). In regard to East-West differences, we can see that the variation in economic situation is much smaller in Western European countries, and the association between economic change and attributions for poverty is opposite to the post-socialist countries. However, this is greatly due to economic decline in Great Britain. Hence, without Great Britain we can not see any significant association between economic change and poverty perceptions in Western Europe.
 
+<!--
+
+![Gini coefficient and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_gini.pdf)
+
+
+
+![**Perceived inequality from data** and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_perGini.pdf)
+
+-->
 
 ![Human Development Index and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_hdi.pdf)
 
 
-There is also a substantial variation in the level of human development among post-socialist countries. Figure 4 shows that the higher of human development is associated with higher level of social blame (.34). Association holds also in the case of individual blame meaning that the higher the human deveploment is the lower support for support for individual blame explanation (-.48). In this comparison Western countries are better-off in terms of human development and due to substantial variation in dependent variables it is harder to confirm our hypothesis than in the case of post-socialist countries.
+AND SOMETHING ABOUT THE NEW FIGURE ON HUMAN DEVELPMENT INDEX AND LIVING CONDITIONS OF THE PEOPLE AND SKIPPING THE NEXT PARAGRAPH ON INEQUALITY
+
+>There is also a substantial variation in the level of income inequality among post-socialist countries. Figure 3 shows that the higher level of income inequality is associated with higher level of social blame. As for individual blame type of explanation the picture is more puzzled, showing only weak connection between larger inequality and lower support for individual blame explanation. Again, the Western European countries differ with post-socialist countries. Cross-national differences in income inequality are much smaller in Western Europe than among post-socialist countries. There is a weak negative association between the social blame and income  inequality and a strong positive association between the individual blame and income inequality.
 
 
 ![World Bank's Voice and Accountability index in 2011 and support for social (top) and individual (bottom) blame types of attributions for poverty](figure/scatter_wbgi.pdf)
 
-In regard to the level of goodness of government we can see major differences are great as expected. Overall association is substantial (.41 for social blame and -.47 for individual blame), and pointing that higher level of democracy is indicating higher support for social blame, whereas lower support for individual blame type of explanation is linked with low figure in good governance indicator. As expected , the variation in the goodness of government in Western Europe is much smaller than in post-socialist countries. In these countries the support for blame types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
+>Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media. [info.worldbank.org/governance/wgi/pdf/va.pdf](http://info.worldbank.org/governance/wgi/pdf/va.pdf)
 
+In regard to the level of democracy we can see great differences between and within groups of countries. Overall association is weak (.19 for social blame and -.44 for individual blame), but in CIS countries the higher level of democracy is clearly indicating higher support for social blame and lower support for individual blame type of explanation. In CEE and in Western Europe the variation in the state of democracy is much smaller than in CIS countries. In these countries the support for blame  types of explanations seems to vanish when the level of democracy increases. Consequently, both social and individual fate types of  explanations gain higher support in more democratic societies.
 
-\newpage
+## Multilevel analysis
 
-Multilevel analysis
--------------------------------------------------
-
-As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.
-
-`On the basis of the above bivariate contextual models, we selected the independent variables which were significantly related to popular poverty attributions – HDI, share of Catholics, average work ethic and egalitarianism – and estimated a rank-ordered logit model in which the effects of these contextual variables were estimated simultaneously (see Table 4, Model 1). 6 The results of Model 1 indicate that as people live in more developed countries, they are more likely to rank Unluckiness ahead of Modern progress as an explanation for living in destitution.`
-
-`From Lepianka 2010 Conclusions s. 86`
-
-`In addition, people who live in countries that have a higher level of development (and presumably a lower level of poverty) – measured by the HDI – are more likely to attribute living in poverty sooner to Unluckiness rather than to Modern Progress.`
-
-```{rarticleModelsSoc, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
-load("data/finalModels.RData")
-library(texreg)
-coef.names.multi = c("(intercept)", 
-                      "Dependent","Low education",
-                      "Low income","Income has worsened",
-                      "Income will worsen","Has affected great or fair amount",
-                      "Human Deveplopment Index",
-                      "Change in GDP between 2007 to 2010",
-                      "Voice and Accountability")
-
-model.names.multi = c("Empty",
-                      "Only individual",
-                      "HDI added",
-                      "GDP change added",
-                      "Voice and Accountability added")
-
-model.names.multi.A = c("SB empty",
-                      "SB individual",
-                      "SB contextual",
-                      "SB all")
-
-texreg(list(soc.0,soc.1,soc.Cont,soc.4),
-        custom.model.names = model.names.multi.A,
-        custom.coef.names = coef.names.multi,
-        #naive = TRUE,
-        #use.packages=TRUE,
-        #sideways=TRUE,
-        scriptsize=TRUE,
-        include.pvalues=TRUE,
-        caption="Logistic multilevel random intercept model for social blame type of explanation", 
-        caption.above=TRUE)
-```
-
-
-```{rarticleModelsInd, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
-load("data/finalModels.RData")
-library(texreg)
-coef.names.multi = c("(intercept)", 
-                      "Dependent","Low education",
-                      "Low income","Income has worsened",
-                      "Income will worsen","Has affected great or fair amount",
-                      "Human Deveplopment Index",
-                      "Change in GDP between 2007 to 2010",
-                      "Voice and Accountability")
-
-model.names.multi = c("Empty",
-                      "Only individual",
-                      "HDI added",
-                      "GDP change added",
-                      "Voice and Accountability added")
-
-model.names.multi.A = c("IB empty",
-                      "IB individual",
-                      "IB contextual",
-                      "IB all")
-
-texreg(list(ind.0,ind.1,ind.Cont,ind.4),
-        custom.model.names = model.names.multi.A,
-        custom.coef.names = coef.names.multi,
-        naive = TRUE,
-        #use.packages=TRUE,
-        #sideways=TRUE,
-        scriptsize=TRUE,
-        include.pvalues=TRUE,
-        caption="Logistic multilevel random intercept model for social blame type of explanation", 
-        caption.above=TRUE)
-```
+*As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level.*
 
 
 
-```{rarticleModelsFull, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
-load("data/finalModels.RData")
+\usepackage{rotating}
+\begin{sidewaystable}
+\caption{Logistic multilevel random intercept model for social blame type of explanation}
+\begin{center}
+\scriptsize
+\begin{tabular}{l c c c c c c c c }
+\hline
+                                   & SB empty & SB individual & SB contextual & SB all & IB empty & IB individual & IB contextual & IB all \\
+\hline
+(intercept)                        & $-0.39^{**}$ & $0.36$        & $0.37$       & $0.87$        & $-1.25^{***}$ & $-2.19^{***}$ & $-0.85$     & $-1.24$      \\
+                                   & $(0.12)$     & $(0.21)$      & $(1.52)$     & $(1.49)$      & $(0.08)$      & $(0.22)$      & $(0.91)$    & $(0.86)$     \\
+Dependent                          &              & $-0.20^{**}$  &              & $-0.20^{**}$  &               & $0.37^{***}$  &             & $0.37^{***}$ \\
+                                   &              & $(0.07)$      &              & $(0.07)$      &               & $(0.09)$      &             & $(0.09)$     \\
+Low education                      &              & $0.11$        &              & $0.11$        &               & $-0.04$       &             & $-0.04$      \\
+                                   &              & $(0.16)$      &              & $(0.16)$      &               & $(0.18)$      &             & $(0.18)$     \\
+Low income                         &              & $-0.36^{***}$ &              & $-0.37^{***}$ &               & $0.28^{***}$  &             & $0.28^{***}$ \\
+                                   &              & $(0.03)$      &              & $(0.03)$      &               & $(0.04)$      &             & $(0.04)$     \\
+Income has worsened                &              & $-0.06$       &              & $-0.06$       &               & $0.08$        &             & $0.07$       \\
+                                   &              & $(0.04)$      &              & $(0.04)$      &               & $(0.04)$      &             & $(0.04)$     \\
+Income will worsen                 &              & $-0.32^{***}$ &              & $-0.32^{***}$ &               & $0.27^{***}$  &             & $0.26^{***}$ \\
+                                   &              & $(0.04)$      &              & $(0.04)$      &               & $(0.05)$      &             & $(0.05)$     \\
+Has affected great or fair amount  &              & $-0.32^{***}$ &              & $-0.32^{***}$ &               & $0.44^{***}$  &             & $0.44^{***}$ \\
+                                   &              & $(0.04)$      &              & $(0.04)$      &               & $(0.04)$      &             & $(0.04)$     \\
+Human Deveplopment Index           &              &               & $-0.64$      & $-0.35$       &               &               & $-0.77$     & $-1.45$      \\
+                                   &              &               & $(1.97)$     & $(1.93)$      &               &               & $(1.18)$    & $(1.09)$     \\
+Change in GDP between 2007 to 2010 &              &               & $-0.02^{**}$ & $-0.02^{**}$  &               &               & $0.01^{**}$ & $0.01^{**}$  \\
+                                   &              &               & $(0.01)$     & $(0.01)$      &               &               & $(0.00)$    & $(0.00)$     \\
+Voice and Accountability           &              &               & $-0.07$      & $-0.08$       &               &               & $0.13$      & $0.13$       \\
+                                   &              &               & $(0.18)$     & $(0.17)$      &               &               & $(0.11)$    & $(0.10)$     \\
+\hline
+AIC                                & 30343.40     & 21780.91      & 30337.95     & 21776.80      & 24900.01      & 18249.54      & 24891.37    & 18239.84     \\
+BIC                                & 30359.53     & 21842.88      & 30378.27     & 21862.01      & 24916.15      & 18311.51      & 24931.69    & 18325.05     \\
+Log Likelihood                     & -15169.70    & -10882.45     & -15163.97    & -10877.40     & -12448.01     & -9116.77      & -12440.68   & -9108.92     \\
+Deviance                           & 30339.40     & 21764.91      & 30327.95     & 21754.80      & 24896.01      & 18233.54      & 24881.37    & 18217.84     \\
+Num. obs.                          & 23513        & 17089         & 23513        & 17089         & 23513         & 17089         & 23513       & 17089        \\
+Num. groups: cntry                 & 21           & 21            & 21           & 21            & 21            & 21            & 21          & 21           \\
+Variance: cntry.(Intercept)        & 0.29         & 0.26          & 0.17         & 0.16          & 0.12          & 0.10          & 0.06        & 0.04         \\
+Variance: Residual                 & 1.00         & 1.00          & 1.00         & 1.00          & 1.00          & 1.00          & 1.00        & 1.00         \\
+\hline
+\multicolumn{9}{l}{\scriptsize{\textsuperscript{***}$p<0.001$, 
+  \textsuperscript{**}$p<0.01$, 
+  \textsuperscript{*}$p<0.05$}}
+\end{tabular}
+\normalsize
+\label{table:coefficients}
+\end{center}
+\end{sidewaystable}
 
-model.names.multi.2 = c("SB vs. not",
-                        "IB vs. not",
-                        "SB vs. IB")
-
-coef.names.multi = c("(intercept)",
-                     "Dependent",
-                     "Low education",
-                     "Low income",
-                     "Income has worsened",
-                     "Income will worsen",
-                     "Has affected great or fair amount",
-                     "Human Developmet Index",
-                     "Change in GDP between 2007 to 2010",
-                     "Voice and Accountability")
 
 
-library(texreg)
-texreg(list(soc.4,ind.4,socVsInc),
-       #float.pos="H",
-       #use.packages=TRUE,
-       #booktabs=TRUE,
-       #dcolumn=TRUE,
-       scriptsize=TRUE,
-       naive = TRUE,
-       caption.above=TRUE,
-       doctype=FALSE,
-       custom.model.names = model.names.multi.2,
-       custom.coef.names = coef.names.multi,
-       include.pvalues=TRUE,
-       caption="Logistic multilevel random intercept model for social and individual blame type of explanation")
 
 
-```
+\begin{table}[H]
+\caption{Logistic multilevel random intercept model for social and individual blame type of explanation}
+\begin{center}
+\scriptsize
+\begin{tabular}{l c c c }
+\hline
+                                   & SB vs. not & IB vs. not & SB vs. IB \\
+\hline
+(intercept)                        & $0.87$        & $-1.24$      & $1.60$        \\
+                                   & $(1.49)$      & $(0.86)$     & $(1.35)$      \\
+Dependent                          & $-0.20^{**}$  & $0.37^{***}$ & $-0.43^{***}$ \\
+                                   & $(0.07)$      & $(0.09)$     & $(0.10)$      \\
+Low education                      & $0.11$        & $-0.04$      & $-0.01$       \\
+                                   & $(0.16)$      & $(0.18)$     & $(0.20)$      \\
+Low income                         & $-0.37^{***}$ & $0.28^{***}$ & $-0.43^{***}$ \\
+                                   & $(0.03)$      & $(0.04)$     & $(0.04)$      \\
+Income has worsened                & $-0.06$       & $0.07$       & $-0.10^{*}$   \\
+                                   & $(0.04)$      & $(0.04)$     & $(0.05)$      \\
+Income will worsen                 & $-0.32^{***}$ & $0.26^{***}$ & $-0.41^{***}$ \\
+                                   & $(0.04)$      & $(0.05)$     & $(0.06)$      \\
+Has affected great or fair amount  & $-0.32^{***}$ & $0.44^{***}$ & $-0.53^{***}$ \\
+                                   & $(0.04)$      & $(0.04)$     & $(0.05)$      \\
+Human Developmet Index             & $-0.35$       & $-1.45$      & $0.74$        \\
+                                   & $(1.93)$      & $(1.09)$     & $(1.73)$      \\
+Change in GDP between 2007 to 2010 & $-0.02^{**}$  & $0.01^{**}$  & $-0.02^{***}$ \\
+                                   & $(0.01)$      & $(0.00)$     & $(0.01)$      \\
+Voice and Accountability           & $-0.08$       & $0.13$       & $-0.14$       \\
+                                   & $(0.17)$      & $(0.10)$     & $(0.16)$      \\
+\hline
+AIC                                & 21776.80      & 18239.84     & 13565.57      \\
+BIC                                & 21862.01      & 18325.05     & 13646.10      \\
+Log Likelihood                     & -10877.40     & -9108.92     & -6771.79      \\
+Deviance                           & 21754.80      & 18217.84     & 13543.57      \\
+Num. obs.                          & 17089         & 17089        & 11169         \\
+Num. groups: cntry                 & 21            & 21           & 21            \\
+Variance: cntry.(Intercept)        & 0.16          & 0.04         & 0.12          \\
+Variance: Residual                 & 1.00          & 1.00         & 1.00          \\
+\hline
+\multicolumn{4}{l}{\scriptsize{\textsuperscript{***}$p<0.001$, 
+  \textsuperscript{**}$p<0.01$, 
+  \textsuperscript{*}$p<0.05$}}
+\end{tabular}
+\normalsize
+\label{table:coefficients}
+\end{center}
+\end{table}
 
+
+<!-- As the main controbution of our study relates to cross-national variation of attributions for poverty within post-socialist countries, we shall largely focus on the effects of contextual variables. Nevertheless, as we are covering several countries that haven't been included in previous studies of individual level determinants, we shall also look carefully at the individual level. -->
 
 Table 4 and 5 present figures for multilevel logistic analysis. Calculating R squared or residual standard deviation makes no sense in the case of logistic regression or other binomial models. Instead, we use \emph{deviance} as our primary statistical summary of logistic model fit. Deviance can be treated as similar to residual standard deviation for generalized linear models. Basically, deviance is a measure of error, and lower deviance implicates better fit to data. When a random predictor is added to model, we expect deviance to decrease, on average, by 1. When predictor is more informative deviance should decrease more than 1. (Gelman and Hill, 2007). As for getting sensible interpretation of the regression coefficients in logistic regression we can divide the coefficients by 4 to get the probability of certain covariate.
 
@@ -338,9 +350,8 @@ When adding in the country grouping (CEE/CIS) we can observe decrease close to -
 As for explaining the between-country variation the inclusion of country grouping adds a very little. Gini coefficient reduces variation from .24 to .19 for social blame, but it is the inclusion of GDP change that has the greatest effect. Between-country variation  to .12 for social blame and .04 for individual blame. In the final models the inclusion of democracy index results country-level variances at .09 and .02 for social and individual type of explanation, respectively. In other words, only 9\% and 2\% of the variation in the final models are due to country differences at final stage.
 
 
+# Conclusions
 
-Conclusions
-==============================================
 
 To sum up, the results indicate that in general social blame type of explanation is clearly the most popular explanation in post-socialist countries. Social blame is followed by individual blame, social fate and individual fate types of explanations. Hence, the results are in line with our assumptions and prior research (Lepianka et al., 2010) regarding the general support for different explanations of poverty in the European post-socialist countries. In regard to differences between the East and the West of Europe, results show that Western Europeans emphasise more social reasons for poverty.
 
@@ -356,12 +367,9 @@ This study focused only on poverty-related risks as individual-level determinant
 
 As a methodological contribution, findings showed interesting differences between the East and the West regarding the effects of contextual variables. Even though the selection of Western European countries in this study included countries from different welfare regimes, the differences between countries in economic change, democracy and income inequality are quite modest compared especially to CIS countries. Consequently our results showed more modest and in some cases opposite associations between dependent and contextual variables among Western European countries than among post-socialist group.
 
-Thus, the finding hold critical implications for future research. On the one hand, in order to examine the effects of contextual factors, comparative social research should try to utilize comparative data encompassing more diverse cases than, for instance, conventional EU17 or OECD countries. On the other hand, the well-known limitation of this kind of variable-oriented approach is that larger number of cases may pose also more obstacles to making interpretive statements about specific cases or even about categories of cases (Ragin, 1987). For instance, in regard to policy implications of research on welfare attitudes, broadening the country selection from Western democracies (in some cases) to more authoritarian societies raises a question whether public attitudes have similar constraining role in policy-making that have been assumed and to some extent proved to be in the policy-making of Western democracies. This kind of research question calls also case-oriented qualitative research methods.
+Thus, the finding hold critical implications for future research. On the one hand, in order to examine the effects of contextual factors, comparative social research should try to utilize comparative data encompassing more diverse cases than, for instance, conventional EU17 or OECD countries. On the other hand, the well-known limitation of this kind of variable-oriented approach is that larger number of cases may pose also more obstacles to making interpretive statements about specific cases or even about categories of cases (Ragin, 1987). For instance, in regard to policy implications of research on welfare attitudes, broadening the country selection from Western democracies (in some cases) to more authoritarian societies raises a question whether public attitudes have similar constraining role in policy-making that have been assumed and to some extent proved to be in the policy-making of Western democracies. This kind of research question calls also case-oriented qualitative research methods. 
 
-
-
-References
-==============================================
+# References
 
 Aidukaite, Jolanta (2004) The Emergence of the Post-Socialist Welfare State - The Case of the Baltic States: Estonia, Latvia and Lithuania, Södertörn University College, Sweden.
 
@@ -437,36 +445,4 @@ Kumlin, Staffan (2007) Overload or Undermined? European Welfare States in the Fa
 
 Lepianka, Dorota (2007) Are the Poor to be Blamed or Pitied? A Comparative Study of Popular Attributions in Europe. Tilburg: Tilburg University.
 
-Lepianka, Dorota and Gelissen, John and van Oorschot, Wim (2010) Popular Explanations of Poverty in Europe. Effects of Contextual and Individual Characteristics across 28 European Countries. Acta Sociologica 53 (1), 53–72.
-
-Morçöl, Göktuğ (1997) Lay Explanations for Poverty in Turkey and Their Determinants. Journal of Social Psychology 137 (6) 728–738.
-
-Murthi, M., & Tiongson, E. R. (2008). Attitudes to Equality: The Socialist Legacy Revisited. SSRN eLibrary. Retrieved from http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1098627
-
-Nasser, Ramzi and Abouchedid, Kamal and Khashan, Hilal (2002) Perceptions of the Causes of Poverty Comparing Three National Groups: Lebanon, Portugal, and South Africa. Current Research in Social Psychology 8 (7), 101–119.
-
-Niemelä, Mikko (2008) Perceptions of the Causes of Poverty in Finland. Acta Sociologica, 51 (1), 23–40.
-
-Nilson, Lina B. (1981) Reconsidering Ideological Lines: Beliefs about Poverty in America. The Sociological Quarterly 22 (4), 531-548.
-
-Ragin, Charles C. (1987) The Comparative Method. Moving Beyond Qualitative and Quantitative Strategies. Berkeley: University of California Press.
-
-Rothstein, Bo (2000) Trust, Social Dilemmas and Collective Memories. Journal of Theoretical Politics, 12 (4), 477–501.
-
-Rothstein, Bo and Stolle, Dietlind (2008) The State and Social Capital: An Institutional Theory of Generalized Trust. Comparative Politics 40 (4), 441-459.
-
-Saunders, Peter (2002) The Ends and Means of Welfare. Coping with Economic and Social Change in Australia. Cambridge: Cambridge University Press.
-
-Schumpeter, Joseph A. (1942) Capitalism, Socialism & Democracy. New York: Harper & Brothers.
-
-Szikra, D., & Tomka, B. (2009). Social Policy in East Central Europe: Major Trends in the Twentieht Century. In Post-communist Welfare Pathways (Vol. 2009).
-
-Stephenson, Svetlana (2000) Public Beliefs in the Causes of Wealth and Poverty and Legitimization of Inequalities in Russia and Estonia. Social Justice Research 13 (2), 83–100.
-
-Svallfors, Stefan (1997) Worlds of Welfare and Attitudes to Redistribution: A Comparison of Eight Western Nations. European Sociological Review 13 (3), 283–304.
-
-Tomka, B. (2006). East Central Europe and the European Social Policy Model: A Long-Term View. East European Quarterly, 40(2), 135.
-
-van Oorschot, Wim and Halman, Loek (2000) Blame or Fate, Individual or Social? An International Comparison of Popular Explanations of Poverty. European Societies 2 (1), 1–28.
-
-Wilson, George (1996) Toward a Revised Framework for Exa
+Lepianka, Dorota and Gelissen, John and van Oorschot, Wim (2010) Popular Explanations of Poverty in Europe. E
