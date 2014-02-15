@@ -1,13 +1,13 @@
-# Attributions for Poverty in Post-Socialist Countries - Markus Kainu & Mikko Niemelä
+---
+title: "Attributions for Poverty in Post-Socialist Countries"
+author: [Markus Kainu & Mikko Niemelä]
+---
 
 ****
 
 # Introduction
 
 This site gathers together all the data analysis behind the actual paper. Data analysis is broken down in three parts and each part is presented in .html format for human eyes and in text source including the R-code required for reproducing the analysis. As both the [micro data](http://www.ebrd.com/pages/research/publications/special/transitionII.shtml) and [macro data](http://www.qog.pol.gu.se/data/) are available as open data, anyone can rerun these analysis.
-
-**Analytical code is licensed under open [FreeBSD](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)-licence.**
-
 
 # Data Analysis
 
@@ -56,3 +56,6 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 - [slides](http://muuankarski.github.io/attributions/attrib_slides.html)
 
+---------
+
+**Analytical code is licensed under open [FreeBSD](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)-licence.**
