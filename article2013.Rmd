@@ -17,28 +17,8 @@ output:
     number_section: true
 ---
 
-\thanks{Some thanks}
-
 \thispagestyle{empty}
 
-\newpage
-
-\thispagestyle{empty}
-
-\section*{Progress report for 4th LCSR International Workshop “Social and Cultural Changes in Cross-National Perspective: Values and Modernization”  (March 28 –April 4, 2014, Moscow)}
-
-\subsection*{Summary of previous comments}
-
-My discussants were somewhat confused after my presentation and I can think two reasons for that. Firstly, the first version of my paper that they had read was very preliminary and had no results what-so-ever. However, the project had proceeded since summer and my presentation was rather result oriented. Another thing was that I had some technical difficulties and therefore couldn't quite deliver my point in the presentation.
-
-But I got good comments, though, and my discussants were mainly after better reasoning why to study welfare attitudes in the first place, and many of the comments where somehow related to that *Why-question*. However, I was also asked to give reasons for leaving out Western European countries and to argue why such country selection was chosen. One commentator directed me towards social psychological literature on the effect of feeling of losing control in life and how it could be linked with welfare attitudes.
-
-\subsection*{Explanation of what has been done to cope with the comments}
-
-I did work a lot with my colleague in December and also now in February towards the deadline and we tried to improve the paper as a whole and prepare for first submission. We decided to leave out any country grouping and to treat our selection of post-socialist countries as a whole and to study contextual variables at the country level. We tried to become more clear with why to study such issue, but it may still be somewhat unclear for someone not familiar with welfare attitude research in social policy literature. Also, we worked a lot on our analysis and for example, replaced gini coefficient with Human Development Index in our contextual variables. Previous findings on gini coefficient we somewhat contradictory and uninteresting and we thought actual living conditions could perhaps be better suited for our analysis. HDI was most reliable measure of living conditions as national level poverty figures are hard to compare between countries as in our selection.
-
-- The analysis can be browsed in here: [muuankarski.github.io/attributions/](https://muuankarski.github.io/attributions/)
-- Changes since Novermber can be seen through git history here: [https://github.com/muuankarski/attributions/commits/master/article2013.Rmd](https://github.com/muuankarski/attributions/commits/master/article2013.Rmd)
 
 \newpage
 
