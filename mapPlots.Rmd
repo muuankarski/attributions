@@ -21,7 +21,7 @@ library(mapproj)
 library(maptools)
 library(rgdal)
 load("~/workspace/lits/attributions/data/lits.RData")
-map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
+map <- suppressWarnings(readOGR(dsn="/home/aurelius/data/shapefiles/lits/", 
                                 layer="lits_all_simple"))
 
 map$NAME <- as.character(map$NAME)
@@ -60,14 +60,15 @@ cbPalette <- c("#999999", "#E69F00",
 ```
 
 
-```{rmapPlotsGroup1}
+```{rmapPlotsGroup1, fig.height=13, fig.width=16}
 ggplot(map.df, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
   geom_polygon(aes(fill = group_analysis)) + # or group_fine !!
   scale_fill_manual(values=cbPalette) +
   geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
-  coord_map(project="orthographic") +
+  coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,60)) +
   theme(legend.position="top")
 
 ```
@@ -83,6 +84,7 @@ ggplot(map.df, aes(long,lat,group=group)) +
 ### Faceted showing population shares of explanations
 library(scales)
 plotMap <- merge(map.df,macro,by.x="NAME",by.y="cntry")
+plotMap <- plotMap[plotMap$year == 2010,]
 plotMap <- plotMap[order(plotMap$order),]
 
 ggplot(plotMap, aes(long,lat,group=group)) +
@@ -192,16 +194,16 @@ ggplot(plotMap, aes(long,lat,group=group)) +
   theme(legend.text = element_text(size=14))
 ```
 
-### Perceived Gini coefficient
+### Human Development Index
 
 ```{rmapPlotsIvMacro2}
 ggplot(plotMap, aes(long,lat,group=group)) +
   geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
-  geom_polygon(aes(fill = perGini)) +
+  geom_polygon(aes(fill = undp_hdi)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
   coord_map(project="orthographic") +
-  scale_fill_gradient2(low=muted("blue"), high=muted("red"), midpoint=33.55) +
+  scale_fill_gradient2(low=muted("red"), high=muted("blue"), midpoint=0.7570) +
   theme(legend.position="top") +
   theme(legend.text = element_text(size=14))
 ```

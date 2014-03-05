@@ -1,16 +1,14 @@
 Attributions for poverty in Post-Socialist Countries
 ========================================================
-author: 3rd LCSR conference at HSE Moscow on Nov 12th 2013
+author: 4th LCSR International Workshop at HSE Moscow on March 28th 2014
 transition: fade
+transition-speed: fast
 css: /home/aurelius/workspace/template/rpresentation/slides.css
-
-Slides: [goo.gl/zlsf6r](http://goo.gl/zlsf6r) | Analysis: [goo.gl/c6542c](http://goo.gl/c6542c)
 
 Markus Kainu </br>
 *PhD student, [Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri)* </br>
 Mikko Niemelä </br>
 *Senior Researcher, [Social Insurance Institution](http://kela.fi)*
-
 
  
 Purpose of the study
@@ -43,6 +41,7 @@ Novelty of the study
 Different types of explanations
 ========================================================
 ![](figure/nelikentta_slide.png)
+
 
 *Source: van Oorschot and Halman (2000)*
 
@@ -83,6 +82,7 @@ Data
 Countries used in the analysis
 ===================================
 
+
 ![](figure/mapplot.png)
  
 Dependent variable
@@ -102,33 +102,49 @@ In regard to van Oorschot and Halman's typology of explanations, they equates "U
 ---------| notes end |-----------------------------  --> 
  
 
-results
 ========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Key variables and descriptive figures</h1>
+type:section
+
+<h1>Key variables and descriptive results</h1>
+
+## Dependent variables
+
+
+=======================================================
+title:false 
+
+The respondents were asked the following question which measures public perceptions of the causes of poverty: 
+
+>In your opinion, what is the main reason why there are some people in need in our country today?
+
+- Because they have been unlucky
+- Because of laziness and lack of willpower
+- Because of injustice in our society
+- It is an inevitable part of modern life
+- Don't know
+- Not stated
+
 
 Weighted population shares of DV by country
 ========================================================
 
-```{rdvtbl2, echo=FALSE, fig.width=12, fig.height=8}
-source("~/workspace/lits/attrib/attrib_year2013/code/dv_tables.R")
-library(reshape2)
-tbl5 <- tbl5[c(-27:-32),]
+<div style="font-size:0.6em;">
 
-tbl5$country <- reorder(tbl5$country, tbl5$socialBlame, median)
-tbl5l <- melt(data=tbl5, id.vars="country")
-library(ggplot2)
-ggplot(tbl5l, aes(x=country,
-                  y=value,fill=variable)) +
-  geom_bar(stat="identity") + 
-  coord_flip() + 
-  theme(legend.position="top") +
-  theme(axis.text.x = element_text(size=14),
-        axis.text.y = element_text(size=14),
-        legend.text = element_text(size=14))
+```{rdvtbl2, echo=FALSE, results="asis", fig.width=12, fig.height=8}
+source("code/dv_tables.R")
+library(xtable)
+print.xtable(xtable(tbl5,digits=1,
+                    caption="Weighted population shares of dependent variable by country",), 
+             #table.placement="H",
+             type="html",
+             comment=FALSE, 
+             include.rownames=FALSE,
+             caption.placement="top",
+             size="scriptsize")
+
 ```
 
-
+</div>
 
 
 Support for Social blame
@@ -164,13 +180,17 @@ Not stated
 
 ![](figure/mapPlotsDV6.png)
 
-results
-========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Independent variables</h1>
 
-Independent variables: Individual level
 ========================================================
+type:section
+
+<h1>Key variables and descriptive figures</h1>
+
+## Independent variables/predictors
+
+Individual level
+========================================================
+
 
 <table>
 <col width="35%" />
@@ -216,7 +236,7 @@ As an independent individual level determinants we will examine factors related 
 ---------| notes end |-----------------------------  --> 
 
  
-Independent variables: Contextual level
+Contextual level
 ========================================================
 
 <table>
@@ -234,12 +254,12 @@ Independent variables: Contextual level
 <td align="left">Relative change from 2007 to 2010</td>
 </tr>
 <tr class="even">
-<td align="left">Gini coefficient</td>
-<td align="left">Measures the distribution of income or consumption expenditure among individuals or households</td>
+<td align="left">Human Development Index</td>
+<td align="left">Indicator of human development/living conditions. Measures life expectancy, education, and income indices as a composite statistics</td>
 </tr>
 <tr class="odd">
 <td align="left">Voice and Accountability Description</td>
-<td align="left">Indicators measuring the political process, civil liberties and political rights. These indicators measure the extent to which citizens of a country are able to participate in the selection of governments. Indicators measuring the independence of the media is also included.</td>
+<td align="left">Indicator of state of democracy. Measures the political process, civil liberties and political rights</td>
 </tr>
 </tbody>
 </table>
@@ -266,23 +286,24 @@ title:false
 <!-- ---| notes begin |--------------------------------
 ---------| notes end |-----------------------------  --> 
  
-IV's - Gini coefficient 
+IV's - Human Development Index
 ========================================================
+
 ![](figure/mapPlotsIvMacro2.png)
  
 
-Gini coefficient vs. DV
+Human Development Index vs. DV
 ========================================================
 title:false
-<caption>Gini  coefficient and support for social blame type of attributions for  poverty</caption>
-![](figure/scatter_giniSB.png)
+<caption>Human Development Index and support for social blame type of attributions for  poverty</caption>
+![](figure/scatter_hdiSB.png)
 
 
-Gini  coefficient vs. DV
+Human Development Index vs. DV
 ========================================================
 title:false
-<caption>Gini  coefficient and support for social individual blame type of attributions for  poverty</caption>
-![](figure/scatter_giniIB.png)
+<caption>Human Development Index and support for social individual blame type of attributions for  poverty</caption>
+![](figure/scatter_hdiIB.png)
 
 
 <!-- ---| notes begin |--------------------------------
@@ -293,24 +314,23 @@ IV's - Good governance
 ![](figure/mapPlotsIvMacro3.png)
  
 
-Good governance vs. DV
+Voice and Accountability vs. DV
 ========================================================
 title:false
-<caption>Good governance and support for social blame type of attributions for  poverty</caption>
+<caption>Voice and Accountability and support for social blame type of attributions for  poverty</caption>
 ![](figure/scatter_wbgiSB.png)
 
 
-Gini  coefficient vs. DV
+Voice and Accountability vs. DV
 ========================================================
 title:false
-<caption>Good governance and support for social individual blame type of attributions for  poverty</caption>
+<caption>Voice and Accountability and support for social individual blame type of attributions for  poverty</caption>
 ![](figure/scatter_wbgiIB.png)
 
 
-results
 ========================================================
-title: false
-<h1 style="text-align:center;padding-top:200px;">Modelling the data</h1>
+type: section
+<h1>Results of the modelling</h1>
 
 
 Regression modelling - constraints
@@ -347,11 +367,8 @@ incremental:false
 - **individual blame**
     - of sign. all predictors, suffered the financial crisis
 
-Key results of modelling
-========================================================
-
 ### contextual level predictors
-- Ghange in total GDP 2007 – 2010 
+- Change in total GDP 2007 – 2010 
 
 
 Conclusions
@@ -366,10 +383,10 @@ incremental:false
 - contextual level: economic changes
 - individual level: self-interest hypothesis supported
 
-questions
+
 ========================================================
-title: false
-<h2 style="text-align:center;padding-top:200px;">Questions & comments</h2>
+type: section
+<h1>Questions & comments</h1>
 
 <center>
 

@@ -462,7 +462,7 @@ library(mapproj)
 library(maptools)
 library(rgdal)
 library(grid)
-map <- suppressWarnings(readOGR(dsn="/home/aurelius/workspace/data/shapefiles/lits/", 
+map <- suppressWarnings(readOGR(dsn="/home/aurelius/data/shapefiles/lits/", 
                                 layer="lits_all_simple"))
 
 map$NAME <- as.character(map$NAME)
@@ -514,15 +514,14 @@ mapplot <- ggplot(map.df, aes(long,lat,group=group)) +
         axis.ticks.y = element_blank()) +
   theme(legend.key.size = unit(3, "mm"))
     
-  
-  
+    
 
 pdf("figure/mapplot.pdf", width=12/2.54, height=7/2.54)
 mapplot
 dev.off()
 
 ppi <- 300
-png("figure/mapplot.png", width=14/2.54*ppi, height=12/2.54*ppi, res=ppi)
+png("figure/mapplot.png", width=15/2.54*ppi, height=9/2.54*ppi, res=ppi)
 mapplot
 dev.off()
 

@@ -284,48 +284,6 @@ texreg(list(ind.0,ind.1,ind.Cont,ind.4),
 
 
 
-```{rarticleModelsFull, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
-load("data/finalModels.RData")
-
-model.names.multi.2 = c("SB vs. not",
-                        "IB vs. not",
-                        "SB vs. IB")
-
-coef.names.multi = c("(intercept)",
-                     "Dependent",
-                     "Low education",
-                     "Low income",
-                     "Income has worsened",
-                     "Income will worsen",
-                     "Has affected great or fair amount",
-                     "Human Developmet Index",
-                     "Change in GDP between 2007 to 2010",
-                     "Voice and Accountability")
-
-
-library(texreg)
-texreg(list(soc.4,ind.4,socVsInc),
-       #float.pos="H",
-       #use.packages=TRUE,
-       #booktabs=TRUE,
-       #dcolumn=TRUE,
-       scriptsize=TRUE,
-       naive = TRUE,
-       caption.above=TRUE,
-       doctype=FALSE,
-       custom.model.names = model.names.multi.2,
-       custom.coef.names = coef.names.multi,
-       include.pvalues=TRUE,
-       caption="Logistic multilevel random intercept model comparing the full models for both dependent variable with model predicting social blame against individual blame")
-
-
-```
-
-
-
-
-
-
 The self-interest hypothesis assumes that those who have financial difficulties or those who have a greater risk to be poor are more inclined to support societal reasons for poverty than those who are not exposed to poverty-related risks. Both Table 3 and Table 4 show four statistically significant individual-level predictors. *Perceived low income level* has the highest coefficient of our binary individual-level predictors for explaining social blame type of explanation. Coefficient of -.36 can be translated so that if respondent perceives belonging to low income group he or she is 8.5 % more likely to blame society for poverty than a non-low income individual. Dependency on public or private transfers, expected worsening in household income in the future and experienced negative effect of financial crisis to household's economy predict the support for social blame explanation almost in similar manner (Table 3). The self-interest hypothesis is also supported in Table 4 which shows that negative experience of financial crisis, transfer dependency, perceived low income level and expected worsening of household income level are statistically associated with individualistic perception of the causes of poverty. For instance, being greatly affected by financial crisis makes one 11 % less likely to support for individual blame type of explanation. 
 
 However, there are also individual-level risk factors which are not connected with perceptions of the causes of poverty. First, analyses indicate to some extent equivocal results of the explanatory effect of past experiences: unlike the perceived negative effect of financial crisis, the subjective assessment of negative changes in income is not associated with perceptions. Second, low level of education does not contribute in explaining neither social nor individualistic perception of the causes of poverty.
@@ -343,11 +301,11 @@ Interesting enough, however, results show that unlike descriptive statistics ind
 Conclusions
 ==============================================
 
-To sum up, the results indicate that in general social blame type of explanation is clearly the most popular explanation in post-socialist countries. Social blame is followed by individual blame, social fate and individual fate types of explanations. Hence, the results are in line with our assumptions and prior research (Lepianka et al., 2010) regarding the general support for different explanations of poverty in the post-socialist space. In regard to differences between the East and the West of Europe, results show that Western Europeans emphasise more social reasons for poverty.
+To sum up, the results indicate that in general social blame type of explanation is clearly the most popular explanation in post-socialist countries. Social blame is followed by individual blame, social fate and individual fate types of explanations. Hence, the results are in line with our assumptions and prior research (Habibov, 2011; Lepianka et al., 2010) regarding the general support for different explanations of poverty in the post-socialist space. In regard to differences between the East and the West of Europe, results show that Western Europeans emphasize more social reasons for poverty.
 
-As assumed results also emphasised large between-country differences among post-socialist countries. By employing a multilevel approach we wanted to shed light especially on this issue. To begin with, we found that differences between countries are responsible for almost 30 percent of the variation in the support for social blame and 12 percent for individual blame type of explanation. Our contextual level predictors decreased the variance down to 15 percent for social and 4 percent for individual type of explanation.
+As assumed results also emphasized large between-country differences among post-socialist countries. By employing a multilevel approach we wanted to shed light especially on this issue. To begin with, we found that differences between countries are responsible for almost 30 percent of the variation in the support for social blame and 12 percent for individual blame type of explanation. Our contextual level predictors decreased the variance down to 15 percent for social and 4 percent for individual type of explanation.
 
-As we hypothesised changes in country’s economic performance during the period of global financial crises were associated with attributions for poverty. In fact, changes in economic performance was the most significant predictor of our country-level variables for both social and individual blame types of explanations: the better the economy had performed the more support gained the individual blame type of explanation. And on the other hand, increased financial strain is associated with stronger support for the view that poverty is caused injustices of society.
+As we hypothesized changes in country’s economic performance during the period of global financial crisis were associated with attributions for poverty. In fact, changes in economic performance was the most significant predictor of our country-level variables for both social and individual blame types of explanations: the better the economy had performed the more support gained the individual blame type of explanation. And on the other hand, increased financial strain is associated with stronger support for the view that poverty is caused by injustices of society.
 
 <!-- no tää ei ollut merkitsevä
 Also, the level of democracy had a substantial impact. Yet, the results were to some extent against our hypothesis. Contrary to our assumption, citizens in those countries where the state of democracy is low do not blame more likely society than citizens in countries where they have political freedom and power to influence socio-political issues. Instead, findings indicate that the lower level of democracy was associated with stronger support for individual blame type of explanation. Social blame type of explanation was, in turn, endorsed more likely in countries with higher level of democracy.
@@ -356,11 +314,11 @@ Also, the level of democracy had a substantial impact. Yet, the results were to 
 Our other contextual level predictors, level of democracy and human development, were not significant in the models. However, the descriptive analysis showed that contracy to our assumptions, citizens in those countries where the state of democracy and human development is low do not blame more likely society than citizens in countries where they have political freedom and power to influence socio-political issues. Instead, findings indicate that the lower level of democracy and low level of human develpment were associated with stronger support for individual blame type of explanation. Social blame type of explanation was, in turn, endorsed more likely in countries with higher level of democracy and human development.
 
 
-Results of the individual-level determinants of perceptions supported the self-interest hypothesis which states that those who have financial difficulties perceive the causes of poverty differently than those who are not exposed to poverty-related risks. Findings indicate that those whose main source of income rely mainly on social or private transfers, those who perceive their income level to be lower than country’s median, those who perceive their future economic situation to be worse than now as well as those who perceive that the global financial crises has affected negatively to their household’s economic situation endorse more likely external (social blame) than internal (individual blame) reasons for poverty. Thus, analyses showed that that it would be fruitful to include a perspective of risk groups when studying attitudes toward poverty, and also to include future expectations in the equation (also Blomberg et al., 2012; Nygaard Andersen and Ringdal, 2012).
+Results of the individual-level determinants of perceptions supported the self-interest hypothesis which states that those who have financial difficulties perceive the causes of poverty differently than those who are not exposed to poverty-related risks. Findings indicate that those whose main source of income rely mainly on social or private transfers, those who perceive their income level to be lower than country’s median, those who perceive their future economic situation to be worse than now as well as those who perceive that the global financial crisis has affected negatively to their household’s economic situation endorse more likely external (social blame) than internal (individual blame) reasons for poverty. Thus, analyses showed that that it would be fruitful to include a perspective of risk groups when studying attitudes toward poverty, and also to include future expectations in the equation (also Blomberg et al., 2012; Nygaard Andersen and Ringdal, 2012).
 
-This study focused only on poverty-related risks as individual-level determinants. There are, of course, other variables which might be associated with attributions even more than risk factors. For instance, another line of research have emphasised the role of other beliefs, attitudes and values rather than interest (e.g. Cozzarelli et al., 2001). Treating the values, attitudes and other perceptions as determinants for attributions of poverty is, however, problematic because it is difficult to prove the causal relationship between attributions and other attitudes. This does not mean that they are irrelevant. Conversely, we argue that future research should try to investigate to what extent high levels of social and individual blame are associated with wider welfare attitudes in post-socialist countries. In order, for example, to explore policy implications more thoroughly, there is a need for future research to focus on the relationship between attributions for poverty and the legitimacy of specific types of welfare policies in post-socialist countries.
+This study focused only on poverty-related risks as individual-level determinants. There are, of course, other variables which might be associated with attributions even more than risk factors. For instance, another line of research have emphasized the role of other beliefs, attitudes and values rather than interest (e.g. Cozzarelli et al., 2001). Treating the values, attitudes and other perceptions as determinants for attributions of poverty is, however, problematic because it is difficult to prove the causal relationship between attributions and other attitudes. This does not mean that they are irrelevant. Conversely, we argue that future research should try to investigate to what extent high levels of social and individual blame are associated with wider welfare attitudes in post-socialist countries. In order, for example, to explore policy implications more thoroughly, there is a need for future research to focus on the relationship between attributions for poverty and the legitimacy of specific types of welfare policies in post-socialist countries.
 
-As a methodological contribution, findings showed interesting differences between the East and the West regarding the effects of contextual variables. Even though the selection of Western European countries in this study included countries from different welfare regimes, the differences between countries in economic change, democracy and income inequality are quite modest compared especially to CIS countries. Consequently our results showed more modest and in some cases opposite associations between dependent and contextual variables among Western European countries than among post-socialist group.
+As a methodological contribution, findings showed interesting differences between the East and the West regarding the effects of contextual variables. Even though the selection of Western European countries in this study included countries from different welfare regimes, the differences between countries in economic change, democracy and living conditions are quite modest compared especially to CIS countries. Consequently our results showed more modest and in some cases opposite associations between dependent and contextual variables among Western European countries than among post-socialist group.
 
 Thus, the finding hold critical implications for future research. On the one hand, in order to examine the effects of contextual factors, comparative social research should try to utilize comparative data encompassing more diverse cases than, for instance, conventional EU17 or OECD countries. On the other hand, the well-known limitation of this kind of variable-oriented approach is that larger number of cases may pose also more obstacles to making interpretive statements about specific cases or even about categories of cases (Ragin, 1987). For instance, in regard to policy implications of research on welfare attitudes, broadening the country selection from Western democracies (in some cases) to more authoritarian societies raises a question whether public attitudes have similar constraining role in policy-making that have been assumed and to some extent proved to be in the policy-making of Western democracies. This kind of research question calls also case-oriented qualitative research methods.
 
@@ -421,6 +379,8 @@ Golding, Peter and Middleton, Sue (1982) Images of Welfare. Press and Public Att
 
 Gorshkov, Mikhail K. and Tikhonova, Natalia E. (2006) Wealth and Poverty in the Perceptions of Russians. Sociological Research 45 (1), 27–40.
 
+Habibov, Nazim N. (2011) Public Beliefs Regarding the Causes of Poverty during Transition. Evidence from the Caucasus, Central Asia, Russia, and Ukraine. International Journal of Sociology and Social Policy 31 (1-2), 53-74.
+
 Hunt, Matthew O. (1996) The Individual, Society, or Both? A Comparison of Black, Latino, and White Beliefs about the Causes of Poverty. Social Forces 75 (1), 293–322.
 
 Inglot, T. (2008). Welfare States in East Central Europe, 1919-2004 (1st ed.). Cambridge University Press.
@@ -458,3 +418,39 @@ Niemelä, Mikko (2008) Perceptions of the Causes of Poverty in Finland. Acta Soc
 Nilson, Lina B. (1981) Reconsidering Ideological Lines: Beliefs about Poverty in America. The Sociological Quarterly 22 (4), 531-548.
 
 Ragin, Charles C. (1987) The Comparative Method. Moving Beyond Qualitative and Quantitative Strategies. Berkeley: University of Califor
+
+\newpage
+
+Appendix
+=======================================================
+
+\setcounter{table}{0}
+\renewcommand\thetable{\arabic{table}}
+
+
+```{rarticleModelsFull, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
+load("data/finalModels.RData")
+
+model.names.multi.2 = c("SB vs. not",
+                        "IB vs. not",
+                        "SB vs. IB")
+
+coef.names.multi = c("(intercept)",
+                     "Dependent",
+                     "Low education",
+                     "Low income",
+                     "Income has worsened",
+                     "Income will worsen",
+                     "Has affected great or fair amount",
+                     "Human Developmet Index",
+                     "Change in GDP between 2007 to 2010",
+                     "Voice and Accountability")
+
+
+library(texreg)
+texreg(list(soc.4,ind.4,socVsInc),
+       float.pos="H",
+       #use.packages=TRUE,
+       #booktabs=TRUE,
+       #dcolumn=TRUE,
+       scriptsize=TRUE
