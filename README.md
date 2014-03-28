@@ -15,7 +15,7 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 | html-ouput | source code |
 | ------------ | -------------- |
-| [loading, cleaning and summarizing](http://muuankarski.github.io/attributions/loadClean.html) | [source](http://muuankarski.github.io/attributions/loadClean.Rmd) |
+| [loading, cleaning and summarizing](loadClean.html) | [source](loadClean.Rmd) |
 
 
 ## Descriptive analysis
@@ -23,16 +23,16 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 | html-ouput | source code |
 | ------------ | -------------- |
-| [Descriptive analysis](http://muuankarski.github.io/attributions/descriptive_analysis.html) | [source](http://muuankarski.github.io/attributions/descriptive_analysis.Rmd) |
-| [Spatial visualization](http://muuankarski.github.io/attributions/mapPlots.html) | [source](http://muuankarski.github.io/attributions/mapPlots.Rmd) |
-| [Graphics in the paper](http://muuankarski.github.io/attributions/finalPlots.html) | [source](http://muuankarski.github.io/attributions/finalPlots.Rmd) |
+| [Descriptive analysis](descriptive_analysis.html) | [source](descriptive_analysis.Rmd) |
+| [Spatial visualization](mapPlots.html) | [source](mapPlots.Rmd) |
+| [Graphics in the paper](finalPlots.html) | [source](finalPlots.Rmd) |
 
 ### Misc analysis
 
 | html-ouput | source code |
 | ------------ | -------------- |
-| [Comparing waves 2006 and 2011](http://muuankarski.github.io/attributions/compareWaves.html) | [source](http://muuankarski.github.io/attributions/compareWaves.Rmd) |
-| [Exploring the macro level correlations](http://muuankarski.github.io/attributions/correlations.html) | [source](http://muuankarski.github.io/attributions/correlations.md) |
+| [Comparing waves 2006 and 2011](compareWaves.html) | [source](compareWaves.Rmd) |
+| [Exploring the macro level correlations](correlations.html) | [source](correlations.md) |
 
 
 
@@ -40,21 +40,21 @@ This site gathers together all the data analysis behind the actual paper. Data a
 
 | html-ouput | source code |
 | ------------ | -------------- |
-| [Regression analysis](http://muuankarski.github.io/attributions/regressionModelling.html) | [source](http://muuankarski.github.io/attributions/regressionModelling.Rmd) |
+| [Regression analysis](regressionModelling.html) | [source](regressionModelling.Rmd) |
 
 
 
 # Article draft
 
-
-| pdf-ouput | source code |
-| ------------ | -------------- |
-| [Article draft in .pdf](http://muuankarski.github.io/attributions/article2013.pdf) | [source](http://muuankarski.github.io/attributions/article2013.Rmd) |
+[Article draft in .pdf](article2013.pdf)
 
 
 # Presentation slides
 
-- [slides](http://muuankarski.github.io/attributions/attrib_slides.html)
+| html-ouput | source code |
+| ------------ | -------------- |
+| [slides](attrib_slides.html) | [source](attrib_slides.Rpres) |
+
 
 ---------
 
