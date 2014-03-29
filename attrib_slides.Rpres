@@ -16,6 +16,14 @@ Project page: [bit.ly/1i16FB3](http://bit.ly/1i16FB3)
 <img src="banner/banner.png"> 
 </div>
 
+
+=======================================================
+
+![](figure/commits.png)
+
+https://github.com/muuankarski/attributions/graphs/contributors
+
+
 Purpose of the study
 ========================================================
 
@@ -28,62 +36,42 @@ Purpose of the study
 *Can perceptions be attributed to certain contextual and individual level factors?*
 
 1. Individual level: specific risks related to household financial circumstances
-2. Contextual level: democracy, income inequality and changes in national economy
+2. Contextual level: goodness of the government, human development and changes in national economy
 
 
 Welfare attitudes vs. welfare state policies
 ======================================================
 
-1. Welfare attitudes as normative background assumptions or ideas that constrain decision-making and institutional change
-    - by limiting the range of programme that decision-making elites are likely to perceive as acceptable and legitimate to both their constituents and themselves
-2. type of welfare policy affects public attitudes
-    - liberal welfare regime, the poor are asked to fulfil much harder deservingness criteria than in a universal social democratic regime
+Causation between attitutes and policies is believed to exist in both directions:
 
-- in countries with more marginal and less generous welfare programmes, explanations of poverty are more often based on **individual morality**
-- in the Continental and Nordic welfare states **external and structural** explanations prevail
-
-<!--
-
-
-
-
--->
-
-
-
-
-Novelty of the study
-=======================================================
-- in depth study of "post-socialist welfare regime"
-- wider variety of political and economical regimes
-    - dynamics of welfare attitudes, welfare state and democracy in authoritarian regimes
-- assessing the impact of past, present and future expectations
-- comparing countries that have suffered from financial crisis and countries that have not
-
-
+1. Welfare attitudes constrain the decision making and institutional change by limiting the range of programs perceived acceptable
+2. Type of welfare policy affects the welfare attitudes
+    - in countries with more marginal and less generous welfare programmes, explanations of poverty are more often based on **individual morality**
+    - in the Continental and Nordic welfare states **external and structural** explanations prevail
 
  
 Different types of explanations
 ========================================================
 ![](figure/nelikentta_slide.png)
 
-
 *Source: van Oorschot and Halman (2000)*
 
 
 Assumptions
 ========================================================
+
 ## Cross-national differences
 - Difference between post-socialist and West of Europe
 - Large variation within post-socialist regime
 
 ## Individual level determinants:
-- Self-interest approach: 
+- Self-interest approach: *to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty*
 
 ## Contextual level determinants:
 -  Differencies in socio-economic conditions and in governance
-
-
+    1. economic performance during the period of global financial crises
+    2. human development
+    3. goodness of government
 
 
 <!-- ---| notes begin |--------------------------------
@@ -107,17 +95,23 @@ Data
 22 Post-Socialist and 5 Western European countries
 ===================================
 
-
 ![](figure/mapplot_png.png)
+
+
+
+Novelty of the study
+=======================================================
+- in depth study of "post-socialist welfare regime"
+- wider variety of political and economical regimes
+    - dynamics of welfare attitudes, welfare state and democracy in authoritarian regimes
+- assessing the impact of past, present and future expectations
+- comparing countries that have suffered from financial crisis and countries that have not
+
  
-
-
 ========================================================
 type:subsection
 
-<h1>Key variables and descriptive results</h1>
-
-## Dependent variables
+<h1>Dependent variable</h1>
 
 
 Dependent variable
@@ -158,13 +152,12 @@ print.xtable(xtable(tbl5,digits=1,
 Weighted population shares of DV by country
 ========================================================
 
-```{rdvPlotBar, echo=FALSE, results="asis", fig.width=18, fig.height=13}
+```{rdvPlotBar, echo=FALSE, results="asis", fig.width=20, fig.height=13}
 cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
 library(ggplot2)
 library(grid)
-source("code/dv_tables.R")
 
-datPlot <- macro[macro$year == 2010,c(1,3:6,17)]
+datPlot <- macro[macro$year == 2010,c(1,3:8,17)]
 library(reshape2)
 datPlotL <- melt(datPlot, id.vars=c("cntry","group_general"))
 
@@ -175,8 +168,6 @@ datPlotL$cntry <- factor(datPlotL$cntry,
 datPlotL$group_general <- factor(datPlotL$group_general,
                                  levels = c("CEE","CIS","Western Europe"))
 
-
-
 ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
     geom_bar(stat="identity") +
     facet_wrap(~variable, scales="free_x") +
@@ -185,7 +176,8 @@ ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     theme(legend.key.size = unit(10, "mm")) +
     theme(text = element_text(size=26)) +
-    theme(legend.title = element_blank())
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "top")
 
 
 ```
@@ -216,9 +208,8 @@ ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
 ========================================================
 type: subsection
 
-<h1>Key variables and descriptive figures</h1>
+<h1>Independent variables</h1>
 
-## Independent variables/predictors
 
 
 Individual level
@@ -262,11 +253,81 @@ Individual level
 </tbody>
 </table>
 
-[Descriptive figures](../descriptive_analysis.html)
+
 
 <!-- ---| notes begin |--------------------------------
 As an independent individual level determinants we will examine factors related to individual's risk of poverty. They can be devided to "cross-sectional situation" (dependency, education and low income) and to perceived changes in econimic situation (past, future expectations, effect of economic crises)
 ---------| notes end |-----------------------------  --> 
+
+Weighted population shares of IV (ind) by country
+===============================================================
+
+```{rivIndPlotBar, echo=FALSE, results="asis", fig.width=20, fig.height=13}
+cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
+library(ggplot2)
+library(reshape2)
+library(survey)
+d.df <- svydesign(id = ~SerialID, weights = ~weight, data = df)
+
+income2 <- data.frame(prop.table(svytable(~income2 + cntry, d.df), 2) * 100)
+income2w <- dcast(income2, cntry ~ income2, value.var="Freq")
+income2w[,3] <- NULL
+names(income2w) <- c("cntry","lowIncome")
+
+incsour3 <- data.frame(prop.table(svytable(~incsour3 + cntry, d.df), 2) * 100)
+incsour3w <- dcast(incsour3, cntry ~ incsour3, value.var="Freq")
+incsour3w[,3] <- NULL
+names(incsour3w) <- c("cntry","transferDependent")
+
+edu2 <- data.frame(prop.table(svytable(~edu2 + cntry, d.df), 2) * 100)
+edu2w <- dcast(edu2, cntry ~ edu2, value.var="Freq")
+edu2w[,3] <- NULL
+names(edu2w) <- c("cntry","lowEducation")
+
+future.diff <- data.frame(prop.table(svytable(~future.diff + cntry, d.df), 2) * 100)
+future.diffw <- dcast(future.diff, cntry ~ future.diff, value.var="Freq")
+future.diffw[,3] <- NULL
+names(future.diffw) <- c("cntry","EconomyWillWorsen")
+
+past.diff <- data.frame(prop.table(svytable(~past.diff + cntry, d.df), 2) * 100)
+past.diffw <- dcast(past.diff, cntry ~ past.diff, value.var="Freq")
+past.diffw[,3] <- NULL
+names(past.diffw) <- c("cntry","EconomyHasWorsened")
+
+crise <- data.frame(prop.table(svytable(~crise + cntry, d.df), 2) * 100)
+crisew <- dcast(crise, cntry ~ crise, value.var="Freq")
+crisew[,3] <- NULL
+names(crisew) <- c("cntry","CriseHasAffected")
+
+
+dat_iv_ind <- cbind(income2w,incsour3w,edu2w,future.diffw,past.diffw,crisew)
+
+library(reshape2)
+df.long <- melt(dat_iv_ind, id.vars = "cntry")
+
+datPlotL <- merge(df.long,macro[macro$year == 2010,c(1,17)], by="cntry")
+library(reshape2)
+
+order.data <- datPlotL[datPlotL$variable == "EconomyWillWorsen",]
+order.data <- order.data[order(-order.data$value), ]
+datPlotL$cntry <- factor(datPlotL$cntry,
+                     levels = order.data$cntry)
+datPlotL$group_general <- factor(datPlotL$group_general,
+                                 levels = c("CEE","CIS","Western Europe"))
+
+ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
+    geom_bar(stat="identity") +
+    facet_wrap(~variable, scales="free_x") +
+    scale_fill_manual(values = cbPalette) + 
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+    theme(legend.key.size = unit(10, "mm")) +
+    theme(text = element_text(size=26)) +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "top")
+```
+
+
 
  
 Contextual level
@@ -297,9 +358,48 @@ Contextual level
 </tbody>
 </table>
 
-IV's - Change in GDP 
+Contextual level IV
+=======================================================
+
+```{rivMacroPlotBar, echo=FALSE, results="asis", fig.width=20, fig.height=13}
+library(ggplot2)
+library(grid)
+
+datPlot <- macro[macro$year == 2010,c(1,14:15,17:18)]
+library(reshape2)
+datPlotL <- melt(datPlot, id.vars=c("cntry","group_general"))
+
+order.data <- datPlotL[datPlotL$variable == "wbgi_vae",]
+order.data <- order.data[order(-order.data$value), ]
+datPlotL$cntry <- factor(datPlotL$cntry,
+                     levels = order.data$cntry)
+datPlotL$group_general <- factor(datPlotL$group_general,
+                                 levels = c("CEE","CIS","Western Europe"))
+
+ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
+    geom_bar(stat="identity") +
+    facet_wrap(~variable, scales="free") +
+    scale_fill_manual(values = cbPalette) + 
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+    theme(legend.key.size = unit(10, "mm")) +
+    theme(text = element_text(size=26)) +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "top")
+```
+
+
+
 ========================================================
+
 ![](figure/mapPlotsIvMacro1.png)
+
+![](figure/mapPlotsIvMacro2.png)
+
+![](figure/mapPlotsIvMacro3.png)
+
+
+
 
 
 Change in GDP vs. DV
@@ -318,12 +418,7 @@ title:false
 
 <!-- ---| notes begin |--------------------------------
 ---------| notes end |-----------------------------  --> 
- 
-IV's - Human Development Index
-========================================================
 
-![](figure/mapPlotsIvMacro2.png)
- 
 
 Human Development Index vs. DV
 ========================================================
@@ -339,13 +434,6 @@ title:false
 ![](figure/scatter_hdiIB.png)
 
 
-<!-- ---| notes begin |--------------------------------
----------| notes end |-----------------------------  --> 
- 
-IV's - Good governance 
-========================================================
-![](figure/mapPlotsIvMacro3.png)
- 
 
 Voice and Accountability vs. DV
 ========================================================
@@ -366,24 +454,25 @@ type:subsection
 <h1>Results of the modelling</h1>
 
 
-Regression modelling - constraints
+Regression modelling
 ========================================================
+
+Constraints
+---------------------------------------------------
 
 - DV is categorical/factor with values: A,B,C,D
 - Major differences in IV's by country 
     - clustered data (individual within countries)
     - multilevel/mixed effects model setting
     
-Regression modelling - current solution..
-========================================================
-    
+Current solution
+----------------------------------------------------
+
 - As we are interested in two blame type of explanation
 - Our current solution to recode variable into two binary variables
     - 1. A/not-A
     - 1. B/not-B and 
 - model the data using logistic binary multilevel models for A/not-A, B/not-B and A/B 
-
-- [See the tables](../regressionModelling.html#tables-for-presentation)
 
 
 ==========================================================
@@ -510,21 +599,27 @@ htmlreg(list(soc.4,ind.4,socVsInc),
 
 
 
-
 Key results of modelling
 ========================================================
 incremental:false
-### country differences
+
+country differences
+-------------------------------------------
+
 - between-country variance .29 vs. .12, after individual predictors .23, .10, after gdp change .13 vs .05
 
-### individual level predictors
-- **social blame**
+individual level predictors
+-------------------------------------------
+
+- social blame
     - of sign. Perceived low income level, Expected change in income over the next four years, suffered the financial crisis
     - of non-sign. Low education, worsened household income level
-- **individual blame**
+- individual blame
     - of sign. all predictors, suffered the financial crisis
 
-### contextual level predictors
+contextual level predictors
+-------------------------------------------
+
 - Change in total GDP 2007 – 2010 
 
 
@@ -532,13 +627,18 @@ Conclusions
 ========================================================
 incremental:false
 
-## Cross-national differences
+Cross-national differences
+-------------------------------------
+
 - highest support for social blame, followed by individual blame
 - still, variation between countries relatively high
 
-## Determinants
+Determinants
+-------------------------------------
+
 - contextual level: economic changes
 - individual level: self-interest hypothesis supported
+
 
 
 ========================================================

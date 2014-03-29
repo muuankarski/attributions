@@ -14,9 +14,12 @@ output:
 ### Original variable
 
 ```{rdescplot1_1}
-load("~/workspace/lits/attributions/data/lits.RData")
+load("~/workspace/lits/clone/attributions/data/lits.RData")
 library(ggplot2)
 library(reshape2)
+
+
+
 
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q227),1)*100)

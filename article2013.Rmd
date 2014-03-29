@@ -159,8 +159,10 @@ Table 2 shows the proportion of the total number of respondents in a country whi
 
 
 ```{rattribArticleDescTbl1, results='asis', eval=TRUE, echo=FALSE, cache=TRUE, message=FALSE}
+
 source("code/dv_tables.R")
 library(xtable)
+
 print.xtable(xtable(tbl5,digits=1,
                     caption="Weighted population shares of dependent variable by country",), 
              #table.placement="H",
