@@ -6,7 +6,7 @@ css: /home/aurelius/workspace/template/rpresentation/slides.css
 4th LCSR International Workshop at HSE Moscow on March 28 - April 4, 2014
 
 `Markus Kainu` </br>
-*PhD student, [Department of Social Research, University of Turku](https://www.utu.fi/fi/yksikot/soc/yksikot/sosiaalitieteet/Sivut/home.aspx)* & *[Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland*</br>
+*PhD student, [University of Turku](https://www.utu.fi/fi/yksikot/soc/yksikot/sosiaalitieteet/Sivut/home.aspx)* & *[Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland*</br>
 `Mikko Niemelä` </br>
 *Senior Researcher, [Social Insurance Institution](http://kela.fi), Finland*
 
@@ -16,33 +16,45 @@ Project page: [bit.ly/1i16FB3](http://bit.ly/1i16FB3)
 <img src="banner/banner.png"> 
 </div>
 
-
-
-<!--
-<div class="github-fork-ribbon-wrapper right">
-<div class="github-fork-ribbon">
-<a href="https://github.com/muuankarski/" style="color:white;">Fork me on GitHub</a>
-</div>
-</div>
--->
-
-
 Purpose of the study
 ========================================================
 
 ## 1. Cross-national differences
-To what extent there are cross-national differences in attributions for poverty in post-socialist countries?
+
+*To what extent there are cross-national differences in attributions for poverty in post-socialist countries?*
 
 ## 2. Determinants
-Can perceptions be attributed to certain contextual and individual level factors?
+
+*Can perceptions be attributed to certain contextual and individual level factors?*
 
 1. Individual level: specific risks related to household financial circumstances
 2. Contextual level: democracy, income inequality and changes in national economy
 
 
+Welfare attitudes vs. welfare state policies
+======================================================
+
+1. Welfare attitudes as normative background assumptions or ideas that constrain decision-making and institutional change
+    - by limiting the range of programme that decision-making elites are likely to perceive as acceptable and legitimate to both their constituents and themselves
+2. type of welfare policy affects public attitudes
+    - liberal welfare regime, the poor are asked to fulfil much harder deservingness criteria than in a universal social democratic regime
+
+- in countries with more marginal and less generous welfare programmes, explanations of poverty are more often based on **individual morality**
+- in the Continental and Nordic welfare states **external and structural** explanations prevail
+
+<!--
+
+
+
+
+-->
+
+
+
+
 Novelty of the study
 =======================================================
-- in depth study of "post-soviet welfare regime"
+- in depth study of "post-socialist welfare regime"
 - wider variety of political and economical regimes
     - dynamics of welfare attitudes, welfare state and democracy in authoritarian regimes
 - assessing the impact of past, present and future expectations
@@ -50,9 +62,6 @@ Novelty of the study
 
 
 
-<!-- ---| notes begin |--------------------------------
- 
----------| notes end |-----------------------------  --> 
  
 Different types of explanations
 ========================================================
@@ -65,8 +74,8 @@ Different types of explanations
 Assumptions
 ========================================================
 ## Cross-national differences
-- Difference between East and West of Europe
-- Large variation within East-Cental European "regime"
+- Difference between post-socialist and West of Europe
+- Large variation within post-socialist regime
 
 ## Individual level determinants:
 - Self-interest approach: 
@@ -95,15 +104,25 @@ Data
 ---------| notes end |-----------------------------  -->
  
 
-Countries used in the analysis
+22 Post-Socialist and 5 Western European countries
 ===================================
 
 
-![](figure/mapplot.png)
+![](figure/mapplot_png.png)
  
+
+
+========================================================
+type:subsection
+
+<h1>Key variables and descriptive results</h1>
+
+## Dependent variables
+
+
 Dependent variable
 ========================================================
-**In your opinion, what is the main reason why there are some people in need in our country today?** (Variable `q309` in LiTS-data)
+*In your opinion, what is the main reason why there are some people in need in our country today?* (Variable `q309` in LiTS-data)
 - Because they have been unlucky
 - Because of laziness and lack of willpower
 - Because of injustice in our society
@@ -116,37 +135,11 @@ Dependent variable
 So, here is the question in regard to our dependent variable. This is a standard force-choice question which has been used also in other international surveys (e.g. Wold Values Study, Eurobarometer). Force-choice means that respondent has to pick one of the four explanations.
 In regard to van Oorschot and Halman's typology of explanations, they equates "Unlucky" as individual fate, "laziness" as individual blame, "injustice" as social blame and "modern life" as social fate.
 ---------| notes end |-----------------------------  --> 
- 
-
-========================================================
-type:subsection
-
-<h1>Key variables and descriptive results</h1>
-
-## Dependent variables
 
 
-=======================================================
-title:false 
+```{rdvtbl2, echo=FALSE, results="hide"}
+# <div style="font-size:0.6em;">
 
-The respondents were asked the following question which measures public perceptions of the causes of poverty: 
-
->In your opinion, what is the main reason why there are some people in need in our country today?
-
-- Because they have been unlucky
-- Because of laziness and lack of willpower
-- Because of injustice in our society
-- It is an inevitable part of modern life
-- Don't know
-- Not stated
-
-
-Weighted population shares of DV by country
-========================================================
-
-<div style="font-size:0.6em;">
-
-```{rdvtbl2, echo=FALSE, results="asis", fig.width=12, fig.height=8}
 source("code/dv_tables.R")
 library(xtable)
 print.xtable(xtable(tbl5,digits=1,
@@ -157,42 +150,65 @@ print.xtable(xtable(tbl5,digits=1,
              include.rownames=FALSE,
              caption.placement="top",
              size="scriptsize")
+# </div>
+```
+
+
+
+Weighted population shares of DV by country
+========================================================
+
+```{rdvPlotBar, echo=FALSE, results="asis", fig.width=18, fig.height=13}
+cbPalette <- c("#E69F00","#56B4E9","#999999","#009E73", "#F0E442", "#0072B2","#D55E00", "#CC79A7")
+library(ggplot2)
+library(grid)
+source("code/dv_tables.R")
+
+datPlot <- macro[macro$year == 2010,c(1,3:6,17)]
+library(reshape2)
+datPlotL <- melt(datPlot, id.vars=c("cntry","group_general"))
+
+order.data <- datPlotL[datPlotL$variable == "socialBlame",]
+order.data <- order.data[order(-order.data$value), ]
+datPlotL$cntry <- factor(datPlotL$cntry,
+                     levels = order.data$cntry)
+datPlotL$group_general <- factor(datPlotL$group_general,
+                                 levels = c("CEE","CIS","Western Europe"))
+
+
+
+ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
+    geom_bar(stat="identity") +
+    facet_wrap(~variable, scales="free_x") +
+    scale_fill_manual(values = cbPalette) + 
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+    theme(legend.key.size = unit(10, "mm")) +
+    theme(text = element_text(size=26)) +
+    theme(legend.title = element_blank())
+
 
 ```
 
-</div>
 
 
-Support for Social blame
-========================================================
+
+=======================================
 
 ![](figure/mapPlotsDV1.png)
-
-
-Support for Individual blame
-========================================================
 
 ![](figure/mapPlotsDV2.png)
 
 
-Support for Social fate
-========================================================
+=======================================
 
 ![](figure/mapPlotsDV3.png)
 
-Support for Individual fate
-========================================================
-
 ![](figure/mapPlotsDV4.png)
 
-
-Don't know
-========================================================
+=======================================
 
 ![](figure/mapPlotsDV5.png)
-
-Not stated
-========================================================
 
 ![](figure/mapPlotsDV6.png)
 

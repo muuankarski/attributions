@@ -10,19 +10,23 @@ output:
 
 
 ```{roptsattrib, echo=FALSE}
-opts_chunk$set(echo=FALSE,eval=TRUE, cache=TRUE,message=FALSE,warning=FALSE,fig.width=15,fig.height=11)
+opts_chunk$set(echo=FALSE,eval=TRUE, cache=FALSE,message=FALSE,warning=FALSE,fig.width=12,fig.height=5)
+
 ```
 
 # Country grouping
 
 ```{rmapPlotsLoadData}
+
 library(RColorBrewer)
 library(mapproj)
 library(maptools)
 library(rgdal)
-load("~/workspace/lits/attributions/data/lits.RData")
+library(rgeos)
+library(grid)
+load("~/workspace/lits/clone/attributions/data/lits.RData")
 map <- suppressWarnings(readOGR(dsn="/home/aurelius/data/shapefiles/lits/", 
-                                layer="lits_all_simple"))
+                                layer="lits_all_simple_2014_crimea"))
 
 map$NAME <- as.character(map$NAME)
 map$NAME[map$NAME == "United Kingdom"] <- 'Great Britain'
@@ -61,15 +65,15 @@ cbPalette <- c("#999999", "#E69F00",
 
 
 ```{rmapPlotsGroup1, fig.height=13, fig.width=16}
+library(grid)
 ggplot(map.df, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = group_analysis)) + # or group_fine !!
   scale_fill_manual(values=cbPalette) +
-  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_text(data=cnames, aes(long, lat, label = NAME, group=NAME), size=2, color="black") +
   coord_map(project="orthographic", xlim=c(-5,80),
-                ylim=c(40,60)) +
-  theme(legend.position="top")
+                ylim=c(40,62)) +
+  theme(legend.position="right")
 
 ```
 
@@ -88,14 +92,17 @@ plotMap <- plotMap[plotMap$year == 2010,]
 plotMap <- plotMap[order(plotMap$order),]
 
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = socialBlame)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(37,65)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 
 ```
 
@@ -103,14 +110,17 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 
 ```{rmapPlotsDV2}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = individualBlame)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 ```
 
 
@@ -118,56 +128,72 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 
 ```{rmapPlotsDV3}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = socialFate)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 ```
 
 ## Individual fate
 
 ```{rmapPlotsDV4}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = individualFate)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 ```
 
 ## Not stated
 
 ```{rmapPlotsDV5}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = notStated)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 ```
 
 ## Dont know
 
 ```{rmapPlotsDV6}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = dontKnow)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low="white", high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16)) +
+  scale_fill_gradient(low = "white", high = "orange")
 ```
 
 
@@ -184,28 +210,34 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 
 ```{rmapPlotsIvMacro1}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = gdpChange)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  scale_fill_gradient2(low=muted("red"), high=muted("green")) +
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16))
 ```
 
 ### Human Development Index
 
 ```{rmapPlotsIvMacro2}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = undp_hdi)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low=muted("red"), high=muted("blue"), midpoint=0.7570) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  scale_fill_gradient2(low=muted("red"), high=muted("green"), midpoint=0.7570) +
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16))
 ```
 
 
@@ -213,12 +245,15 @@ ggplot(plotMap, aes(long,lat,group=group)) +
 
 ```{rmapPlotsIvMacro3}
 ggplot(plotMap, aes(long,lat,group=group)) +
-  geom_polygon(data = map.df, aes(long,lat), fill="gray90", color = "white") +
+  geom_polygon(data = map.df, aes(long,lat), fill=NA, color = "white") +
   geom_polygon(aes(fill = wbgi_vae)) +
   geom_polygon(data = plotMap, aes(long,lat), 
                fill=NA, color = "white", size=0.1) +
-  coord_map(project="orthographic") +
-  scale_fill_gradient2(low=muted("red"), high=muted("blue")) +
-  theme(legend.position="top") +
-  theme(legend.text = element_text(size=14))
+      coord_map(project="orthographic", xlim=c(-5,80),
+                ylim=c(40,62)) +
+  theme(legend.key.size = unit(10, "mm")) +
+  theme(legend.title = element_text(size=16)) +
+  scale_fill_gradient2(low=muted("red"), high=muted("green")) +
+  theme(legend.position="right") +
+  theme(legend.text = element_text(size=16))
 ```

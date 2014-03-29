@@ -31,7 +31,7 @@ output:
 # save(lits1, 
 #       file="~/workspace/data/lits/lits1.RData")
 
-load("~/workspace/data/lits/lits1.RData")
+load("~/data/lits/lits1.RData")
 # FROM WEB
 #temp <- tempfile()
 #download.file("http://www.ebrd.com/downloads/research/surveys/lits2.dta", temp)
@@ -39,7 +39,7 @@ load("~/workspace/data/lits/lits1.RData")
 #lits2 <- read.dta(temp)
 
 # FROM LOCAL DISK
-load("~/workspace/data/lits/lits2.RData")
+load("~/data/lits/lits2.RData")
 ```
 
 
@@ -140,7 +140,7 @@ lits2$group_analysis <- factor(lits2$group_analysis, levels=c("Western Europe",
                                                              "CIS",
                                                              NA))
 
-summary(lits2$group_analysis)
+table(lits2$group_analysis,lits2$cntry)
 
 tbl <- merge(as.data.frame(table(lits2$cntry)),as.data.frame(table(lits1$cntry)),by="Var1",all.x=TRUE)
 names(tbl) <- c("cntry","n2010","n2006")
@@ -576,6 +576,27 @@ datQog <- getQog(data="basic",
 
 datQogSum <- datQog[datQog$year %in% c(2006,2010),]
 
+library(devtools)
+install_github(repo = "rqog", username = "muuankarski")
+library(rqog)
+
+dat <- read_qog(which.data = "basic")
+# Subset the data
+dat2 <- dat[dat$cname %in% c('Armenia','Azerbaijan','Georgia','Russia',
+                   'Ukraine','Moldova','Belarus','Kyrgyzstan',
+                   'Kazakhstan','Tajikistan',
+                   'Uzbekistan','Estonia','Latvia','Lithuania',
+                   'Poland','Czech Republic','Slovakia','Hungary',
+                   'Slovenia','Romania','Bulgaria',
+                   'Italy','Germany','United Kingdom',
+                   'Sweden','France (1963-)'), ]
+dat2 <- dat2[,c("cname","year","wbgi_vae", # World Bank - Voice and Accountability
+                     "undp_hdi")]
+datQogSum <- dat2[dat2$year %in% c(2006,2010), ]
+datQogSum$cname <- as.character(datQogSum$cname)
+datQogSum$cname[datQogSum$cname == "France (1963-)"] <- "France"
+datQogSum$cname <- factor(datQogSum$cname)
+
 # datQog <- datQog[datQog$year >= 2000, ]
 # table(factor(datQog$cname),factor(datQog$year),factor(datQog$indicator))
 
@@ -588,9 +609,7 @@ datQogSum <- datQog[datQog$year %in% c(2006,2010),]
 #names(datQogSum)[3] <- "wbgi_vae"
 #datQogSum$indicator <- NULL
 
-datQogSum.w <- dcast(datQogSum, 
-                   cname+year ~ indicator, 
-                       value.var="value")
+datQogSum.w <- datQogSum
 
 #datQogSum.w <- datQogSum
 
@@ -686,7 +705,7 @@ df2 <- merge(df2,macro[macro$year == 2006,],by="cntry")
 
 rm(list=setdiff(ls(), c("macro","df","df2")))
 
-save.image("~/workspace/lits/attributions/data/lits.RData")
+save.image("~/workspace/lits/clone/attributions/data/lits.RData")
 #load("~/workspace/lits/attributions/data/lits.RData")
 ```
 

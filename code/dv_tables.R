@@ -1,4 +1,4 @@
-load("~/workspace/lits/attributions/data/lits.RData")
+load("~/workspace/lits/clone/attributions/data/lits.RData")
 library(survey)
 d.df <- svydesign(id = ~SerialID, 
                   weights = ~weight, 
