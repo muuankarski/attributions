@@ -2,7 +2,7 @@
 title: "Attributions for Poverty in Post-Socialist Countries"
 author: [Markus Kainu & Mikko Niemelä]
 affiliation: Finland
-date: March 29, 2014
+date: March 30, 2014
 header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
