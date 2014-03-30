@@ -92,7 +92,7 @@ Data
 ---------| notes end |-----------------------------  -->
  
 
-22 Post-Socialist and 5 Western European countries
+21 Post-Socialist and 5 Western European countries
 ===================================
 
 ![](figure/mapplot_png.png)
@@ -210,7 +210,8 @@ type: subsection
 
 <h1>Independent variables</h1>
 
-
+Individual level
+---------------------------------
 
 Individual level
 ========================================================
@@ -328,6 +329,13 @@ ggplot(datPlotL, aes(x=cntry,y=value,fill=group_general)) +
 ```
 
 
+========================================================
+type: subsection
+
+<h1>Independent variables</h1>
+
+Contextual level
+---------------------------------
 
  
 Contextual level
