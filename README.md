@@ -42,8 +42,6 @@ This site gathers together all the data analysis behind the actual paper. Data a
 | ------------ | -------------- |
 | [Regression analysis](regressionModelling.html) | [source](regressionModelling.Rmd) |
 
-
-
 # Article draft
 
 [Article draft in .pdf](article2013.pdf)
@@ -55,6 +53,8 @@ This site gathers together all the data analysis behind the actual paper. Data a
 | ------------ | -------------- |
 | [slides](attrib_slides.html) | [source](attrib_slides.Rpres) |
 
+
+**Take a look also at our project [rOpenGov](http://ropengov.github.io/)** - *R Ecosystem for Open Government Data and Computational Social Science*
 
 ---------
 
