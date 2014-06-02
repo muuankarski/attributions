@@ -2,14 +2,19 @@
 title: "Attributions for Poverty in Post-Socialist Countries"
 author: [Markus Kainu & Mikko Niemelä]
 affiliation: Finland
-date: March 30, 2014
+date: April 1, 2014
 header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
     - \fancyhead[CO,CE]{}
     - \fancyfoot[CO,CE]{}
     - \fancyfoot[LE,RO]{\thepage}
-abstract: Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in Europe and Western Asia with special emphasis on post-socialist countries. The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, income inequality and the state of democracy. As individual-level determinants, the paper tests to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
+abstract: |
+  Utilising The Life in Transition Survey (LiTS) conducted in 2010, the purpose of the paper is to examine public perceptions of the causes of poverty in post-socialist countries of Europe and of Central and Western Asia. Citizens' attitudes towards the poor can be seen as reflecting the dominant ideology of country as well as the moral economy of the welfare state. Prior research has also shown that attributions for poverty have implications for the legitimacy of welfare system and for the viability of and support for anti-poverty policies.
+
+  The study applies multilevel techniques in order to analyse the role of individual and country-level explanatory factors as determinants of poverty attributions. As country-level determinants, paper analyses the changes in country's economic performance during the period of global financial crises, human development and the state of democracy. As individual-level determinants, the paper tests so called self-interest hypothesis that is, to what extent risk factors related to financial hardship are associated with perceptions of the causes of poverty.
+
+  The results indicate that in general social blame type of explanation is clearly the most popular explanation in post-socialist countries. Social blame is followed by individual blame, social fate and individual fate types of explanations. In regard to differences between the post-socialist Europe and the West of Europe, results show that Western Europeans emphasize more social reasons for poverty. Results of the individual-level determinants of perceptions supported the self-interest hypothesis which states that those who have financial difficulties perceive the causes of poverty differently than those who are not exposed to poverty-related risks.
 keywords: poverty
 output:
   pdf_document:
