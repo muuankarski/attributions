@@ -3,25 +3,57 @@ Attributions for poverty in Post-Socialist Countries
 transition: fade
 transition-speed: fast
 css: /home/aurelius/workspace/template/rpresentation/slides.css
-4th LCSR International Workshop at HSE Moscow on March 28 - April 4, 2014
+Sixth Joint IOS/APB/EACES Summer Academy:</br>
+*Poverty, Social Exclusion, and Income Inequality Dynamics in Central and Eastern Europe.* </br>
+June 4 to 6, 2014
 
 `Markus Kainu` </br>
-*PhD student, [University of Turku](https://www.utu.fi/fi/yksikot/soc/yksikot/sosiaalitieteet/Sivut/home.aspx)* & *[Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland*</br>
+*Researcher, [University of Turku](https://www.utu.fi/fi/yksikot/soc/yksikot/sosiaalitieteet/Sivut/home.aspx)* & *[Aleksanteri institute, University of Helsinki](http://helsinki.fi/aleksanteri), Finland*</br>
 `Mikko Niemelä` </br>
-*Senior Researcher, [Social Insurance Institution](http://kela.fi), Finland*
+*Research professor, [Social Insurance Institution](http://kela.fi), Finland*
 
-Project page: [bit.ly/1i16FB3](http://bit.ly/1i16FB3)
+Project page: [http://bit.ly/tutzing14](http://bit.ly/tutzing14)
 
-<div class="banner-wrapper">
-<img src="banner/banner.png"> 
-</div>
+```{r, eval=FALSE, echo=FALSE}
+# <div class="banner-wrapper">
+# <img src="banner/banner.png"> 
+# </div>
+```
 
 
-=======================================================
 
-![](figure/commits.png)
+========================================================
 
-https://github.com/muuankarski/attributions/graphs/contributors
+ <img src="https://c2.staticflickr.com/2/1148/5127843495_8ee2287caa_z.jpg" alt="Smiley face" height="650"> 
+
+
+========================================================
+
+ <img src="http://www.hs.fi/kuvat/iso_webkuva/1135219921420.jpeg" alt="Smiley face" height="650"> 
+
+
+
+
+
+My research
+========================================================
+incremental: false
+
+>I’m a quantitatively orientated social scientist specialized in poverty and inequalities in post-socialist space, and in open source software carpentry
+
+## Social policy research
+
+- Ongoing PhD project: *Poverty, place and income redistribution - Analysis of poverty dynamics in post-socialist transition"*
+- teacher in social policy at the department of social research in University of Turku, Finland
+- researcher at the [Aleksanteri institute](http://www.helsinki.fi/aleksanteri/english/)
+
+## Software carpentry
+
+- [rOpenGov/](http://ropengov.github.io/) - *R Ecosystem for Open Government Data and Computational Social Science*
+    - [Russian data](https://github.com/rOpenGov/rustfare)
+    - [Eurostat](https://github.com/rOpenGov/eurostat)
+    - [Quality of Government data](https://github.com/muuankarski/rqog)
+    - [EU-SILC](https://github.com/muuankarski/r.eusilc)
 
 
 Purpose of the study
@@ -649,9 +681,34 @@ Determinants
 
 
 
-========================================================
+=======================================================
 type:subsection
 <h1>Questions & comments</h1>
+
+How this presentation was done
+========================================================
+## Analysis & presentation
+
+<a href="http://www.r-project.org/"><img src="http://www.r-project.org/Rlogo.jpg" height="60"></a> &
+<a href="http://www.rstudio.com/"><img src="http://www.rstudio.com/wp-content/uploads/2014/03/blue-125.png" height="60"></a>
+
+## Platform
+
+<a href="https://www.gnu.org/gnu/linux-and-gnu.html"><img src="http://3.bp.blogspot.com/_UeNycPl-nRs/SST1Uj3GjjI/AAAAAAAAALM/GsmzYEIQOAU/s1600-R/gnu-linux.png" height="60"></a> &
+<a href="http://www.ubuntu.com/"><img src="http://design.ubuntu.com/wp-content/uploads/ubuntu-orange.gif" height="60"></a>
+
+## Screencasting & Editing
+
+<a href="https://launchpad.net/kazam"><img src="http://zenway.ru/uploads/12_11/kazam-screencaster.png" height="60"></a> &
+<a href="http://www.kdenlive.org/"><img src="http://www.kdenlive.org/sites/default/files/pixture_reloaded_small.png" height="60"></a>
+
+## Publishing
+
+<a href="https://github.com/"><img src="http://0.tqn.com/d/opensource/1/0/e/5/-/-/GitHub.jpg" height="60"></a> &
+<a href="https://vimeo.com/"><img src="http://www.dailymarketingblog.com/wp-content/uploads/2013/04/vimeo_logo_white_on_blue.jpg" height="60"></a>
+
+
+
 
 
 
