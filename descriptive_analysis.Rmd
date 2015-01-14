@@ -1,9 +1,10 @@
 ---
-title: Descriptive visualizations
+title: "Descriptive visualizations"
 output:
   html_document:
-    toc: true
+    number_sections: yes
     theme: flatly
+    toc: yes
 ---
 
 
@@ -19,24 +20,24 @@ library(ggplot2)
 library(reshape2)
 
 
-
-
-df$cntry <- factor(df$cntry)
-tbl <- data.frame(prop.table(table(df$cntry,df$q227),1)*100)
-reg <- as.data.frame(table(df$cntry,df$group_general))
-reg <- subset(reg, Freq > 0)
-reg <- reg[with(reg, order(Var2)), ]
-x <- merge(tbl,reg[,1:2],by="Var1")
-names(x) <- c("cntry","cond","freq","group")
-
-x <- x[with(x, order(cond)), ]
-x$cond <- as.numeric(levels(x$cond))[x$cond]
-x <- subset(x, cond >= -1)
-x$cntry <- factor(x$cntry, levels=reg$Var1)
-
-ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
-  geom_bar(stat="identity") +
-  facet_grid(group~.) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+# 
+# 
+# df$cntry <- factor(df$cntry)
+# tbl <- data.frame(prop.table(table(df$cntry,df$q227),1)*100)
+# reg <- as.data.frame(table(df$cntry,df$group_general))
+# reg <- subset(reg, Freq > 0)
+# reg <- reg[with(reg, order(Var2)), ]
+# x <- merge(tbl,reg[,1:2],by="Var1")
+# names(x) <- c("cntry","cond","freq","group")
+# 
+# x <- x[with(x, order(cond)), ]
+# x$cond <- as.numeric(levels(x$cond))[x$cond]
+# x <- subset(x, cond >= -1)
+# x$cntry <- factor(x$cntry, levels=reg$Var1)
+# 
+# ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
+#   geom_bar(stat="identity") +
+#   facet_grid(group~.) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
 #### Transformed variable
@@ -64,7 +65,7 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ### Original variable
 
-```{rdescplot2_1}
+```{rdescplot2_1, eval=FALSE}
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q226m),1)*100)
 reg <- as.data.frame(table(df$cntry,df$group_general))
@@ -92,7 +93,7 @@ reg <- subset(reg, Freq > 0)
 reg <- reg[with(reg, order(Var2)), ]
 x <- merge(tbl,reg[,1:2],by="Var1")
 names(x) <- c("cntry","cond","freq","group")
-x$cond <- factor(x$cond, levels=c("Dependent","Not.dependent"))
+x$cond <- factor(x$cond, levels=c("dependent","notdependent"))
 
 x <- x[with(x, order(cond)), ]
 x$cntry <- factor(x$cntry, levels=reg$Var1)
@@ -107,7 +108,7 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ### Original variable
 
-```{rdescplot3_1}
+```{rdescplot3_1, eval=FALSE}
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q228),1)*100)
 reg <- as.data.frame(table(df$cntry,df$group_general))
@@ -151,7 +152,7 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ### Original variable
 
-```{rdescplot4_1}
+```{rdescplot4_1, eval=FALSE}
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q229),1)*100)
 reg <- as.data.frame(table(df$cntry,df$group_general))
@@ -195,7 +196,7 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ### Original variable
 
-```{rdescplot5_1}
+```{rdescplot5_1, eval=FALSE}
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q515),1)*100)
 reg <- as.data.frame(table(df$cntry,df$group_general))
@@ -239,7 +240,7 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ### Original variable
 
-```{rdescplot6_1}
+```{rdescplot6_1, eval=FALSE}
 df$cntry <- factor(df$cntry)
 tbl <- data.frame(prop.table(table(df$cntry,df$q801),1)*100)
 reg <- as.data.frame(table(df$cntry,df$group_general))
@@ -283,19 +284,19 @@ ggplot(x, aes(x=cntry, y=freq, fill=cond)) +
 
 ## Macro level
 
-```{rdescplot7}
-df <- macro[with(macro, order(uw_gini)), ]
-df$cntry <- factor(df$cntry, levels=df$cntry)
-ggplot(df, aes(x=cntry,y=uw_gini, colour=group)) +
+```{rdescplot7, eval=FALSE}
+df <- macro[with(macro, order(perGini)), ]
+#df$cntry <- factor(df$cntry, levels=df$cntry)
+ggplot(df, aes(x=cntry,y=perGini, colour=group_general)) +
   geom_point(size=5) +
   labs(title="gini coeficient") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
 ```{rdescplot8}
-df <- macro[with(macro, order(gdpchange07.10)), ]
-df$cntry <- factor(df$cntry, levels=df$cntry)
-ggplot(df, aes(x=cntry,y=gdpchange07.10, colour=group)) +
+df <- macro[with(macro, order(gdpChange)), ]
+#df$cntry <- factor(df$cntry, levels=df$cntry)
+ggplot(df, aes(x=cntry,y=gdpChange, colour=group_general)) +
   geom_point(size=5) +
   labs(title="gdp change 2007 - 2010") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
@@ -303,9 +304,9 @@ ggplot(df, aes(x=cntry,y=gdpchange07.10, colour=group)) +
 
 ```{rdescplot9}
 df <- macro[with(macro, order(wbgi_vae)), ]
-df$cntry <- factor(df$cntry, levels=df$cntry)
+#df$cntry <- factor(df$cntry, levels=df$cntry)
 
-ggplot(df, aes(x=cntry,y=wbgi_vae, colour=group)) +
+ggplot(df, aes(x=cntry,y=wbgi_vae, colour=group_general)) +
   geom_point(size=5) +
     labs(title="Voice and accountability") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
@@ -313,7 +314,7 @@ ggplot(df, aes(x=cntry,y=wbgi_vae, colour=group)) +
 
 ```{rdescplot10}
 library(GGally)
-ggpairs(macro[, c("uw_gini", "gdpchange07.10", "wbgi_vae","socialBlame","individualBlame")])
+ggpairs(macro[, c("perGini", "gdpChange", "wbgi_vae","socialBlame","individualBlame")])
 
 ```
 
